@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Fire Fellas Calgary | Shorts 🔥</title>
+<meta name="description" content="60-second vertical shorts — ready for Instagram Reels, TikTok, YouTube Shorts." />
+<link rel="icon" type="image/png" href="logo.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fredoka:wght@400;500;600;700;800&family=Luckiest+Guy&display=swap" rel="stylesheet" />
+<style>
+:root{
+    --firered:#FF4500; --fireorange:#FF8C00; --firegold:#FFD700; --fireyellow:#FFEB3B;
+    --firenavy:#0A0F1F; --pinkpop:#FF1493; --cyanpop:#00D9FF; --limepop:#A6FF00; --purplepop:#9D4EDD; --icyblue:#7BD7FF;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{margin:0;padding:0;background:#000;color:#fff;font-family:Fredoka,sans-serif;overflow-x:hidden;min-height:100vh;}
+body{display:flex;flex-direction:column;align-items:center;padding:14px;}
+
+.title-area{text-align:center;margin:6px 0 14px;max-width:96vw;}
+.title-area h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(24px,4vw,42px);letter-spacing:3px;margin:0 0 4px;
+    background:linear-gradient(135deg,#FFEB3B,#FF8C00,#FF4500,#FF1493);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.title-area p{margin:0;color:#FFD700;font-family:'Bebas Neue',sans-serif;letter-spacing:4px;font-size:13px;}
+.title-area .badge{display:inline-block;background:#FF1493;color:#fff;padding:4px 12px;border-radius:50px;font-size:11px;letter-spacing:2px;margin-top:6px;}
+
+.ep-tabs{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:0 auto 14px;max-width:96vw;}
+.ep-tab{
+    background:rgba(20,28,50,0.9);color:#FFD700;border:2px solid rgba(255,215,0,0.3);
+    padding:8px 14px;border-radius:50px;font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:14px;
+    cursor:pointer;transition:all 0.25s;display:flex;align-items:center;gap:8px;
+}
+.ep-tab:hover{transform:translateY(-2px);border-color:#FFD700;}
+.ep-tab.active{background:linear-gradient(135deg,#FFD700,#FF4500);color:#1a1a1a;border-color:#FFD700;box-shadow:0 6px 18px rgba(255,69,0,0.4);}
+.ep-tab .num{width:22px;height:22px;border-radius:50%;background:rgba(0,0,0,0.3);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:bold;}
+.ep-tab.active .num{background:#1a1a1a;color:#FFD700;}
+
+/* === 9:16 VERTICAL STAGE === */
+.stage-wrap{
+    width:min(420px, 80vh, 90vw);
+    aspect-ratio:9/16;
+    position:relative;
+    border-radius:24px;overflow:hidden;
+    box-shadow:0 30px 80px rgba(255,69,0,0.45), 0 0 0 4px rgba(255,140,0,0.4);
+    background:#0A0F1F;
+}
+.stage{position:absolute;inset:0;}
+.scene{position:absolute;inset:0;opacity:0;transition:opacity 0.5s ease;}
+.scene.active{opacity:1;}
+.bg{position:absolute;inset:0;}
+.bg-grid{position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,rgba(255,215,0,0.04) 0 1px,transparent 1px 30px),repeating-linear-gradient(90deg,rgba(255,215,0,0.04) 0 1px,transparent 1px 30px);}
+
+/* Top safe zone for handle, bottom safe zone for caption */
+.safe-top{position:absolute;top:0;left:0;right:0;height:14%;display:flex;align-items:flex-start;justify-content:space-between;padding:14px 16px;z-index:5;}
+.safe-bottom{position:absolute;bottom:0;left:0;right:0;height:14%;z-index:5;}
+.handle{font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:13px;color:#FFD700;background:rgba(0,0,0,0.4);padding:4px 10px;border-radius:12px;backdrop-filter:blur(6px);}
+.ep-pill{font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:11px;color:#fff;background:linear-gradient(135deg,#FF1493,#FF4500);padding:4px 10px;border-radius:12px;}
+
+/* === Animations === */
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(40px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeInDown{from{opacity:0;transform:translateY(-40px);}to{opacity:1;transform:translateY(0);}}
+@keyframes slideInLeft{from{opacity:0;transform:translateX(-100px);}to{opacity:1;transform:translateX(0);}}
+@keyframes slideInRight{from{opacity:0;transform:translateX(100px);}to{opacity:1;transform:translateX(0);}}
+@keyframes popIn{0%{opacity:0;transform:scale(0) rotate(-180deg);}80%{opacity:1;transform:scale(1.15) rotate(8deg);}100%{opacity:1;transform:scale(1) rotate(0);}}
+@keyframes wiggle{0%,100%{transform:rotate(-3deg);}50%{transform:rotate(3deg);}}
+@keyframes bob{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
+@keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.06);}}
+@keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-4px);}75%{transform:translateX(4px);}}
+@keyframes spin{from{transform:rotate(0);}to{transform:rotate(360deg);}}
+@keyframes bgShift{0%,100%{background-position:0% 50%;}50%{background-position:100% 50%;}}
+@keyframes typewriter{from{clip-path:inset(0 100% 0 0);}to{clip-path:inset(0 0 0 0);}}
+@keyframes captionPop{0%{opacity:0;transform:translateY(40px) scale(0.8);}50%{opacity:1;transform:translateY(0) scale(1.08);}100%{opacity:1;transform:translateY(0) scale(1);}}
+@keyframes ringFlash{0%,100%{box-shadow:0 0 0 0 rgba(255,215,0,0);}50%{box-shadow:0 0 0 8px rgba(255,215,0,0.4);}}
+
+.scene.active .a-up{animation:fadeInUp 0.6s ease forwards;}
+.scene.active .a-down{animation:fadeInDown 0.6s ease forwards;}
+.scene.active .a-left{animation:slideInLeft 0.6s cubic-bezier(0.68,-0.55,0.27,1.55) forwards;}
+.scene.active .a-right{animation:slideInRight 0.6s cubic-bezier(0.68,-0.55,0.27,1.55) forwards;}
+.scene.active .a-pop{animation:popIn 0.6s cubic-bezier(0.68,-0.55,0.27,1.55) forwards;}
+.scene.active .a-cap{animation:captionPop 0.55s cubic-bezier(0.68,-0.55,0.27,1.55) forwards;}
+.scene.active .a-wiggle{animation:wiggle 1.5s ease-in-out infinite;}
+.scene.active .a-bob{animation:bob 2s ease-in-out infinite;}
+.scene.active .a-pulse{animation:pulse 1.5s ease-in-out infinite;}
+.scene.active .a-shake{animation:shake 0.4s ease-in-out infinite;}
+.scene.active .a-spin{animation:spin 12s linear infinite;}
+.a-up,.a-down,.a-left,.a-right,.a-pop,.a-cap{opacity:0;}
+.a-pop,.a-cap{transform:scale(0);}
+
+/* === Backgrounds === */
+.bg-warm{background:radial-gradient(ellipse at center,rgba(255,140,0,0.5) 0%,rgba(255,69,0,0.2) 40%,#0A0F1F 80%),#0A0F1F;}
+.bg-cool{background:radial-gradient(ellipse at center,rgba(0,217,255,0.45) 0%,rgba(157,78,221,0.2) 40%,#0A0F1F 80%),#0A0F1F;}
+.bg-pink{background:radial-gradient(ellipse at center,rgba(255,20,147,0.45) 0%,rgba(157,78,221,0.2) 40%,#0A0F1F 80%),#0A0F1F;}
+.bg-icy{background:linear-gradient(180deg,#5a7090 0%,#7BD7FF 60%,#fff 100%);}
+.bg-gold{background:linear-gradient(180deg,#FF8C00 0%,#FFD700 60%,#FFEB3B 100%);}
+.bg-sunset{background:linear-gradient(180deg,#FF1493 0%,#FF4500 30%,#FFD700 70%,#FFEB3B 100%);}
+.bg-purple{background:linear-gradient(135deg,#9D4EDD 0%,#FF1493 50%,#FF4500 100%);}
+.bg-stage{background:linear-gradient(135deg,#0A0F1F 0%,#1a1f3a 50%,#2a1830 100%);}
+.bg-cta{background:radial-gradient(ellipse at center,#FF4500 0%,#0A0F1F 100%);}
+.bg-construction{background:linear-gradient(180deg,#5a4a3a 0%,#3a2a1a 70%,#0A0F1F 100%);}
+.bg-estate{background:linear-gradient(180deg,#7B5C8C 0%,#3a2a4a 100%);}
+
+.stars-bg{position:absolute;inset:0;background-image:radial-gradient(circle 1.5px at 15% 20%,#FFD700 100%,transparent 100%),radial-gradient(circle 1px at 80% 30%,#00D9FF 100%,transparent 100%),radial-gradient(circle 1.5px at 25% 70%,#FF1493 100%,transparent 100%),radial-gradient(circle 1px at 70% 75%,#A6FF00 100%,transparent 100%),radial-gradient(circle 1.5px at 50% 15%,#FFD700 100%,transparent 100%);}
+
+.ground{position:absolute;left:0;right:0;bottom:14%;height:14%;background:linear-gradient(180deg,#3a2a1a,#1a1408);border-top:4px solid #5a3825;}
+.ground-snow{position:absolute;left:0;right:0;bottom:14%;height:18%;background:linear-gradient(180deg,#fff,#cdd9e8);border-top:5px solid #aab8cc;}
+
+/* === Text styles for vertical === */
+.t-mega{
+    font-family:'Bebas Neue',sans-serif;
+    font-size:clamp(40px,11vh,90px);letter-spacing:2px;
+    line-height:0.92;text-align:center;
+    background:linear-gradient(135deg,#FFEB3B,#FF8C00 50%,#FF4500 80%,#FF1493);
+    background-size:200% 200%;animation:bgShift 6s ease-in-out infinite;
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+    filter:drop-shadow(0 6px 0 rgba(0,0,0,0.7));
+    text-transform:uppercase;font-weight:bold;
+}
+.t-big-pop{
+    font-family:'Luckiest Guy',cursive;
+    font-size:clamp(36px,9vh,72px);
+    color:#fff;-webkit-text-stroke:5px #1a1a1a;
+    text-shadow:0 8px 0 #1a1a1a, 0 12px 24px rgba(0,0,0,0.4);
+    text-align:center;line-height:1.0;letter-spacing:1px;text-transform:uppercase;
+}
+.t-yellow-pop{
+    font-family:'Luckiest Guy',cursive;
+    font-size:clamp(34px,8.5vh,68px);
+    color:#FFEB3B;-webkit-text-stroke:5px #1a1a1a;
+    text-shadow:0 8px 0 #1a1a1a, 0 12px 24px rgba(0,0,0,0.4);
+    text-align:center;line-height:1.0;letter-spacing:1px;text-transform:uppercase;
+}
+.t-sub{font-family:'Bebas Neue',sans-serif;font-size:clamp(18px,3vh,28px);letter-spacing:5px;color:#FFD700;text-align:center;text-transform:uppercase;}
+.t-tag{font-family:'Bebas Neue',sans-serif;font-size:clamp(14px,2.5vh,22px);letter-spacing:3px;color:#fff;text-align:center;text-transform:uppercase;opacity:0.85;}
+
+/* Caption box (Reels-style word block) */
+.caption-box{
+    display:inline-block;
+    background:#FFEB3B;color:#1a1a1a;
+    padding:8px 18px;border-radius:8px;
+    font-family:'Luckiest Guy',cursive;
+    font-size:clamp(22px,5vh,40px);letter-spacing:1px;
+    border:3px solid #1a1a1a;box-shadow:0 6px 0 #1a1a1a;
+    text-align:center;text-transform:uppercase;
+    margin:4px;
+}
+.caption-box.dark{background:#1a1a1a;color:#FFEB3B;}
+.caption-box.red{background:#FF4500;color:#fff;}
+.caption-box.cyan{background:#00D9FF;color:#0A0F1F;}
+.caption-box.pink{background:#FF1493;color:#fff;}
+.caption-box.lime{background:#A6FF00;color:#0A0F1F;}
+
+/* CTA elements */
+.cta-phone{font-family:'Bebas Neue',sans-serif;font-size:clamp(34px,8vh,64px);
+    background:linear-gradient(135deg,#FFEB3B,#FF8C00,#FF4500,#FF1493);background-size:200% 200%;animation:bgShift 3s ease-in-out infinite;
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+    letter-spacing:2px;text-shadow:0 0 30px rgba(255,140,0,0.7);white-space:nowrap;}
+.cta-btn{
+    background:linear-gradient(135deg,#FFD700,#FF4500);color:#1a1a1a;
+    font-family:'Luckiest Guy',cursive;font-size:clamp(20px,4vh,32px);
+    padding:14px 32px;border-radius:50px;border:4px solid #1a1a1a;
+    box-shadow:0 8px 0 rgba(0,0,0,0.6);letter-spacing:2px;text-decoration:none;display:inline-block;
+}
+
+/* Mascot + truck positioning */
+.mascot{position:absolute;}
+.truck{position:absolute;}
+
+/* Drive across animation (vertical fits sideways drive too) */
+.truck-drive{position:absolute;left:-60%;top:35%;width:120%;}
+.scene.active .truck-drive{animation:truckIn 1.2s cubic-bezier(0.25,0.46,0.45,0.94) forwards;}
+@keyframes truckIn{from{left:-60%;}to{left:-10%;}}
+
+.truck-park{position:absolute;left:-10%;top:40%;width:120%;}
+.scene.active .truck-park{animation:fadeInUp 0.8s ease forwards, bob 0.6s ease-in-out 1.2s infinite;}
+
+.truck-off{position:absolute;left:-10%;top:35%;width:120%;}
+.scene.active .truck-off{animation:truckOff 4s linear forwards;}
+@keyframes truckOff{from{left:-10%;}to{left:120%;}}
+
+/* Boxes/junk floating animation */
+.fly-item{position:absolute;font-size:clamp(40px,8vh,64px);}
+@keyframes itemFly{0%{transform:translateY(40px) rotate(0);opacity:1;}100%{transform:translateY(-200px) rotate(360deg) scale(0.3);opacity:0;}}
+.scene.active .fly-anim{animation:itemFly 1.5s ease-in forwards;}
+
+/* Snow particles */
+.snow{position:absolute;color:#fff;}
+@keyframes snowfall{0%{transform:translateY(-100%) translateX(0);}100%{transform:translateY(120%) translateX(20px);}}
+.snow-anim{animation:snowfall 5s linear infinite;}
+
+/* Sparkles */
+.sparkle{position:absolute;font-size:clamp(24px,4vh,40px);}
+@keyframes sparkleAnim{0%,100%{transform:scale(0.7) rotate(0);opacity:0.6;}50%{transform:scale(1.2) rotate(180deg);opacity:1;}}
+.sparkle{animation:sparkleAnim 2s ease-in-out infinite;}
+
+/* Logo */
+.logo-spot{filter:drop-shadow(0 0 30px rgba(255,140,0,0.8));}
+
+/* Sound overlay */
+.sound-overlay{position:absolute;inset:0;z-index:50;background:rgba(0,0,0,0.78);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:opacity 0.4s ease;padding:20px;}
+.sound-overlay.hidden{opacity:0;pointer-events:none;}
+.sound-card{background:linear-gradient(135deg,#FFD700 0%,#FF4500 50%,#FF1493 100%);background-size:200% 200%;animation:bgShift 3s ease-in-out infinite,pulse 2s ease-in-out infinite;padding:28px 36px;border-radius:24px;border:4px solid #1a1a1a;box-shadow:0 20px 60px rgba(255,69,0,0.6);text-align:center;color:#1a1a1a;max-width:90%;}
+.sound-card .icon{font-size:clamp(50px,9vw,90px);line-height:1;margin-bottom:8px;animation:wiggle 1s ease-in-out infinite;}
+.sound-card .title{font-family:'Bebas Neue',sans-serif;font-size:clamp(18px,3vw,30px);letter-spacing:3px;margin-bottom:6px;}
+.sound-card .sub{font-family:'Fredoka',sans-serif;font-size:clamp(12px,1.6vw,16px);opacity:0.85;}
+
+/* Indicators + progress */
+.scene-indicator{position:absolute;bottom:14px;left:14px;color:rgba(255,255,255,0.6);font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:12px;background:rgba(0,0,0,0.4);padding:3px 8px;border-radius:10px;backdrop-filter:blur(6px);z-index:10;}
+.progress-bar{position:absolute;left:0;right:0;bottom:0;height:4px;background:rgba(255,255,255,0.1);z-index:10;}
+.progress-fill{height:100%;background:linear-gradient(90deg,#FFD700,#FF4500,#FF1493);width:0%;transition:width 0.1s linear;}
+
+/* Controls */
+.controls{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px;justify-content:center;align-items:center;max-width:96vw;}
+.btn{background:linear-gradient(135deg,#FFD700,#FF4500);color:#1a1a1a;border:none;padding:11px 20px;border-radius:50px;font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:2px;cursor:pointer;font-weight:bold;box-shadow:0 6px 18px rgba(255,69,0,0.4);transition:transform 0.2s;}
+.btn:hover{transform:translateY(-2px);}
+.btn.secondary{background:linear-gradient(135deg,#00D9FF,#9D4EDD);color:#fff;}
+.btn.muted{background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,215,0,0.4);box-shadow:none;}
+
+footer{margin-top:18px;color:rgba(255,255,255,0.5);font-size:11px;text-align:center;max-width:96vw;}
+footer a{color:#FFD700;text-decoration:none;}
+
+@media (max-width:640px){
+    .controls .btn{padding:10px 14px;font-size:13px;}
+    .ep-tab{padding:6px 10px;font-size:12px;}
+}
+</style>
+</head>
+<body>
+
+<div class="title-area">
+    <h1>FIRE FELLAS — SHORTS 🔥</h1>
+    <p>60-SEC VERTICAL · NO VOICE · MUSIC + TEXT</p>
+    <span class="badge">📱 TIKTOK · REELS · YT SHORTS READY</span>
+</div>
+
+<div class="ep-tabs" id="epTabs">
+    <button class="ep-tab active" data-ep="1"><span class="num">1</span>MOVING 🚚</button>
+    <button class="ep-tab" data-ep="2"><span class="num">2</span>JUNK ♻️</button>
+    <button class="ep-tab" data-ep="3"><span class="num">3</span>CONSTRUCTION 🔨</button>
+    <button class="ep-tab" data-ep="4"><span class="num">4</span>SNOW ❄️</button>
+    <button class="ep-tab" data-ep="5"><span class="num">5</span>ESTATE 💛</button>
+</div>
+
+<div class="stage-wrap">
+    <div class="stage" id="stage"></div>
+
+    <div class="sound-overlay" id="soundOverlay">
+        <div class="sound-card">
+            <div class="icon">🎵</div>
+            <div class="title">CLICK TO START WITH MUSIC</div>
+            <div class="sub">(no voices · text + music + SFX)</div>
+        </div>
+    </div>
+
+    <div class="scene-indicator" id="sceneInd">SCENE 1 / 6</div>
+    <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+</div>
+
+<div class="controls">
+    <button class="btn" id="playBtn">▶ Replay</button>
+    <button class="btn secondary" id="recordBtn">⬇ Record MP4</button>
+    <button class="btn muted" id="soundBtn">🔊 SFX: ON</button>
+    <a class="btn muted" href="cartoon.html" style="text-decoration:none;display:inline-flex;align-items:center;">📺 Long Versions</a>
+    <a class="btn muted" href="index.html" style="text-decoration:none;display:inline-flex;align-items:center;">🏠 Home</a>
+</div>
+
+<footer>
+    <p>Fire Fellas Calgary · <a href="tel:+13682997792">(368) 299-7792</a> · <a href="mailto:firefellasmoving@gmail.com">firefellasmoving@gmail.com</a></p>
+    <p>Vertical 9:16 · ~60 seconds · Optimized for Instagram Reels, TikTok, YouTube Shorts. Click "Record MP4" for the file.</p>
+</footer>
+
+<!-- ========== REUSABLE SVG MASCOTS / TRUCKS ========== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<defs>
+    <linearGradient id="shirtGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FF8C2A"/><stop offset="100%" stop-color="#E04F00"/></linearGradient>
+    <linearGradient id="hairGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#8B4513"/><stop offset="100%" stop-color="#5E2C0F"/></linearGradient>
+    <linearGradient id="boxGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#D89968"/><stop offset="100%" stop-color="#9C6B3F"/></linearGradient>
+    <linearGradient id="truckBody" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FF8C00"/><stop offset="100%" stop-color="#CC4400"/></linearGradient>
+    <radialGradient id="logoBg" cx="50%" cy="45%" r="70%"><stop offset="0%" stop-color="#FF8C00"/><stop offset="55%" stop-color="#E04F00"/><stop offset="100%" stop-color="#3a0a00"/></radialGradient>
+
+    <symbol id="fella" viewBox="0 0 240 320">
+        <ellipse cx="120" cy="305" rx="80" ry="6" fill="rgba(0,0,0,0.4)"/>
+        <path d="M55 200 Q60 175 95 173 L145 173 Q180 175 185 200 L200 305 L40 305 Z" fill="url(#shirtGrad)" stroke="#3D1A00" stroke-width="2"/>
+        <path d="M93 178 Q120 195 147 178 L143 188 Q120 200 97 188 Z" fill="#B33800"/>
+        <path d="M50 215 Q35 245 50 290 Q60 295 70 290 Q70 250 80 218 Z" fill="url(#shirtGrad)" stroke="#3D1A00" stroke-width="1.5"/>
+        <ellipse cx="55" cy="290" rx="13" ry="11" fill="#FBC9A6" stroke="#3D1A00" stroke-width="1.2"/>
+        <path d="M190 215 Q205 245 190 290 Q180 295 170 290 Q170 250 160 218 Z" fill="url(#shirtGrad)" stroke="#3D1A00" stroke-width="1.5"/>
+        <ellipse cx="185" cy="290" rx="13" ry="11" fill="#FBC9A6" stroke="#3D1A00" stroke-width="1.2"/>
+        <rect x="105" y="155" width="30" height="22" fill="#FBC9A6"/>
+        <ellipse cx="120" cy="178" rx="20" ry="6" fill="#E0A985"/>
+        <ellipse cx="120" cy="110" rx="58" ry="62" fill="#FBC9A6" stroke="#3D1A00" stroke-width="1.5"/>
+        <path d="M62 90 Q55 45 95 40 Q102 18 132 25 Q155 10 175 30 Q195 30 188 75 Q180 95 175 90 Q170 75 155 72 Q145 70 135 78 Q125 65 110 73 Q95 68 82 78 Q72 85 65 95 Q58 100 62 90 Z" fill="url(#hairGrad)" stroke="#3D1A00" stroke-width="1.2"/>
+        <path d="M115 28 Q128 12 145 28 Q150 45 132 50 Q120 45 115 28 Z" fill="#5E2C0F"/>
+        <path d="M82 92 Q98 86 115 93" stroke="#3D1A00" stroke-width="5" fill="none" stroke-linecap="round"/>
+        <path d="M125 93 Q142 86 158 92" stroke="#3D1A00" stroke-width="5" fill="none" stroke-linecap="round"/>
+        <ellipse cx="100" cy="113" rx="7" ry="9" fill="#fff"/>
+        <ellipse cx="140" cy="113" rx="7" ry="9" fill="#fff"/>
+        <ellipse cx="101" cy="116" rx="4" ry="6" fill="#1A0E00"/>
+        <ellipse cx="141" cy="116" rx="4" ry="6" fill="#1A0E00"/>
+        <circle cx="103" cy="113" r="2" fill="#fff"/>
+        <circle cx="143" cy="113" r="2" fill="#fff"/>
+        <ellipse cx="78" cy="138" rx="11" ry="6" fill="#FF8870" opacity="0.55"/>
+        <ellipse cx="162" cy="138" rx="11" ry="6" fill="#FF8870" opacity="0.55"/>
+        <path d="M88 150 Q120 188 152 150 Q120 175 88 150 Z" fill="#3D1A00"/>
+        <path d="M93 154 Q120 175 147 154 L143 162 Q120 168 97 162 Z" fill="#fff"/>
+        <ellipse cx="120" cy="170" rx="13" ry="4" fill="#FF6B6B"/>
+    </symbol>
+
+    <symbol id="fellaWave" viewBox="0 0 260 320">
+        <ellipse cx="130" cy="305" rx="85" ry="6" fill="rgba(0,0,0,0.4)"/>
+        <path d="M65 200 Q70 175 105 173 L155 173 Q190 175 195 200 L210 305 L50 305 Z" fill="url(#shirtGrad)" stroke="#3D1A00" stroke-width="2"/>
+        <path d="M103 178 Q130 195 157 178 L153 188 Q130 200 107 188 Z" fill="#B33800"/>
+        <path d="M60 215 Q45 245 60 290 Q70 295 80 290 Q80 250 90 218 Z" fill="url(#shirtGrad)" stroke="#3D1A00" stroke-width="1.5"/>
+        <ellipse cx="65" cy="290" rx="13" ry="11" fill="#FBC9A6" stroke="#3D1A00" stroke-width="1.2"/>
+        <path d="M180 215 Q220 200 230 155 Q232 130 240 125 Q248 128 246 145 Q244 180 220 210 Q205 225 185 222 Z" fill="url(#shirtGrad)" stroke="#3D1A00" stroke-width="1.5"/>
+        <path d="M232 145 Q228 120 238 105 Q248 100 252 115 L248 145 Z" fill="#FBC9A6"/>
+        <ellipse cx="240" cy="103" rx="14" ry="14" fill="#FBC9A6" stroke="#3D1A00" stroke-width="1.2"/>
+        <ellipse cx="234" cy="80" rx="8" ry="14" fill="#FBC9A6" stroke="#3D1A00" stroke-width="1.2"/>
+        <rect x="115" y="155" width="30" height="22" fill="#FBC9A6"/>
+        <ellipse cx="130" cy="178" rx="20" ry="6" fill="#E0A985"/>
+        <ellipse cx="130" cy="110" rx="58" ry="62" fill="#FBC9A6" stroke="#3D1A00" stroke-width="1.5"/>
+        <path d="M72 90 Q65 45 105 40 Q112 18 142 25 Q165 10 185 30 Q205 30 198 75 Q190 95 185 90 Q180 75 165 72 Q155 70 145 78 Q135 65 120 73 Q105 68 92 78 Q82 85 75 95 Q68 100 72 90 Z" fill="url(#hairGrad)" stroke="#3D1A00" stroke-width="1.2"/>
+        <path d="M125 28 Q138 12 155 28 Q160 45 142 50 Q130 45 125 28 Z" fill="#5E2C0F"/>
+        <path d="M93 95 Q108 87 125 95" stroke="#3D1A00" stroke-width="5" fill="none" stroke-linecap="round"/>
+        <path d="M94 113 Q108 108 116 116" stroke="#1A0E00" stroke-width="5" fill="none" stroke-linecap="round"/>
+        <path d="M135 93 Q150 86 167 92" stroke="#3D1A00" stroke-width="5" fill="none" stroke-linecap="round"/>
+        <ellipse cx="150" cy="113" rx="7" ry="9" fill="#fff"/>
+        <ellipse cx="151" cy="116" rx="4" ry="6" fill="#1A0E00"/>
+        <circle cx="153" cy="113" r="2" fill="#fff"/>
+        <ellipse cx="88" cy="138" rx="11" ry="6" fill="#FF8870" opacity="0.5"/>
+        <ellipse cx="172" cy="138" rx="11" ry="6" fill="#FF8870" opacity="0.5"/>
+        <path d="M98 150 Q130 192 162 150 Q130 178 98 150 Z" fill="#3D1A00"/>
+        <path d="M103 154 Q130 178 157 154 L153 163 Q130 169 107 163 Z" fill="#fff"/>
+        <ellipse cx="130" cy="171" rx="13" ry="4" fill="#FF6B6B"/>
+    </symbol>
+
+    <symbol id="fellaMover" viewBox="0 0 280 320">
+        <ellipse cx="140" cy="305" rx="100" ry="6" fill="rgba(0,0,0,0.4)"/>
+        <path d="M75 200 Q80 175 115 173 L165 173 Q200 175 205 200 L220 305 L60 305 Z" fill="url(#shirtGrad)" stroke="#3D1A00" stroke-width="2"/>
+        <path d="M70 220 Q55 240 65 260 Q75 265 85 258 L90 230 Z" fill="url(#shirtGrad)" stroke="#3D1A00" stroke-width="1.5"/>
+        <path d="M210 220 Q225 240 215 260 Q205 265 195 258 L190 230 Z" fill="url(#shirtGrad)" stroke="#3D1A00" stroke-width="1.5"/>
+        <ellipse cx="75" cy="262" rx="14" ry="13" fill="#FBC9A6" stroke="#3D1A00" stroke-width="1.2"/>
+        <ellipse cx="205" cy="262" rx="14" ry="13" fill="#FBC9A6" stroke="#3D1A00" stroke-width="1.2"/>
+        <rect x="60" y="240" width="160" height="80" fill="url(#boxGrad)" stroke="#5C3818" stroke-width="3" rx="4"/>
+        <rect x="60" y="272" width="160" height="10" fill="#F2DCA9"/>
+        <line x1="140" y1="240" x2="140" y2="320" stroke="#F2DCA9" stroke-width="6"/>
+        <text x="140" y="266" text-anchor="middle" font-family="Bebas Neue, sans-serif" font-size="20" fill="#5C3818" font-weight="bold">FIRE FELLAS</text>
+        <rect x="125" y="155" width="30" height="22" fill="#FBC9A6"/>
+        <ellipse cx="140" cy="110" rx="58" ry="62" fill="#FBC9A6" stroke="#3D1A00" stroke-width="1.5"/>
+        <path d="M82 90 Q75 45 115 40 Q122 18 152 25 Q175 10 195 30 Q215 30 208 75 Q200 95 195 90 Q190 75 175 72 Q165 70 155 78 Q145 65 130 73 Q115 68 102 78 Q92 85 85 95 Q78 100 82 90 Z" fill="url(#hairGrad)" stroke="#3D1A00" stroke-width="1.2"/>
+        <path d="M102 92 Q118 86 135 93" stroke="#3D1A00" stroke-width="5" fill="none" stroke-linecap="round"/>
+        <path d="M145 93 Q162 86 178 92" stroke="#3D1A00" stroke-width="5" fill="none" stroke-linecap="round"/>
+        <ellipse cx="120" cy="113" rx="7" ry="9" fill="#fff"/>
+        <ellipse cx="160" cy="113" rx="7" ry="9" fill="#fff"/>
+        <ellipse cx="121" cy="116" rx="4" ry="6" fill="#1A0E00"/>
+        <ellipse cx="161" cy="116" rx="4" ry="6" fill="#1A0E00"/>
+        <ellipse cx="98" cy="138" rx="11" ry="6" fill="#FF8870" opacity="0.45"/>
+        <ellipse cx="182" cy="138" rx="11" ry="6" fill="#FF8870" opacity="0.45"/>
+        <path d="M108 150 Q140 188 172 150 Q140 175 108 150 Z" fill="#3D1A00"/>
+        <path d="M113 154 Q140 175 167 154 L163 162 Q140 168 117 162 Z" fill="#fff"/>
+    </symbol>
+
+    <symbol id="fellaBroom" viewBox="0 0 290 320">
+        <ellipse cx="125" cy="305" rx="85" ry="6" fill="rgba(0,0,0,0.4)"/>
+        <path d="M60 200 Q65 175 100 173 L150 173 Q185 175 190 200 L205 305 L45 305 Z" fill="url(#shirtGrad)" stroke="#3D1A00" stroke-width="2"/>
+        <path d="M55 215 Q40 245 55 290 Q65 295 75 290 Q75 250 85 218 Z" fill="url(#shirtGrad)" stroke="#3D1A00" stroke-width="1.5"/>
+        <ellipse cx="60" cy="290" rx="13" ry="11" fill="#FBC9A6" stroke="#3D1A00" stroke-width="1.2"/>
+        <path d="M185 215 Q210 215 220 235 Q220 250 200 245 L175 220 Z" fill="url(#shirtGrad)" stroke="#3D1A00" stroke-width="1.5"/>
+        <ellipse cx="208" cy="240" rx="13" ry="12" fill="#FBC9A6" stroke="#3D1A00" stroke-width="1.2"/>
+        <line x1="208" y1="235" x2="262" y2="115" stroke="#7A4A20" stroke-width="7" stroke-linecap="round"/>
+        <path d="M250 105 L278 110 L272 145 L244 138 Z" fill="#FFD700" stroke="#B8860B" stroke-width="1.5"/>
+        <rect x="110" y="155" width="30" height="22" fill="#FBC9A6"/>
+        <ellipse cx="125" cy="110" rx="58" ry="62" fill="#FBC9A6" stroke="#3D1A00" stroke-width="1.5"/>
+        <path d="M67 90 Q60 45 100 40 Q107 18 137 25 Q160 10 180 30 Q200 30 193 75 Q185 95 180 90 Q175 75 160 72 Q150 70 140 78 Q130 65 115 73 Q100 68 87 78 Q77 85 70 95 Q63 100 67 90 Z" fill="url(#hairGrad)" stroke="#3D1A00" stroke-width="1.2"/>
+        <path d="M87 92 Q103 86 120 93" stroke="#3D1A00" stroke-width="5" fill="none" stroke-linecap="round"/>
+        <path d="M130 93 Q147 86 163 92" stroke="#3D1A00" stroke-width="5" fill="none" stroke-linecap="round"/>
+        <ellipse cx="105" cy="113" rx="7" ry="9" fill="#fff"/>
+        <ellipse cx="145" cy="113" rx="7" ry="9" fill="#fff"/>
+        <ellipse cx="106" cy="116" rx="4" ry="6" fill="#1A0E00"/>
+        <ellipse cx="146" cy="116" rx="4" ry="6" fill="#1A0E00"/>
+        <path d="M93 150 Q125 188 157 150 Q125 175 93 150 Z" fill="#3D1A00"/>
+        <path d="M98 154 Q125 175 152 154 L148 162 Q125 168 102 162 Z" fill="#fff"/>
+    </symbol>
+
+    <symbol id="flameTruck" viewBox="0 0 400 200">
+        <ellipse cx="200" cy="180" rx="160" ry="6" fill="rgba(0,0,0,0.3)"/>
+        <rect x="20" y="55" width="220" height="105" fill="url(#truckBody)" stroke="#3D1A00" stroke-width="3" rx="4"/>
+        <path d="M30 110 Q45 85 60 110 Q75 85 90 110 Q105 85 120 110 Q135 85 150 110 Q165 85 180 110 Q195 85 210 110 Q225 85 240 110 L235 130 Q210 120 180 130 Q150 120 120 130 Q90 120 60 130 Q40 120 30 130 Z" fill="#FFD700"/>
+        <text x="130" y="90" text-anchor="middle" font-family="Bebas Neue, sans-serif" font-size="22" fill="#fff" font-weight="bold" letter-spacing="2">FIRE FELLAS</text>
+        <path d="M240 80 L320 80 L335 130 L335 160 L240 160 Z" fill="url(#truckBody)" stroke="#3D1A00" stroke-width="3"/>
+        <path d="M248 86 L312 86 L325 130 L248 130 Z" fill="#88BBFF" stroke="#3D1A00" stroke-width="2"/>
+        <rect x="335" y="135" width="20" height="25" fill="#222"/>
+        <circle cx="350" cy="115" r="6" fill="#FFEB3B"/>
+        <rect x="252" y="40" width="6" height="40" fill="#888"/>
+        <rect x="262" y="40" width="6" height="40" fill="#888"/>
+        <circle cx="80" cy="170" r="22" fill="#1a1a1a" stroke="#3D1A00" stroke-width="3"/><circle cx="80" cy="170" r="10" fill="#FFD700"/>
+        <circle cx="180" cy="170" r="22" fill="#1a1a1a" stroke="#3D1A00" stroke-width="3"/><circle cx="180" cy="170" r="10" fill="#FFD700"/>
+        <circle cx="300" cy="170" r="22" fill="#1a1a1a" stroke="#3D1A00" stroke-width="3"/><circle cx="300" cy="170" r="10" fill="#FFD700"/>
+    </symbol>
+
+    <symbol id="flameTruckLoaded" viewBox="0 0 400 220">
+        <ellipse cx="200" cy="200" rx="160" ry="6" fill="rgba(0,0,0,0.3)"/>
+        <rect x="20" y="65" width="220" height="105" fill="url(#truckBody)" stroke="#3D1A00" stroke-width="3" rx="4"/>
+        <rect x="25" y="20" width="36" height="48" fill="url(#boxGrad)" stroke="#5C3818" stroke-width="2" rx="2"/>
+        <rect x="65" y="35" width="40" height="32" fill="url(#boxGrad)" stroke="#5C3818" stroke-width="2" rx="2"/>
+        <rect x="110" y="25" width="44" height="42" fill="url(#boxGrad)" stroke="#5C3818" stroke-width="2" rx="2"/>
+        <rect x="158" y="40" width="36" height="28" fill="url(#boxGrad)" stroke="#5C3818" stroke-width="2" rx="2"/>
+        <rect x="198" y="30" width="40" height="38" fill="url(#boxGrad)" stroke="#5C3818" stroke-width="2" rx="2"/>
+        <path d="M30 120 Q45 95 60 120 Q75 95 90 120 Q105 95 120 120 Q135 95 150 120 Q165 95 180 120 Q195 95 210 120 Q225 95 240 120 L235 140 Q210 130 180 140 Q150 130 120 140 Q90 130 60 140 Q40 130 30 140 Z" fill="#FFD700"/>
+        <path d="M240 90 L320 90 L335 140 L335 170 L240 170 Z" fill="url(#truckBody)" stroke="#3D1A00" stroke-width="3"/>
+        <path d="M248 96 L312 96 L325 140 L248 140 Z" fill="#88BBFF" stroke="#3D1A00" stroke-width="2"/>
+        <rect x="335" y="145" width="20" height="25" fill="#222"/>
+        <circle cx="350" cy="125" r="6" fill="#FFEB3B"/>
+        <rect x="252" y="50" width="6" height="40" fill="#888"/>
+        <rect x="262" y="50" width="6" height="40" fill="#888"/>
+        <circle cx="80" cy="180" r="22" fill="#1a1a1a" stroke="#3D1A00" stroke-width="3"/><circle cx="80" cy="180" r="10" fill="#FFD700"/>
+        <circle cx="180" cy="180" r="22" fill="#1a1a1a" stroke="#3D1A00" stroke-width="3"/><circle cx="180" cy="180" r="10" fill="#FFD700"/>
+        <circle cx="300" cy="180" r="22" fill="#1a1a1a" stroke="#3D1A00" stroke-width="3"/><circle cx="300" cy="180" r="10" fill="#FFD700"/>
+    </symbol>
+
+    <symbol id="plowTruck" viewBox="0 0 400 200">
+        <ellipse cx="200" cy="180" rx="160" ry="6" fill="rgba(0,0,0,0.3)"/>
+        <rect x="20" y="55" width="220" height="105" fill="url(#truckBody)" stroke="#3D1A00" stroke-width="3" rx="4"/>
+        <path d="M30 110 Q45 85 60 110 Q75 85 90 110 Q105 85 120 110 Q135 85 150 110 Q165 85 180 110 Q195 85 210 110 Q225 85 240 110 L235 130 Q210 120 180 130 Q150 120 120 130 Q90 120 60 130 Q40 120 30 130 Z" fill="#FFD700"/>
+        <path d="M240 80 L320 80 L335 130 L335 160 L240 160 Z" fill="url(#truckBody)" stroke="#3D1A00" stroke-width="3"/>
+        <path d="M248 86 L312 86 L325 130 L248 130 Z" fill="#88BBFF" stroke="#3D1A00" stroke-width="2"/>
+        <rect x="335" y="135" width="20" height="25" fill="#222"/>
+        <circle cx="350" cy="115" r="6" fill="#FFEB3B"/>
+        <path d="M340 130 L390 100 L390 165 L355 165 Z" fill="#FFB347" stroke="#3D1A00" stroke-width="2.5"/>
+        <rect x="252" y="40" width="6" height="40" fill="#888"/>
+        <rect x="262" y="40" width="6" height="40" fill="#888"/>
+        <circle cx="80" cy="170" r="22" fill="#1a1a1a" stroke="#3D1A00" stroke-width="3"/><circle cx="80" cy="170" r="10" fill="#FFD700"/>
+        <circle cx="180" cy="170" r="22" fill="#1a1a1a" stroke="#3D1A00" stroke-width="3"/><circle cx="180" cy="170" r="10" fill="#FFD700"/>
+        <circle cx="300" cy="170" r="22" fill="#1a1a1a" stroke="#3D1A00" stroke-width="3"/><circle cx="300" cy="170" r="10" fill="#FFD700"/>
+    </symbol>
+
+    <symbol id="fellaBadge" viewBox="0 0 240 240">
+        <circle cx="120" cy="120" r="115" fill="url(#logoBg)"/>
+        <circle cx="120" cy="120" r="115" fill="none" stroke="#FF8C00" stroke-width="3"/>
+        <circle cx="120" cy="120" r="110" fill="none" stroke="#FFD700" stroke-width="1.5" opacity="0.6"/>
+        <path d="M 122 65 L 200 65 L 195 110 L 122 110 Z" fill="#FF6A00" stroke="#3D1A00" stroke-width="1.8"/>
+        <g fill="#FFD700"><path d="M 130 82 Q 134 72 138 82 Q 142 70 146 82 Q 150 72 154 82 L 152 96 Q 146 92 140 96 Q 134 92 130 96 Z"/><path d="M 162 82 Q 166 72 170 82 Q 174 70 178 82 Q 182 72 186 82 L 184 96 Q 178 92 172 96 Q 166 92 162 96 Z"/></g>
+        <path d="M 175 88 L 215 88 L 220 130 L 175 130 Z" fill="#FF8C00" stroke="#3D1A00" stroke-width="1.8"/>
+        <path d="M 180 92 L 213 92 L 217 122 L 180 122 Z" fill="#1A2540"/>
+        <rect x="218" y="105" width="6" height="20" fill="#222"/>
+        <circle cx="148" cy="135" r="11" fill="#1A1A1A" stroke="#3D1A00" stroke-width="1.5"/><circle cx="148" cy="135" r="5" fill="#444"/><circle cx="148" cy="135" r="2" fill="#FFD700"/>
+        <circle cx="195" cy="138" r="11" fill="#1A1A1A" stroke="#3D1A00" stroke-width="1.5"/><circle cx="195" cy="138" r="5" fill="#444"/><circle cx="195" cy="138" r="2" fill="#FFD700"/>
+        <g>
+            <path d="M 38 105 Q 40 88 60 87 L 90 87 Q 110 88 112 105 L 118 145 L 32 145 Z" fill="url(#shirtGrad)" stroke="#3D1A00" stroke-width="1.2"/>
+            <path d="M 100 95 Q 130 95 132 75 Q 132 65 140 62 Q 152 64 152 75 Q 150 100 132 105 Q 118 108 102 105 Z" fill="url(#shirtGrad)" stroke="#3D1A00" stroke-width="1.2"/>
+            <path d="M 134 75 Q 132 60 142 55 Q 152 56 152 70 L 148 78 Z" fill="#FBC9A6" stroke="#3D1A00" stroke-width="1"/>
+            <ellipse cx="146" cy="56" rx="9" ry="9" fill="#FBC9A6" stroke="#3D1A00" stroke-width="1"/>
+            <ellipse cx="142" cy="44" rx="5" ry="9" fill="#FBC9A6" stroke="#3D1A00" stroke-width="1"/>
+            <ellipse cx="75" cy="58" rx="27" ry="29" fill="#FBC9A6" stroke="#3D1A00" stroke-width="1.2"/>
+            <path d="M 49 42 Q 45 18 70 16 Q 75 4 92 8 Q 105 5 105 22 Q 108 28 100 45 Q 95 38 85 36 Q 78 35 73 41 Q 65 32 56 38 Q 50 36 49 42 Z" fill="#7B3F1A" stroke="#3D1A00" stroke-width="1"/>
+            <ellipse cx="65" cy="58" rx="3.5" ry="4.5" fill="#fff"/><ellipse cx="87" cy="58" rx="3.5" ry="4.5" fill="#fff"/>
+            <ellipse cx="66" cy="60" rx="2" ry="2.8" fill="#1A0E00"/><ellipse cx="88" cy="60" rx="2" ry="2.8" fill="#1A0E00"/>
+            <path d="M 60 76 Q 75 92 90 76 Q 75 88 60 76 Z" fill="#3D1A00"/>
+            <path d="M 63 78 Q 75 87 87 78 L 84 82 Q 75 85 66 82 Z" fill="#fff"/>
+        </g>
+        <path d="M 12 150 Q 120 140 228 150 L 228 192 Q 120 184 12 192 Z" fill="#0A0F1F" stroke="#FFD700" stroke-width="2.5"/>
+        <text x="120" y="178" text-anchor="middle" font-family="Bebas Neue, sans-serif" font-size="30" font-weight="bold" letter-spacing="2" fill="#FFEB3B" stroke="#E04F00" stroke-width="0.6">FIRE FELLAS</text>
+        <path d="M 32 192 Q 120 204 208 192 L 206 213 Q 120 220 34 213 Z" fill="#E04F00" stroke="#FFD700" stroke-width="2"/>
+        <text x="120" y="207" text-anchor="middle" font-family="Bebas Neue, sans-serif" font-size="11" fill="#fff" font-weight="bold" letter-spacing="2">MULTI-SERVICE PROS</text>
+    </symbol>
+</defs>
+</svg>
+
+<script>
+const SVG = {
+    fella: '<svg viewBox="0 0 240 320" style="width:100%;height:100%;"><use href="#fella"/></svg>',
+    fellaWave: '<svg viewBox="0 0 260 320" style="width:100%;height:100%;"><use href="#fellaWave"/></svg>',
+    fellaMover: '<svg viewBox="0 0 280 320" style="width:100%;height:100%;"><use href="#fellaMover"/></svg>',
+    fellaBroom: '<svg viewBox="0 0 290 320" style="width:100%;height:100%;"><use href="#fellaBroom"/></svg>',
+    flameTruck: '<svg viewBox="0 0 400 200" style="width:100%;height:100%;"><use href="#flameTruck"/></svg>',
+    flameTruckLoaded: '<svg viewBox="0 0 400 220" style="width:100%;height:100%;"><use href="#flameTruckLoaded"/></svg>',
+    plowTruck: '<svg viewBox="0 0 400 200" style="width:100%;height:100%;"><use href="#plowTruck"/></svg>',
+    fellaBadge: '<svg viewBox="0 0 240 240" style="width:100%;height:100%;"><use href="#fellaBadge"/></svg>',
+};
+
+/* CTA scene used at end of every Short */
+const ctaScene = () => ({
+    dur: 9000,
+    sfx: () => chord([523,659,784,1047], 0.8, 'triangle', 0.13),
+    html: () => `
+        <div class="bg bg-cta"></div>
+        <div style="position:absolute;top:14%;left:50%;transform:translateX(-50%);width:55%;aspect-ratio:1;" class="logo-spot a-pop">${SVG.fellaBadge}</div>
+        <div style="position:absolute;top:54%;left:50%;transform:translateX(-50%);width:90%;text-align:center;" class="a-cap" data-delay="0.6">
+            <div class="cta-phone">📞 (368) 299-7792</div>
+        </div>
+        <div style="position:absolute;top:70%;left:50%;transform:translateX(-50%);text-align:center;" class="a-pop a-pulse" data-delay="1.0">
+            <div class="cta-btn">GET FREE QUOTE 🔥</div>
+        </div>
+        <div style="position:absolute;bottom:18%;left:50%;transform:translateX(-50%);text-align:center;" class="a-up" data-delay="1.5">
+            <div class="t-sub">FIREFELLASCALGARY.COM</div>
+        </div>
+        <div style="position:absolute;bottom:9%;left:50%;transform:translateX(-50%);text-align:center;" class="a-up" data-delay="1.8">
+            <div class="t-tag">Calgary's multi-service pros</div>
+        </div>
+    `,
+});
+
+const titleScene = (epNum, title, emoji, bgClass='bg-warm') => ({
+    dur: 8000,
+    sfx: () => chord([523.25, 659.25, 783.99], 0.6, 'triangle', 0.12),
+    html: () => `
+        <div class="bg ${bgClass}"></div>
+        <div class="bg stars-bg"></div>
+        <div style="position:absolute;top:14%;left:50%;transform:translateX(-50%);width:64%;aspect-ratio:1;" class="logo-spot a-pop">${SVG.fellaBadge}</div>
+        <div style="position:absolute;top:64%;left:50%;transform:translateX(-50%);width:96%;text-align:center;" class="a-cap" data-delay="0.7">
+            <div class="t-sub">EPISODE ${epNum} ${emoji}</div>
+        </div>
+        <div style="position:absolute;top:70%;left:50%;transform:translateX(-50%);width:96%;text-align:center;" class="a-cap" data-delay="1.1">
+            <div class="t-mega">${title}</div>
+        </div>
+        <div style="position:absolute;bottom:14%;left:50%;transform:translateX(-50%);width:90%;text-align:center;" class="a-up" data-delay="1.7">
+            <div class="t-tag">🔥 calgary's multi-service pros</div>
+        </div>
+    `,
+});
+
+const EPISODES = {
+    /* === EP 1 — "NEW HOME HEROES" — couple just bought a house === */
+    1: {
+        name: 'NEW HOME',
+        scenes: [
+            titleScene(1, 'NEW HOME HEROES', '🏡', 'bg-warm'),
+            // Hook — they just got the keys
+            {
+                dur: 9000,
+                sfx: () => { chord([523, 659, 784], 0.5, 'triangle', 0.13); setTimeout(()=>tone(880, 0.2, 'sine', 0.1), 600); },
+                html: () => `
+                    <div class="bg bg-warm"></div>
+                    <div class="bg stars-bg"></div>
+                    <div style="position:absolute;top:8%;left:50%;transform:translateX(-50%);width:96%;text-align:center;" class="a-cap" data-delay="0.3">
+                        <div class="t-yellow-pop">JUST GOT<br>THE KEYS? 🔑</div>
+                    </div>
+                    <div style="position:absolute;top:45%;left:50%;transform:translateX(-50%);font-size:clamp(80px,16vh,140px);" class="a-pop" data-delay="0.6">🏡</div>
+                    <div style="position:absolute;top:35%;left:14%;font-size:clamp(40px,7vh,60px);" class="a-pop" data-delay="1.0">🥳</div>
+                    <div style="position:absolute;top:35%;right:14%;font-size:clamp(40px,7vh,60px);" class="a-pop" data-delay="1.3">😊</div>
+                    <div class="sparkle" style="top:30%;left:30%;">✨</div>
+                    <div class="sparkle" style="top:30%;right:30%;animation-delay:0.5s;">✨</div>
+                    <div style="position:absolute;bottom:14%;left:50%;transform:translateX(-50%);text-align:center;" class="a-cap" data-delay="1.8">
+                        <div class="caption-box red">DREAM HOME = ✅</div>
+                    </div>
+                `,
+            },
+            // The problem — wait, now we have to MOVE
+            {
+                dur: 9000,
+                sfx: () => { tone(180, 0.5, 'sawtooth', 0.13); setTimeout(()=>tone(150, 0.4, 'sawtooth', 0.12), 500); },
+                html: () => `
+                    <div class="bg" style="background:linear-gradient(180deg,#5a4a6a 0%,#2a1830 100%);"></div>
+                    <div class="ground"></div>
+                    <div style="position:absolute;top:8%;left:50%;transform:translateX(-50%);width:96%;text-align:center;" class="a-cap" data-delay="0.3">
+                        <div class="t-yellow-pop">BUT WAIT...<br>HOW DO WE<br>MOVE IT ALL? 😰</div>
+                    </div>
+                    <!-- Boxes everywhere -->
+                    <div style="position:absolute;top:55%;left:8%;font-size:clamp(50px,9vh,80px);" class="a-pop" data-delay="0.7">📦</div>
+                    <div style="position:absolute;top:60%;left:30%;font-size:clamp(60px,11vh,100px);" class="a-pop" data-delay="1.0">🛋️</div>
+                    <div style="position:absolute;top:55%;left:55%;font-size:clamp(50px,9vh,80px);" class="a-pop" data-delay="1.3">🪑</div>
+                    <div style="position:absolute;top:60%;right:8%;font-size:clamp(50px,9vh,80px);" class="a-pop" data-delay="1.6">📺</div>
+                    <div style="position:absolute;top:78%;left:18%;font-size:clamp(50px,9vh,80px);" class="a-pop" data-delay="1.9">🛏️</div>
+                    <div style="position:absolute;top:78%;right:18%;font-size:clamp(50px,9vh,80px);" class="a-pop" data-delay="2.2">🧊</div>
+                    <div style="position:absolute;top:42%;left:50%;transform:translateX(-50%);text-align:center;" class="a-cap" data-delay="2.5">
+                        <div class="caption-box dark">😵 OVERWHELMED</div>
+                    </div>
+                `,
+            },
+            // Solution — call the fellas
+            {
+                dur: 9000,
+                sfx: () => { tone(800, 0.1, 'square', 0.1); setTimeout(()=>tone(1100, 0.15, 'square', 0.1), 150); setTimeout(()=>tone(180, 0.6, 'sawtooth', 0.15), 1500); },
+                html: () => `
+                    <div class="bg bg-warm"></div>
+                    <div class="ground"></div>
+                    <div style="position:absolute;top:8%;left:50%;transform:translateX(-50%);width:96%;text-align:center;" class="a-cap" data-delay="0.3">
+                        <div class="t-big-pop">CALL THE<br>FIRE FELLAS! 🔥</div>
+                    </div>
+                    <div class="truck-park" style="top:42%;left:-15%;width:130%;">${SVG.flameTruck}</div>
+                    <div style="position:absolute;bottom:18%;right:6%;width:36%;" class="mascot a-up a-wiggle" data-delay="2">${SVG.fellaWave}</div>
+                    <div style="position:absolute;top:30%;right:8%;text-align:right;" class="a-cap" data-delay="2.5">
+                        <div class="caption-box red" style="font-size:clamp(18px,3.5vh,28px);">WE GOT THIS!</div>
+                    </div>
+                `,
+            },
+            // Action — boxes loaded fast
+            {
+                dur: 11000,
+                sfx: () => { [0,400,800,1200,1600,2000].forEach((d,k)=> setTimeout(()=>{tone(440, 0.12, 'square', 0.1); noise(0.1, 0.08);}, d)); },
+                html: () => `
+                    <div class="bg bg-gold"></div>
+                    <div class="ground"></div>
+                    <div style="position:absolute;top:6%;left:50%;transform:translateX(-50%);width:96%;text-align:center;" class="a-cap" data-delay="0.3">
+                        <div class="t-big-pop">PACKED · LIFTED<br>DELIVERED</div>
+                    </div>
+                    <div style="position:absolute;top:35%;left:6%;width:36%;" class="mascot a-left">${SVG.fellaMover}</div>
+                    <div class="fly-item fly-anim" style="top:55%;left:50%;animation-delay:1s;">📦</div>
+                    <div class="fly-item fly-anim" style="top:55%;left:65%;animation-delay:1.8s;">📦</div>
+                    <div class="fly-item fly-anim" style="top:60%;left:75%;animation-delay:2.6s;">🛋️</div>
+                    <div class="fly-item fly-anim" style="top:55%;left:55%;animation-delay:3.4s;">🪑</div>
+                    <div class="fly-item fly-anim" style="top:60%;left:70%;animation-delay:4.2s;">📺</div>
+                    <div style="position:absolute;bottom:14%;left:50%;transform:translateX(-50%);text-align:center;" class="a-cap" data-delay="3">
+                        <div class="caption-box dark">⏱️ DONE IN HOURS</div>
+                    </div>
+                `,
+            },
+            // Result — couple smiles in their NEW home
+            {
+                dur: 9000,
+                sfx: () => chord([659, 784, 988, 1175], 0.8, 'triangle', 0.13),
+                html: () => `
+                    <div class="bg bg-sunset"></div>
+                    <div style="position:absolute;top:8%;left:50%;transform:translateX(-50%);width:96%;text-align:center;" class="a-cap">
+                        <div class="t-big-pop">WELCOME<br>HOME! 💛</div>
+                    </div>
+                    <div style="position:absolute;top:42%;left:50%;transform:translateX(-50%);font-size:clamp(80px,16vh,140px);" class="a-pop" data-delay="0.4">🏡</div>
+                    <div style="position:absolute;top:35%;left:14%;font-size:clamp(50px,9vh,80px);" class="a-pop" data-delay="0.8">😄</div>
+                    <div style="position:absolute;top:35%;right:14%;font-size:clamp(50px,9vh,80px);" class="a-pop" data-delay="1.1">🥰</div>
+                    <div class="sparkle" style="top:25%;left:30%;">✨</div>
+                    <div class="sparkle" style="top:25%;right:30%;animation-delay:0.5s;">✨</div>
+                    <div class="sparkle" style="top:55%;left:25%;animation-delay:1s;">⭐</div>
+                    <div class="sparkle" style="top:55%;right:25%;animation-delay:1.5s;">⭐</div>
+                    <div style="position:absolute;bottom:14%;left:50%;transform:translateX(-50%);text-align:center;" class="a-cap" data-delay="1.8">
+                        <div class="caption-box">"STRESS-FREE MOVE!"<br>— EMMA & RYAN, TUSCANY</div>
+                    </div>
+                `,
+            },
+            ctaScene(),
+        ],
+    },
+
+    /* === EP 2 — "GARAGE LIBERATION" — can't park your car! === */
+    2: {
+        name: 'GARAGE',
+        scenes: [
+            titleScene(2, 'GARAGE LIBERATION', '🚗', 'bg-cool'),
+            // Hook — relatable problem
+            {
+                dur: 9000,
+                sfx: () => { tone(150, 0.6, 'sawtooth', 0.13); setTimeout(()=>noise(0.4, 0.12), 400); },
+                html: () => `
+                    <div class="bg" style="background:linear-gradient(180deg,#8B5A2A 0%,#5C3818 100%);"></div>
+                    <div class="ground"></div>
+                    <div style="position:absolute;top:8%;left:50%;transform:translateX(-50%);width:96%;text-align:center;" class="a-cap" data-delay="0.3">
+                        <div class="t-yellow-pop">CAN'T PARK<br>IN YOUR<br>GARAGE? 😩</div>
+                    </div>
+                    <!-- Garage piled high -->
+                    <div style="position:absolute;top:48%;left:6%;font-size:clamp(50px,9vh,80px);" class="a-pop" data-delay="0.6">📦</div>
+                    <div style="position:absolute;top:48%;left:28%;font-size:clamp(60px,11vh,100px);" class="a-pop" data-delay="0.9">🛋️</div>
+                    <div style="position:absolute;top:48%;left:52%;font-size:clamp(50px,9vh,80px);" class="a-pop" data-delay="1.2">🪑</div>
+                    <div style="position:absolute;top:48%;right:6%;font-size:clamp(60px,11vh,100px);" class="a-pop" data-delay="1.5">🧊</div>
+                    <div style="position:absolute;top:65%;left:14%;font-size:clamp(50px,9vh,80px);" class="a-pop" data-delay="1.8">📺</div>
+                    <div style="position:absolute;top:65%;left:42%;font-size:clamp(50px,9vh,80px);" class="a-pop" data-delay="2.1">🛏️</div>
+                    <div style="position:absolute;top:65%;right:14%;font-size:clamp(50px,9vh,80px);" class="a-pop" data-delay="2.4">🪜</div>
+                    <div style="position:absolute;bottom:14%;left:50%;transform:translateX(-50%);text-align:center;" class="a-cap" data-delay="2.7">
+                        <div class="caption-box red">CAR'S STUCK OUTSIDE!</div>
+                    </div>
+                `,
+            },
+            // The frustrated owner
+            {
+                dur: 8000,
+                sfx: () => { tone(180, 0.4, 'sawtooth', 0.12); },
+                html: () => `
+                    <div class="bg" style="background:linear-gradient(180deg,#5a4a6a 0%,#2a1830 100%);"></div>
+                    <div class="ground"></div>
+                    <div style="position:absolute;top:8%;left:50%;transform:translateX(-50%);width:96%;text-align:center;" class="a-cap" data-delay="0.3">
+                        <div class="t-yellow-pop">"WHERE DO I EVEN<br>BEGIN?" 🤯</div>
+                    </div>
+                    <div style="position:absolute;top:42%;left:50%;transform:translateX(-50%);font-size:clamp(100px,20vh,180px);" class="a-pop" data-delay="0.8">😫</div>
+                    <div style="position:absolute;bottom:14%;left:50%;transform:translateX(-50%);text-align:center;" class="a-cap" data-delay="1.6">
+                        <div class="caption-box dark">📞 (368) 299-7792</div>
+                    </div>
+                `,
+            },
+            // Solution — Fellas arrive
+            {
+                dur: 9000,
+                sfx: () => { tone(180, 0.6, 'sawtooth', 0.15); setTimeout(()=>tone(440, 0.15, 'square', 0.1), 600); setTimeout(()=>chord([523,659,784], 0.5), 1500); },
+                html: () => `
+                    <div class="bg bg-cool"></div>
+                    <div class="ground"></div>
+                    <div style="position:absolute;top:8%;left:50%;transform:translateX(-50%);width:96%;text-align:center;" class="a-cap">
+                        <div class="t-big-pop" style="color:#00D9FF;-webkit-text-stroke-color:#0A0F1F;text-shadow:0 6px 0 #0A0F1F;">HELP<br>HAS ARRIVED! ✨</div>
+                    </div>
+                    <div class="truck-park" style="top:42%;left:-15%;width:130%;">${SVG.flameTruck}</div>
+                    <div style="position:absolute;bottom:16%;right:6%;width:36%;" class="mascot a-up a-wiggle" data-delay="2">${SVG.fellaWave}</div>
+                    <div style="position:absolute;bottom:16%;left:6%;width:36%;" class="mascot a-up a-wiggle" data-delay="2.3">${SVG.fellaBroom}</div>
+                `,
+            },
+            // Vanishing junk
+            {
+                dur: 11000,
+                sfx: () => { [0,500,1000,1500,2000,2500,3000].forEach((d,k)=> setTimeout(()=>{tone(220-k*15, 0.2, 'sawtooth', 0.12);}, d)); },
+                html: () => `
+                    <div class="bg bg-purple"></div>
+                    <div class="ground"></div>
+                    <div style="position:absolute;top:6%;left:50%;transform:translateX(-50%);width:96%;text-align:center;" class="a-cap">
+                        <div class="t-big-pop">POOF · GONE!</div>
+                    </div>
+                    <div style="position:absolute;top:30%;left:6%;width:36%;" class="mascot a-left">${SVG.fellaBroom}</div>
+                    <div class="fly-item fly-anim" style="top:55%;right:12%;animation-delay:0.8s;">📦</div>
+                    <div class="fly-item fly-anim" style="top:55%;right:30%;animation-delay:1.5s;">🛋️</div>
+                    <div class="fly-item fly-anim" style="top:55%;right:50%;animation-delay:2.2s;">🪑</div>
+                    <div class="fly-item fly-anim" style="top:55%;right:18%;animation-delay:2.9s;">🧊</div>
+                    <div class="fly-item fly-anim" style="top:55%;right:38%;animation-delay:3.6s;">📺</div>
+                    <div class="fly-item fly-anim" style="top:65%;right:25%;animation-delay:4.3s;">🛏️</div>
+                    <div style="position:absolute;bottom:14%;left:50%;transform:translateX(-50%);text-align:center;" class="a-cap" data-delay="3">
+                        <div class="caption-box lime">SAME-DAY ⚡</div>
+                    </div>
+                `,
+            },
+            // Result — clean garage, car parked, smile
+            {
+                dur: 9000,
+                sfx: () => chord([523,659,784,988], 0.7, 'triangle', 0.13),
+                html: () => `
+                    <div class="bg" style="background:linear-gradient(180deg,#A6FF00 0%,#00D9FF 100%);"></div>
+                    <div class="ground"></div>
+                    <div style="position:absolute;top:8%;left:50%;transform:translateX(-50%);width:96%;text-align:center;" class="a-cap">
+                        <div class="t-big-pop" style="-webkit-text-stroke-color:#0A0F1F;text-shadow:0 6px 0 #0A0F1F;">SHE PARKS<br>AGAIN! 🚗</div>
+                    </div>
+                    <div style="position:absolute;top:46%;left:50%;transform:translateX(-50%);font-size:clamp(80px,16vh,140px);" class="a-pop" data-delay="0.5">🚗</div>
+                    <div style="position:absolute;top:38%;left:14%;font-size:clamp(50px,9vh,80px);" class="a-pop" data-delay="0.9">😄</div>
+                    <div style="position:absolute;top:38%;right:14%;font-size:clamp(50px,9vh,80px);" class="a-pop" data-delay="1.2">👍</div>
+                    <div class="sparkle" style="top:30%;left:30%;">✨</div>
+                    <div class="sparkle" style="top:30%;right:30%;animation-delay:0.5s;">✨</div>
+                    <div style="position:absolute;bottom:14%;left:50%;transform:translateX(-50%);text-align:center;" class="a-cap" data-delay="1.8">
+                        <div class="caption-box dark">"FINALLY!"<br>— LINDA P., HILLHURST</div>
+                    </div>
+                `,
+            },
+            ctaScene(),
+        ],
+    },
+
+    /* === EP 3 — "RENO RESCUE" — beautiful new kitchen, ugly mess === */
+    3: {
+        name: 'RENO',
+        scenes: [
+            titleScene(3, 'RENO RESCUE', '🔨', 'bg-pink'),
+            // Hook — beautiful new kitchen
+            {
+                dur: 9000,
+                sfx: () => { chord([659, 784, 988], 0.5, 'triangle', 0.13); setTimeout(()=>tone(880, 0.2, 'sine', 0.1), 600); },
+                html: () => `
+                    <div class="bg" style="background:linear-gradient(180deg,#FFD700 0%,#FF8C00 100%);"></div>
+                    <div style="position:absolute;top:8%;left:50%;transform:translateX(-50%);width:96%;text-align:center;" class="a-cap" data-delay="0.3">
+                        <div class="t-yellow-pop">DREAM<br>RENO DONE! 🎉</div>
+                    </div>
+                    <div style="position:absolute;top:42%;left:50%;transform:translateX(-50%);font-size:clamp(80px,16vh,140px);" class="a-pop" data-delay="0.6">🍽️</div>
+                    <div style="position:absolute;top:35%;left:14%;font-size:clamp(50px,9vh,80px);" class="a-pop" data-delay="1.0">😍</div>
+                    <div style="position:absolute;top:35%;right:14%;font-size:clamp(50px,9vh,80px);" class="a-pop" data-delay="1.3">✨</div>
+                    <div class="sparkle" style="top:30%;left:30%;">⭐</div>
+                    <div class="sparkle" style="top:30%;right:30%;animation-delay:0.5s;">⭐</div>
+                    <div style="position:absolute;bottom:14%;left:50%;transform:translateX(-50%);text-align:center;" class="a-cap" data-delay="1.8">
+                        <div class="caption-box red">NEW KITCHEN ✅</div>
+                    </div>
+                `,
+            },
+            // The problem — but the contractor left a mess
+            {
+                dur: 9000,
+                sfx: () => { tone(120, 0.6, 'sawtooth', 0.15); setTimeout(()=>noise(0.5, 0.18), 300); },
+                html: () => `
+                    <div class="bg bg-construction"></div>
+                    <div class="ground"></div>
+                    <div style="position:absolute;top:8%;left:50%;transform:translateX(-50%);width:96%;text-align:center;" class="a-cap" data-delay="0.3">
+                        <div class="t-yellow-pop">BUT THE<br>MESS REMAINS 😩</div>
+                    </div>
+                    <div style="position:absolute;top:48%;left:8%;font-size:clamp(60px,11vh,100px);" class="a-pop" data-delay="0.7">🪜</div>
+                    <div style="position:absolute;top:48%;left:34%;font-size:clamp(50px,9vh,80px);" class="a-pop" data-delay="1.0">🪨</div>
+                    <div style="position:absolute;top:48%;right:34%;font-size:clamp(50px,9vh,80px);" class="a-pop" data-delay="1.3">🪵</div>
+                    <div style="position:absolute;top:48%;right:8%;font-size:clamp(60px,11vh,100px);" class="a-pop" data-delay="1.6">🚽</div>
+                    <div style="position:absolute;top:68%;left:24%;font-size:clamp(50px,9vh,80px);" class="a-pop" data-delay="1.9">🧱</div>
+                    <div style="position:absolute;top:68%;right:24%;font-size:clamp(50px,9vh,80px);" class="a-pop" data-delay="2.2">🔨</div>
+                    <div style="position:absolute;bottom:14%;left:50%;transform:translateX(-50%);text-align:center;" class="a-cap" data-delay="2.6">
+                        <div class="caption-box red">CREW LEFT.<br>MESS DIDN'T.</div>
+                    </div>
+                `,
+            },
+            // Solution — Fellas arrive same day
+            {
+                dur: 9000,
+                sfx: () => { tone(440, 0.2, 'square', 0.1); setTimeout(()=>tone(660, 0.2, 'square', 0.1), 200); setTimeout(()=>tone(880, 0.3, 'square', 0.1), 400); setTimeout(()=>tone(180, 0.5, 'sawtooth', 0.13), 1200); },
+                html: () => `
+                    <div class="bg bg-pink"></div>
+                    <div class="ground"></div>
+                    <div style="position:absolute;top:6%;left:50%;transform:translateX(-50%);width:96%;text-align:center;" class="a-cap">
+                        <div class="t-big-pop">FELLAS<br>TO THE RESCUE!</div>
+                    </div>
+                    <div class="truck-park" style="top:42%;left:-15%;width:130%;">${SVG.flameTruck}</div>
+                    <div style="position:absolute;bottom:16%;right:6%;width:36%;" class="mascot a-up a-wiggle" data-delay="1.8">${SVG.fellaMover}</div>
+                    <div style="position:absolute;top:30%;right:6%;text-align:right;" class="a-cap" data-delay="2.5">
+                        <div class="caption-box pink" style="font-size:clamp(16px,3vh,24px);">SAME-DAY!</div>
+                    </div>
+                `,
+            },
+            // Hauling debris
+            {
+                dur: 11000,
+                sfx: () => { [0,400,800,1200,1600,2000,2400].forEach((d,k)=> setTimeout(()=>{tone(180-k*10, 0.25, 'sawtooth', 0.13); noise(0.1, 0.08);}, d)); },
+                html: () => `
+                    <div class="bg bg-construction"></div>
+                    <div class="ground"></div>
+                    <div style="position:absolute;top:6%;left:50%;transform:translateX(-50%);width:96%;text-align:center;" class="a-cap">
+                        <div class="t-big-pop">EVERY · LAST<br>PIECE 💪</div>
+                    </div>
+                    <div style="position:absolute;top:30%;left:6%;width:36%;" class="mascot a-left">${SVG.fellaMover}</div>
+                    <div class="fly-item fly-anim" style="top:55%;right:10%;animation-delay:0.8s;">🪨</div>
+                    <div class="fly-item fly-anim" style="top:55%;right:25%;animation-delay:1.5s;">🪵</div>
+                    <div class="fly-item fly-anim" style="top:55%;right:42%;animation-delay:2.2s;">🧱</div>
+                    <div class="fly-item fly-anim" style="top:55%;right:55%;animation-delay:2.9s;">🚽</div>
+                    <div class="fly-item fly-anim" style="top:65%;right:30%;animation-delay:3.6s;">🪜</div>
+                    <div style="position:absolute;bottom:14%;left:50%;transform:translateX(-50%);text-align:center;" class="a-cap" data-delay="2.5">
+                        <div class="caption-box dark">DRYWALL · LUMBER · DONE</div>
+                    </div>
+                `,
+            },
+            // Result — homeowner enjoying new clean kitchen
+            {
+                dur: 9000,
+                sfx: () => chord([659, 784, 988, 1175], 0.8, 'triangle', 0.13),
+                html: () => `
+                    <div class="bg" style="background:linear-gradient(180deg,#A6FF00 0%,#FFD700 60%,#FF8C00 100%);"></div>
+                    <div style="position:absolute;top:8%;left:50%;transform:translateX(-50%);width:96%;text-align:center;" class="a-cap">
+                        <div class="t-big-pop" style="-webkit-text-stroke-color:#0A0F1F;text-shadow:0 6px 0 #0A0F1F;">FINALLY<br>ENJOYING IT! ☕</div>
+                    </div>
+                    <div style="position:absolute;top:42%;left:50%;transform:translateX(-50%);font-size:clamp(80px,16vh,140px);" class="a-pop" data-delay="0.5">🍽️</div>
+                    <div style="position:absolute;top:38%;left:14%;font-size:clamp(50px,9vh,80px);" class="a-pop" data-delay="0.9">☺️</div>
+                    <div style="position:absolute;top:38%;right:14%;font-size:clamp(50px,9vh,80px);" class="a-pop" data-delay="1.2">☕</div>
+                    <div class="sparkle" style="top:30%;left:30%;">✨</div>
+                    <div class="sparkle" style="top:30%;right:30%;animation-delay:0.5s;">✨</div>
+                    <div style="position:absolute;bottom:14%;left:50%;transform:translateX(-50%);text-align:center;" class="a-cap" data-delay="1.8">
+                        <div class="caption-box dark">"OUR GO-TO HAUL CREW!"<br>— DEREK K., INGLEWOOD</div>
+                    </div>
+                `,
+            },
+            ctaScene(),
+        ],
+    },
+
+    /* === EP 4 — "SNOW DAY SAVIOR" — helping someone who can't shovel === */
+    4: {
+        name: 'SNOW',
+        scenes: [
+            titleScene(4, 'SNOW DAY SAVIOR', '👵', 'bg-icy'),
+            // Hook — Calgary snowstorm hits
+            {
+                dur: 9000,
+                sfx: () => { noise(1.2, 0.12); [0,500,1000].forEach(d=> setTimeout(()=>tone(120, 0.4, 'sawtooth', 0.1), d)); },
+                html: () => `
+                    <div class="bg bg-icy"></div>
+                    <div class="ground-snow"></div>
+                    ${[...Array(40)].map((_,i)=>`<div class="snow snow-anim" style="left:${(i*7)%100}%;top:-10%;animation-delay:${(i*0.15)%3}s;font-size:${10+Math.random()*16}px;">❄</div>`).join('')}
+                    <div style="position:absolute;top:8%;left:50%;transform:translateX(-50%);width:96%;text-align:center;" class="a-cap" data-delay="0.3">
+                        <div class="t-yellow-pop">CALGARY<br>SNOWSTORM!</div>
+                    </div>
+                    <div style="position:absolute;top:50%;left:50%;transform:translateX(-50%);font-size:clamp(80px,16vh,140px);" class="a-pop" data-delay="0.8">🏠</div>
+                    <div style="position:absolute;bottom:14%;left:50%;transform:translateX(-50%);text-align:center;" class="a-cap" data-delay="1.4">
+                        <div class="caption-box red">2 FEET OVERNIGHT!</div>
+                    </div>
+                `,
+            },
+            // Problem — senior worried
+            {
+                dur: 9000,
+                sfx: () => { tone(180, 0.4, 'sawtooth', 0.12); setTimeout(()=>tone(150, 0.5, 'sawtooth', 0.1), 500); },
+                html: () => `
+                    <div class="bg bg-icy"></div>
+                    <div class="ground-snow"></div>
+                    ${[...Array(15)].map((_,i)=>`<div class="snow snow-anim" style="left:${(i*7)%100}%;top:-10%;animation-delay:${(i*0.3)%3}s;font-size:${10+Math.random()*12}px;color:#aab8cc;">❄</div>`).join('')}
+                    <div style="position:absolute;top:8%;left:50%;transform:translateX(-50%);width:96%;text-align:center;" class="a-cap" data-delay="0.3">
+                        <div class="t-yellow-pop">"I CAN'T<br>SHOVEL THIS!" 😟</div>
+                    </div>
+                    <div style="position:absolute;top:45%;left:50%;transform:translateX(-50%);font-size:clamp(100px,20vh,180px);" class="a-pop" data-delay="0.8">👵</div>
+                    <div style="position:absolute;top:35%;left:25%;font-size:clamp(40px,7vh,60px);" class="a-pop" data-delay="1.2">💭</div>
+                    <div style="position:absolute;bottom:14%;left:50%;transform:translateX(-50%);text-align:center;" class="a-cap" data-delay="1.7">
+                        <div class="caption-box dark">📞 (368) 299-7792</div>
+                    </div>
+                `,
+            },
+            // Solution — Snow heroes incoming
+            {
+                dur: 9000,
+                sfx: () => { tone(180, 0.6, 'sawtooth', 0.15); setTimeout(()=>tone(440, 0.15, 'square', 0.1), 600); setTimeout(()=>chord([523,659,784], 0.5), 1500); },
+                html: () => `
+                    <div class="bg bg-icy"></div>
+                    <div class="ground-snow"></div>
+                    ${[...Array(20)].map((_,i)=>`<div class="snow snow-anim" style="left:${(i*5)%100}%;top:-10%;animation-delay:${(i*0.2)%3}s;font-size:${10+Math.random()*12}px;color:#aab8cc;">❄</div>`).join('')}
+                    <div style="position:absolute;top:6%;left:50%;transform:translateX(-50%);width:96%;text-align:center;" class="a-cap">
+                        <div class="t-big-pop" style="color:#FF4500;-webkit-text-stroke-color:#0A0F1F;text-shadow:0 6px 0 #0A0F1F;">SNOW<br>HEROES! 🦸</div>
+                    </div>
+                    <div class="truck-park" style="top:42%;left:-15%;width:130%;">${SVG.plowTruck}</div>
+                    <div style="position:absolute;bottom:14%;left:50%;transform:translateX(-50%);width:42%;" class="mascot a-up a-wiggle" data-delay="2">${SVG.fellaBroom}</div>
+                `,
+            },
+            // Shovelling action — by hand, careful
+            {
+                dur: 11000,
+                sfx: () => { [0,400,800,1200,1600,2000,2400,2800].forEach((d,k)=> setTimeout(()=>tone(440+k*80, 0.15, 'square', 0.09), d)); },
+                html: () => `
+                    <div class="bg bg-icy"></div>
+                    <div class="ground-snow"></div>
+                    <div style="position:absolute;top:6%;left:50%;transform:translateX(-50%);width:96%;text-align:center;" class="a-cap">
+                        <div class="t-big-pop" style="color:#FF4500;-webkit-text-stroke-color:#0A0F1F;text-shadow:0 6px 0 #0A0F1F;">BY HAND.<br>NO DAMAGE.</div>
+                    </div>
+                    <div style="position:absolute;top:32%;left:50%;transform:translateX(-50%);width:48%;" class="mascot a-up" data-delay="0.5">${SVG.fellaBroom}</div>
+                    <div class="fly-item fly-anim" style="bottom:22%;left:8%;animation-delay:0.8s;color:#fff;">⛄</div>
+                    <div class="fly-item fly-anim" style="bottom:22%;left:30%;animation-delay:1.5s;color:#fff;">❄️</div>
+                    <div class="fly-item fly-anim" style="bottom:22%;right:30%;animation-delay:2.2s;color:#fff;">❄️</div>
+                    <div class="fly-item fly-anim" style="bottom:22%;right:8%;animation-delay:2.9s;color:#fff;">⛄</div>
+                    <div style="position:absolute;bottom:6%;left:50%;transform:translateX(-50%);text-align:center;" class="a-cap" data-delay="3">
+                        <div class="caption-box">NO TORN SOD · NO SCRATCHES</div>
+                    </div>
+                `,
+            },
+            // Result — senior smiling, can walk safely
+            {
+                dur: 9000,
+                sfx: () => chord([659,784,988,1175], 0.7, 'triangle', 0.13),
+                html: () => `
+                    <div class="bg" style="background:linear-gradient(180deg,#7BD7FF 0%,#FFD700 100%);"></div>
+                    <div class="ground"></div>
+                    <div style="position:absolute;top:8%;left:50%;transform:translateX(-50%);width:96%;text-align:center;" class="a-cap">
+                        <div class="t-big-pop">SAFE TO<br>WALK AGAIN! 🚶</div>
+                    </div>
+                    <div style="position:absolute;top:42%;left:50%;transform:translateX(-50%);font-size:clamp(100px,18vh,160px);" class="a-pop" data-delay="0.5">👵</div>
+                    <div style="position:absolute;top:35%;right:18%;font-size:clamp(50px,9vh,80px);" class="a-pop" data-delay="0.9">😊</div>
+                    <div style="position:absolute;top:48%;right:8%;font-size:clamp(40px,7vh,60px);" class="a-pop" data-delay="1.2">💛</div>
+                    <div class="sparkle" style="top:25%;left:20%;">✨</div>
+                    <div class="sparkle" style="top:25%;right:20%;animation-delay:0.5s;">✨</div>
+                    <div style="position:absolute;bottom:14%;left:50%;transform:translateX(-50%);text-align:center;" class="a-cap" data-delay="1.8">
+                        <div class="caption-box dark">"THANK YOU, BOYS!"<br>— GLADYS, BOWNESS</div>
+                    </div>
+                `,
+            },
+            ctaScene(),
+        ],
+    },
+
+    /* === EP 5 — "DOWNSIZING WITH HEART" — emotional estate clear-out === */
+    5: {
+        name: 'DOWNSIZING',
+        scenes: [
+            titleScene(5, 'DOWNSIZING<br>WITH HEART', '💛', 'bg-estate'),
+            // Hook — saying goodbye to the family home
+            {
+                dur: 9000,
+                sfx: () => chord([392, 523, 659], 0.8, 'sine', 0.1),
+                html: () => `
+                    <div class="bg bg-estate"></div>
+                    <div class="ground"></div>
+                    <div style="position:absolute;top:8%;left:50%;transform:translateX(-50%);width:96%;text-align:center;" class="a-cap" data-delay="0.3">
+                        <div class="t-yellow-pop">SAYING GOODBYE<br>TO THE<br>FAMILY HOME?</div>
+                    </div>
+                    <div style="position:absolute;top:50%;left:50%;transform:translateX(-50%);font-size:clamp(100px,20vh,180px);" class="a-pop" data-delay="0.8">🏡</div>
+                    <div class="sparkle" style="top:35%;left:20%;animation-delay:0.5s;">💛</div>
+                    <div class="sparkle" style="top:35%;right:20%;animation-delay:1s;">💛</div>
+                    <div style="position:absolute;bottom:14%;left:50%;transform:translateX(-50%);text-align:center;" class="a-cap" data-delay="1.6">
+                        <div class="caption-box">A LIFETIME OF<br>MEMORIES INSIDE</div>
+                    </div>
+                `,
+            },
+            // Problem — overwhelmed
+            {
+                dur: 9000,
+                sfx: () => { tone(180, 0.4, 'sine', 0.08); setTimeout(()=>tone(150, 0.5, 'sine', 0.08), 500); },
+                html: () => `
+                    <div class="bg bg-estate"></div>
+                    <div class="ground"></div>
+                    <div style="position:absolute;top:8%;left:50%;transform:translateX(-50%);width:96%;text-align:center;" class="a-cap" data-delay="0.3">
+                        <div class="t-yellow-pop">"WHERE DO<br>I EVEN START?" 😢</div>
+                    </div>
+                    <div style="position:absolute;top:48%;left:50%;transform:translateX(-50%);font-size:clamp(100px,20vh,180px);" class="a-pop" data-delay="0.8">😔</div>
+                    <div style="position:absolute;top:30%;left:14%;font-size:clamp(40px,7vh,60px);" class="a-pop" data-delay="1.2">📚</div>
+                    <div style="position:absolute;top:30%;right:14%;font-size:clamp(40px,7vh,60px);" class="a-pop" data-delay="1.5">🪑</div>
+                    <div style="position:absolute;top:65%;left:18%;font-size:clamp(40px,7vh,60px);" class="a-pop" data-delay="1.8">🖼️</div>
+                    <div style="position:absolute;top:65%;right:18%;font-size:clamp(40px,7vh,60px);" class="a-pop" data-delay="2.1">📷</div>
+                    <div style="position:absolute;bottom:14%;left:50%;transform:translateX(-50%);text-align:center;" class="a-cap" data-delay="2.5">
+                        <div class="caption-box dark">SO MUCH TO SORT...</div>
+                    </div>
+                `,
+            },
+            // Solution — Fellas arrive with care, not just trucks
+            {
+                dur: 9000,
+                sfx: () => { tone(440, 0.4, 'sine', 0.1); setTimeout(()=>chord([523, 659, 784], 0.7, 'triangle', 0.13), 200); },
+                html: () => `
+                    <div class="bg" style="background:linear-gradient(135deg,#FFD700 0%,#FF8C00 50%,#FF1493 100%);"></div>
+                    <div class="ground"></div>
+                    <div style="position:absolute;top:8%;left:50%;transform:translateX(-50%);width:96%;text-align:center;" class="a-cap">
+                        <div class="t-big-pop">WE TREAT<br>IT LIKE<br>FAMILY 💛</div>
+                    </div>
+                    <div style="position:absolute;bottom:18%;left:6%;width:42%;" class="mascot a-left a-wiggle">${SVG.fella}</div>
+                    <div style="position:absolute;bottom:18%;right:6%;width:42%;" class="mascot a-right a-wiggle" style="animation-delay:0.3s;">${SVG.fellaWave}</div>
+                    <div style="position:absolute;bottom:8%;left:50%;transform:translateX(-50%);text-align:center;" class="a-cap" data-delay="1.5">
+                        <div class="caption-box">RESPECT · DIGNITY · CARE</div>
+                    </div>
+                `,
+            },
+            // Action — Sort/Donate/Keep at YOUR pace
+            {
+                dur: 11000,
+                sfx: () => [0, 600, 1200, 1800].forEach((d,k)=> setTimeout(()=>chord([523+k*100, 659+k*80], 0.4, 'sine', 0.1), d)),
+                html: () => `
+                    <div class="bg bg-purple"></div>
+                    <div class="ground"></div>
+                    <div style="position:absolute;top:6%;left:50%;transform:translateX(-50%);width:96%;text-align:center;" class="a-cap">
+                        <div class="t-big-pop" style="color:#FFD700;-webkit-text-stroke-color:#0A0F1F;text-shadow:0 6px 0 #0A0F1F;">AT YOUR<br>PACE 🤍</div>
+                    </div>
+                    <div style="position:absolute;top:38%;left:6%;width:28%;text-align:center;" class="a-up" data-delay="0.5">
+                        <div style="font-size:clamp(50px,9vh,80px);">💛</div>
+                        <div style="font-family:'Bebas Neue',sans-serif;color:#FFD700;letter-spacing:2px;font-size:clamp(14px,2.4vh,22px);">KEEP</div>
+                    </div>
+                    <div style="position:absolute;top:38%;left:36%;width:28%;text-align:center;" class="a-up" data-delay="1.2">
+                        <div style="font-size:clamp(50px,9vh,80px);">🎁</div>
+                        <div style="font-family:'Bebas Neue',sans-serif;color:#A6FF00;letter-spacing:2px;font-size:clamp(14px,2.4vh,22px);">DONATE</div>
+                    </div>
+                    <div style="position:absolute;top:38%;right:6%;width:28%;text-align:center;" class="a-up" data-delay="1.9">
+                        <div style="font-size:clamp(50px,9vh,80px);">♻️</div>
+                        <div style="font-family:'Bebas Neue',sans-serif;color:#00D9FF;letter-spacing:2px;font-size:clamp(14px,2.4vh,22px);">RECYCLE</div>
+                    </div>
+                    <div style="position:absolute;bottom:14%;left:50%;transform:translateX(-50%);text-align:center;" class="a-cap" data-delay="3">
+                        <div class="caption-box dark">SORT WITH KINDNESS</div>
+                    </div>
+                `,
+            },
+            // Result — family lighter, peaceful smile + tears of relief
+            {
+                dur: 9000,
+                sfx: () => chord([659, 784, 988, 1175], 0.9, 'triangle', 0.12),
+                html: () => `
+                    <div class="bg bg-stage"></div>
+                    <div class="bg-grid"></div>
+                    <div style="position:absolute;top:14%;left:50%;transform:translateX(-50%);font-size:clamp(80px,16vh,140px);" class="a-pop" data-delay="0.4">🤝</div>
+                    <div style="position:absolute;top:35%;left:18%;font-size:clamp(50px,9vh,80px);" class="a-pop" data-delay="0.9">🥹</div>
+                    <div style="position:absolute;top:35%;right:18%;font-size:clamp(50px,9vh,80px);" class="a-pop" data-delay="1.2">💛</div>
+                    <div style="position:absolute;top:50%;left:50%;transform:translateX(-50%);width:96%;text-align:center;" class="a-cap" data-delay="1.6">
+                        <div class="caption-box" style="font-size:clamp(16px,3.2vh,24px);">"MADE AN IMPOSSIBLE<br>WEEK SO MUCH EASIER."</div>
+                    </div>
+                    <div style="position:absolute;top:78%;left:50%;transform:translateX(-50%);width:96%;text-align:center;" class="a-up" data-delay="2.3">
+                        <div class="t-tag">— SARAH R. · BOWNESS</div>
+                    </div>
+                `,
+            },
+            ctaScene(),
+        ],
+    },
+};
+
+/* ============== AUDIO (SFX only — no voices in shorts) ============== */
+let audioCtx = null;
+let audioOn = true;
+const soundBtn = document.getElementById('soundBtn');
+soundBtn.addEventListener('click', ()=>{
+    audioOn = !audioOn;
+    soundBtn.textContent = '🔊 SFX: ' + (audioOn ? 'ON' : 'OFF');
+});
+function ctxAudio(){
+    if (!audioCtx) audioCtx = new (window.AudioContext||window.webkitAudioContext)();
+    if (audioCtx.state === 'suspended') audioCtx.resume();
+    return audioCtx;
+}
+function tone(freq, dur, type='sine', vol=0.18, when=0){
+    if (!audioOn) return;
+    try{
+        const c = ctxAudio();
+        const o = c.createOscillator();
+        const g = c.createGain();
+        o.type = type; o.frequency.value = freq;
+        o.connect(g); g.connect(c.destination);
+        const t = c.currentTime + when;
+        g.gain.setValueAtTime(0, t);
+        g.gain.linearRampToValueAtTime(vol, t + 0.02);
+        g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+        o.start(t); o.stop(t + dur + 0.05);
+    }catch(e){}
+}
+function chord(freqs, dur, type='triangle', vol=0.13){
+    if (!audioOn) return;
+    freqs.forEach(f => tone(f, dur, type, vol));
+}
+function noise(dur, vol=0.15){
+    if (!audioOn) return;
+    try{
+        const c = ctxAudio();
+        const buf = c.createBuffer(1, c.sampleRate * dur, c.sampleRate);
+        const data = buf.getChannelData(0);
+        for (let i = 0; i < data.length; i++) data[i] = (Math.random()*2-1) * (1 - i/data.length);
+        const src = c.createBufferSource(); src.buffer = buf;
+        const g = c.createGain(); g.gain.value = vol;
+        src.connect(g); g.connect(c.destination);
+        src.start();
+    }catch(e){}
+}
+
+/* ============== TIMELINE ============== */
+let currentEp = 1;
+let timeoutIds = [];
+let progressRAF = null;
+let startTs = 0;
+let isPlaying = true;
+
+const stage = document.getElementById('stage');
+const sceneInd = document.getElementById('sceneInd');
+const progress = document.getElementById('progress');
+
+function applyAnimDelays(scene){
+    scene.querySelectorAll('[data-delay]').forEach(el => {
+        const d = parseFloat(el.dataset.delay);
+        el.style.animationDelay = d + 's';
+    });
+}
+
+function clearTimeline(){
+    timeoutIds.forEach(t => clearTimeout(t));
+    timeoutIds = [];
+    if (progressRAF) cancelAnimationFrame(progressRAF);
+}
+
+function buildEpisodeDOM(epNum){
+    stage.innerHTML = '';
+    EPISODES[epNum].scenes.forEach((sceneData, i) => {
+        const sec = document.createElement('section');
+        sec.className = 'scene';
+        sec.id = `scene-${i+1}`;
+        sec.innerHTML = sceneData.html();
+        stage.appendChild(sec);
+    });
+}
+
+function setActive(idx){
+    const ep = EPISODES[currentEp];
+    const scenes = stage.querySelectorAll('.scene');
+    scenes.forEach((s,i)=> s.classList.toggle('active', i===idx));
+    if (scenes[idx]) applyAnimDelays(scenes[idx]);
+    sceneInd.textContent = `${idx+1}/${ep.scenes.length} · EP${currentEp} · ${ep.name}`;
+    if (isPlaying && audioOn && ep.scenes[idx].sfx) ep.scenes[idx].sfx();
+}
+
+function totalMs(){ return EPISODES[currentEp].scenes.reduce((s,x)=>s+x.dur,0); }
+
+function tick(){
+    const elapsed = performance.now() - startTs;
+    progress.style.width = Math.min(100, (elapsed / totalMs()) * 100) + '%';
+    if (isPlaying) progressRAF = requestAnimationFrame(tick);
+}
+
+function startTimeline(){
+    clearTimeline();
+    isPlaying = true;
+    startTs = performance.now();
+    let acc = 0;
+    EPISODES[currentEp].scenes.forEach((s,i)=>{
+        const t = setTimeout(()=> setActive(i), acc);
+        timeoutIds.push(t);
+        acc += s.dur;
+    });
+    timeoutIds.push(setTimeout(()=> startTimeline(), acc));
+    setActive(0);
+    progressRAF = requestAnimationFrame(tick);
+}
+
+function loadEpisode(num){
+    currentEp = num;
+    buildEpisodeDOM(num);
+    document.querySelectorAll('.ep-tab').forEach(t => t.classList.toggle('active', parseInt(t.dataset.ep)===num));
+    progress.style.width = '0%';
+    startTimeline();
+}
+
+document.querySelectorAll('.ep-tab').forEach(tab => {
+    tab.addEventListener('click', () => loadEpisode(parseInt(tab.dataset.ep)));
+});
+document.getElementById('playBtn').addEventListener('click', ()=> {
+    progress.style.width = '0%';
+    startTimeline();
+});
+
+/* Sound unlock */
+const soundOverlay = document.getElementById('soundOverlay');
+soundOverlay.addEventListener('click', () => {
+    try {
+        const c = ctxAudio();
+        if (c.state === 'suspended') c.resume();
+        const o = c.createOscillator();
+        const g = c.createGain();
+        g.gain.value = 0.001;
+        o.connect(g); g.connect(c.destination);
+        o.start(); o.stop(c.currentTime + 0.05);
+    } catch(e){}
+    soundOverlay.classList.add('hidden');
+    progress.style.width = '0%';
+    startTimeline();
+});
+
+/* Record */
+document.getElementById('recordBtn').addEventListener('click', async ()=>{
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getDisplayMedia){
+        alert('Your browser doesn\'t support screen recording. Try Chrome or use OBS.');
+        return;
+    }
+    try{
+        const stream = await navigator.mediaDevices.getDisplayMedia({ video:{frameRate:30}, audio:true });
+        const recorder = new MediaRecorder(stream, { mimeType: 'video/webm;codecs=vp9,opus' });
+        const chunks = [];
+        recorder.ondataavailable = e => { if (e.data.size>0) chunks.push(e.data); };
+        recorder.onstop = () => {
+            const blob = new Blob(chunks, { type: 'video/webm' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `firefellas-short-ep${currentEp}-${Date.now()}.webm`;
+            a.click();
+            stream.getTracks().forEach(t => t.stop());
+            alert('Saved as .webm — convert to .mp4 free at cloudconvert.com if needed.');
+        };
+        progress.style.width = '0%';
+        startTimeline();
+        recorder.start();
+        const dur = totalMs();
+        setTimeout(()=> recorder.stop(), dur + 500);
+        document.getElementById('recordBtn').textContent = '⏺ Recording…';
+        setTimeout(()=> { document.getElementById('recordBtn').textContent = '⬇ Record MP4'; }, dur + 600);
+    }catch(err){
+        console.error(err);
+        alert('Recording cancelled.');
+    }
+});
+
+window.addEventListener('load', ()=> { loadEpisode(1); });
+</script>
+
+</body>
+</html>
