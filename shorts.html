@@ -598,6 +598,39 @@ const SVG = {
     fellaBadge: '<svg viewBox="0 0 240 240" style="width:100%;height:100%;"><use href="#fellaBadge"/></svg>',
 };
 
+/* === CHARACTER NAME LABEL helper === */
+const nameTag = (name, color='#FFD700') => `
+    <div style="position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);background:${color};color:#1a1a1a;padding:3px 10px;border-radius:12px;font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:clamp(11px,1.8vh,15px);border:2px solid #1a1a1a;box-shadow:0 3px 0 #1a1a1a;white-space:nowrap;">${name}</div>
+`;
+
+/* === Character intro card (shown at top of each story) === */
+const characterIntro = (epNum, customerEmoji, customerName, customerLabel, bgClass='bg-warm') => ({
+    dur: 6500,
+    sfx: () => { tone(800, 0.1, 'square', 0.1); setTimeout(()=>tone(1100, 0.15, 'square', 0.1), 150); },
+    html: () => `
+        <div class="bg ${bgClass}"></div>
+        <div class="bg stars-bg"></div>
+        <div style="position:absolute;top:8%;left:50%;transform:translateX(-50%);width:96%;text-align:center;" class="a-cap" data-delay="0.2">
+            <div class="t-sub">FEATURING</div>
+        </div>
+        <!-- The two fellas with name tags -->
+        <div style="position:absolute;top:24%;left:8%;width:36%;" class="mascot a-left">
+            <div style="position:relative;">${SVG.fella}${nameTag('MIKE','#FFD700')}</div>
+        </div>
+        <div style="position:absolute;top:24%;right:8%;width:36%;" class="mascot a-right" style="animation-delay:0.3s;">
+            <div style="position:relative;">${SVG.fellaWave}${nameTag('TONY','#00D9FF')}</div>
+        </div>
+        <!-- Customer intro -->
+        <div style="position:absolute;top:60%;left:50%;transform:translateX(-50%);font-size:clamp(70px,14vh,120px);" class="a-pop" data-delay="1.2">${customerEmoji}</div>
+        <div style="position:absolute;top:78%;left:50%;transform:translateX(-50%);text-align:center;width:96%;" class="a-cap" data-delay="1.6">
+            <div class="caption-box red" style="font-size:clamp(16px,3.2vh,26px);">${customerName}</div>
+        </div>
+        <div style="position:absolute;top:88%;left:50%;transform:translateX(-50%);text-align:center;width:96%;" class="a-up" data-delay="2">
+            <div class="t-tag">${customerLabel}</div>
+        </div>
+    `,
+});
+
 /* CTA scene used at end of every Short */
 const ctaScene = () => ({
     dur: 9000,
@@ -645,6 +678,7 @@ const EPISODES = {
         name: 'NEW HOME',
         scenes: [
             titleScene(1, 'NEW HOME HEROES', '🏡', 'bg-warm'),
+            characterIntro(1, '👫', 'EMMA & RYAN', 'just bought their first home in tuscany', 'bg-warm'),
             // Hook — they just got the keys
             {
                 dur: 9000,
@@ -755,6 +789,7 @@ const EPISODES = {
         name: 'GARAGE',
         scenes: [
             titleScene(2, 'GARAGE LIBERATION', '🚗', 'bg-cool'),
+            characterIntro(2, '👩', 'LINDA P.', 'parked outside for 3 winters · hillhurst', 'bg-cool'),
             // Hook — relatable problem
             {
                 dur: 9000,
@@ -860,6 +895,7 @@ const EPISODES = {
         name: 'RENO',
         scenes: [
             titleScene(3, 'RENO RESCUE', '🔨', 'bg-pink'),
+            characterIntro(3, '👨‍🦱', 'DEREK K.', 'just got his dream kitchen · inglewood', 'bg-pink'),
             // Hook — beautiful new kitchen
             {
                 dur: 9000,
@@ -966,6 +1002,7 @@ const EPISODES = {
         name: 'SNOW',
         scenes: [
             titleScene(4, 'SNOW DAY SAVIOR', '👵', 'bg-icy'),
+            characterIntro(4, '👵', 'GLADYS', '78 years young · bowness · alone this winter', 'bg-icy'),
             // Hook — Calgary snowstorm hits
             {
                 dur: 9000,
@@ -1065,6 +1102,7 @@ const EPISODES = {
         name: 'DOWNSIZING',
         scenes: [
             titleScene(5, 'DOWNSIZING<br>WITH HEART', '💛', 'bg-estate'),
+            characterIntro(5, '👩', 'SARAH R.', 'clearing her late mother\'s home · bowness', 'bg-estate'),
             // Hook — saying goodbye to the family home
             {
                 dur: 9000,
