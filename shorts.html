@@ -127,8 +127,8 @@ body{display:flex;flex-direction:column;align-items:center;padding:14px;}
     width:42%;height:4px;background:#fff;border-radius:3px;opacity:0.6;z-index:55;
 }
 .stage{position:absolute;inset:0;}
-.scene{position:absolute;inset:0;opacity:0;transition:opacity 0.5s ease;}
-.scene.active{opacity:1;}
+.scene{position:absolute;inset:0;display:none;opacity:1;}
+.scene.active{display:block;}
 .bg{position:absolute;inset:0;}
 .bg-grid{position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,rgba(255,215,0,0.04) 0 1px,transparent 1px 30px),repeating-linear-gradient(90deg,rgba(255,215,0,0.04) 0 1px,transparent 1px 30px);}
 
@@ -168,6 +168,12 @@ body{display:flex;flex-direction:column;align-items:center;padding:14px;}
 .scene.active .a-spin{animation:spin 12s linear infinite;}
 .a-up,.a-down,.a-left,.a-right,.a-pop,.a-cap{opacity:0;}
 .a-pop,.a-cap{transform:scale(0);}
+
+/* === MASCOT FIX === avoid animation shorthand conflict between entry + loop */
+.scene .mascot{opacity:0;transition:opacity 0.7s ease, transform 0.7s ease;}
+.scene.active .mascot{opacity:1 !important;}
+.scene.active .mascot.a-left{transform:translateX(0);}
+.scene.active .mascot.a-right{transform:translateX(0);}
 
 /* === Backgrounds === */
 .bg-warm{background:radial-gradient(ellipse at center,rgba(255,140,0,0.5) 0%,rgba(255,69,0,0.2) 40%,#0A0F1F 80%),#0A0F1F;}
@@ -614,10 +620,10 @@ const characterIntro = (epNum, customerEmoji, customerName, customerLabel, bgCla
             <div class="t-sub">FEATURING</div>
         </div>
         <!-- The two fellas with name tags -->
-        <div style="position:absolute;top:24%;left:8%;width:36%;" class="mascot a-left">
+        <div style="position:absolute;top:24%;left:8%;width:36%;" class="mascot ">
             <div style="position:relative;">${SVG.fella}${nameTag('MIKE','#FFD700')}</div>
         </div>
-        <div style="position:absolute;top:24%;right:8%;width:36%;" class="mascot a-right" style="animation-delay:0.3s;">
+        <div style="position:absolute;top:24%;right:8%;width:36%;" class="mascot " style="animation-delay:0.3s;">
             <div style="position:relative;">${SVG.fellaWave}${nameTag('TONY','#00D9FF')}</div>
         </div>
         <!-- Customer intro -->
@@ -732,7 +738,7 @@ const EPISODES = {
                         <div class="t-big-pop">CALL THE<br>FIRE FELLAS! 🔥</div>
                     </div>
                     <div class="truck-park" style="top:42%;left:-15%;width:130%;">${SVG.flameTruck}</div>
-                    <div style="position:absolute;bottom:18%;right:6%;width:36%;" class="mascot a-up a-wiggle" data-delay="2">${SVG.fellaWave}</div>
+                    <div style="position:absolute;bottom:18%;right:6%;width:36%;" class="mascot a-wiggle" data-delay="2">${SVG.fellaWave}</div>
                     <div style="position:absolute;top:30%;right:8%;text-align:right;" class="a-cap" data-delay="2.5">
                         <div class="caption-box red" style="font-size:clamp(18px,3.5vh,28px);">WE GOT THIS!</div>
                     </div>
@@ -748,7 +754,7 @@ const EPISODES = {
                     <div style="position:absolute;top:6%;left:50%;transform:translateX(-50%);width:96%;text-align:center;" class="a-cap" data-delay="0.3">
                         <div class="t-big-pop">PACKED · LIFTED<br>DELIVERED</div>
                     </div>
-                    <div style="position:absolute;top:35%;left:6%;width:36%;" class="mascot a-left">${SVG.fellaMover}</div>
+                    <div style="position:absolute;top:35%;left:6%;width:36%;" class="mascot ">${SVG.fellaMover}</div>
                     <div class="fly-item fly-anim" style="top:55%;left:50%;animation-delay:1s;">📦</div>
                     <div class="fly-item fly-anim" style="top:55%;left:65%;animation-delay:1.8s;">📦</div>
                     <div class="fly-item fly-anim" style="top:60%;left:75%;animation-delay:2.6s;">🛋️</div>
@@ -840,8 +846,8 @@ const EPISODES = {
                         <div class="t-big-pop" style="color:#00D9FF;-webkit-text-stroke-color:#0A0F1F;text-shadow:0 6px 0 #0A0F1F;">HELP<br>HAS ARRIVED! ✨</div>
                     </div>
                     <div class="truck-park" style="top:42%;left:-15%;width:130%;">${SVG.flameTruck}</div>
-                    <div style="position:absolute;bottom:16%;right:6%;width:36%;" class="mascot a-up a-wiggle" data-delay="2">${SVG.fellaWave}</div>
-                    <div style="position:absolute;bottom:16%;left:6%;width:36%;" class="mascot a-up a-wiggle" data-delay="2.3">${SVG.fellaBroom}</div>
+                    <div style="position:absolute;bottom:16%;right:6%;width:36%;" class="mascot a-wiggle" data-delay="2">${SVG.fellaWave}</div>
+                    <div style="position:absolute;bottom:16%;left:6%;width:36%;" class="mascot a-wiggle" data-delay="2.3">${SVG.fellaBroom}</div>
                 `,
             },
             // Vanishing junk
@@ -854,7 +860,7 @@ const EPISODES = {
                     <div style="position:absolute;top:6%;left:50%;transform:translateX(-50%);width:96%;text-align:center;" class="a-cap">
                         <div class="t-big-pop">POOF · GONE!</div>
                     </div>
-                    <div style="position:absolute;top:30%;left:6%;width:36%;" class="mascot a-left">${SVG.fellaBroom}</div>
+                    <div style="position:absolute;top:30%;left:6%;width:36%;" class="mascot ">${SVG.fellaBroom}</div>
                     <div class="fly-item fly-anim" style="top:55%;right:12%;animation-delay:0.8s;">📦</div>
                     <div class="fly-item fly-anim" style="top:55%;right:30%;animation-delay:1.5s;">🛋️</div>
                     <div class="fly-item fly-anim" style="top:55%;right:50%;animation-delay:2.2s;">🪑</div>
@@ -947,7 +953,7 @@ const EPISODES = {
                         <div class="t-big-pop">FELLAS<br>TO THE RESCUE!</div>
                     </div>
                     <div class="truck-park" style="top:42%;left:-15%;width:130%;">${SVG.flameTruck}</div>
-                    <div style="position:absolute;bottom:16%;right:6%;width:36%;" class="mascot a-up a-wiggle" data-delay="1.8">${SVG.fellaMover}</div>
+                    <div style="position:absolute;bottom:16%;right:6%;width:36%;" class="mascot a-wiggle" data-delay="1.8">${SVG.fellaMover}</div>
                     <div style="position:absolute;top:30%;right:6%;text-align:right;" class="a-cap" data-delay="2.5">
                         <div class="caption-box pink" style="font-size:clamp(16px,3vh,24px);">SAME-DAY!</div>
                     </div>
@@ -963,7 +969,7 @@ const EPISODES = {
                     <div style="position:absolute;top:6%;left:50%;transform:translateX(-50%);width:96%;text-align:center;" class="a-cap">
                         <div class="t-big-pop">EVERY · LAST<br>PIECE 💪</div>
                     </div>
-                    <div style="position:absolute;top:30%;left:6%;width:36%;" class="mascot a-left">${SVG.fellaMover}</div>
+                    <div style="position:absolute;top:30%;left:6%;width:36%;" class="mascot ">${SVG.fellaMover}</div>
                     <div class="fly-item fly-anim" style="top:55%;right:10%;animation-delay:0.8s;">🪨</div>
                     <div class="fly-item fly-anim" style="top:55%;right:25%;animation-delay:1.5s;">🪵</div>
                     <div class="fly-item fly-anim" style="top:55%;right:42%;animation-delay:2.2s;">🧱</div>
@@ -1050,7 +1056,7 @@ const EPISODES = {
                         <div class="t-big-pop" style="color:#FF4500;-webkit-text-stroke-color:#0A0F1F;text-shadow:0 6px 0 #0A0F1F;">SNOW<br>HEROES! 🦸</div>
                     </div>
                     <div class="truck-park" style="top:42%;left:-15%;width:130%;">${SVG.plowTruck}</div>
-                    <div style="position:absolute;bottom:14%;left:50%;transform:translateX(-50%);width:42%;" class="mascot a-up a-wiggle" data-delay="2">${SVG.fellaBroom}</div>
+                    <div style="position:absolute;bottom:14%;left:50%;transform:translateX(-50%);width:42%;" class="mascot a-wiggle" data-delay="2">${SVG.fellaBroom}</div>
                 `,
             },
             // Shovelling action — by hand, careful
@@ -1063,7 +1069,7 @@ const EPISODES = {
                     <div style="position:absolute;top:6%;left:50%;transform:translateX(-50%);width:96%;text-align:center;" class="a-cap">
                         <div class="t-big-pop" style="color:#FF4500;-webkit-text-stroke-color:#0A0F1F;text-shadow:0 6px 0 #0A0F1F;">BY HAND.<br>NO DAMAGE.</div>
                     </div>
-                    <div style="position:absolute;top:32%;left:50%;transform:translateX(-50%);width:48%;" class="mascot a-up" data-delay="0.5">${SVG.fellaBroom}</div>
+                    <div style="position:absolute;top:32%;left:50%;transform:translateX(-50%);width:48%;" class="mascot " data-delay="0.5">${SVG.fellaBroom}</div>
                     <div class="fly-item fly-anim" style="bottom:22%;left:8%;animation-delay:0.8s;color:#fff;">⛄</div>
                     <div class="fly-item fly-anim" style="bottom:22%;left:30%;animation-delay:1.5s;color:#fff;">❄️</div>
                     <div class="fly-item fly-anim" style="bottom:22%;right:30%;animation-delay:2.2s;color:#fff;">❄️</div>
@@ -1151,8 +1157,8 @@ const EPISODES = {
                     <div style="position:absolute;top:8%;left:50%;transform:translateX(-50%);width:96%;text-align:center;" class="a-cap">
                         <div class="t-big-pop">WE TREAT<br>IT LIKE<br>FAMILY 💛</div>
                     </div>
-                    <div style="position:absolute;bottom:18%;left:6%;width:42%;" class="mascot a-left a-wiggle">${SVG.fella}</div>
-                    <div style="position:absolute;bottom:18%;right:6%;width:42%;" class="mascot a-right a-wiggle" style="animation-delay:0.3s;">${SVG.fellaWave}</div>
+                    <div style="position:absolute;bottom:18%;left:6%;width:42%;" class="mascot a-wiggle">${SVG.fella}</div>
+                    <div style="position:absolute;bottom:18%;right:6%;width:42%;" class="mascot a-wiggle" style="animation-delay:0.3s;">${SVG.fellaWave}</div>
                     <div style="position:absolute;bottom:8%;left:50%;transform:translateX(-50%);text-align:center;" class="a-cap" data-delay="1.5">
                         <div class="caption-box">RESPECT · DIGNITY · CARE</div>
                     </div>

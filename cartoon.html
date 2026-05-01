@@ -69,8 +69,8 @@ body{display:flex;flex-direction:column;align-items:center;padding:14px;}
 .episode-frame{position:absolute;inset:0;display:none;}
 .episode-frame.active{display:block;}
 
-.scene{position:absolute;inset:0;opacity:0;transition:opacity 0.55s ease;pointer-events:none;}
-.scene.active{opacity:1;pointer-events:auto;}
+.scene{position:absolute;inset:0;display:none;pointer-events:none;opacity:1;}
+.scene.active{display:block;pointer-events:auto;}
 
 .bg{position:absolute;inset:0;}
 .center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);}
@@ -90,12 +90,15 @@ body{display:flex;flex-direction:column;align-items:center;padding:14px;}
 @keyframes bgShift{0%,100%{background-position:0% 50%;}50%{background-position:100% 50%;}}
 @keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.06);}}
 
+/* Entry animations (applied to text/captions) */
 .scene.active .anim-in{animation:fadeIn 0.7s ease forwards;}
 .scene.active .anim-up{animation:fadeInUp 0.6s ease forwards;}
 .scene.active .anim-down{animation:fadeInDown 0.6s ease forwards;}
 .scene.active .anim-left{animation:slideInLeft 0.7s cubic-bezier(0.68,-0.55,0.27,1.55) forwards;}
 .scene.active .anim-right{animation:slideInRight 0.7s cubic-bezier(0.68,-0.55,0.27,1.55) forwards;}
 .scene.active .anim-pop{animation:popIn 0.6s cubic-bezier(0.68,-0.55,0.27,1.55) forwards;}
+
+/* Loop animations */
 .scene.active .anim-wiggle{animation:wiggle 1.5s ease-in-out infinite;}
 .scene.active .anim-bob{animation:bob 2s ease-in-out infinite;}
 .scene.active .anim-shake{animation:shake 0.4s ease-in-out infinite;}
@@ -106,6 +109,15 @@ body{display:flex;flex-direction:column;align-items:center;padding:14px;}
 .anim-pop{transform:scale(0);}
 .anim-left{transform:translateX(-100px);}
 .anim-right{transform:translateX(100px);}
+
+/* === MASCOT FIX === Mascots use opacity transition (no animation conflict) ===
+   The previous CSS had .anim-wiggle's animation shorthand override .anim-up's
+   fadeInUp animation, leaving mascots at opacity:0 forever. This decouples
+   mascot fade-in (transition) from the loop wiggle/bob (animation). */
+.scene .mascot{opacity:0;transition:opacity 0.7s ease, transform 0.7s ease;}
+.scene.active .mascot{opacity:1 !important;}
+.scene.active .mascot.anim-left{transform:translateX(0);}
+.scene.active .mascot.anim-right{transform:translateX(0);}
 
 /* === Backgrounds (themed per episode) === */
 .bg-warm{background:radial-gradient(ellipse at center, rgba(255,140,0,0.45) 0%, rgba(255,69,0,0.15) 40%, #0A0F1F 80%),#0A0F1F;}
@@ -685,7 +697,7 @@ const ctaScene = (color='#FFD700') => ({
         <a class="cta-btn cta-btn-pulse anim-pop" href="https://pamandeepsinghdfl-hash.github.io/firefellascalgary/" style="position:absolute;top:55%;left:50%;transform:translateX(-50%);" data-delay="1">GET FREE QUOTE 🔥</a>
         <div style="position:absolute;bottom:14%;left:50%;transform:translateX(-50%);" class="anim-up t-sub" data-delay="1.4">FIREFELLASCALGARY.COM</div>
         <div style="position:absolute;bottom:6%;left:50%;transform:translateX(-50%);font-family:'Bebas Neue',sans-serif;font-size:clamp(12px,2vw,20px);letter-spacing:5px;color:#fff;opacity:0.7;" class="anim-up" data-delay="1.6">MOVING · HAULING · CLEARING</div>
-        <div class="mascot anim-up anim-wiggle" style="bottom:8%;right:5%;width:14%;animation-delay:1.8s;" data-delay="1.8">${SVG.fellaWave}</div>
+        <div class="mascot anim-wiggle" style="bottom:8%;right:5%;width:14%;animation-delay:1.8s;" data-delay="1.8">${SVG.fellaWave}</div>
     `
 });
 
@@ -724,8 +736,8 @@ const EPISODES = {
                     <div style="position:absolute;top:8%;left:50%;transform:translateX(-50%);width:90%;" class="anim-pop" data-delay="0.6">
                         <div class="t-pop">MEET YOUR<br>CALGARY FIRE FELLAS!</div>
                     </div>
-                    <div class="mascot m-left anim-left anim-wiggle">${SVG.fella}</div>
-                    <div class="mascot m-right anim-right anim-wiggle" style="animation-delay:0.3s;">${SVG.fellaWave}</div>
+                    <div class="mascot m-left anim-wiggle">${SVG.fella}</div>
+                    <div class="mascot m-right anim-wiggle" style="animation-delay:0.3s;">${SVG.fellaWave}</div>
                     <div class="bubble anim-pop" style="top:30%;left:8%;background:#fff;color:#FF4500;" data-delay="1.4">I'M MIKE 👋</div>
                     <div class="bubble anim-pop" style="top:30%;right:8%;background:#fff;color:#FF4500;" data-delay="1.7">I'M TONY! 💪</div>
                 `
@@ -759,7 +771,7 @@ const EPISODES = {
                         <div class="t-big">PACK · LIFT · DELIVER</div>
                     </div>
                     <div class="truck-drive" style="left:18%;">${SVG.flameTruck}</div>
-                    <div class="mascot anim-up anim-wiggle" style="right:14%;bottom:14%;width:18%;animation-delay:2.5s;" data-delay="2">${SVG.fellaMover}</div>
+                    <div class="mascot anim-wiggle" style="right:14%;bottom:14%;width:18%;animation-delay:2.5s;" data-delay="2">${SVG.fellaMover}</div>
                     <div class="box-fly box-anim" style="bottom:14%;animation-delay:2.6s;"></div>
                     <div class="box-fly box-anim" style="bottom:14%;animation-delay:3.0s;"></div>
                     <div class="box-fly box-anim" style="bottom:14%;animation-delay:3.4s;"></div>
@@ -854,7 +866,7 @@ const EPISODES = {
                         <div class="t-big" style="color:#00D9FF;-webkit-text-stroke-color:#0A0F1F;text-shadow:0 6px 0 #0A0F1F;">SAME-DAY SERVICE!</div>
                     </div>
                     <div class="truck-drive" style="left:18%;">${SVG.flameTruck}</div>
-                    <div class="mascot anim-up anim-wiggle" style="right:12%;bottom:14%;width:18%;animation-delay:2.5s;" data-delay="2">${SVG.fellaWave}</div>
+                    <div class="mascot anim-wiggle" style="right:12%;bottom:14%;width:18%;animation-delay:2.5s;" data-delay="2">${SVG.fellaWave}</div>
                     <div class="bubble anim-pop" style="bottom:50%;right:8%;background:#fff;color:#FF4500;" data-delay="2.5">WE GOT IT! 💪</div>
                 `
             },
@@ -868,7 +880,7 @@ const EPISODES = {
                     <div style="position:absolute;top:6%;left:50%;transform:translateX(-50%);" class="anim-pop" data-delay="0.3">
                         <div class="t-big">POINT · WE HAUL</div>
                     </div>
-                    <div class="mascot anim-up" style="left:8%;bottom:14%;width:18%;animation-delay:0.6s;" data-delay="0.6">${SVG.fellaBroom}</div>
+                    <div class="mascot " style="left:8%;bottom:14%;width:18%;animation-delay:0.6s;" data-delay="0.6">${SVG.fellaBroom}</div>
                     <!-- Junk items vanishing -->
                     <div class="junk-item junk-anim" style="bottom:30%;left:35%;animation-delay:1.2s;">📦</div>
                     <div class="junk-item junk-anim" style="bottom:25%;left:50%;animation-delay:1.6s;">🛋️</div>
@@ -951,7 +963,7 @@ const EPISODES = {
                         <div class="t-big" style="color:#FF1493;-webkit-text-stroke-color:#0A0F1F;text-shadow:0 6px 0 #0A0F1F;">FIRE FELLAS TO THE RESCUE!</div>
                     </div>
                     <div class="truck-drive" style="left:18%;">${SVG.flameTruck}</div>
-                    <div class="mascot anim-up anim-wiggle" style="right:10%;bottom:14%;width:18%;animation-delay:2.5s;" data-delay="2">${SVG.fellaMover}</div>
+                    <div class="mascot anim-wiggle" style="right:10%;bottom:14%;width:18%;animation-delay:2.5s;" data-delay="2">${SVG.fellaMover}</div>
                 `
             },
             // Hauling debris
@@ -964,7 +976,7 @@ const EPISODES = {
                     <div style="position:absolute;top:6%;left:50%;transform:translateX(-50%);" class="anim-pop" data-delay="0.3">
                         <div class="t-big">DEBRIS · HAULED</div>
                     </div>
-                    <div class="mascot anim-up" style="left:6%;bottom:14%;width:18%;animation-delay:0.5s;" data-delay="0.5">${SVG.fellaWave}</div>
+                    <div class="mascot " style="left:6%;bottom:14%;width:18%;animation-delay:0.5s;" data-delay="0.5">${SVG.fellaWave}</div>
                     <div class="junk-item junk-anim" style="bottom:30%;left:30%;animation-delay:1s;">🪨</div>
                     <div class="junk-item junk-anim" style="bottom:32%;left:48%;animation-delay:1.4s;">🪵</div>
                     <div class="junk-item junk-anim" style="bottom:28%;left:65%;animation-delay:1.8s;">🧱</div>
@@ -984,7 +996,7 @@ const EPISODES = {
                     <div style="position:absolute;top:8%;left:50%;transform:translateX(-50%);" class="anim-pop" data-delay="0.3">
                         <div class="t-big" style="-webkit-text-stroke-color:#0A0F1F;text-shadow:0 6px 0 #0A0F1F;">SWEPT · TIDY · READY</div>
                     </div>
-                    <div class="mascot anim-up anim-wiggle" style="left:50%;bottom:15%;width:24%;transform:translateX(-50%);animation-delay:0.8s;" data-delay="0.8">${SVG.fellaBroom}</div>
+                    <div class="mascot anim-wiggle" style="left:50%;bottom:15%;width:24%;transform:translateX(-50%);animation-delay:0.8s;" data-delay="0.8">${SVG.fellaBroom}</div>
                     <div style="position:absolute;top:38%;left:18%;font-size:clamp(28px,5vw,60px);" class="anim-pop" data-delay="1.2">✨</div>
                     <div style="position:absolute;top:42%;right:18%;font-size:clamp(28px,5vw,60px);" class="anim-pop" data-delay="1.5">✨</div>
                     <div style="position:absolute;top:55%;left:32%;font-size:clamp(24px,4vw,48px);" class="anim-pop" data-delay="1.8">✨</div>
@@ -1041,7 +1053,7 @@ const EPISODES = {
                         <div class="t-big" style="color:#FF4500;-webkit-text-stroke-color:#0A0F1F;text-shadow:0 6px 0 #0A0F1F;">SNOW HEROES!</div>
                     </div>
                     <div class="truck-drive" style="left:18%;">${SVG.plowTruck}</div>
-                    <div class="mascot anim-up anim-wiggle" style="right:8%;bottom:25%;width:18%;animation-delay:2.5s;" data-delay="2">${SVG.fellaBroom}</div>
+                    <div class="mascot anim-wiggle" style="right:8%;bottom:25%;width:18%;animation-delay:2.5s;" data-delay="2">${SVG.fellaBroom}</div>
                 `
             },
             // Shovelling action
@@ -1054,7 +1066,7 @@ const EPISODES = {
                     <div style="position:absolute;top:6%;left:50%;transform:translateX(-50%);" class="anim-pop" data-delay="0.3">
                         <div class="t-big" style="color:#FF4500;-webkit-text-stroke-color:#0A0F1F;text-shadow:0 6px 0 #0A0F1F;">BY HAND · DAMAGE FREE</div>
                     </div>
-                    <div class="mascot anim-up" style="left:50%;bottom:25%;width:24%;transform:translateX(-50%);animation-delay:0.5s;" data-delay="0.5">${SVG.fellaBroom}</div>
+                    <div class="mascot " style="left:50%;bottom:25%;width:24%;transform:translateX(-50%);animation-delay:0.5s;" data-delay="0.5">${SVG.fellaBroom}</div>
                     <!-- Snow piles vanishing -->
                     <div class="junk-item junk-anim" style="bottom:25%;left:18%;animation-delay:1.2s;color:#fff;">⛄</div>
                     <div class="junk-item junk-anim" style="bottom:25%;left:35%;animation-delay:1.6s;color:#fff;">❄️</div>
@@ -1133,8 +1145,8 @@ const EPISODES = {
                     <div style="position:absolute;top:8%;left:50%;transform:translateX(-50%);width:90%;" class="anim-pop" data-delay="0.4">
                         <div class="t-big">WE TREAT IT LIKE FAMILY</div>
                     </div>
-                    <div class="mascot anim-left anim-wiggle" style="left:14%;bottom:8%;width:24%;">${SVG.fella}</div>
-                    <div class="mascot anim-right anim-wiggle" style="right:14%;bottom:8%;width:24%;animation-delay:0.3s;">${SVG.fellaWave}</div>
+                    <div class="mascot anim-wiggle" style="left:14%;bottom:8%;width:24%;">${SVG.fella}</div>
+                    <div class="mascot anim-wiggle" style="right:14%;bottom:8%;width:24%;animation-delay:0.3s;">${SVG.fellaWave}</div>
                     <div class="bubble anim-pop" style="top:35%;left:50%;transform:translateX(-50%);background:#fff;color:#FF4500;text-align:center;" data-delay="1.5">"WE'LL HELP — RESPECTFULLY." 💛</div>
                 `
             },
@@ -1161,7 +1173,7 @@ const EPISODES = {
                         <div style="font-size:clamp(40px,7vw,90px);">♻️</div>
                         <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(14px,2.4vw,28px);color:#00D9FF;letter-spacing:2px;">RECYCLE</div>
                     </div>
-                    <div class="mascot anim-up" style="left:50%;bottom:8%;width:18%;transform:translateX(-50%);animation-delay:1.8s;" data-delay="1.8">${SVG.fellaWave}</div>
+                    <div class="mascot " style="left:50%;bottom:8%;width:18%;transform:translateX(-50%);animation-delay:1.8s;" data-delay="1.8">${SVG.fellaWave}</div>
                 `
             },
             // Customer thanks
@@ -1301,10 +1313,18 @@ function speakLines(lines) {
 }
 
 const voiceBtn = document.getElementById('voiceBtn');
+let currentSceneIdx = 0;
 voiceBtn.addEventListener('click', () => {
     voiceOn = !voiceOn;
     voiceBtn.textContent = '🎙️ Voices: ' + (voiceOn ? 'ON' : 'OFF');
-    if (!voiceOn) cancelSpeech();
+    voiceBtn.style.background = voiceOn ? '' : 'rgba(120,120,120,0.2)';
+    if (!voiceOn) {
+        cancelSpeech();
+    } else {
+        // Toggle ON: speak current scene's lines now
+        const lines = (VOICE_LINES[currentEp] || [])[currentSceneIdx];
+        if (lines) speakLines(lines);
+    }
 });
 
 /* ============== AUDIO (SFX) ============== */
@@ -1391,6 +1411,7 @@ function buildEpisodeDOM(epNum){
 }
 
 function setActive(idx){
+    currentSceneIdx = idx;
     const ep = EPISODES[currentEp];
     const scenes = stage.querySelectorAll('.scene');
     scenes.forEach((s,i)=> s.classList.toggle('active', i===idx));
@@ -1399,7 +1420,7 @@ function setActive(idx){
     if (isPlaying && audioOn && ep.scenes[idx].sfx) ep.scenes[idx].sfx();
     // Voice-acting: speak this scene's lines
     cancelSpeech();
-    if (isPlaying) {
+    if (isPlaying && voiceOn) {
         const lines = (VOICE_LINES[currentEp] || [])[idx];
         if (lines) speakLines(lines);
     }
