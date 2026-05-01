@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Fire Fellas Calgary | Animated Series — Episode 1: Moving Day 🔥</title>
-<meta name="description" content="Fire Fellas Calgary animated cartoon — Episode 1: Moving Day. Calgary's Multi-Service Pros." />
+<title>Fire Fellas Calgary | Animated Series 🔥</title>
+<meta name="description" content="Fire Fellas Calgary — animated cartoon series. Episodes: Moving · Junk · Construction · Snow · Estate." />
 <link rel="icon" type="image/png" href="logo.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -12,13 +12,50 @@
 <style>
 :root{
     --firered:#FF4500; --fireorange:#FF8C00; --firegold:#FFD700; --fireyellow:#FFEB3B;
-    --firenavy:#0A0F1F; --pinkpop:#FF1493; --cyanpop:#00D9FF;
+    --firenavy:#0A0F1F; --pinkpop:#FF1493; --cyanpop:#00D9FF; --limepop:#A6FF00; --purplepop:#9D4EDD; --icyblue:#7BD7FF;
 }
 *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
-html,body{margin:0;padding:0;background:#000;color:#fff;font-family:Fredoka,sans-serif;overflow:hidden;height:100%;}
-body{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:20px;}
+html,body{margin:0;padding:0;background:#000;color:#fff;font-family:Fredoka,sans-serif;overflow-x:hidden;min-height:100vh;}
+body{display:flex;flex-direction:column;align-items:center;padding:14px;}
 
-/* ===== STAGE — 16:9 cartoon canvas ===== */
+/* === Title bar === */
+.title-area{text-align:center;margin:6px 0 14px;}
+.title-area h1{
+    font-family:'Bebas Neue',sans-serif;
+    font-size:clamp(26px,4vw,46px);letter-spacing:3px;margin:0 0 4px;
+    background:linear-gradient(135deg,#FFEB3B,#FF8C00,#FF4500,#FF1493);
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+}
+.title-area p{margin:0;color:#FFD700;font-family:'Bebas Neue',sans-serif;letter-spacing:4px;font-size:13px;}
+
+/* === Episode tabs === */
+.ep-tabs{
+    display:flex;flex-wrap:wrap;gap:6px;justify-content:center;
+    margin:0 auto 14px;max-width:1280px;padding:0 8px;
+}
+.ep-tab{
+    background:rgba(20,28,50,0.9);
+    color:#FFD700;
+    border:2px solid rgba(255,215,0,0.3);
+    padding:8px 14px;border-radius:50px;
+    font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:14px;
+    cursor:pointer;transition:all 0.25s;
+    display:flex;align-items:center;gap:8px;
+}
+.ep-tab:hover{transform:translateY(-2px);border-color:#FFD700;}
+.ep-tab.active{
+    background:linear-gradient(135deg,#FFD700,#FF4500);
+    color:#1a1a1a;border-color:#FFD700;
+    box-shadow:0 6px 18px rgba(255,69,0,0.4);
+}
+.ep-tab .num{
+    width:22px;height:22px;border-radius:50%;
+    background:rgba(0,0,0,0.3);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:bold;
+}
+.ep-tab.active .num{background:#1a1a1a;color:#FFD700;}
+
+/* === Stage === */
 .stage-wrap{
     width:min(96vw, 1280px);
     aspect-ratio:16/9;
@@ -29,542 +66,272 @@ body{display:flex;flex-direction:column;align-items:center;justify-content:cente
     background:#0A0F1F;
 }
 .stage{position:absolute;inset:0;}
+.episode-frame{position:absolute;inset:0;display:none;}
+.episode-frame.active{display:block;}
 
-.scene{
-    position:absolute;inset:0;
-    opacity:0;
-    transition:opacity 0.55s ease;
-    pointer-events:none;
-}
+.scene{position:absolute;inset:0;opacity:0;transition:opacity 0.55s ease;pointer-events:none;}
 .scene.active{opacity:1;pointer-events:auto;}
 
-/* Common helpers */
-.center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);}
 .bg{position:absolute;inset:0;}
-.shake{animation:shake 0.4s ease-in-out infinite;}
-@keyframes shake{0%,100%{transform:rotate(-1deg);}50%{transform:rotate(1deg);}}
+.center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);}
 
-/* Particle dots */
-.particle{position:absolute;border-radius:50%;pointer-events:none;}
+/* ============== GENERIC ANIMATIONS ============== */
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeInDown{from{opacity:0;transform:translateY(-20px);}to{opacity:1;transform:translateY(0);}}
+@keyframes slideInLeft{from{opacity:0;transform:translateX(-100px);}to{opacity:1;transform:translateX(0);}}
+@keyframes slideInRight{from{opacity:0;transform:translateX(100px);}to{opacity:1;transform:translateX(0);}}
+@keyframes popIn{0%{opacity:0;transform:scale(0) rotate(-180deg);}80%{opacity:1;transform:scale(1.15) rotate(10deg);}100%{opacity:1;transform:scale(1) rotate(0);}}
+@keyframes wiggle{0%,100%{transform:rotate(-3deg);}50%{transform:rotate(3deg);}}
+@keyframes bob{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
+@keyframes shake{0%,100%{transform:rotate(-1deg);}50%{transform:rotate(1deg);}}
+@keyframes spin{from{transform:rotate(0);}to{transform:rotate(360deg);}}
+@keyframes twinkle{0%,100%{opacity:0.6;}50%{opacity:1;}}
+@keyframes bgShift{0%,100%{background-position:0% 50%;}50%{background-position:100% 50%;}}
+@keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.06);}}
+
+.scene.active .anim-in{animation:fadeIn 0.7s ease forwards;}
+.scene.active .anim-up{animation:fadeInUp 0.6s ease forwards;}
+.scene.active .anim-down{animation:fadeInDown 0.6s ease forwards;}
+.scene.active .anim-left{animation:slideInLeft 0.7s cubic-bezier(0.68,-0.55,0.27,1.55) forwards;}
+.scene.active .anim-right{animation:slideInRight 0.7s cubic-bezier(0.68,-0.55,0.27,1.55) forwards;}
+.scene.active .anim-pop{animation:popIn 0.6s cubic-bezier(0.68,-0.55,0.27,1.55) forwards;}
+.scene.active .anim-wiggle{animation:wiggle 1.5s ease-in-out infinite;}
+.scene.active .anim-bob{animation:bob 2s ease-in-out infinite;}
+.scene.active .anim-shake{animation:shake 0.4s ease-in-out infinite;}
+.scene.active .anim-spin{animation:spin 8s linear infinite;}
+.scene.active .anim-twinkle{animation:twinkle 3s ease-in-out infinite;}
+
+.anim-in,.anim-up,.anim-down,.anim-left,.anim-right,.anim-pop{opacity:0;}
+.anim-pop{transform:scale(0);}
+.anim-left{transform:translateX(-100px);}
+.anim-right{transform:translateX(100px);}
+
+/* === Backgrounds (themed per episode) === */
+.bg-warm{background:radial-gradient(ellipse at center, rgba(255,140,0,0.45) 0%, rgba(255,69,0,0.15) 40%, #0A0F1F 80%),#0A0F1F;}
+.bg-cool{background:radial-gradient(ellipse at center, rgba(0,217,255,0.4) 0%, rgba(157,78,221,0.15) 40%, #0A0F1F 80%),#0A0F1F;}
+.bg-pink{background:radial-gradient(ellipse at center, rgba(255,20,147,0.4) 0%, rgba(157,78,221,0.15) 40%, #0A0F1F 80%),#0A0F1F;}
+.bg-icy{background:linear-gradient(180deg,#7BD7FF 0%,#a0e0ff 50%,#fff 100%);}
+.bg-warmth{background:linear-gradient(180deg,#FF8C00 0%,#FFD700 60%,#FFEB3B 100%);}
+.bg-sunset{background:linear-gradient(180deg,#FF1493 0%,#FF4500 30%,#FFD700 70%,#FFEB3B 100%);}
+.bg-purple{background:linear-gradient(135deg,#9D4EDD 0%,#FF1493 50%,#FF4500 100%);}
+.bg-construction{background:linear-gradient(180deg,#5a4a3a 0%,#3a2a1a 70%,#0A0F1F 100%);}
+.bg-stage{background:linear-gradient(135deg,#0A0F1F 0%,#1a1f3a 100%);}
+.bg-cta{background:radial-gradient(ellipse at center,#FF4500 0%,#0A0F1F 100%);}
+.bg-grid{position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,rgba(255,215,0,0.04) 0 1px,transparent 1px 30px),repeating-linear-gradient(90deg,rgba(255,215,0,0.04) 0 1px,transparent 1px 30px);}
+
+/* Stars */
+.stars-bg{position:absolute;inset:0;background-image:radial-gradient(circle 1.5px at 15% 20%,#FFD700 100%,transparent 100%),radial-gradient(circle 1px at 80% 30%,#00D9FF 100%,transparent 100%),radial-gradient(circle 1.5px at 25% 70%,#FF1493 100%,transparent 100%),radial-gradient(circle 1px at 70% 75%,#A6FF00 100%,transparent 100%),radial-gradient(circle 1.5px at 50% 15%,#FFD700 100%,transparent 100%),radial-gradient(circle 1px at 90% 60%,#FFD700 100%,transparent 100%);}
+
+/* Floating particles */
+.particle{position:absolute;border-radius:50%;}
+
+/* === Title text variants === */
+.t-mega{font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,7vw,90px);letter-spacing:3px;
+    background:linear-gradient(135deg,#FFEB3B,#FF8C00 50%,#FF4500 80%,#FF1493);
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+    text-align:center;line-height:1;
+    background-size:200% 200%;animation:bgShift 6s ease-in-out infinite;
+    filter:drop-shadow(0 4px 0 rgba(0,0,0,0.6));white-space:nowrap;}
+.t-big{font-family:'Luckiest Guy',cursive;font-size:clamp(28px,5vw,68px);
+    color:#fff;-webkit-text-stroke:4px #1a1a1a;text-shadow:0 6px 0 #1a1a1a;letter-spacing:2px;text-align:center;line-height:1.05;}
+.t-pop{font-family:'Luckiest Guy',cursive;font-size:clamp(22px,4vw,52px);
+    color:#fff;-webkit-text-stroke:3px #1a1a1a;text-shadow:0 6px 0 #1a1a1a;letter-spacing:2px;text-align:center;line-height:1;}
+.t-headline{font-family:'Bebas Neue',sans-serif;font-size:clamp(26px,5vw,68px);letter-spacing:3px;
+    background:linear-gradient(135deg,#FFEB3B,#FF8C00,#FF1493);
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+    text-align:center;line-height:1;}
+.t-sub{font-family:'Bebas Neue',sans-serif;font-size:clamp(14px,2.4vw,28px);letter-spacing:6px;color:#FFD700;text-align:center;}
 
 /* Speech bubble */
 .bubble{
-    position:absolute;
-    background:#fff;color:#1a1a1a;
-    padding:12px 18px;border-radius:18px;
+    background:#fff;color:#1a1a1a;padding:10px 16px;border-radius:18px;
     font-family:'Luckiest Guy',cursive;letter-spacing:0.5px;
-    font-size:clamp(14px,2vw,22px);
-    box-shadow:0 6px 0 rgba(0,0,0,0.2);
-    border:3px solid #1a1a1a;
+    font-size:clamp(13px,1.8vw,20px);
+    box-shadow:0 6px 0 rgba(0,0,0,0.2);border:3px solid #1a1a1a;
+    display:inline-block;max-width:30%;
+    position:absolute;
 }
-.bubble::after{
-    content:'';position:absolute;
-    width:0;height:0;
-}
-.bubble.left::after{left:-2px;bottom:-18px;border:10px solid transparent;border-top-color:#1a1a1a;border-right-color:transparent;}
-.bubble.right::after{right:-2px;bottom:-18px;border:10px solid transparent;border-top-color:#1a1a1a;border-left-color:transparent;}
 
-/* ===== SCENE 1 — TITLE ===== */
-.s1-bg{
-    background:
-        radial-gradient(ellipse at center, rgba(255,140,0,0.45) 0%, rgba(255,69,0,0.15) 40%, #0A0F1F 80%),
-        #0A0F1F;
+/* Service card grid */
+.svc-grid{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:2%;padding:14%;padding-top:18%;}
+.svc-card{
+    border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:8px;color:#fff;box-shadow:0 8px 0 rgba(0,0,0,0.3);border:3px solid rgba(255,255,255,0.5);
 }
-.s1-stars{position:absolute;inset:0;background-image:
-    radial-gradient(circle 1.5px at 15% 20%, #FFD700 100%, transparent 100%),
-    radial-gradient(circle 1px at 80% 30%, #00D9FF 100%, transparent 100%),
-    radial-gradient(circle 1.5px at 25% 70%, #FF1493 100%, transparent 100%),
-    radial-gradient(circle 1px at 70% 75%, #A6FF00 100%, transparent 100%),
-    radial-gradient(circle 1.5px at 50% 15%, #FFD700 100%, transparent 100%),
-    radial-gradient(circle 1px at 90% 60%, #FFD700 100%, transparent 100%);
-    animation:twinkle 3s ease-in-out infinite;}
-@keyframes twinkle{0%,100%{opacity:0.6;}50%{opacity:1;}}
+.svc-card .icon{font-size:clamp(28px,5vw,60px);line-height:1;}
+.svc-card .label{font-family:'Bebas Neue',sans-serif;font-size:clamp(14px,2.5vw,30px);letter-spacing:2px;}
+.svc-c1{background:linear-gradient(135deg,#FF4500,#FF8C00);}
+.svc-c2{background:linear-gradient(135deg,#00D9FF,#9D4EDD);}
+.svc-c3{background:linear-gradient(135deg,#FF1493,#FF4500);}
+.svc-c4{background:linear-gradient(135deg,#9D4EDD,#FF1493);}
 
-.s1-logo{
-    width:34%; aspect-ratio:1;
-    transform:translate(-50%,-50%) scale(0);
-    animation:logoIn 1.2s cubic-bezier(0.68,-0.55,0.27,1.55) 0.3s forwards;
-    filter:drop-shadow(0 0 30px rgba(255,140,0,0.7));
-}
-.scene.active .s1-logo{animation:logoIn 1.2s cubic-bezier(0.68,-0.55,0.27,1.55) 0.3s forwards, bobLogo 2s ease-in-out 1.5s infinite;}
-@keyframes logoIn{
-    0%{transform:translate(-50%,-50%) scale(0) rotate(-180deg);}
-    60%{transform:translate(-50%,-50%) scale(1.15) rotate(10deg);}
-    100%{transform:translate(-50%,-50%) scale(1) rotate(0);}
-}
-@keyframes bobLogo{0%,100%{transform:translate(-50%,-50%) translateY(0) scale(1);}50%{transform:translate(-50%,-50%) translateY(-8px) scale(1.02);}}
+/* Truck driving animations */
+.truck-drive{position:absolute;left:-30%;bottom:14%;width:55%;}
+.scene.active .truck-drive{animation:truckIn 1.6s cubic-bezier(0.25,0.46,0.45,0.94) forwards, bob 0.4s ease-in-out 1.7s infinite;}
+@keyframes truckIn{from{left:-50%;}to{left:18%;}}
 
-.s1-title{
-    position:absolute;left:50%;bottom:14%;
-    transform:translateX(-50%) translateY(60px);opacity:0;
-    font-family:'Bebas Neue',sans-serif;
-    font-size:clamp(32px,7vw,90px);
-    font-weight:700; letter-spacing:3px;white-space:nowrap;
-    background:linear-gradient(135deg,#FFEB3B,#FF8C00 50%,#FF4500 80%,#FF1493);
-    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
-    text-shadow:0 0 40px rgba(255,140,0,0.5);
-    filter:drop-shadow(0 4px 0 rgba(0,0,0,0.6));
-}
-.scene.active .s1-title{animation:titleIn 0.8s cubic-bezier(0.68,-0.55,0.27,1.55) 1.4s forwards;}
-@keyframes titleIn{to{transform:translateX(-50%) translateY(0);opacity:1;}}
+.truck-drive-off{position:absolute;left:20%;bottom:14%;width:50%;}
+.scene.active .truck-drive-off{animation:truckOff 4s linear forwards, bob 0.3s ease-in-out infinite;}
+@keyframes truckOff{from{left:20%;}to{left:120%;}}
 
-.s1-sub{
-    position:absolute;left:50%;bottom:7%;
-    transform:translateX(-50%);opacity:0;
-    font-family:'Bebas Neue',sans-serif;
-    font-size:clamp(14px,2.4vw,28px);letter-spacing:6px;color:#FFD700;
-}
-.scene.active .s1-sub{animation:fadeInUp 0.7s ease 2s forwards;}
-@keyframes fadeInUp{from{opacity:0;transform:translateX(-50%) translateY(20px);}to{opacity:1;transform:translateX(-50%) translateY(0);}}
+/* Ground & road */
+.ground{position:absolute;left:0;right:0;bottom:0;height:18%;background:linear-gradient(180deg,#3a2a1a,#1a1408);border-top:4px solid #5a3825;}
+.ground-snow{position:absolute;left:0;right:0;bottom:0;height:25%;background:linear-gradient(180deg,#fff,#cdd9e8);border-top:6px solid #aab8cc;}
+.ground-grass{position:absolute;left:0;right:0;bottom:0;height:18%;background:linear-gradient(180deg,#3a6a2a,#1a4a0a);border-top:4px solid #5a8a3a;}
+.road-stripe{position:absolute;left:0;right:0;bottom:8%;height:6px;background:repeating-linear-gradient(90deg,#FFD700 0 40px,transparent 40px 80px);}
 
-/* Confetti for scene 1 */
-.confetti{position:absolute;width:8px;height:14px;border-radius:2px;}
-
-/* ===== SCENE 2 — MEET THE FELLAS ===== */
-.s2-bg{
-    background:
-        linear-gradient(180deg, #FF8C00 0%, #FFD700 50%, #FFEB3B 100%);
-}
-.s2-bg::before{
-    content:'';position:absolute;inset:0;
-    background-image:
-        repeating-linear-gradient(45deg, rgba(255,255,255,0.04) 0 12px, transparent 12px 24px);
-}
-.s2-fella1{
-    position:absolute;left:18%;bottom:8%;width:26%;height:auto;
-    transform:translateX(-200px);opacity:0;
-}
-.s2-fella2{
-    position:absolute;right:18%;bottom:8%;width:26%;height:auto;
-    transform:translateX(200px);opacity:0;
-}
-.scene.active .s2-fella1{animation:slideInLeft 0.8s cubic-bezier(0.68,-0.55,0.27,1.55) 0.2s forwards, wiggle 1.5s ease-in-out 1s infinite;}
-.scene.active .s2-fella2{animation:slideInRight 0.8s cubic-bezier(0.68,-0.55,0.27,1.55) 0.5s forwards, wiggle 1.5s ease-in-out 1.5s infinite reverse;}
-@keyframes slideInLeft{to{transform:translateX(0);opacity:1;}}
-@keyframes slideInRight{to{transform:translateX(0);opacity:1;}}
-@keyframes wiggle{0%,100%{transform:rotate(-3deg);}50%{transform:rotate(3deg);}}
-
-.s2-headline{
-    position:absolute;top:8%;left:50%;transform:translateX(-50%);
-    font-family:'Luckiest Guy',cursive;
-    font-size:clamp(22px,4vw,52px);
-    color:#fff;-webkit-text-stroke:3px #1a1a1a;
-    text-shadow:0 6px 0 #1a1a1a, 0 8px 12px rgba(0,0,0,0.3);
-    text-align:center;line-height:1;width:90%;
-    opacity:0;
-}
-.scene.active .s2-headline{animation:popIn 0.6s cubic-bezier(0.68,-0.55,0.27,1.55) 1s forwards;}
-@keyframes popIn{0%{transform:translateX(-50%) scale(0);opacity:0;}80%{transform:translateX(-50%) scale(1.1);opacity:1;}100%{transform:translateX(-50%) scale(1);opacity:1;}}
-
-.s2-bubble1{top:30%;left:8%;}
-.s2-bubble2{top:30%;right:8%;}
-.s2-bubble1, .s2-bubble2{opacity:0;}
-.scene.active .s2-bubble1{animation:bubblePop 0.4s cubic-bezier(0.68,-0.55,0.27,1.55) 1.8s forwards;}
-.scene.active .s2-bubble2{animation:bubblePop 0.4s cubic-bezier(0.68,-0.55,0.27,1.55) 2.2s forwards;}
-@keyframes bubblePop{0%{transform:scale(0);opacity:0;}80%{transform:scale(1.2);opacity:1;}100%{transform:scale(1);opacity:1;}}
-
-/* ===== SCENE 3 — SERVICES ===== */
-.s3-bg{background:linear-gradient(135deg,#0A0F1F 0%,#1a1f3a 100%);}
-.s3-grid{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:2%;padding:14%;padding-top:18%;}
-.s3-card{
-    border-radius:20px;
-    display:flex;flex-direction:column;align-items:center;justify-content:center;
-    gap:8px;color:#fff;
-    box-shadow:0 8px 0 rgba(0,0,0,0.3);
-    border:3px solid rgba(255,255,255,0.5);
-    transform:scale(0);opacity:0;
-}
-.s3-card .icon{font-size:clamp(28px,5vw,60px);line-height:1;}
-.s3-card .label{font-family:'Bebas Neue',sans-serif;font-size:clamp(14px,2.5vw,30px);letter-spacing:2px;}
-.s3-c1{background:linear-gradient(135deg,#FF4500,#FF8C00);}
-.s3-c2{background:linear-gradient(135deg,#00D9FF,#9D4EDD);}
-.s3-c3{background:linear-gradient(135deg,#FF1493,#FF4500);}
-.s3-c4{background:linear-gradient(135deg,#9D4EDD,#FF1493);}
-.scene.active .s3-c1{animation:cardPop 0.5s cubic-bezier(0.68,-0.55,0.27,1.55) 0.3s forwards;}
-.scene.active .s3-c2{animation:cardPop 0.5s cubic-bezier(0.68,-0.55,0.27,1.55) 0.6s forwards;}
-.scene.active .s3-c3{animation:cardPop 0.5s cubic-bezier(0.68,-0.55,0.27,1.55) 0.9s forwards;}
-.scene.active .s3-c4{animation:cardPop 0.5s cubic-bezier(0.68,-0.55,0.27,1.55) 1.2s forwards;}
-@keyframes cardPop{0%{transform:scale(0) rotate(-30deg);opacity:0;}80%{transform:scale(1.1) rotate(5deg);opacity:1;}100%{transform:scale(1) rotate(0);opacity:1;}}
-
-.s3-headline{
-    position:absolute;top:5%;left:50%;transform:translateX(-50%);
-    font-family:'Bebas Neue',sans-serif;
-    font-size:clamp(28px,5vw,68px);letter-spacing:3px;
-    background:linear-gradient(135deg,#FFEB3B,#FF8C00,#FF1493);
-    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
-    text-align:center;width:96%;text-shadow:0 0 30px rgba(255,140,0,0.4);
-    opacity:0;
-}
-.scene.active .s3-headline{animation:fadeInDown 0.6s ease 0.1s forwards;}
-@keyframes fadeInDown{from{opacity:0;transform:translateX(-50%) translateY(-20px);}to{opacity:1;transform:translateX(-50%) translateY(0);}}
-
-/* ===== SCENE 4 — TRUCK ROLLS IN + LOADING ===== */
-.s4-bg{background:linear-gradient(180deg,#FFD700 0%,#FF8C00 60%,#0A0F1F 100%);}
-.s4-ground{position:absolute;left:0;right:0;bottom:0;height:18%;background:linear-gradient(180deg,#3a2a1a,#1a1408);border-top:4px solid #5a3825;}
-.s4-road-stripe{position:absolute;left:0;right:0;bottom:8%;height:6px;background:repeating-linear-gradient(90deg,#FFD700 0 40px,transparent 40px 80px);}
-.s4-truck{
-    position:absolute;left:-30%;bottom:14%;width:55%;height:auto;
-}
-.scene.active .s4-truck{animation:truckIn 1.6s cubic-bezier(0.25,0.46,0.45,0.94) 0.3s forwards, truckBounce 0.4s ease-in-out 1.9s infinite;}
-@keyframes truckIn{0%{left:-60%;}80%{left:25%;}100%{left:18%;}}
-@keyframes truckBounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-3px);}}
-
-.s4-fella{
-    position:absolute;right:14%;bottom:14%;width:18%;height:auto;
-    opacity:0;transform:translateY(40px);
-}
-.scene.active .s4-fella{animation:popUp 0.5s cubic-bezier(0.68,-0.55,0.27,1.55) 2s forwards, wiggle 1.2s ease-in-out 2.5s infinite;}
-@keyframes popUp{to{opacity:1;transform:translateY(0);}}
-
-/* Boxes flying into truck */
-.s4-box{
-    position:absolute;width:6%;aspect-ratio:1;
-    background:linear-gradient(135deg,#C4824A,#8E5A30);
-    border:2px solid #5C3818;border-radius:4px;
-    box-shadow:0 4px 0 rgba(0,0,0,0.3);
-}
-.s4-box::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:8%;background:#F2DCA9;}
-.s4-box::after{content:'';position:absolute;left:0;right:0;top:50%;height:8%;background:#F2DCA9;}
-.s4-box-1{right:20%;bottom:14%;animation:boxFly 0.7s ease-in 2.6s infinite;}
-.s4-box-2{right:24%;bottom:14%;animation:boxFly 0.7s ease-in 3.0s infinite;}
-.s4-box-3{right:22%;bottom:14%;animation:boxFly 0.7s ease-in 3.4s infinite;}
+/* Box flying animation */
+.box-fly{position:absolute;width:6%;aspect-ratio:1;background:linear-gradient(135deg,#C4824A,#8E5A30);border:2px solid #5C3818;border-radius:4px;box-shadow:0 4px 0 rgba(0,0,0,0.3);}
+.box-fly::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:8%;background:#F2DCA9;}
+.box-fly::after{content:'';position:absolute;left:0;right:0;top:50%;height:8%;background:#F2DCA9;}
 @keyframes boxFly{
     0%{right:8%;bottom:10%;transform:rotate(0) scale(1);opacity:1;}
     50%{right:35%;bottom:50%;transform:rotate(360deg) scale(0.9);opacity:1;}
     100%{right:50%;bottom:34%;transform:rotate(720deg) scale(0.5);opacity:0;}
 }
+.scene.active .box-anim{animation:boxFly 0.8s ease-in infinite;}
 
-.s4-headline{
-    position:absolute;top:6%;left:50%;transform:translateX(-50%);
-    font-family:'Luckiest Guy',cursive;
-    font-size:clamp(24px,4.5vw,58px);
-    color:#fff;-webkit-text-stroke:4px #1a1a1a;
-    text-shadow:0 6px 0 #1a1a1a;
-    letter-spacing:2px;
-    opacity:0;
+/* Junk items */
+.junk-item{position:absolute;font-size:clamp(28px,4vw,52px);}
+@keyframes junkVanish{
+    0%{opacity:1;transform:scale(1) rotate(0);}
+    100%{opacity:0;transform:scale(0) rotate(720deg) translateY(-100px);}
 }
-.scene.active .s4-headline{animation:popIn 0.5s cubic-bezier(0.68,-0.55,0.27,1.55) 0.6s forwards;}
+.scene.active .junk-anim{animation:junkVanish 1.2s ease-in forwards;}
 
-.s4-zoom{
-    position:absolute;font-family:'Luckiest Guy',cursive;
-    font-size:clamp(20px,3.5vw,42px);
-    color:#FF4500;-webkit-text-stroke:3px #fff;
-    text-shadow:0 4px 0 #1a1a1a;
+/* Snow particles */
+.snow{position:absolute;color:#fff;font-size:clamp(8px,1.4vw,16px);}
+@keyframes snowfall{
+    0%{transform:translateY(-100%) translateX(0);}
+    100%{transform:translateY(110vh) translateX(40px);}
 }
-.s4-zoom-1{top:30%;left:60%;animation:zoomPop 0.6s ease 2.6s infinite;}
-.s4-zoom-2{top:50%;right:40%;animation:zoomPop 0.6s ease 3.0s infinite;}
-@keyframes zoomPop{0%{transform:scale(0) rotate(-20deg);opacity:0;}30%{transform:scale(1.4) rotate(8deg);opacity:1;}80%{transform:scale(1) rotate(0);opacity:1;}100%{transform:scale(0.5);opacity:0;}}
+.snow-anim{animation:snowfall 6s linear infinite;}
 
-/* ===== SCENE 5 — TRUCK DRIVES OFF ===== */
-.s5-bg{background:linear-gradient(180deg,#FF1493 0%, #FF4500 30%, #FFD700 70%, #FFEB3B 100%);}
-.s5-sun{position:absolute;left:50%;top:30%;transform:translate(-50%,-50%);width:30%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,#FFEB3B,#FFD700 60%,transparent);filter:blur(2px);}
-.s5-rays{position:absolute;left:50%;top:30%;width:80%;height:80%;transform:translate(-50%,-50%);
-    background:conic-gradient(from 0deg,transparent 0deg,rgba(255,235,59,0.2) 10deg,transparent 20deg,transparent 30deg,rgba(255,235,59,0.2) 40deg,transparent 50deg,transparent 70deg,rgba(255,235,59,0.2) 80deg,transparent 90deg,transparent 110deg,rgba(255,235,59,0.2) 120deg,transparent 130deg,transparent 150deg,rgba(255,235,59,0.2) 160deg,transparent 170deg);
-    border-radius:50%;
-    animation:spinRays 18s linear infinite;}
-@keyframes spinRays{to{transform:translate(-50%,-50%) rotate(360deg);}}
+/* Sun rays for sunset scenes */
+.sun-rays{position:absolute;left:50%;top:30%;width:80%;height:80%;transform:translate(-50%,-50%);
+    background:conic-gradient(from 0deg,transparent 0deg,rgba(255,235,59,0.2) 10deg,transparent 20deg 30deg,rgba(255,235,59,0.2) 40deg,transparent 50deg 70deg,rgba(255,235,59,0.2) 80deg,transparent 90deg 110deg,rgba(255,235,59,0.2) 120deg,transparent 130deg 150deg,rgba(255,235,59,0.2) 160deg,transparent 170deg);
+    border-radius:50%;animation:spin 18s linear infinite;}
+.sun-disc{position:absolute;left:50%;top:30%;transform:translate(-50%,-50%);width:30%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,#FFEB3B,#FFD700 60%,transparent);filter:blur(2px);}
 
-.s5-ground{position:absolute;left:0;right:0;bottom:0;height:18%;background:linear-gradient(180deg,#3a2a1a,#1a1408);}
-
-.s5-truck{position:absolute;bottom:14%;left:20%;width:50%;height:auto;}
-.scene.active .s5-truck{animation:truckDriveOff 4s linear forwards, truckBounce2 0.3s ease-in-out infinite;}
-@keyframes truckDriveOff{0%{left:20%;}100%{left:120%;}}
-@keyframes truckBounce2{0%,100%{transform:translateY(0);}50%{transform:translateY(-2px);}}
-
-.s5-dust{position:absolute;border-radius:50%;background:rgba(120,80,40,0.5);}
-.s5-dust-1{bottom:18%;left:15%;width:6%;aspect-ratio:1;animation:dust 1.8s ease-out infinite;}
-.s5-dust-2{bottom:16%;left:10%;width:5%;aspect-ratio:1;animation:dust 1.8s ease-out 0.4s infinite;}
-.s5-dust-3{bottom:20%;left:8%;width:4%;aspect-ratio:1;animation:dust 1.8s ease-out 0.8s infinite;}
-@keyframes dust{0%{opacity:0.6;transform:translate(0,0) scale(1);}100%{opacity:0;transform:translate(-150px,-30px) scale(2);}}
-
-.s5-headline{
-    position:absolute;top:8%;left:50%;transform:translateX(-50%);
-    font-family:'Luckiest Guy',cursive;
-    font-size:clamp(28px,5.5vw,72px);
-    color:#fff;-webkit-text-stroke:4px #1a1a1a;
-    text-shadow:0 6px 0 #1a1a1a;
-    letter-spacing:2px;
-    opacity:0;text-align:center;
-}
-.scene.active .s5-headline{animation:popIn 0.5s cubic-bezier(0.68,-0.55,0.27,1.55) 0.4s forwards;}
-
-/* ===== SCENE 6 — TESTIMONIAL ===== */
-.s6-bg{background:linear-gradient(135deg,#0A0F1F 0%,#1a1f3a 50%,#0A0F1F 100%);}
-.s6-bg::before{content:'';position:absolute;inset:0;background-image:
-    repeating-linear-gradient(0deg,rgba(255,215,0,0.04) 0 1px, transparent 1px 30px),
-    repeating-linear-gradient(90deg,rgba(255,215,0,0.04) 0 1px, transparent 1px 30px);}
-
-.s6-stars{position:absolute;top:18%;left:50%;transform:translateX(-50%);
-    font-size:clamp(40px,8vw,90px);letter-spacing:8px;line-height:1;}
-.s6-star{display:inline-block;color:#FFD700;text-shadow:0 0 20px #FFD700;
-    transform:scale(0);}
-.scene.active .s6-star{animation:starPop 0.4s cubic-bezier(0.68,-0.55,0.27,1.55) forwards;}
-.scene.active .s6-star:nth-child(1){animation-delay:0.2s;}
-.scene.active .s6-star:nth-child(2){animation-delay:0.5s;}
-.scene.active .s6-star:nth-child(3){animation-delay:0.8s;}
-.scene.active .s6-star:nth-child(4){animation-delay:1.1s;}
-.scene.active .s6-star:nth-child(5){animation-delay:1.4s;}
-@keyframes starPop{0%{transform:scale(0) rotate(-180deg);}80%{transform:scale(1.3) rotate(20deg);}100%{transform:scale(1) rotate(0);}}
-
-.s6-rating{position:absolute;top:42%;left:50%;transform:translateX(-50%);
-    font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,7vw,90px);letter-spacing:5px;
-    background:linear-gradient(135deg,#FFEB3B,#FF8C00);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
-    opacity:0;}
-.scene.active .s6-rating{animation:fadeInUp 0.6s ease 1.7s forwards;}
-
-.s6-quote{
-    position:absolute;left:50%;top:62%;transform:translateX(-50%);
-    background:#FFD700;color:#1a1a1a;
-    padding:14px 28px;border-radius:14px;
-    font-family:'Luckiest Guy',cursive;font-size:clamp(14px,2.4vw,28px);
-    box-shadow:0 8px 0 #B8860B;
-    border:3px solid #1a1a1a;
-    white-space:nowrap;
-    opacity:0;
-}
-.scene.active .s6-quote{animation:popIn 0.5s cubic-bezier(0.68,-0.55,0.27,1.55) 2.2s forwards;}
-
-.s6-author{position:absolute;left:50%;top:80%;transform:translateX(-50%);
-    color:#FFD700;font-family:'Bebas Neue',sans-serif;font-size:clamp(14px,2.4vw,26px);letter-spacing:3px;
-    opacity:0;}
-.scene.active .s6-author{animation:fadeInUp 0.5s ease 2.7s forwards;}
-
-/* ===== SCENE 7 — CTA ===== */
-.s7-bg{background:radial-gradient(ellipse at center,#FF4500 0%,#0A0F1F 100%);}
-
-.s7-logo{position:absolute;top:6%;left:50%;transform:translateX(-50%);
-    width:18%;aspect-ratio:1;
-    filter:drop-shadow(0 0 20px rgba(255,140,0,0.7));
-    opacity:0;}
-.scene.active .s7-logo{animation:fadeInUp 0.5s ease 0.2s forwards, bobLogo2 2s ease-in-out 0.7s infinite;}
-@keyframes bobLogo2{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(-6px);}}
-
-.s7-phone{position:absolute;top:30%;left:50%;transform:translateX(-50%) scale(0);
-    font-family:'Bebas Neue',sans-serif;font-size:clamp(40px,9vw,120px);
-    background:linear-gradient(135deg,#FFEB3B,#FF8C00,#FF4500,#FF1493);
-    background-size:200% 200%;
+/* CTA pieces (used in last scene of every episode) */
+.cta-phone{font-family:'Bebas Neue',sans-serif;font-size:clamp(40px,9vw,120px);
+    background:linear-gradient(135deg,#FFEB3B,#FF8C00,#FF4500,#FF1493);background-size:200% 200%;
     -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
     letter-spacing:3px;text-shadow:0 0 40px rgba(255,140,0,0.7);
-    white-space:nowrap;
-    animation:bgShift 3s ease-in-out infinite;}
-.scene.active .s7-phone{animation:phoneIn 0.6s cubic-bezier(0.68,-0.55,0.27,1.55) 0.6s forwards, bgShift 3s ease-in-out 1.2s infinite;}
-@keyframes phoneIn{to{transform:translateX(-50%) scale(1);}}
-@keyframes bgShift{0%,100%{background-position:0% 50%;}50%{background-position:100% 50%;}}
-
-.s7-cta{
-    position:absolute;top:55%;left:50%;
-    transform:translateX(-50%) scale(0);
-    background:linear-gradient(135deg,#FFD700,#FF4500);
-    color:#1a1a1a;
-    font-family:'Luckiest Guy',cursive;
-    font-size:clamp(20px,3.5vw,42px);
-    padding:14px 36px;
-    border-radius:50px;
-    border:4px solid #1a1a1a;
-    box-shadow:0 8px 0 rgba(0,0,0,0.6);
-    letter-spacing:2px;
-    text-decoration:none;
+    animation:bgShift 3s ease-in-out infinite;white-space:nowrap;}
+.cta-btn{
+    background:linear-gradient(135deg,#FFD700,#FF4500);color:#1a1a1a;
+    font-family:'Luckiest Guy',cursive;font-size:clamp(20px,3.5vw,42px);
+    padding:14px 36px;border-radius:50px;border:4px solid #1a1a1a;
+    box-shadow:0 8px 0 rgba(0,0,0,0.6);letter-spacing:2px;text-decoration:none;display:inline-block;
 }
-.scene.active .s7-cta{animation:phoneIn 0.6s cubic-bezier(0.68,-0.55,0.27,1.55) 1s forwards, ctaPulse 1.5s ease-in-out 1.6s infinite;}
-@keyframes ctaPulse{0%,100%{transform:translateX(-50%) scale(1);}50%{transform:translateX(-50%) scale(1.06);}}
+.cta-btn-pulse{animation:pulse 1.5s ease-in-out infinite;}
 
-.s7-url{
-    position:absolute;bottom:14%;left:50%;transform:translateX(-50%);
-    font-family:'Bebas Neue',sans-serif;
-    font-size:clamp(14px,2.4vw,26px);letter-spacing:3px;color:#FFD700;
-    opacity:0;
-}
-.scene.active .s7-url{animation:fadeInUp 0.5s ease 1.4s forwards;}
+/* Stars row */
+.stars-row{font-size:clamp(40px,8vw,90px);letter-spacing:8px;line-height:1;}
+.stars-row .star{display:inline-block;color:#FFD700;text-shadow:0 0 20px #FFD700;transform:scale(0);}
+.scene.active .stars-row .star{animation:popIn 0.4s cubic-bezier(0.68,-0.55,0.27,1.55) forwards;}
+.scene.active .stars-row .star:nth-child(1){animation-delay:0.2s;}
+.scene.active .stars-row .star:nth-child(2){animation-delay:0.5s;}
+.scene.active .stars-row .star:nth-child(3){animation-delay:0.8s;}
+.scene.active .stars-row .star:nth-child(4){animation-delay:1.1s;}
+.scene.active .stars-row .star:nth-child(5){animation-delay:1.4s;}
 
-.s7-tagline{
-    position:absolute;bottom:6%;left:50%;transform:translateX(-50%);
-    font-family:'Bebas Neue',sans-serif;
-    font-size:clamp(12px,2vw,20px);letter-spacing:5px;color:#fff;opacity:0.7;
-}
-.scene.active .s7-tagline{animation:fadeInUp 0.5s ease 1.6s forwards;}
+/* Confetti */
+.confetti{position:absolute;width:8px;height:14px;border-radius:2px;animation:bob 3s ease-in-out infinite;}
 
-.s7-fella{
-    position:absolute;bottom:8%;right:5%;width:14%;height:auto;
-    opacity:0;transform:translateY(40px);
-}
-.scene.active .s7-fella{animation:popUp 0.5s cubic-bezier(0.68,-0.55,0.27,1.55) 1.8s forwards, wiggle 1.5s ease-in-out 2.3s infinite;}
+/* Episode tag + watermark */
+.episode-tag{position:absolute;top:14px;left:14px;color:#FFD700;font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:14px;background:rgba(0,0,0,0.4);padding:4px 10px;border-radius:12px;backdrop-filter:blur(6px);z-index:10;}
+.brand-watermark{position:absolute;top:14px;right:14px;color:#FFD700;font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:14px;opacity:0.7;z-index:10;}
 
-/* ===== CONTROLS ===== */
-.controls{
-    margin-top:18px;display:flex;flex-wrap:wrap;gap:10px;justify-content:center;align-items:center;
-}
+/* Scene indicator + progress */
+.scene-indicator{position:absolute;bottom:14px;left:14px;color:rgba(255,255,255,0.6);font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:14px;background:rgba(0,0,0,0.4);padding:4px 10px;border-radius:12px;backdrop-filter:blur(6px);z-index:10;}
+.progress-bar{position:absolute;left:0;right:0;bottom:0;height:4px;background:rgba(255,255,255,0.1);z-index:10;}
+.progress-fill{height:100%;background:linear-gradient(90deg,#FFD700,#FF4500,#FF1493);width:0%;transition:width 0.1s linear;}
+
+/* Controls */
+.controls{margin-top:18px;display:flex;flex-wrap:wrap;gap:10px;justify-content:center;align-items:center;}
 .btn{
-    background:linear-gradient(135deg,#FFD700,#FF4500);
-    color:#1a1a1a;border:none;
+    background:linear-gradient(135deg,#FFD700,#FF4500);color:#1a1a1a;border:none;
     padding:12px 24px;border-radius:50px;
-    font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;
-    cursor:pointer;font-weight:bold;
-    box-shadow:0 6px 18px rgba(255,69,0,0.4);
-    transition:transform 0.2s;
+    font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;cursor:pointer;font-weight:bold;
+    box-shadow:0 6px 18px rgba(255,69,0,0.4);transition:transform 0.2s;
 }
 .btn:hover{transform:translateY(-2px);}
 .btn:active{transform:translateY(1px);}
 .btn.secondary{background:linear-gradient(135deg,#00D9FF,#9D4EDD);color:#fff;}
 .btn.muted{background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,215,0,0.4);box-shadow:none;}
 
-.scene-indicator{
-    position:absolute;bottom:14px;left:14px;
-    color:rgba(255,255,255,0.6);font-family:'Bebas Neue',sans-serif;letter-spacing:2px;
-    font-size:14px;background:rgba(0,0,0,0.4);padding:4px 10px;border-radius:12px;
-    backdrop-filter:blur(6px);
-}
-.progress-bar{position:absolute;left:0;right:0;bottom:0;height:4px;background:rgba(255,255,255,0.1);}
-.progress-fill{height:100%;background:linear-gradient(90deg,#FFD700,#FF4500,#FF1493);width:0%;transition:width 0.1s linear;}
-
-.episode-tag{
-    position:absolute;top:14px;left:14px;
-    color:#FFD700;font-family:'Bebas Neue',sans-serif;letter-spacing:2px;
-    font-size:14px;background:rgba(0,0,0,0.4);padding:4px 10px;border-radius:12px;
-    backdrop-filter:blur(6px);z-index:10;
-}
-
-.brand-watermark{
-    position:absolute;top:14px;right:14px;
-    color:#FFD700;font-family:'Bebas Neue',sans-serif;letter-spacing:2px;
-    font-size:14px;opacity:0.7;z-index:10;
-}
-
-.title-area{
-    text-align:center;margin-bottom:18px;
-}
-.title-area h1{
-    font-family:'Bebas Neue',sans-serif;
-    font-size:clamp(28px,4vw,48px);letter-spacing:3px;margin:0 0 6px;
-    background:linear-gradient(135deg,#FFEB3B,#FF8C00,#FF4500,#FF1493);
-    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
-}
-.title-area p{margin:0;color:#FFD700;font-family:'Bebas Neue',sans-serif;letter-spacing:4px;font-size:14px;}
-
-footer{margin-top:18px;color:rgba(255,255,255,0.5);font-size:12px;text-align:center;}
+footer{margin-top:18px;color:rgba(255,255,255,0.5);font-size:12px;text-align:center;max-width:96vw;}
 footer a{color:#FFD700;text-decoration:none;}
+
+/* Mascots & truck position helpers */
+.mascot{position:absolute;}
+.m-left{left:8%;bottom:8%;width:24%;}
+.m-right{right:8%;bottom:8%;width:24%;}
+.m-center{left:50%;bottom:8%;width:24%;transform:translateX(-50%);}
+.m-back-load{right:14%;bottom:14%;width:18%;}
+.truck-pos{position:absolute;}
 
 @media (max-width:640px){
     .controls .btn{padding:10px 16px;font-size:14px;}
+    .ep-tab{padding:6px 10px;font-size:12px;}
 }
+
+/* Sound unlock overlay */
+.sound-overlay{
+    position:absolute;inset:0;z-index:50;
+    background:rgba(0,0,0,0.7);backdrop-filter:blur(8px);
+    display:flex;align-items:center;justify-content:center;
+    cursor:pointer;
+    transition:opacity 0.4s ease;
+}
+.sound-overlay.hidden{opacity:0;pointer-events:none;}
+.sound-card{
+    background:linear-gradient(135deg,#FFD700 0%,#FF4500 50%,#FF1493 100%);
+    background-size:200% 200%;
+    animation:bgShift 3s ease-in-out infinite;
+    padding:36px 50px;border-radius:24px;
+    border:4px solid #1a1a1a;
+    box-shadow:0 20px 60px rgba(255,69,0,0.6);
+    text-align:center;color:#1a1a1a;
+    transform:scale(1);
+    animation:pulse 2s ease-in-out infinite, bgShift 3s ease-in-out infinite;
+}
+.speaker-icon{font-size:clamp(60px,10vw,110px);line-height:1;margin-bottom:8px;animation:wiggle 1s ease-in-out infinite;}
+.sound-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(20px,3.5vw,38px);letter-spacing:3px;margin-bottom:6px;}
+.sound-sub{font-family:'Fredoka',sans-serif;font-size:clamp(13px,1.8vw,18px);opacity:0.8;}
 </style>
 </head>
 <body>
 
 <div class="title-area">
-    <h1>FIRE FELLAS — ANIMATED SERIES</h1>
-    <p>EPISODE 1 · MOVING DAY 🔥</p>
+    <h1>FIRE FELLAS — ANIMATED SERIES 🔥</h1>
+    <p>5 EPISODES · CALGARY MULTI-SERVICE PROS</p>
+</div>
+
+<div class="ep-tabs" id="epTabs">
+    <button class="ep-tab active" data-ep="1"><span class="num">1</span>MOVING DAY 🚚</button>
+    <button class="ep-tab" data-ep="2"><span class="num">2</span>JUNK REMOVAL ♻️</button>
+    <button class="ep-tab" data-ep="3"><span class="num">3</span>CONSTRUCTION 🔨</button>
+    <button class="ep-tab" data-ep="4"><span class="num">4</span>SNOW DAY ❄️</button>
+    <button class="ep-tab" data-ep="5"><span class="num">5</span>ESTATE 💛</button>
 </div>
 
 <div class="stage-wrap">
-    <div class="episode-tag">EP. 01 · MOVING DAY</div>
+    <div class="episode-tag" id="epTag">EP. 01 · MOVING DAY</div>
     <div class="brand-watermark">@firefellascalgary</div>
 
-    <div class="stage" id="stage">
+    <div class="stage" id="stage"></div>
 
-        <!-- ========== SCENE 1: TITLE ========== -->
-        <section class="scene scene-1" id="scene-1">
-            <div class="bg s1-bg"></div>
-            <div class="bg s1-stars"></div>
-
-            <!-- confetti -->
-            <div class="confetti" style="top:10%;left:15%;background:#FFD700;animation:confetti1 3s ease-in-out infinite;"></div>
-            <div class="confetti" style="top:80%;left:80%;background:#FF1493;animation:confetti1 3s ease-in-out 0.5s infinite;"></div>
-            <div class="confetti" style="top:30%;left:90%;background:#00D9FF;animation:confetti1 3s ease-in-out 1s infinite;"></div>
-            <div class="confetti" style="top:70%;left:8%;background:#A6FF00;animation:confetti1 3s ease-in-out 1.5s infinite;"></div>
-
-            <svg class="center s1-logo" viewBox="0 0 240 240"><use href="#fellaBadge"/></svg>
-            <div class="s1-title">FIRE FELLAS CALGARY</div>
-            <div class="s1-sub">MULTI-SERVICE PROS 🔥</div>
-        </section>
-
-        <!-- ========== SCENE 2: MEET THE FELLAS ========== -->
-        <section class="scene scene-2" id="scene-2">
-            <div class="bg s2-bg"></div>
-            <div class="s2-headline">MEET YOUR<br>CALGARY FIRE FELLAS!</div>
-            <svg class="s2-fella1" viewBox="0 0 240 320"><use href="#fella"/></svg>
-            <svg class="s2-fella2" viewBox="0 0 260 320"><use href="#fellaWave"/></svg>
-            <div class="bubble left s2-bubble1" style="background:#fff;color:#FF4500;">HEY CALGARY! 👋</div>
-            <div class="bubble right s2-bubble2" style="background:#fff;color:#FF4500;">WE GOT YOU! 💪</div>
-        </section>
-
-        <!-- ========== SCENE 3: WE DO IT ALL ========== -->
-        <section class="scene scene-3" id="scene-3">
-            <div class="bg s3-bg"></div>
-            <div class="s3-headline">WE DO IT ALL.</div>
-            <div class="s3-grid">
-                <div class="s3-card s3-c1"><div class="icon">🚚</div><div class="label">MOVING</div></div>
-                <div class="s3-card s3-c2"><div class="icon">♻️</div><div class="label">JUNK REMOVAL</div></div>
-                <div class="s3-card s3-c3"><div class="icon">🔨</div><div class="label">HAULING</div></div>
-                <div class="s3-card s3-c4"><div class="icon">❄️</div><div class="label">SNOW</div></div>
-            </div>
-        </section>
-
-        <!-- ========== SCENE 4: TRUCK ROLLS IN + LOADING ========== -->
-        <section class="scene scene-4" id="scene-4">
-            <div class="bg s4-bg"></div>
-            <div class="s4-ground"></div>
-            <div class="s4-road-stripe"></div>
-            <div class="s4-headline">PACK · LIFT · DELIVER</div>
-
-            <!-- Cartoon truck (inline SVG) -->
-            <svg class="s4-truck" viewBox="0 0 400 200">
-                <use href="#flameTruck"/>
-            </svg>
-
-            <svg class="s4-fella" viewBox="0 0 280 320"><use href="#fellaMover"/></svg>
-
-            <div class="s4-box s4-box-1"></div>
-            <div class="s4-box s4-box-2"></div>
-            <div class="s4-box s4-box-3"></div>
-
-            <div class="s4-zoom s4-zoom-1">ZOOM!</div>
-            <div class="s4-zoom s4-zoom-2">WHOOSH!</div>
-        </section>
-
-        <!-- ========== SCENE 5: TRUCK DRIVES OFF ========== -->
-        <section class="scene scene-5" id="scene-5">
-            <div class="bg s5-bg"></div>
-            <div class="s5-rays"></div>
-            <div class="s5-sun"></div>
-            <div class="s5-ground"></div>
-
-            <div class="s5-headline">DELIVERED<br>WITH FIRE 🔥</div>
-
-            <div class="s5-dust s5-dust-1"></div>
-            <div class="s5-dust s5-dust-2"></div>
-            <div class="s5-dust s5-dust-3"></div>
-
-            <svg class="s5-truck" viewBox="0 0 400 200">
-                <use href="#flameTruckLoaded"/>
-            </svg>
-        </section>
-
-        <!-- ========== SCENE 6: 5 STARS ========== -->
-        <section class="scene scene-6" id="scene-6">
-            <div class="bg s6-bg"></div>
-            <div class="s6-stars">
-                <span class="s6-star">★</span>
-                <span class="s6-star">★</span>
-                <span class="s6-star">★</span>
-                <span class="s6-star">★</span>
-                <span class="s6-star">★</span>
-            </div>
-            <div class="s6-rating">500+ HAPPY CALGARIANS</div>
-            <div class="s6-quote">"BEST MOVERS IN CALGARY!"</div>
-            <div class="s6-author">— JASON M. · TUSCANY</div>
-        </section>
-
-        <!-- ========== SCENE 7: CALL TO ACTION ========== -->
-        <section class="scene scene-7" id="scene-7">
-            <div class="bg s7-bg"></div>
-            <svg class="s7-logo" viewBox="0 0 240 240"><use href="#fellaBadge"/></svg>
-            <div class="s7-phone">📞 (368) 299-7792</div>
-            <a class="s7-cta" href="https://pamandeepsinghdfl-hash.github.io/firefellascalgary/" target="_blank">GET FREE QUOTE 🔥</a>
-            <div class="s7-url">FIREFELLASCALGARY.COM</div>
-            <div class="s7-tagline">MOVING IT · HAULING IT · CLEARING IT</div>
-            <svg class="s7-fella" viewBox="0 0 260 320"><use href="#fellaWave"/></svg>
-        </section>
-
+    <!-- Sound unlock overlay (browsers block audio until first click) -->
+    <div class="sound-overlay" id="soundOverlay">
+        <div class="sound-card">
+            <div class="speaker-icon">🔊</div>
+            <div class="sound-title">CLICK TO START WITH SOUND</div>
+            <div class="sound-sub">(or it'll play silent)</div>
+        </div>
     </div>
 
     <div class="scene-indicator" id="sceneInd">SCENE 1 / 7</div>
@@ -580,10 +347,10 @@ footer a{color:#FFD700;text-decoration:none;}
 
 <footer>
     <p>Fire Fellas Calgary · <a href="tel:+13682997792">(368) 299-7792</a> · <a href="mailto:firefellasmoving@gmail.com">firefellasmoving@gmail.com</a></p>
-    <p>Animated cartoon — share on Instagram, TikTok, Facebook. Click "Record MP4" to download the clip.</p>
+    <p>Each episode loops automatically. Click "Record MP4" to capture a clip for Instagram, TikTok, Facebook, or YouTube Shorts.</p>
 </footer>
 
-<!-- ========== SVG MASCOT + TRUCK SYMBOLS ========== -->
+<!-- ========== SVG MASCOT + TRUCK + ICON SYMBOLS ========== -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
 <defs>
     <linearGradient id="shirtGrad" x1="0" y1="0" x2="0" y2="1">
@@ -602,7 +369,7 @@ footer a{color:#FFD700;text-decoration:none;}
         <stop offset="0%" stop-color="#FF8C00"/><stop offset="55%" stop-color="#E04F00"/><stop offset="100%" stop-color="#3a0a00"/>
     </radialGradient>
 
-    <!-- Cartoon Guy: Standing/Smiling -->
+    <!-- Fella: Standing/Smiling -->
     <symbol id="fella" viewBox="0 0 240 320">
         <ellipse cx="120" cy="305" rx="80" ry="6" fill="rgba(0,0,0,0.4)"/>
         <path d="M55 200 Q60 175 95 173 L145 173 Q180 175 185 200 L200 305 L40 305 Z" fill="url(#shirtGrad)" stroke="#3D1A00" stroke-width="2"/>
@@ -616,7 +383,6 @@ footer a{color:#FFD700;text-decoration:none;}
         <ellipse cx="120" cy="110" rx="58" ry="62" fill="#FBC9A6" stroke="#3D1A00" stroke-width="1.5"/>
         <path d="M62 90 Q55 45 95 40 Q102 18 132 25 Q155 10 175 30 Q195 30 188 75 Q180 95 175 90 Q170 75 155 72 Q145 70 135 78 Q125 65 110 73 Q95 68 82 78 Q72 85 65 95 Q58 100 62 90 Z" fill="url(#hairGrad)" stroke="#3D1A00" stroke-width="1.2"/>
         <path d="M115 28 Q128 12 145 28 Q150 45 132 50 Q120 45 115 28 Z" fill="#5E2C0F"/>
-        <path d="M85 55 Q105 45 125 55" stroke="#A0521B" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.7"/>
         <path d="M82 92 Q98 86 115 93" stroke="#3D1A00" stroke-width="5" fill="none" stroke-linecap="round"/>
         <path d="M125 93 Q142 86 158 92" stroke="#3D1A00" stroke-width="5" fill="none" stroke-linecap="round"/>
         <ellipse cx="100" cy="113" rx="7" ry="9" fill="#fff"/>
@@ -625,7 +391,6 @@ footer a{color:#FFD700;text-decoration:none;}
         <ellipse cx="141" cy="116" rx="4" ry="6" fill="#1A0E00"/>
         <circle cx="103" cy="113" r="2" fill="#fff"/>
         <circle cx="143" cy="113" r="2" fill="#fff"/>
-        <path d="M120 125 Q116 140 124 142" stroke="#C68B6F" stroke-width="2.5" fill="none" stroke-linecap="round"/>
         <ellipse cx="78" cy="138" rx="11" ry="6" fill="#FF8870" opacity="0.55"/>
         <ellipse cx="162" cy="138" rx="11" ry="6" fill="#FF8870" opacity="0.55"/>
         <path d="M88 150 Q120 188 152 150 Q120 175 88 150 Z" fill="#3D1A00"/>
@@ -633,7 +398,7 @@ footer a{color:#FFD700;text-decoration:none;}
         <ellipse cx="120" cy="170" rx="13" ry="4" fill="#FF6B6B"/>
     </symbol>
 
-    <!-- Cartoon Guy: Mover (holding box) -->
+    <!-- Fella: Mover (holding box) -->
     <symbol id="fellaMover" viewBox="0 0 280 320">
         <ellipse cx="140" cy="305" rx="100" ry="6" fill="rgba(0,0,0,0.4)"/>
         <path d="M75 200 Q80 175 115 173 L165 173 Q200 175 205 200 L220 305 L60 305 Z" fill="url(#shirtGrad)" stroke="#3D1A00" stroke-width="2"/>
@@ -666,7 +431,7 @@ footer a{color:#FFD700;text-decoration:none;}
         <ellipse cx="140" cy="170" rx="13" ry="4" fill="#FF6B6B"/>
     </symbol>
 
-    <!-- Cartoon Guy: Thumbs Up + Wink -->
+    <!-- Fella: Thumbs Up + Wink -->
     <symbol id="fellaWave" viewBox="0 0 260 320">
         <ellipse cx="130" cy="305" rx="85" ry="6" fill="rgba(0,0,0,0.4)"/>
         <path d="M65 200 Q70 175 105 173 L155 173 Q190 175 195 200 L210 305 L50 305 Z" fill="url(#shirtGrad)" stroke="#3D1A00" stroke-width="2"/>
@@ -676,7 +441,6 @@ footer a{color:#FFD700;text-decoration:none;}
         <path d="M180 215 Q220 200 230 155 Q232 130 240 125 Q248 128 246 145 Q244 180 220 210 Q205 225 185 222 Z" fill="url(#shirtGrad)" stroke="#3D1A00" stroke-width="1.5"/>
         <path d="M232 145 Q228 120 238 105 Q248 100 252 115 L248 145 Z" fill="#FBC9A6"/>
         <ellipse cx="240" cy="103" rx="14" ry="14" fill="#FBC9A6" stroke="#3D1A00" stroke-width="1.2"/>
-        <path d="M232 100 L232 110 M236 99 L236 112 M241 99 L241 112 M246 99 L246 110" stroke="#D89875" stroke-width="1.5" stroke-linecap="round"/>
         <ellipse cx="234" cy="80" rx="8" ry="14" fill="#FBC9A6" stroke="#3D1A00" stroke-width="1.2"/>
         <rect x="115" y="155" width="30" height="22" fill="#FBC9A6"/>
         <ellipse cx="130" cy="178" rx="20" ry="6" fill="#E0A985"/>
@@ -696,72 +460,85 @@ footer a{color:#FFD700;text-decoration:none;}
         <ellipse cx="130" cy="171" rx="13" ry="4" fill="#FF6B6B"/>
     </symbol>
 
-    <!-- Cartoon flame truck (empty) -->
+    <!-- Fella: with broom (clear/snow) -->
+    <symbol id="fellaBroom" viewBox="0 0 290 320">
+        <ellipse cx="125" cy="305" rx="85" ry="6" fill="rgba(0,0,0,0.4)"/>
+        <path d="M60 200 Q65 175 100 173 L150 173 Q185 175 190 200 L205 305 L45 305 Z" fill="url(#shirtGrad)" stroke="#3D1A00" stroke-width="2"/>
+        <path d="M98 178 Q125 195 152 178 L148 188 Q125 200 102 188 Z" fill="#B33800"/>
+        <path d="M55 215 Q40 245 55 290 Q65 295 75 290 Q75 250 85 218 Z" fill="url(#shirtGrad)" stroke="#3D1A00" stroke-width="1.5"/>
+        <ellipse cx="60" cy="290" rx="13" ry="11" fill="#FBC9A6" stroke="#3D1A00" stroke-width="1.2"/>
+        <path d="M185 215 Q210 215 220 235 Q220 250 200 245 L175 220 Z" fill="url(#shirtGrad)" stroke="#3D1A00" stroke-width="1.5"/>
+        <ellipse cx="208" cy="240" rx="13" ry="12" fill="#FBC9A6" stroke="#3D1A00" stroke-width="1.2"/>
+        <line x1="208" y1="235" x2="262" y2="115" stroke="#7A4A20" stroke-width="7" stroke-linecap="round"/>
+        <path d="M250 105 L278 110 L272 145 L244 138 Z" fill="#FFD700" stroke="#B8860B" stroke-width="1.5"/>
+        <line x1="252" y1="110" x2="248" y2="140" stroke="#B8860B" stroke-width="1"/>
+        <line x1="258" y1="111" x2="255" y2="142" stroke="#B8860B" stroke-width="1"/>
+        <line x1="264" y1="112" x2="262" y2="143" stroke="#B8860B" stroke-width="1"/>
+        <line x1="270" y1="112" x2="268" y2="144" stroke="#B8860B" stroke-width="1"/>
+        <rect x="110" y="155" width="30" height="22" fill="#FBC9A6"/>
+        <ellipse cx="125" cy="178" rx="20" ry="6" fill="#E0A985"/>
+        <ellipse cx="125" cy="110" rx="58" ry="62" fill="#FBC9A6" stroke="#3D1A00" stroke-width="1.5"/>
+        <path d="M67 90 Q60 45 100 40 Q107 18 137 25 Q160 10 180 30 Q200 30 193 75 Q185 95 180 90 Q175 75 160 72 Q150 70 140 78 Q130 65 115 73 Q100 68 87 78 Q77 85 70 95 Q63 100 67 90 Z" fill="url(#hairGrad)" stroke="#3D1A00" stroke-width="1.2"/>
+        <path d="M120 28 Q133 12 150 28 Q155 45 137 50 Q125 45 120 28 Z" fill="#5E2C0F"/>
+        <path d="M87 92 Q103 86 120 93" stroke="#3D1A00" stroke-width="5" fill="none" stroke-linecap="round"/>
+        <path d="M130 93 Q147 86 163 92" stroke="#3D1A00" stroke-width="5" fill="none" stroke-linecap="round"/>
+        <ellipse cx="105" cy="113" rx="7" ry="9" fill="#fff"/>
+        <ellipse cx="145" cy="113" rx="7" ry="9" fill="#fff"/>
+        <ellipse cx="106" cy="116" rx="4" ry="6" fill="#1A0E00"/>
+        <ellipse cx="146" cy="116" rx="4" ry="6" fill="#1A0E00"/>
+        <ellipse cx="83" cy="138" rx="11" ry="6" fill="#FF8870" opacity="0.45"/>
+        <ellipse cx="167" cy="138" rx="11" ry="6" fill="#FF8870" opacity="0.45"/>
+        <path d="M93 150 Q125 188 157 150 Q125 175 93 150 Z" fill="#3D1A00"/>
+        <path d="M98 154 Q125 175 152 154 L148 162 Q125 168 102 162 Z" fill="#fff"/>
+        <ellipse cx="125" cy="170" rx="13" ry="4" fill="#FF6B6B"/>
+    </symbol>
+
+    <!-- Empty Truck -->
     <symbol id="flameTruck" viewBox="0 0 400 200">
         <ellipse cx="200" cy="180" rx="160" ry="6" fill="rgba(0,0,0,0.3)"/>
-        <!-- cargo box -->
         <rect x="20" y="55" width="220" height="105" fill="url(#truckBody)" stroke="#3D1A00" stroke-width="3" rx="4"/>
-        <!-- flame stripes -->
         <path d="M30 110 Q45 85 60 110 Q75 85 90 110 Q105 85 120 110 Q135 85 150 110 Q165 85 180 110 Q195 85 210 110 Q225 85 240 110 L235 130 Q210 120 180 130 Q150 120 120 130 Q90 120 60 130 Q40 120 30 130 Z" fill="#FFD700" opacity="0.95"/>
         <text x="130" y="90" text-anchor="middle" font-family="Bebas Neue, sans-serif" font-size="22" fill="#fff" font-weight="bold" letter-spacing="2">FIRE FELLAS</text>
-        <!-- cab -->
         <path d="M240 80 L320 80 L335 130 L335 160 L240 160 Z" fill="url(#truckBody)" stroke="#3D1A00" stroke-width="3"/>
-        <!-- window -->
         <path d="M248 86 L312 86 L325 130 L248 130 Z" fill="#88BBFF" stroke="#3D1A00" stroke-width="2"/>
         <line x1="280" y1="86" x2="280" y2="130" stroke="#3D1A00" stroke-width="1.5"/>
-        <!-- grille -->
         <rect x="335" y="135" width="20" height="25" fill="#222" stroke="#3D1A00" stroke-width="2"/>
-        <rect x="338" y="140" width="14" height="2" fill="#666"/>
-        <rect x="338" y="145" width="14" height="2" fill="#666"/>
-        <rect x="338" y="150" width="14" height="2" fill="#666"/>
-        <!-- headlight -->
         <circle cx="350" cy="115" r="6" fill="#FFEB3B" stroke="#3D1A00" stroke-width="1.5"/>
-        <!-- exhaust pipes -->
         <rect x="252" y="40" width="6" height="40" fill="#888" stroke="#3D1A00" stroke-width="1.2"/>
         <rect x="262" y="40" width="6" height="40" fill="#888" stroke="#3D1A00" stroke-width="1.2"/>
-        <!-- wheels -->
         <circle cx="80" cy="170" r="22" fill="#1a1a1a" stroke="#3D1A00" stroke-width="3"/>
         <circle cx="80" cy="170" r="10" fill="#FFD700" stroke="#3D1A00" stroke-width="1.5"/>
         <circle cx="180" cy="170" r="22" fill="#1a1a1a" stroke="#3D1A00" stroke-width="3"/>
         <circle cx="180" cy="170" r="10" fill="#FFD700" stroke="#3D1A00" stroke-width="1.5"/>
         <circle cx="300" cy="170" r="22" fill="#1a1a1a" stroke="#3D1A00" stroke-width="3"/>
         <circle cx="300" cy="170" r="10" fill="#FFD700" stroke="#3D1A00" stroke-width="1.5"/>
-        <!-- bumper -->
         <rect x="330" y="155" width="35" height="8" fill="#222" stroke="#3D1A00" stroke-width="1.5" rx="2"/>
     </symbol>
 
-    <!-- Cartoon flame truck loaded with boxes -->
+    <!-- Truck loaded with boxes -->
     <symbol id="flameTruckLoaded" viewBox="0 0 400 220">
         <ellipse cx="200" cy="200" rx="160" ry="6" fill="rgba(0,0,0,0.3)"/>
-        <!-- cargo box (open top) -->
         <rect x="20" y="65" width="220" height="105" fill="url(#truckBody)" stroke="#3D1A00" stroke-width="3" rx="4"/>
-        <!-- boxes piled inside -->
         <rect x="25" y="20" width="36" height="48" fill="url(#boxGrad)" stroke="#5C3818" stroke-width="2" rx="2"/>
         <rect x="65" y="35" width="40" height="32" fill="url(#boxGrad)" stroke="#5C3818" stroke-width="2" rx="2"/>
         <rect x="110" y="25" width="44" height="42" fill="url(#boxGrad)" stroke="#5C3818" stroke-width="2" rx="2"/>
         <rect x="158" y="40" width="36" height="28" fill="url(#boxGrad)" stroke="#5C3818" stroke-width="2" rx="2"/>
         <rect x="198" y="30" width="40" height="38" fill="url(#boxGrad)" stroke="#5C3818" stroke-width="2" rx="2"/>
-        <!-- box tape lines -->
         <line x1="43" y1="20" x2="43" y2="68" stroke="#F2DCA9" stroke-width="3"/>
         <line x1="85" y1="35" x2="85" y2="67" stroke="#F2DCA9" stroke-width="3"/>
         <line x1="132" y1="25" x2="132" y2="67" stroke="#F2DCA9" stroke-width="3"/>
         <line x1="218" y1="30" x2="218" y2="68" stroke="#F2DCA9" stroke-width="3"/>
-        <!-- flame stripes -->
         <path d="M30 120 Q45 95 60 120 Q75 95 90 120 Q105 95 120 120 Q135 95 150 120 Q165 95 180 120 Q195 95 210 120 Q225 95 240 120 L235 140 Q210 130 180 140 Q150 130 120 140 Q90 130 60 140 Q40 130 30 140 Z" fill="#FFD700" opacity="0.95"/>
         <text x="130" y="100" text-anchor="middle" font-family="Bebas Neue, sans-serif" font-size="20" fill="#fff" font-weight="bold" letter-spacing="2">FIRE FELLAS</text>
-        <!-- cab -->
         <path d="M240 90 L320 90 L335 140 L335 170 L240 170 Z" fill="url(#truckBody)" stroke="#3D1A00" stroke-width="3"/>
         <path d="M248 96 L312 96 L325 140 L248 140 Z" fill="#88BBFF" stroke="#3D1A00" stroke-width="2"/>
-        <line x1="280" y1="96" x2="280" y2="140" stroke="#3D1A00" stroke-width="1.5"/>
         <rect x="335" y="145" width="20" height="25" fill="#222" stroke="#3D1A00" stroke-width="2"/>
         <circle cx="350" cy="125" r="6" fill="#FFEB3B" stroke="#3D1A00" stroke-width="1.5"/>
         <rect x="252" y="50" width="6" height="40" fill="#888" stroke="#3D1A00" stroke-width="1.2"/>
         <rect x="262" y="50" width="6" height="40" fill="#888" stroke="#3D1A00" stroke-width="1.2"/>
-        <!-- exhaust smoke -->
         <circle cx="255" cy="40" r="6" fill="#666" opacity="0.6"/>
         <circle cx="265" cy="35" r="8" fill="#888" opacity="0.5"/>
         <circle cx="270" cy="25" r="10" fill="#aaa" opacity="0.4"/>
-        <!-- wheels -->
         <circle cx="80" cy="180" r="22" fill="#1a1a1a" stroke="#3D1A00" stroke-width="3"/>
         <circle cx="80" cy="180" r="10" fill="#FFD700" stroke="#3D1A00" stroke-width="1.5"/>
         <circle cx="180" cy="180" r="22" fill="#1a1a1a" stroke="#3D1A00" stroke-width="3"/>
@@ -771,7 +548,57 @@ footer a{color:#FFD700;text-decoration:none;}
         <rect x="330" y="165" width="35" height="8" fill="#222" stroke="#3D1A00" stroke-width="1.5" rx="2"/>
     </symbol>
 
-    <!-- LOGO BADGE — same enhanced "Multi-Service Pros" badge -->
+    <!-- Truck loaded with junk (mixed) -->
+    <symbol id="junkTruck" viewBox="0 0 400 220">
+        <ellipse cx="200" cy="200" rx="160" ry="6" fill="rgba(0,0,0,0.3)"/>
+        <rect x="20" y="65" width="220" height="105" fill="url(#truckBody)" stroke="#3D1A00" stroke-width="3" rx="4"/>
+        <!-- Mixed junk piled -->
+        <rect x="26" y="30" width="40" height="38" fill="#666" stroke="#1a1a1a" stroke-width="2" rx="3"/>
+        <text x="46" y="55" text-anchor="middle" font-size="22">🛋️</text>
+        <text x="100" y="55" text-anchor="middle" font-size="28">🪑</text>
+        <text x="150" y="55" text-anchor="middle" font-size="26">📦</text>
+        <text x="200" y="55" text-anchor="middle" font-size="24">🧊</text>
+        <path d="M30 120 Q45 95 60 120 Q75 95 90 120 Q105 95 120 120 Q135 95 150 120 Q165 95 180 120 Q195 95 210 120 Q225 95 240 120 L235 140 Q210 130 180 140 Q150 130 120 140 Q90 130 60 140 Q40 130 30 140 Z" fill="#FFD700" opacity="0.95"/>
+        <text x="130" y="100" text-anchor="middle" font-family="Bebas Neue, sans-serif" font-size="20" fill="#fff" font-weight="bold" letter-spacing="2">FIRE FELLAS</text>
+        <path d="M240 90 L320 90 L335 140 L335 170 L240 170 Z" fill="url(#truckBody)" stroke="#3D1A00" stroke-width="3"/>
+        <path d="M248 96 L312 96 L325 140 L248 140 Z" fill="#88BBFF" stroke="#3D1A00" stroke-width="2"/>
+        <rect x="335" y="145" width="20" height="25" fill="#222" stroke="#3D1A00" stroke-width="2"/>
+        <circle cx="350" cy="125" r="6" fill="#FFEB3B"/>
+        <rect x="252" y="50" width="6" height="40" fill="#888" stroke="#3D1A00" stroke-width="1.2"/>
+        <rect x="262" y="50" width="6" height="40" fill="#888" stroke="#3D1A00" stroke-width="1.2"/>
+        <circle cx="80" cy="180" r="22" fill="#1a1a1a" stroke="#3D1A00" stroke-width="3"/>
+        <circle cx="80" cy="180" r="10" fill="#FFD700"/>
+        <circle cx="180" cy="180" r="22" fill="#1a1a1a" stroke="#3D1A00" stroke-width="3"/>
+        <circle cx="180" cy="180" r="10" fill="#FFD700"/>
+        <circle cx="300" cy="180" r="22" fill="#1a1a1a" stroke="#3D1A00" stroke-width="3"/>
+        <circle cx="300" cy="180" r="10" fill="#FFD700"/>
+    </symbol>
+
+    <!-- Snow plow truck -->
+    <symbol id="plowTruck" viewBox="0 0 400 200">
+        <ellipse cx="200" cy="180" rx="160" ry="6" fill="rgba(0,0,0,0.3)"/>
+        <rect x="20" y="55" width="220" height="105" fill="url(#truckBody)" stroke="#3D1A00" stroke-width="3" rx="4"/>
+        <path d="M30 110 Q45 85 60 110 Q75 85 90 110 Q105 85 120 110 Q135 85 150 110 Q165 85 180 110 Q195 85 210 110 Q225 85 240 110 L235 130 Q210 120 180 130 Q150 120 120 130 Q90 120 60 130 Q40 120 30 130 Z" fill="#FFD700" opacity="0.95"/>
+        <text x="130" y="90" text-anchor="middle" font-family="Bebas Neue, sans-serif" font-size="22" fill="#fff" font-weight="bold" letter-spacing="2">FIRE FELLAS</text>
+        <path d="M240 80 L320 80 L335 130 L335 160 L240 160 Z" fill="url(#truckBody)" stroke="#3D1A00" stroke-width="3"/>
+        <path d="M248 86 L312 86 L325 130 L248 130 Z" fill="#88BBFF" stroke="#3D1A00" stroke-width="2"/>
+        <rect x="335" y="135" width="20" height="25" fill="#222" stroke="#3D1A00" stroke-width="2"/>
+        <circle cx="350" cy="115" r="6" fill="#FFEB3B"/>
+        <!-- snow plow blade up front -->
+        <path d="M340 130 L390 100 L390 165 L355 165 Z" fill="#FFB347" stroke="#3D1A00" stroke-width="2.5"/>
+        <line x1="350" y1="115" x2="385" y2="105" stroke="#3D1A00" stroke-width="1"/>
+        <line x1="355" y1="135" x2="385" y2="125" stroke="#3D1A00" stroke-width="1"/>
+        <rect x="252" y="40" width="6" height="40" fill="#888" stroke="#3D1A00" stroke-width="1.2"/>
+        <rect x="262" y="40" width="6" height="40" fill="#888" stroke="#3D1A00" stroke-width="1.2"/>
+        <circle cx="80" cy="170" r="22" fill="#1a1a1a" stroke="#3D1A00" stroke-width="3"/>
+        <circle cx="80" cy="170" r="10" fill="#FFD700"/>
+        <circle cx="180" cy="170" r="22" fill="#1a1a1a" stroke="#3D1A00" stroke-width="3"/>
+        <circle cx="180" cy="170" r="10" fill="#FFD700"/>
+        <circle cx="300" cy="170" r="22" fill="#1a1a1a" stroke="#3D1A00" stroke-width="3"/>
+        <circle cx="300" cy="170" r="10" fill="#FFD700"/>
+    </symbol>
+
+    <!-- Logo Badge -->
     <symbol id="fellaBadge" viewBox="0 0 240 240">
         <circle cx="120" cy="120" r="115" fill="url(#logoBg)"/>
         <circle cx="120" cy="120" r="115" fill="none" stroke="#FF8C00" stroke-width="3"/>
@@ -779,34 +606,7 @@ footer a{color:#FFD700;text-decoration:none;}
         <g opacity="0.35" fill="#FF6A00">
             <path d="M 18 100 Q 22 80 26 100 Q 30 75 34 100 Q 38 82 42 100 Z"/>
             <path d="M 198 75 Q 202 55 206 75 Q 210 50 214 75 Q 218 60 222 75 Z"/>
-            <path d="M 25 165 Q 29 145 33 165 Q 37 140 41 165 Z"/>
-            <path d="M 200 165 Q 204 145 208 165 Q 212 140 216 165 Z"/>
         </g>
-        <g opacity="0.7" transform="translate(58 25) rotate(-25)" fill="#FFD700" stroke="#FF4500" stroke-width="0.6">
-            <rect x="0" y="0" width="3" height="14" rx="0.5"/>
-            <path d="M -2 -3 L 5 -3 L 5 -1 L 1 1 L 5 3 L 5 5 L -2 5 Z"/>
-        </g>
-        <g opacity="0.7" transform="translate(110 18)" stroke="#FFD700" stroke-width="1" fill="none">
-            <rect x="0" y="0" width="14" height="11"/>
-            <line x1="0" y1="3" x2="14" y2="3"/>
-            <line x1="7" y1="0" x2="7" y2="11"/>
-        </g>
-        <g opacity="0.7" transform="translate(165 22) rotate(35)" fill="#FFD700" stroke="#FF4500" stroke-width="0.6">
-            <rect x="0" y="0" width="3" height="14" rx="0.5"/>
-            <path d="M -2 -3 L 5 -3 L 5 -1 L 1 1 L 5 3 L 5 5 L -2 5 Z"/>
-        </g>
-        <g opacity="0.7" transform="translate(195 60)" fill="#FFD700" stroke="#FF4500" stroke-width="0.6">
-            <path d="M 0 0 Q 3 -10 12 -8 Q 14 0 5 5 Q 1 5 0 0 Z"/>
-            <line x1="3" y1="-2" x2="9" y2="-5" stroke-width="0.4"/>
-        </g>
-        <g opacity="0.7" transform="translate(20 100)" fill="#FFD700" stroke="#FF4500" stroke-width="0.6">
-            <circle cx="5" cy="3" r="4.5"/>
-            <rect x="3" y="7" width="4" height="3"/>
-        </g>
-        <g opacity="0.7" transform="translate(200 105)" stroke="#FFD700" stroke-width="1" fill="none">
-            <rect x="0" y="0" width="13" height="11"/>
-        </g>
-        <!-- Truck -->
         <path d="M 122 65 L 200 65 L 195 110 L 122 110 Z" fill="#FF6A00" stroke="#3D1A00" stroke-width="1.8"/>
         <g fill="#FFD700" opacity="0.95" stroke="#FF4500" stroke-width="0.4">
             <path d="M 130 82 Q 134 72 138 82 Q 142 70 146 82 Q 150 72 154 82 L 152 96 Q 146 92 140 96 Q 134 92 130 96 Z"/>
@@ -814,7 +614,7 @@ footer a{color:#FFD700;text-decoration:none;}
         </g>
         <path d="M 175 88 L 215 88 L 220 130 L 175 130 Z" fill="#FF8C00" stroke="#3D1A00" stroke-width="1.8"/>
         <path d="M 180 92 L 213 92 L 217 122 L 180 122 Z" fill="#1A2540" stroke="#3D1A00" stroke-width="0.8"/>
-        <rect x="218" y="105" width="6" height="20" fill="#222" stroke="#3D1A00" stroke-width="0.8"/>
+        <rect x="218" y="105" width="6" height="20" fill="#222"/>
         <circle cx="220" cy="100" r="2" fill="#FFEB3B"/>
         <circle cx="148" cy="135" r="11" fill="#1A1A1A" stroke="#3D1A00" stroke-width="1.5"/>
         <circle cx="148" cy="135" r="5" fill="#444"/>
@@ -822,7 +622,6 @@ footer a{color:#FFD700;text-decoration:none;}
         <circle cx="195" cy="138" r="11" fill="#1A1A1A" stroke="#3D1A00" stroke-width="1.5"/>
         <circle cx="195" cy="138" r="5" fill="#444"/>
         <circle cx="195" cy="138" r="2" fill="#FFD700"/>
-        <!-- Character -->
         <g>
             <path d="M 38 105 Q 40 88 60 87 L 90 87 Q 110 88 112 105 L 118 145 L 32 145 Z" fill="url(#shirtGrad)" stroke="#3D1A00" stroke-width="1.2"/>
             <path d="M 60 90 Q 75 102 90 90 L 87 96 Q 75 100 63 96 Z" fill="#B33800"/>
@@ -830,8 +629,6 @@ footer a{color:#FFD700;text-decoration:none;}
             <path d="M 134 75 Q 132 60 142 55 Q 152 56 152 70 L 148 78 Z" fill="#FBC9A6" stroke="#3D1A00" stroke-width="1"/>
             <ellipse cx="146" cy="56" rx="9" ry="9" fill="#FBC9A6" stroke="#3D1A00" stroke-width="1"/>
             <ellipse cx="142" cy="44" rx="5" ry="9" fill="#FBC9A6" stroke="#3D1A00" stroke-width="1"/>
-            <path d="M 32 110 Q 22 130 30 145 L 38 142 L 40 115 Z" fill="url(#shirtGrad)" stroke="#3D1A00" stroke-width="1"/>
-            <rect x="68" y="78" width="14" height="10" fill="#FBC9A6"/>
             <ellipse cx="75" cy="58" rx="27" ry="29" fill="#FBC9A6" stroke="#3D1A00" stroke-width="1.2"/>
             <path d="M 49 42 Q 45 18 70 16 Q 75 4 92 8 Q 105 5 105 22 Q 108 28 100 45 Q 95 38 85 36 Q 78 35 73 41 Q 65 32 56 38 Q 50 36 49 42 Z" fill="#7B3F1A" stroke="#3D1A00" stroke-width="1"/>
             <path d="M 78 14 Q 88 0 98 13 Q 100 28 88 32 Q 80 26 78 14 Z" fill="#5E2C0F"/>
@@ -846,91 +643,558 @@ footer a{color:#FFD700;text-decoration:none;}
             <path d="M 60 76 Q 75 92 90 76 Q 75 88 60 76 Z" fill="#3D1A00"/>
             <path d="M 63 78 Q 75 87 87 78 L 84 82 Q 75 85 66 82 Z" fill="#fff"/>
         </g>
-        <!-- banners -->
         <path d="M 12 150 Q 120 140 228 150 L 228 192 Q 120 184 12 192 Z" fill="#0A0F1F" stroke="#FFD700" stroke-width="2.5"/>
         <text x="120" y="178" text-anchor="middle" font-family="Bebas Neue, sans-serif" font-size="30" font-weight="bold" letter-spacing="2" fill="#FFEB3B" stroke="#E04F00" stroke-width="0.6">FIRE FELLAS</text>
         <path d="M 32 192 Q 120 204 208 192 L 206 213 Q 120 220 34 213 Z" fill="#E04F00" stroke="#FFD700" stroke-width="2"/>
         <text x="120" y="207" text-anchor="middle" font-family="Bebas Neue, sans-serif" font-size="11" fill="#fff" font-weight="bold" letter-spacing="2">MULTI-SERVICE PROS</text>
-        <text x="120" y="226" text-anchor="middle" font-family="Bebas Neue, sans-serif" font-size="8" fill="#FFD700" font-weight="bold" letter-spacing="2">YOUR TRUSTED LOCAL EXPERTS</text>
     </symbol>
 </defs>
 </svg>
 
-<style>
-@keyframes confetti1{
-    0%,100%{transform:translateY(0) rotate(0);opacity:1;}
-    50%{transform:translateY(15px) rotate(180deg);opacity:0.6;}
-}
-</style>
-
 <script>
-/* ====================================================================
-   ANIMATION SCENE CONTROLLER — runs cartoon timeline
-==================================================================== */
-const SCENES = [
-    {id:'scene-1', dur:3500, name:'TITLE'},
-    {id:'scene-2', dur:3800, name:'MEET FELLAS'},
-    {id:'scene-3', dur:4500, name:'WE DO IT ALL'},
-    {id:'scene-4', dur:5500, name:'PACK · LIFT · DELIVER'},
-    {id:'scene-5', dur:4500, name:'DELIVERED WITH FIRE'},
-    {id:'scene-6', dur:4200, name:'500+ HAPPY'},
-    {id:'scene-7', dur:5000, name:'CALL NOW'},
-];
-const TOTAL_MS = SCENES.reduce((s,x)=>s+x.dur,0);
+/* =====================================================================
+   EPISODE DATA — each episode is an array of scenes.
+   Each scene: { dur (ms), sfx (function), html (function returning string) }
+===================================================================== */
 
-let curIdx = 0;
-let curTimeout = null;
-let progressRAF = null;
-let startTs = 0;
-let isPlaying = true;
+const SVG = {
+    fella: '<svg viewBox="0 0 240 320"><use href="#fella"/></svg>',
+    fellaMover: '<svg viewBox="0 0 280 320"><use href="#fellaMover"/></svg>',
+    fellaWave: '<svg viewBox="0 0 260 320"><use href="#fellaWave"/></svg>',
+    fellaBroom: '<svg viewBox="0 0 290 320"><use href="#fellaBroom"/></svg>',
+    fellaBadge: '<svg viewBox="0 0 240 240"><use href="#fellaBadge"/></svg>',
+    flameTruck: '<svg viewBox="0 0 400 200" style="width:100%;height:100%;"><use href="#flameTruck"/></svg>',
+    flameTruckLoaded: '<svg viewBox="0 0 400 220" style="width:100%;height:100%;"><use href="#flameTruckLoaded"/></svg>',
+    junkTruck: '<svg viewBox="0 0 400 220" style="width:100%;height:100%;"><use href="#junkTruck"/></svg>',
+    plowTruck: '<svg viewBox="0 0 400 200" style="width:100%;height:100%;"><use href="#plowTruck"/></svg>',
+};
 
-const sceneInd = document.getElementById('sceneInd');
-const progress = document.getElementById('progress');
-
-function setActive(idx){
-    SCENES.forEach((s,i)=>{
-        document.getElementById(s.id).classList.toggle('active', i===idx);
-    });
-    sceneInd.textContent = `SCENE ${idx+1} / 7 · ${SCENES[idx].name}`;
-    if (isPlaying && audioOn) playSceneSfx(idx);
-}
-
-function tick(){
-    const elapsed = performance.now() - startTs;
-    progress.style.width = Math.min(100, (elapsed / TOTAL_MS) * 100) + '%';
-    if (isPlaying) progressRAF = requestAnimationFrame(tick);
-}
-
-function startTimeline(){
-    cancelTimeline();
-    isPlaying = true;
-    startTs = performance.now();
-    let acc = 0;
-    SCENES.forEach((s,i)=>{
-        const t = setTimeout(()=> setActive(i), acc);
-        s._t = t;
-        acc += s.dur;
-    });
-    // restart after total
-    curTimeout = setTimeout(()=> startTimeline(), TOTAL_MS);
-    setActive(0);
-    progressRAF = requestAnimationFrame(tick);
-}
-
-function cancelTimeline(){
-    SCENES.forEach(s=>{ if(s._t) clearTimeout(s._t); });
-    if (curTimeout) clearTimeout(curTimeout);
-    if (progressRAF) cancelAnimationFrame(progressRAF);
-}
-
-document.getElementById('playBtn').addEventListener('click', ()=>{
-    progress.style.width = '0%';
-    startTimeline();
+/* CTA Scene (reused at end of each episode) */
+const ctaScene = (color='#FFD700') => ({
+    dur: 5000,
+    sfx: () => chord([523,659,784,1047], 0.8, 'triangle', 0.13),
+    html: () => `
+        <div class="bg bg-cta"></div>
+        <div style="position:absolute;top:6%;left:50%;transform:translateX(-50%);width:18%;aspect-ratio:1;filter:drop-shadow(0 0 20px rgba(255,140,0,0.7));" class="anim-up" data-delay="0.2">
+            ${SVG.fellaBadge}
+        </div>
+        <div style="position:absolute;top:30%;left:50%;transform:translateX(-50%);" class="anim-pop" data-delay="0.6">
+            <div class="cta-phone">📞 (368) 299-7792</div>
+        </div>
+        <a class="cta-btn cta-btn-pulse anim-pop" href="https://pamandeepsinghdfl-hash.github.io/firefellascalgary/" style="position:absolute;top:55%;left:50%;transform:translateX(-50%);" data-delay="1">GET FREE QUOTE 🔥</a>
+        <div style="position:absolute;bottom:14%;left:50%;transform:translateX(-50%);" class="anim-up t-sub" data-delay="1.4">FIREFELLASCALGARY.COM</div>
+        <div style="position:absolute;bottom:6%;left:50%;transform:translateX(-50%);font-family:'Bebas Neue',sans-serif;font-size:clamp(12px,2vw,20px);letter-spacing:5px;color:#fff;opacity:0.7;" class="anim-up" data-delay="1.6">MOVING · HAULING · CLEARING</div>
+        <div class="mascot anim-up anim-wiggle" style="bottom:8%;right:5%;width:14%;animation-delay:1.8s;" data-delay="1.8">${SVG.fellaWave}</div>
+    `
 });
 
-/* ====================================================================
-   AUDIO — Web Audio synthesized SFX per scene
-==================================================================== */
+const titleScene = (epNum, epName, emoji) => ({
+    dur: 3500,
+    sfx: () => chord([523.25, 659.25, 783.99], 0.6, 'triangle', 0.12),
+    html: () => `
+        <div class="bg bg-warm"></div>
+        <div class="bg stars-bg anim-twinkle"></div>
+        <div class="confetti" style="top:10%;left:15%;background:#FFD700;"></div>
+        <div class="confetti" style="top:80%;left:80%;background:#FF1493;animation-delay:0.5s;"></div>
+        <div class="confetti" style="top:30%;left:90%;background:#00D9FF;animation-delay:1s;"></div>
+        <div class="confetti" style="top:70%;left:8%;background:#A6FF00;animation-delay:1.5s;"></div>
+        <div class="center anim-pop" style="width:34%;aspect-ratio:1;filter:drop-shadow(0 0 30px rgba(255,140,0,0.7));">${SVG.fellaBadge}</div>
+        <div style="position:absolute;left:50%;top:14%;transform:translateX(-50%);font-family:'Bebas Neue',sans-serif;color:#FFD700;letter-spacing:6px;font-size:clamp(14px,2.4vw,28px);" class="anim-up" data-delay="0.3">EPISODE ${epNum} ${emoji}</div>
+        <div style="position:absolute;left:50%;bottom:14%;transform:translateX(-50%);" class="anim-up" data-delay="1.2">
+            <div class="t-mega">${epName}</div>
+        </div>
+        <div style="position:absolute;left:50%;bottom:7%;transform:translateX(-50%);" class="anim-up t-sub" data-delay="1.8">MULTI-SERVICE PROS 🔥</div>
+    `
+});
+
+const EPISODES = {
+    /* ============== EP 1 — MOVING DAY ============== */
+    1: {
+        name: 'MOVING DAY',
+        emoji: '🚚',
+        scenes: [
+            titleScene(1, 'MOVING DAY', '🚚'),
+            // Meet the fellas
+            {
+                dur: 3800,
+                sfx: () => { tone(800, 0.1, 'square', 0.1); setTimeout(()=>tone(1000, 0.1, 'square', 0.1), 120); },
+                html: () => `
+                    <div class="bg bg-warmth"></div>
+                    <div style="position:absolute;top:8%;left:50%;transform:translateX(-50%);width:90%;" class="anim-pop" data-delay="0.6">
+                        <div class="t-pop">MEET YOUR<br>CALGARY FIRE FELLAS!</div>
+                    </div>
+                    <div class="mascot m-left anim-left anim-wiggle">${SVG.fella}</div>
+                    <div class="mascot m-right anim-right anim-wiggle" style="animation-delay:0.3s;">${SVG.fellaWave}</div>
+                    <div class="bubble anim-pop" style="top:30%;left:8%;background:#fff;color:#FF4500;" data-delay="1.4">HEY CALGARY! 👋</div>
+                    <div class="bubble anim-pop" style="top:30%;right:8%;background:#fff;color:#FF4500;" data-delay="1.7">WE GOT YOU! 💪</div>
+                `
+            },
+            // We Do It All
+            {
+                dur: 4000,
+                sfx: () => chord([523, 659, 784, 1047], 0.4),
+                html: () => `
+                    <div class="bg bg-stage"></div>
+                    <div style="position:absolute;top:5%;left:50%;transform:translateX(-50%);width:96%;" class="anim-down" data-delay="0.1">
+                        <div class="t-headline">WE DO IT ALL.</div>
+                    </div>
+                    <div class="svc-grid">
+                        <div class="svc-card svc-c1 anim-pop" data-delay="0.3"><div class="icon">🚚</div><div class="label">MOVING</div></div>
+                        <div class="svc-card svc-c2 anim-pop" data-delay="0.6"><div class="icon">♻️</div><div class="label">JUNK</div></div>
+                        <div class="svc-card svc-c3 anim-pop" data-delay="0.9"><div class="icon">🔨</div><div class="label">HAULING</div></div>
+                        <div class="svc-card svc-c4 anim-pop" data-delay="1.2"><div class="icon">❄️</div><div class="label">SNOW</div></div>
+                    </div>
+                `
+            },
+            // Loading
+            {
+                dur: 5500,
+                sfx: () => { tone(180, 0.6, 'sawtooth', 0.15); noise(0.3); },
+                html: () => `
+                    <div class="bg bg-warmth"></div>
+                    <div class="ground"></div>
+                    <div class="road-stripe"></div>
+                    <div style="position:absolute;top:6%;left:50%;transform:translateX(-50%);" class="anim-pop" data-delay="0.6">
+                        <div class="t-big">PACK · LIFT · DELIVER</div>
+                    </div>
+                    <div class="truck-drive" style="left:18%;">${SVG.flameTruck}</div>
+                    <div class="mascot anim-up anim-wiggle" style="right:14%;bottom:14%;width:18%;animation-delay:2.5s;" data-delay="2">${SVG.fellaMover}</div>
+                    <div class="box-fly box-anim" style="bottom:14%;animation-delay:2.6s;"></div>
+                    <div class="box-fly box-anim" style="bottom:14%;animation-delay:3.0s;"></div>
+                    <div class="box-fly box-anim" style="bottom:14%;animation-delay:3.4s;"></div>
+                    <div style="position:absolute;top:30%;left:60%;font-family:'Luckiest Guy',cursive;font-size:clamp(20px,3.5vw,42px);color:#FF4500;-webkit-text-stroke:3px #fff;text-shadow:0 4px 0 #1a1a1a;animation:popIn 0.6s ease 2.6s forwards;opacity:0;">ZOOM!</div>
+                    <div style="position:absolute;top:50%;right:40%;font-family:'Luckiest Guy',cursive;font-size:clamp(20px,3.5vw,42px);color:#FF4500;-webkit-text-stroke:3px #fff;text-shadow:0 4px 0 #1a1a1a;animation:popIn 0.6s ease 3.0s forwards;opacity:0;">WHOOSH!</div>
+                `
+            },
+            // Drive off into sunset
+            {
+                dur: 4500,
+                sfx: () => { tone(220, 0.8, 'sawtooth', 0.12); setTimeout(()=>tone(180, 0.8, 'sawtooth', 0.1), 200); },
+                html: () => `
+                    <div class="bg bg-sunset"></div>
+                    <div class="sun-rays"></div>
+                    <div class="sun-disc"></div>
+                    <div class="ground"></div>
+                    <div style="position:absolute;top:8%;left:50%;transform:translateX(-50%);width:90%;" class="anim-pop" data-delay="0.4">
+                        <div class="t-big">DELIVERED<br>WITH FIRE 🔥</div>
+                    </div>
+                    <div class="truck-drive-off">${SVG.flameTruckLoaded}</div>
+                `
+            },
+            // 5 stars
+            {
+                dur: 4200,
+                sfx: () => [0,150,300,450,600].forEach((d,k)=> setTimeout(()=>tone(523+k*100, 0.15, 'sine', 0.12), d)),
+                html: () => `
+                    <div class="bg bg-stage"></div>
+                    <div class="bg-grid"></div>
+                    <div style="position:absolute;top:18%;left:50%;transform:translateX(-50%);" class="stars-row">
+                        <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+                    </div>
+                    <div style="position:absolute;top:42%;left:50%;transform:translateX(-50%);" class="anim-up" data-delay="1.7">
+                        <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,7vw,90px);letter-spacing:5px;background:linear-gradient(135deg,#FFEB3B,#FF8C00);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;">500+ HAPPY CALGARIANS</div>
+                    </div>
+                    <div class="anim-pop" style="position:absolute;left:50%;top:62%;transform:translateX(-50%);background:#FFD700;color:#1a1a1a;padding:14px 28px;border-radius:14px;font-family:'Luckiest Guy',cursive;font-size:clamp(14px,2.4vw,28px);box-shadow:0 8px 0 #B8860B;border:3px solid #1a1a1a;white-space:nowrap;" data-delay="2.2">"BEST MOVERS IN CALGARY!"</div>
+                    <div class="anim-up" style="position:absolute;left:50%;top:80%;transform:translateX(-50%);color:#FFD700;font-family:'Bebas Neue',sans-serif;font-size:clamp(14px,2.4vw,26px);letter-spacing:3px;" data-delay="2.7">— JASON M. · TUSCANY</div>
+                `
+            },
+            ctaScene(),
+        ],
+    },
+
+    /* ============== EP 2 — JUNK REMOVAL DAY ============== */
+    2: {
+        name: 'JUNK REMOVAL',
+        emoji: '♻️',
+        scenes: [
+            titleScene(2, 'JUNK REMOVAL', '♻️'),
+            // Cluttered garage
+            {
+                dur: 4000,
+                sfx: () => { tone(150, 0.8, 'sawtooth', 0.15); setTimeout(()=>noise(0.4), 300); },
+                html: () => `
+                    <div class="bg" style="background:linear-gradient(180deg,#8B5A2A 0%,#5C3818 100%);"></div>
+                    <div class="ground"></div>
+                    <div style="position:absolute;top:8%;left:50%;transform:translateX(-50%);" class="anim-pop" data-delay="0.4">
+                        <div class="t-big" style="-webkit-text-stroke-color:#0A0F1F;text-shadow:0 6px 0 #0A0F1F;">CLOGGED GARAGE?</div>
+                    </div>
+                    <div style="position:absolute;bottom:20%;left:8%;font-size:clamp(40px,7vw,90px);" class="anim-up" data-delay="0.6">📦</div>
+                    <div style="position:absolute;bottom:24%;left:24%;font-size:clamp(50px,8vw,110px);" class="anim-up" data-delay="0.8">🛋️</div>
+                    <div style="position:absolute;bottom:18%;left:42%;font-size:clamp(40px,6vw,80px);" class="anim-up" data-delay="1.0">🪑</div>
+                    <div style="position:absolute;bottom:22%;left:60%;font-size:clamp(40px,7vw,90px);" class="anim-up" data-delay="1.2">🧊</div>
+                    <div style="position:absolute;bottom:20%;left:78%;font-size:clamp(40px,6vw,80px);" class="anim-up" data-delay="1.4">📺</div>
+                    <div class="bubble anim-pop" style="top:25%;right:10%;color:#FF4500;" data-delay="1.8">TOO MUCH STUFF! 😩</div>
+                `
+            },
+            // Call the Fellas
+            {
+                dur: 3500,
+                sfx: () => { tone(800, 0.1, 'square', 0.1); setTimeout(()=>tone(1000, 0.1, 'square', 0.1), 100); setTimeout(()=>tone(1200, 0.1, 'square', 0.1), 200); },
+                html: () => `
+                    <div class="bg bg-cool"></div>
+                    <div style="position:absolute;top:8%;left:50%;transform:translateX(-50%);" class="anim-pop" data-delay="0.4">
+                        <div class="t-headline" style="background:linear-gradient(135deg,#00D9FF,#9D4EDD,#FF1493);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;">CALL THE FELLAS!</div>
+                    </div>
+                    <div class="center anim-pop" style="width:30%;aspect-ratio:1;" data-delay="0.8">
+                        ${SVG.fellaBadge}
+                    </div>
+                    <div class="bubble anim-pop" style="bottom:8%;left:50%;transform:translateX(-50%);background:#00D9FF;color:#0A0F1F;border-color:#0A0F1F;" data-delay="1.6">📞 (368) 299-7792</div>
+                `
+            },
+            // Truck arrives
+            {
+                dur: 4500,
+                sfx: () => { tone(180, 0.6, 'sawtooth', 0.15); setTimeout(()=>tone(440, 0.2, 'square', 0.1), 600); },
+                html: () => `
+                    <div class="bg bg-cool"></div>
+                    <div class="ground"></div>
+                    <div class="road-stripe"></div>
+                    <div style="position:absolute;top:6%;left:50%;transform:translateX(-50%);" class="anim-pop" data-delay="0.6">
+                        <div class="t-big" style="color:#00D9FF;-webkit-text-stroke-color:#0A0F1F;text-shadow:0 6px 0 #0A0F1F;">SAME-DAY SERVICE!</div>
+                    </div>
+                    <div class="truck-drive" style="left:18%;">${SVG.flameTruck}</div>
+                    <div class="mascot anim-up anim-wiggle" style="right:12%;bottom:14%;width:18%;animation-delay:2.5s;" data-delay="2">${SVG.fellaWave}</div>
+                    <div class="bubble anim-pop" style="bottom:50%;right:8%;background:#fff;color:#FF4500;" data-delay="2.5">WE GOT IT! 💪</div>
+                `
+            },
+            // Hauling action - junk vanishing
+            {
+                dur: 5000,
+                sfx: () => { [0,300,600,900,1200].forEach((d,k)=> setTimeout(()=>{tone(220-k*20, 0.2, 'sawtooth', 0.12); noise(0.15);}, d)); },
+                html: () => `
+                    <div class="bg" style="background:linear-gradient(180deg,#9D4EDD 0%,#FF1493 100%);"></div>
+                    <div class="ground"></div>
+                    <div style="position:absolute;top:6%;left:50%;transform:translateX(-50%);" class="anim-pop" data-delay="0.3">
+                        <div class="t-big">POINT · WE HAUL</div>
+                    </div>
+                    <div class="mascot anim-up" style="left:8%;bottom:14%;width:18%;animation-delay:0.6s;" data-delay="0.6">${SVG.fellaBroom}</div>
+                    <!-- Junk items vanishing -->
+                    <div class="junk-item junk-anim" style="bottom:30%;left:35%;animation-delay:1.2s;">📦</div>
+                    <div class="junk-item junk-anim" style="bottom:25%;left:50%;animation-delay:1.6s;">🛋️</div>
+                    <div class="junk-item junk-anim" style="bottom:32%;left:65%;animation-delay:2.0s;">🪑</div>
+                    <div class="junk-item junk-anim" style="bottom:25%;left:78%;animation-delay:2.4s;">🧊</div>
+                    <div class="junk-item junk-anim" style="bottom:22%;left:42%;animation-delay:2.8s;">📺</div>
+                    <div class="junk-item junk-anim" style="bottom:35%;left:55%;animation-delay:3.2s;">🛏️</div>
+                    <!-- Sparkle "POOF" texts -->
+                    <div style="position:absolute;bottom:50%;left:40%;font-family:'Luckiest Guy',cursive;font-size:clamp(24px,4vw,48px);color:#A6FF00;-webkit-text-stroke:3px #0A0F1F;animation:popIn 0.5s ease 1.2s forwards;opacity:0;">POOF!</div>
+                    <div style="position:absolute;bottom:55%;left:65%;font-family:'Luckiest Guy',cursive;font-size:clamp(20px,3.5vw,40px);color:#FFD700;-webkit-text-stroke:3px #0A0F1F;animation:popIn 0.5s ease 2s forwards;opacity:0;">GONE!</div>
+                    <div style="position:absolute;bottom:45%;left:55%;font-family:'Luckiest Guy',cursive;font-size:clamp(22px,3.8vw,44px);color:#00D9FF;-webkit-text-stroke:3px #0A0F1F;animation:popIn 0.5s ease 2.8s forwards;opacity:0;">BYE!</div>
+                `
+            },
+            // Clean garage + truck driving off with junk
+            {
+                dur: 4500,
+                sfx: () => { tone(220, 0.8, 'sawtooth', 0.12); [0,300,600].forEach(d=> setTimeout(()=>tone(880, 0.1, 'sine', 0.08), d)); },
+                html: () => `
+                    <div class="bg bg-sunset"></div>
+                    <div class="sun-rays"></div>
+                    <div class="sun-disc"></div>
+                    <div class="ground"></div>
+                    <div style="position:absolute;top:8%;left:50%;transform:translateX(-50%);" class="anim-pop" data-delay="0.4">
+                        <div class="t-big">CLEAR · CLEAN · DONE</div>
+                    </div>
+                    <div class="truck-drive-off">${SVG.junkTruck}</div>
+                `
+            },
+            // Eco message
+            {
+                dur: 4000,
+                sfx: () => chord([659, 784, 988], 0.6, 'triangle', 0.12),
+                html: () => `
+                    <div class="bg" style="background:linear-gradient(135deg,#A6FF00 0%,#00D9FF 100%);"></div>
+                    <div class="bg-grid"></div>
+                    <div style="position:absolute;top:18%;left:50%;transform:translateX(-50%);" class="anim-pop" data-delay="0.3">
+                        <div class="t-big" style="-webkit-text-stroke-color:#0A0F1F;text-shadow:0 6px 0 #0A0F1F;">DONATE · RECYCLE · DISPOSE</div>
+                    </div>
+                    <div style="position:absolute;top:46%;left:50%;transform:translateX(-50%);font-size:clamp(50px,10vw,120px);" class="anim-pop" data-delay="0.9">♻️ 💚 🌱</div>
+                    <div style="position:absolute;bottom:15%;left:50%;transform:translateX(-50%);font-family:'Bebas Neue',sans-serif;font-size:clamp(16px,3vw,36px);letter-spacing:3px;color:#0A0F1F;" class="anim-up" data-delay="1.6">ECO-FRIENDLY · ZERO LANDFILL WHEN POSSIBLE</div>
+                `
+            },
+            ctaScene(),
+        ],
+    },
+
+    /* ============== EP 3 — CONSTRUCTION ============== */
+    3: {
+        name: 'CONSTRUCTION',
+        emoji: '🔨',
+        scenes: [
+            titleScene(3, 'CONSTRUCTION', '🔨'),
+            // Job site mess
+            {
+                dur: 4000,
+                sfx: () => { tone(120, 0.6, 'sawtooth', 0.15); setTimeout(()=>noise(0.5, 0.18), 300); },
+                html: () => `
+                    <div class="bg bg-construction"></div>
+                    <div class="ground"></div>
+                    <div style="position:absolute;top:6%;left:50%;transform:translateX(-50%);" class="anim-pop" data-delay="0.3">
+                        <div class="t-big">RENO CREW GONE...</div>
+                    </div>
+                    <div style="position:absolute;bottom:18%;left:5%;font-size:clamp(50px,8vw,110px);" class="anim-up" data-delay="0.6">🪜</div>
+                    <div style="position:absolute;bottom:18%;left:22%;font-size:clamp(40px,6vw,80px);" class="anim-up" data-delay="0.8">🪨</div>
+                    <div style="position:absolute;bottom:20%;left:38%;font-size:clamp(40px,7vw,90px);" class="anim-up" data-delay="1.0">🪵</div>
+                    <div style="position:absolute;bottom:18%;left:55%;font-size:clamp(50px,8vw,110px);" class="anim-up" data-delay="1.2">🚽</div>
+                    <div style="position:absolute;bottom:22%;left:72%;font-size:clamp(40px,6vw,80px);" class="anim-up" data-delay="1.4">🧱</div>
+                    <div class="bubble anim-pop" style="top:30%;right:8%;color:#FF4500;" data-delay="1.8">MESS REMAINS!</div>
+                `
+            },
+            // Fellas roll in with truck
+            {
+                dur: 4500,
+                sfx: () => { tone(180, 0.6, 'sawtooth', 0.15); setTimeout(()=>tone(440, 0.15, 'square', 0.1), 600); },
+                html: () => `
+                    <div class="bg bg-pink"></div>
+                    <div class="ground"></div>
+                    <div class="road-stripe"></div>
+                    <div style="position:absolute;top:6%;left:50%;transform:translateX(-50%);" class="anim-pop" data-delay="0.4">
+                        <div class="t-big" style="color:#FF1493;-webkit-text-stroke-color:#0A0F1F;text-shadow:0 6px 0 #0A0F1F;">FIRE FELLAS TO THE RESCUE!</div>
+                    </div>
+                    <div class="truck-drive" style="left:18%;">${SVG.flameTruck}</div>
+                    <div class="mascot anim-up anim-wiggle" style="right:10%;bottom:14%;width:18%;animation-delay:2.5s;" data-delay="2">${SVG.fellaMover}</div>
+                `
+            },
+            // Hauling debris
+            {
+                dur: 5000,
+                sfx: () => { [0,400,800,1200,1600].forEach((d,k)=> setTimeout(()=>tone(150-k*15, 0.3, 'sawtooth', 0.13), d)); },
+                html: () => `
+                    <div class="bg bg-construction"></div>
+                    <div class="ground"></div>
+                    <div style="position:absolute;top:6%;left:50%;transform:translateX(-50%);" class="anim-pop" data-delay="0.3">
+                        <div class="t-big">DEBRIS · HAULED</div>
+                    </div>
+                    <div class="mascot anim-up" style="left:6%;bottom:14%;width:18%;animation-delay:0.5s;" data-delay="0.5">${SVG.fellaWave}</div>
+                    <div class="junk-item junk-anim" style="bottom:30%;left:30%;animation-delay:1s;">🪨</div>
+                    <div class="junk-item junk-anim" style="bottom:32%;left:48%;animation-delay:1.4s;">🪵</div>
+                    <div class="junk-item junk-anim" style="bottom:28%;left:65%;animation-delay:1.8s;">🧱</div>
+                    <div class="junk-item junk-anim" style="bottom:24%;left:42%;animation-delay:2.2s;">🚽</div>
+                    <div class="junk-item junk-anim" style="bottom:35%;left:55%;animation-delay:2.6s;">🪜</div>
+                    <div style="position:absolute;bottom:50%;left:40%;font-family:'Luckiest Guy',cursive;font-size:clamp(24px,4vw,48px);color:#FF1493;-webkit-text-stroke:3px #fff;animation:popIn 0.5s ease 1.2s forwards;opacity:0;">CRASH!</div>
+                    <div style="position:absolute;bottom:45%;left:60%;font-family:'Luckiest Guy',cursive;font-size:clamp(24px,4vw,48px);color:#FFD700;-webkit-text-stroke:3px #fff;animation:popIn 0.5s ease 2.2s forwards;opacity:0;">DUNK!</div>
+                `
+            },
+            // Site swept
+            {
+                dur: 4000,
+                sfx: () => { tone(880, 0.2, 'sine', 0.1); setTimeout(()=>chord([659,784,988], 0.5), 300); },
+                html: () => `
+                    <div class="bg" style="background:linear-gradient(180deg,#A6FF00 0%,#FFD700 60%,#FF8C00 100%);"></div>
+                    <div class="ground"></div>
+                    <div style="position:absolute;top:8%;left:50%;transform:translateX(-50%);" class="anim-pop" data-delay="0.3">
+                        <div class="t-big" style="-webkit-text-stroke-color:#0A0F1F;text-shadow:0 6px 0 #0A0F1F;">SWEPT · TIDY · READY</div>
+                    </div>
+                    <div class="mascot anim-up anim-wiggle" style="left:50%;bottom:15%;width:24%;transform:translateX(-50%);animation-delay:0.8s;" data-delay="0.8">${SVG.fellaBroom}</div>
+                    <div style="position:absolute;top:38%;left:18%;font-size:clamp(28px,5vw,60px);" class="anim-pop" data-delay="1.2">✨</div>
+                    <div style="position:absolute;top:42%;right:18%;font-size:clamp(28px,5vw,60px);" class="anim-pop" data-delay="1.5">✨</div>
+                    <div style="position:absolute;top:55%;left:32%;font-size:clamp(24px,4vw,48px);" class="anim-pop" data-delay="1.8">✨</div>
+                `
+            },
+            // Repeat business
+            {
+                dur: 4000,
+                sfx: () => chord([523,659,784], 0.5, 'triangle', 0.12),
+                html: () => `
+                    <div class="bg bg-stage"></div>
+                    <div class="bg-grid"></div>
+                    <div style="position:absolute;top:18%;left:50%;transform:translateX(-50%);" class="stars-row">
+                        <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+                    </div>
+                    <div class="anim-pop" style="position:absolute;left:50%;top:48%;transform:translateX(-50%);background:#FFD700;color:#1a1a1a;padding:14px 28px;border-radius:14px;font-family:'Luckiest Guy',cursive;font-size:clamp(13px,2.2vw,24px);box-shadow:0 8px 0 #B8860B;border:3px solid #1a1a1a;text-align:center;width:80%;" data-delay="1.7">"FAST · CLEAN · FAIR PRICING.<br>OUR GO-TO HAUL CREW."</div>
+                    <div class="anim-up" style="position:absolute;left:50%;top:75%;transform:translateX(-50%);color:#FFD700;font-family:'Bebas Neue',sans-serif;font-size:clamp(14px,2.4vw,26px);letter-spacing:3px;" data-delay="2.5">— DEREK K. · INGLEWOOD RENOS</div>
+                `
+            },
+            ctaScene(),
+        ],
+    },
+
+    /* ============== EP 4 — SNOW DAY HEROES ============== */
+    4: {
+        name: 'SNOW DAY',
+        emoji: '❄️',
+        scenes: [
+            titleScene(4, 'SNOW DAY', '❄️'),
+            // Snowstorm
+            {
+                dur: 4000,
+                sfx: () => { noise(1, 0.12); [0,500,1000].forEach(d=> setTimeout(()=>tone(120, 0.4, 'sawtooth', 0.1), d)); },
+                html: () => `
+                    <div class="bg" style="background:linear-gradient(180deg,#5a7090 0%,#7BD7FF 60%,#fff 100%);"></div>
+                    <div class="ground-snow"></div>
+                    ${[...Array(40)].map((_,i)=>`<div class="snow snow-anim" style="left:${(i*7)%100}%;top:-10%;animation-delay:${(i*0.15)%3}s;font-size:${10+Math.random()*16}px;">❄</div>`).join('')}
+                    <div style="position:absolute;top:8%;left:50%;transform:translateX(-50%);" class="anim-pop" data-delay="0.4">
+                        <div class="t-big" style="color:#fff;-webkit-text-stroke-color:#0A0F1F;text-shadow:0 6px 0 #0A0F1F;">CALGARY SNOWSTORM!</div>
+                    </div>
+                    <div style="position:absolute;bottom:25%;left:50%;transform:translateX(-50%);font-size:clamp(60px,10vw,140px);" class="anim-up" data-delay="0.8">🏠</div>
+                    <div class="bubble anim-pop" style="bottom:45%;right:10%;color:#FF4500;" data-delay="1.6">DRIVEWAY BURIED!</div>
+                `
+            },
+            // Fellas with shovels arrive
+            {
+                dur: 4500,
+                sfx: () => { tone(180, 0.6, 'sawtooth', 0.15); setTimeout(()=>tone(440, 0.15, 'square', 0.1), 600); },
+                html: () => `
+                    <div class="bg bg-icy"></div>
+                    <div class="ground-snow"></div>
+                    ${[...Array(20)].map((_,i)=>`<div class="snow snow-anim" style="left:${(i*5)%100}%;top:-10%;animation-delay:${(i*0.2)%3}s;font-size:${10+Math.random()*12}px;color:#aab8cc;">❄</div>`).join('')}
+                    <div style="position:absolute;top:6%;left:50%;transform:translateX(-50%);" class="anim-pop" data-delay="0.4">
+                        <div class="t-big" style="color:#FF4500;-webkit-text-stroke-color:#0A0F1F;text-shadow:0 6px 0 #0A0F1F;">SNOW HEROES!</div>
+                    </div>
+                    <div class="truck-drive" style="left:18%;">${SVG.plowTruck}</div>
+                    <div class="mascot anim-up anim-wiggle" style="right:8%;bottom:25%;width:18%;animation-delay:2.5s;" data-delay="2">${SVG.fellaBroom}</div>
+                `
+            },
+            // Shovelling action
+            {
+                dur: 5000,
+                sfx: () => { [0,400,800,1200,1600,2000].forEach((d,k)=> setTimeout(()=>tone(440+k*100, 0.15, 'square', 0.1), d)); },
+                html: () => `
+                    <div class="bg bg-icy"></div>
+                    <div class="ground-snow"></div>
+                    <div style="position:absolute;top:6%;left:50%;transform:translateX(-50%);" class="anim-pop" data-delay="0.3">
+                        <div class="t-big" style="color:#FF4500;-webkit-text-stroke-color:#0A0F1F;text-shadow:0 6px 0 #0A0F1F;">BY HAND · DAMAGE FREE</div>
+                    </div>
+                    <div class="mascot anim-up" style="left:50%;bottom:25%;width:24%;transform:translateX(-50%);animation-delay:0.5s;" data-delay="0.5">${SVG.fellaBroom}</div>
+                    <!-- Snow piles vanishing -->
+                    <div class="junk-item junk-anim" style="bottom:25%;left:18%;animation-delay:1.2s;color:#fff;">⛄</div>
+                    <div class="junk-item junk-anim" style="bottom:25%;left:35%;animation-delay:1.6s;color:#fff;">❄️</div>
+                    <div class="junk-item junk-anim" style="bottom:25%;left:65%;animation-delay:2.0s;color:#fff;">❄️</div>
+                    <div class="junk-item junk-anim" style="bottom:25%;left:82%;animation-delay:2.4s;color:#fff;">⛄</div>
+                    <div style="position:absolute;bottom:45%;left:25%;font-family:'Luckiest Guy',cursive;font-size:clamp(20px,3.5vw,42px);color:#00D9FF;-webkit-text-stroke:3px #0A0F1F;animation:popIn 0.5s ease 1.2s forwards;opacity:0;">SCOOP!</div>
+                    <div style="position:absolute;bottom:50%;left:55%;font-family:'Luckiest Guy',cursive;font-size:clamp(20px,3.5vw,42px);color:#FFD700;-webkit-text-stroke:3px #0A0F1F;animation:popIn 0.5s ease 2s forwards;opacity:0;">SHOVEL!</div>
+                    <div style="position:absolute;bottom:48%;left:75%;font-family:'Luckiest Guy',cursive;font-size:clamp(20px,3.5vw,42px);color:#A6FF00;-webkit-text-stroke:3px #0A0F1F;animation:popIn 0.5s ease 2.8s forwards;opacity:0;">CLEAR!</div>
+                `
+            },
+            // Clean driveway
+            {
+                dur: 4000,
+                sfx: () => chord([659,784,988,1175], 0.6, 'triangle', 0.12),
+                html: () => `
+                    <div class="bg" style="background:linear-gradient(180deg,#7BD7FF 0%,#FFD700 100%);"></div>
+                    <div class="ground"></div>
+                    <div style="position:absolute;top:8%;left:50%;transform:translateX(-50%);" class="anim-pop" data-delay="0.3">
+                        <div class="t-big">SAFE · DRY · DONE</div>
+                    </div>
+                    <div style="position:absolute;bottom:25%;left:50%;transform:translateX(-50%);font-size:clamp(60px,10vw,140px);" class="anim-pop" data-delay="0.8">🏠 ✨</div>
+                    <div style="position:absolute;top:38%;left:20%;font-size:clamp(28px,5vw,60px);" class="anim-pop" data-delay="1.2">✨</div>
+                    <div style="position:absolute;top:42%;right:20%;font-size:clamp(28px,5vw,60px);" class="anim-pop" data-delay="1.5">✨</div>
+                    <div class="anim-up" style="position:absolute;bottom:8%;left:50%;transform:translateX(-50%);font-family:'Bebas Neue',sans-serif;font-size:clamp(14px,2.4vw,26px);letter-spacing:3px;color:#0A0F1F;" data-delay="2">NO TORN SOD · NO SCRATCHED CONCRETE</div>
+                `
+            },
+            // On-call winter plans
+            {
+                dur: 4000,
+                sfx: () => chord([523,659,784,1047], 0.5, 'triangle', 0.13),
+                html: () => `
+                    <div class="bg" style="background:linear-gradient(135deg,#9D4EDD 0%,#00D9FF 100%);"></div>
+                    <div class="bg-grid"></div>
+                    <div style="position:absolute;top:18%;left:50%;transform:translateX(-50%);" class="anim-pop" data-delay="0.3">
+                        <div class="t-big">ON-CALL ALL WINTER</div>
+                    </div>
+                    <div style="position:absolute;top:46%;left:50%;transform:translateX(-50%);font-size:clamp(50px,9vw,110px);" class="anim-pop" data-delay="0.9">📅 ❄️ ✅</div>
+                    <div class="anim-up" style="position:absolute;bottom:14%;left:50%;transform:translateX(-50%);font-family:'Bebas Neue',sans-serif;font-size:clamp(16px,3vw,36px);letter-spacing:3px;color:#fff;" data-delay="1.6">SEASONAL CONTRACTS · ONE-TIME SHOVELS</div>
+                `
+            },
+            ctaScene(),
+        ],
+    },
+
+    /* ============== EP 5 — ESTATE CLEAN-OUT ============== */
+    5: {
+        name: 'ESTATE CARE',
+        emoji: '💛',
+        scenes: [
+            titleScene(5, 'ESTATE CARE', '💛'),
+            // The need
+            {
+                dur: 4500,
+                sfx: () => chord([392, 523, 659], 0.8, 'sine', 0.1),
+                html: () => `
+                    <div class="bg" style="background:linear-gradient(180deg,#7B5C8C 0%,#3a2a4a 100%);"></div>
+                    <div class="ground"></div>
+                    <div style="position:absolute;top:8%;left:50%;transform:translateX(-50%);" class="anim-pop" data-delay="0.4">
+                        <div class="t-big">A FULL HOUSE OF MEMORIES</div>
+                    </div>
+                    <div style="position:absolute;bottom:22%;left:50%;transform:translateX(-50%);font-size:clamp(60px,10vw,140px);" class="anim-up" data-delay="0.8">🏡</div>
+                    <div style="position:absolute;bottom:45%;left:18%;font-size:clamp(28px,5vw,60px);" class="anim-up" data-delay="1.0">📚</div>
+                    <div style="position:absolute;bottom:50%;right:18%;font-size:clamp(28px,5vw,60px);" class="anim-up" data-delay="1.2">🪑</div>
+                    <div style="position:absolute;bottom:35%;left:30%;font-size:clamp(28px,5vw,60px);" class="anim-up" data-delay="1.4">🖼️</div>
+                    <div style="position:absolute;bottom:38%;right:32%;font-size:clamp(28px,5vw,60px);" class="anim-up" data-delay="1.6">📷</div>
+                    <div class="bubble anim-pop" style="top:30%;right:6%;color:#FF4500;" data-delay="2">"WHERE DO I EVEN START?"</div>
+                `
+            },
+            // Fellas approach gently
+            {
+                dur: 4000,
+                sfx: () => { tone(440, 0.4, 'sine', 0.1); setTimeout(()=>tone(523, 0.5, 'sine', 0.1), 200); },
+                html: () => `
+                    <div class="bg" style="background:linear-gradient(135deg,#FFD700 0%,#FF8C00 50%,#FF1493 100%);"></div>
+                    <div class="ground"></div>
+                    <div style="position:absolute;top:8%;left:50%;transform:translateX(-50%);width:90%;" class="anim-pop" data-delay="0.4">
+                        <div class="t-big">WE TREAT IT LIKE FAMILY</div>
+                    </div>
+                    <div class="mascot anim-left anim-wiggle" style="left:14%;bottom:8%;width:24%;">${SVG.fella}</div>
+                    <div class="mascot anim-right anim-wiggle" style="right:14%;bottom:8%;width:24%;animation-delay:0.3s;">${SVG.fellaWave}</div>
+                    <div class="bubble anim-pop" style="top:35%;left:50%;transform:translateX(-50%);background:#fff;color:#FF4500;text-align:center;" data-delay="1.5">"WE'LL HELP — RESPECTFULLY." 💛</div>
+                `
+            },
+            // Sorting items
+            {
+                dur: 5000,
+                sfx: () => [0, 500, 1000, 1500].forEach((d,k)=> setTimeout(()=>tone(523+k*100, 0.3, 'sine', 0.1), d)),
+                html: () => `
+                    <div class="bg" style="background:linear-gradient(135deg,#9D4EDD 0%,#FF1493 100%);"></div>
+                    <div class="ground"></div>
+                    <div style="position:absolute;top:6%;left:50%;transform:translateX(-50%);" class="anim-pop" data-delay="0.3">
+                        <div class="t-big" style="color:#FFD700;-webkit-text-stroke-color:#0A0F1F;text-shadow:0 6px 0 #0A0F1F;">SORT · DONATE · KEEP</div>
+                    </div>
+                    <!-- Three category zones -->
+                    <div class="anim-up" style="position:absolute;bottom:25%;left:8%;width:25%;text-align:center;" data-delay="0.6">
+                        <div style="font-size:clamp(40px,7vw,90px);">💛</div>
+                        <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(14px,2.4vw,28px);color:#FFD700;letter-spacing:2px;">KEEP</div>
+                    </div>
+                    <div class="anim-up" style="position:absolute;bottom:25%;left:38%;width:24%;text-align:center;" data-delay="1">
+                        <div style="font-size:clamp(40px,7vw,90px);">🎁</div>
+                        <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(14px,2.4vw,28px);color:#A6FF00;letter-spacing:2px;">DONATE</div>
+                    </div>
+                    <div class="anim-up" style="position:absolute;bottom:25%;right:8%;width:25%;text-align:center;" data-delay="1.4">
+                        <div style="font-size:clamp(40px,7vw,90px);">♻️</div>
+                        <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(14px,2.4vw,28px);color:#00D9FF;letter-spacing:2px;">RECYCLE</div>
+                    </div>
+                    <div class="mascot anim-up" style="left:50%;bottom:8%;width:18%;transform:translateX(-50%);animation-delay:1.8s;" data-delay="1.8">${SVG.fellaWave}</div>
+                `
+            },
+            // Customer thanks
+            {
+                dur: 4500,
+                sfx: () => chord([659, 784, 988, 1175], 0.8, 'triangle', 0.1),
+                html: () => `
+                    <div class="bg bg-stage"></div>
+                    <div class="bg-grid"></div>
+                    <div style="position:absolute;top:14%;left:50%;transform:translateX(-50%);font-size:clamp(50px,9vw,110px);" class="anim-pop" data-delay="0.4">💛</div>
+                    <div class="anim-pop" style="position:absolute;left:50%;top:42%;transform:translateX(-50%);background:#FFD700;color:#1a1a1a;padding:18px 32px;border-radius:14px;font-family:'Luckiest Guy',cursive;font-size:clamp(13px,2.2vw,24px);box-shadow:0 8px 0 #B8860B;border:3px solid #1a1a1a;text-align:center;width:84%;" data-delay="1">"RESPECTFUL · KIND · MADE AN<br>IMPOSSIBLE WEEK SO MUCH EASIER."</div>
+                    <div class="anim-up" style="position:absolute;left:50%;top:80%;transform:translateX(-50%);color:#FFD700;font-family:'Bebas Neue',sans-serif;font-size:clamp(14px,2.4vw,26px);letter-spacing:3px;" data-delay="2">— SARAH R. · BOWNESS</div>
+                `
+            },
+            // Promise
+            {
+                dur: 4000,
+                sfx: () => chord([523,659,784], 0.7, 'triangle', 0.12),
+                html: () => `
+                    <div class="bg" style="background:linear-gradient(135deg,#FFD700 0%,#FF8C00 100%);"></div>
+                    <div class="bg-grid"></div>
+                    <div style="position:absolute;top:18%;left:50%;transform:translateX(-50%);width:96%;text-align:center;" class="anim-pop" data-delay="0.3">
+                        <div class="t-big" style="-webkit-text-stroke-color:#5C3818;text-shadow:0 6px 0 #5C3818;">DIGNITY · KINDNESS · CARE</div>
+                    </div>
+                    <div style="position:absolute;top:54%;left:50%;transform:translateX(-50%);font-size:clamp(50px,9vw,110px);" class="anim-pop" data-delay="0.9">🤝</div>
+                    <div class="anim-up" style="position:absolute;bottom:12%;left:50%;transform:translateX(-50%);font-family:'Bebas Neue',sans-serif;font-size:clamp(14px,2.6vw,28px);letter-spacing:3px;color:#5C3818;" data-delay="1.5">EVERY ESTATE. EVERY FAMILY. EVERY TIME.</div>
+                `
+            },
+            ctaScene(),
+        ],
+    },
+};
+
+/* ============== AUDIO ============== */
 let audioCtx = null;
 let audioOn = true;
 const soundBtn = document.getElementById('soundBtn');
@@ -938,16 +1202,15 @@ soundBtn.addEventListener('click', ()=>{
     audioOn = !audioOn;
     soundBtn.textContent = '🔊 Sound: ' + (audioOn ? 'ON' : 'OFF');
 });
-
-function ctx(){
+function ctxAudio(){
     if (!audioCtx) audioCtx = new (window.AudioContext||window.webkitAudioContext)();
     if (audioCtx.state === 'suspended') audioCtx.resume();
     return audioCtx;
 }
-
 function tone(freq, dur, type='sine', vol=0.18, when=0){
+    if (!audioOn) return;
     try{
-        const c = ctx();
+        const c = ctxAudio();
         const o = c.createOscillator();
         const g = c.createGain();
         o.type = type; o.frequency.value = freq;
@@ -960,14 +1223,16 @@ function tone(freq, dur, type='sine', vol=0.18, when=0){
     }catch(e){}
 }
 function chord(freqs, dur, type='triangle', vol=0.13){
+    if (!audioOn) return;
     freqs.forEach(f => tone(f, dur, type, vol));
 }
 function noise(dur, vol=0.15){
+    if (!audioOn) return;
     try{
-        const c = ctx();
+        const c = ctxAudio();
         const buf = c.createBuffer(1, c.sampleRate * dur, c.sampleRate);
         const data = buf.getChannelData(0);
-        for (let i = 0; i < data.length; i++) data[i] = (Math.random() * 2 - 1) * (1 - i/data.length);
+        for (let i = 0; i < data.length; i++) data[i] = (Math.random()*2-1) * (1 - i/data.length);
         const src = c.createBufferSource(); src.buffer = buf;
         const g = c.createGain(); g.gain.value = vol;
         src.connect(g); g.connect(c.destination);
@@ -975,65 +1240,152 @@ function noise(dur, vol=0.15){
     }catch(e){}
 }
 
-function playSceneSfx(i){
-    switch(i){
-        case 0: chord([523.25, 659.25, 783.99], 0.6, 'triangle', 0.12); break;
-        case 1: tone(800, 0.1, 'square', 0.1); setTimeout(()=>tone(1000, 0.1, 'square', 0.1), 120); break;
-        case 2: chord([523, 659, 784, 1047], 0.4); break;
-        case 3: tone(180, 0.6, 'sawtooth', 0.15); noise(0.3); break;
-        case 4: tone(220, 0.8, 'sawtooth', 0.12); setTimeout(()=>tone(180, 0.8, 'sawtooth', 0.1), 200); break;
-        case 5: [0,150,300,450,600].forEach((d,k)=> setTimeout(()=>tone(523+k*100, 0.15, 'sine', 0.12), d)); break;
-        case 6: chord([659, 784, 988, 1175], 0.8, 'triangle', 0.1); break;
-    }
+/* ============== TIMELINE ============== */
+let currentEp = 1;
+let timeoutIds = [];
+let progressRAF = null;
+let startTs = 0;
+let isPlaying = true;
+
+const stage = document.getElementById('stage');
+const sceneInd = document.getElementById('sceneInd');
+const progress = document.getElementById('progress');
+const epTag = document.getElementById('epTag');
+
+function applyAnimDelays(scene){
+    scene.querySelectorAll('[data-delay]').forEach(el => {
+        const d = parseFloat(el.dataset.delay);
+        el.style.animationDelay = d + 's';
+    });
 }
 
-/* ====================================================================
-   RECORD MP4 — uses MediaRecorder + getDisplayMedia
-==================================================================== */
+function clearTimeline(){
+    timeoutIds.forEach(t => clearTimeout(t));
+    timeoutIds = [];
+    if (progressRAF) cancelAnimationFrame(progressRAF);
+}
+
+function buildEpisodeDOM(epNum){
+    stage.innerHTML = '';
+    const ep = EPISODES[epNum];
+    ep.scenes.forEach((sceneData, i) => {
+        const sec = document.createElement('section');
+        sec.className = 'scene';
+        sec.id = `scene-${i+1}`;
+        sec.innerHTML = sceneData.html();
+        stage.appendChild(sec);
+    });
+}
+
+function setActive(idx){
+    const ep = EPISODES[currentEp];
+    const scenes = stage.querySelectorAll('.scene');
+    scenes.forEach((s,i)=> s.classList.toggle('active', i===idx));
+    if (scenes[idx]) applyAnimDelays(scenes[idx]);
+    sceneInd.textContent = `SCENE ${idx+1} / ${ep.scenes.length} · ${ep.name}`;
+    if (isPlaying && audioOn && ep.scenes[idx].sfx) ep.scenes[idx].sfx();
+}
+
+function totalMs(){
+    return EPISODES[currentEp].scenes.reduce((s,x)=>s+x.dur,0);
+}
+
+function tick(){
+    const elapsed = performance.now() - startTs;
+    progress.style.width = Math.min(100, (elapsed / totalMs()) * 100) + '%';
+    if (isPlaying) progressRAF = requestAnimationFrame(tick);
+}
+
+function startTimeline(){
+    clearTimeline();
+    isPlaying = true;
+    startTs = performance.now();
+    let acc = 0;
+    EPISODES[currentEp].scenes.forEach((s,i)=>{
+        const t = setTimeout(()=> setActive(i), acc);
+        timeoutIds.push(t);
+        acc += s.dur;
+    });
+    timeoutIds.push(setTimeout(()=> startTimeline(), acc));
+    setActive(0);
+    progressRAF = requestAnimationFrame(tick);
+}
+
+function loadEpisode(num){
+    currentEp = num;
+    buildEpisodeDOM(num);
+    epTag.textContent = `EP. 0${num} · ${EPISODES[num].name}`;
+    document.querySelectorAll('.ep-tab').forEach(t => t.classList.toggle('active', parseInt(t.dataset.ep)===num));
+    progress.style.width = '0%';
+    startTimeline();
+}
+
+document.querySelectorAll('.ep-tab').forEach(tab => {
+    tab.addEventListener('click', () => loadEpisode(parseInt(tab.dataset.ep)));
+});
+
+document.getElementById('playBtn').addEventListener('click', ()=> {
+    progress.style.width = '0%';
+    startTimeline();
+});
+
+/* ============== RECORD ============== */
 document.getElementById('recordBtn').addEventListener('click', async ()=>{
     if (!navigator.mediaDevices || !navigator.mediaDevices.getDisplayMedia){
-        alert('Your browser does not support screen recording. Use OBS, Loom, or Win+Alt+R instead.');
+        alert('Your browser doesn\'t support screen recording. Try Chrome or use OBS.');
         return;
     }
     try{
-        const stream = await navigator.mediaDevices.getDisplayMedia({
-            video: { frameRate: 30 },
-            audio: true
-        });
+        const stream = await navigator.mediaDevices.getDisplayMedia({ video:{frameRate:30}, audio:true });
         const recorder = new MediaRecorder(stream, { mimeType: 'video/webm;codecs=vp9,opus' });
         const chunks = [];
-        recorder.ondataavailable = e => { if (e.data.size > 0) chunks.push(e.data); };
+        recorder.ondataavailable = e => { if (e.data.size>0) chunks.push(e.data); };
         recorder.onstop = () => {
             const blob = new Blob(chunks, { type: 'video/webm' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = `firefellas-cartoon-ep1-${Date.now()}.webm`;
+            a.download = `firefellas-ep${currentEp}-${Date.now()}.webm`;
             a.click();
             stream.getTracks().forEach(t => t.stop());
-            alert('Recording saved as .webm — convert to .mp4 free at cloudconvert.com if needed.');
+            alert('Saved as .webm — convert to .mp4 free at cloudconvert.com if needed.');
         };
-        // restart timeline so user gets fresh full clip
         progress.style.width = '0%';
         startTimeline();
         recorder.start();
-        // Auto-stop after 1 full loop + 0.5s buffer
-        setTimeout(()=> recorder.stop(), TOTAL_MS + 500);
+        const dur = totalMs();
+        setTimeout(()=> recorder.stop(), dur + 500);
         document.getElementById('recordBtn').textContent = '⏺ Recording…';
-        setTimeout(()=> { document.getElementById('recordBtn').textContent = '⬇ Record MP4'; }, TOTAL_MS + 600);
+        setTimeout(()=> { document.getElementById('recordBtn').textContent = '⬇ Record MP4'; }, dur + 600);
     }catch(err){
         console.error(err);
-        alert('Recording cancelled. ' + (err.message || ''));
+        alert('Recording cancelled.');
     }
 });
 
-/* ====================================================================
-   GO!
-==================================================================== */
-window.addEventListener('load', ()=> {
-    setActive(0);
+/* ============== SOUND UNLOCK ============== */
+const soundOverlay = document.getElementById('soundOverlay');
+function unlockAudioAndStart() {
+    // Force-create + resume audio context (browsers require user gesture)
+    try {
+        const c = ctxAudio();
+        if (c.state === 'suspended') c.resume();
+        // Play a silent tone to fully unlock
+        const o = c.createOscillator();
+        const g = c.createGain();
+        g.gain.value = 0.001;
+        o.connect(g); g.connect(c.destination);
+        o.start(); o.stop(c.currentTime + 0.05);
+    } catch(e){}
+    soundOverlay.classList.add('hidden');
+    // Restart the timeline so scene 1 SFX plays now that audio is unlocked
+    progress.style.width = '0%';
     startTimeline();
-});
+}
+soundOverlay.addEventListener('click', unlockAudioAndStart);
+
+/* ============== GO! ============== */
+window.addEventListener('load', ()=> { loadEpisode(1); });
 </script>
 
 </body>
