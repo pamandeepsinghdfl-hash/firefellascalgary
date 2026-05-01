@@ -35,14 +35,96 @@ body{display:flex;flex-direction:column;align-items:center;padding:14px;}
 .ep-tab .num{width:22px;height:22px;border-radius:50%;background:rgba(0,0,0,0.3);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:bold;}
 .ep-tab.active .num{background:#1a1a1a;color:#FFD700;}
 
-/* === 9:16 VERTICAL STAGE === */
+/* === 9:16 VERTICAL PHONE-MOCKUP STAGE === */
+.phone-frame{
+    position:relative;
+    width:min(440px, 84vh, 92vw);
+    padding:22px 14px;
+    background:linear-gradient(135deg,#1a1a1a 0%,#3a3a3a 50%,#1a1a1a 100%);
+    border-radius:46px;
+    box-shadow:
+        0 30px 80px rgba(255,69,0,0.4),
+        0 0 0 3px #2a2a2a,
+        inset 0 0 0 2px rgba(255,255,255,0.1);
+}
+/* Phone notch */
+.phone-frame::before{
+    content:'';
+    position:absolute;top:8px;left:50%;transform:translateX(-50%);
+    width:36%;height:24px;
+    background:#000;
+    border-radius:0 0 18px 18px;
+    z-index:60;
+}
+/* Phone speaker */
+.phone-frame::after{
+    content:'';
+    position:absolute;top:14px;left:50%;transform:translateX(-50%);
+    width:50px;height:5px;
+    background:#222;border-radius:3px;
+    z-index:61;
+}
 .stage-wrap{
-    width:min(420px, 80vh, 90vw);
+    width:100%;
     aspect-ratio:9/16;
     position:relative;
-    border-radius:24px;overflow:hidden;
-    box-shadow:0 30px 80px rgba(255,69,0,0.45), 0 0 0 4px rgba(255,140,0,0.4);
+    border-radius:30px;overflow:hidden;
     background:#0A0F1F;
+}
+
+/* Phone status bar (time, signal, battery) */
+.phone-status{
+    position:absolute;top:0;left:0;right:0;
+    display:flex;justify-content:space-between;align-items:center;
+    padding:8px 26px 4px;height:32px;
+    color:#fff;font-family:Fredoka,sans-serif;font-size:13px;font-weight:600;
+    z-index:55;pointer-events:none;
+}
+.phone-status .right{display:flex;gap:5px;align-items:center;font-size:11px;}
+
+/* TikTok / Reels / YT Shorts platform pill */
+.platform-pill{
+    position:absolute;top:38px;left:50%;transform:translateX(-50%);
+    display:flex;gap:6px;align-items:center;
+    color:#fff;font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:13px;
+    background:rgba(0,0,0,0.5);padding:5px 12px;border-radius:20px;
+    backdrop-filter:blur(10px);z-index:54;
+    border:1px solid rgba(255,255,255,0.1);
+}
+
+/* Right-side social action stack (like, comment, share) */
+.social-stack{
+    position:absolute;right:8px;bottom:18%;display:flex;flex-direction:column;gap:14px;align-items:center;z-index:53;pointer-events:none;
+}
+.social-stack .action{
+    display:flex;flex-direction:column;align-items:center;gap:2px;color:#fff;
+    text-shadow:0 2px 4px rgba(0,0,0,0.6);
+    font-family:Fredoka,sans-serif;font-size:11px;font-weight:600;
+}
+.social-stack .icon-circle{
+    width:42px;height:42px;border-radius:50%;
+    background:rgba(0,0,0,0.4);backdrop-filter:blur(8px);
+    display:flex;align-items:center;justify-content:center;font-size:22px;
+    border:1px solid rgba(255,255,255,0.15);
+}
+.social-stack .icon-circle.heart{background:linear-gradient(135deg,#FF1493,#FF4500);animation:heartBeat 1.8s ease-in-out infinite;}
+@keyframes heartBeat{0%,100%{transform:scale(1);}30%{transform:scale(1.18);}60%{transform:scale(0.95);}}
+
+/* Bottom social bar (username + caption preview) */
+.social-bottom{
+    position:absolute;left:0;right:50px;bottom:6%;
+    padding:0 14px;color:#fff;z-index:52;pointer-events:none;
+    text-shadow:0 2px 4px rgba(0,0,0,0.6);
+}
+.social-bottom .username{font-family:Fredoka,sans-serif;font-size:14px;font-weight:700;display:flex;align-items:center;gap:6px;}
+.social-bottom .username::after{content:'• Follow';color:#FFD700;font-weight:600;font-size:13px;}
+.social-bottom .insta-cap{font-family:Fredoka,sans-serif;font-size:12px;font-weight:500;margin-top:4px;line-height:1.3;}
+.social-bottom .insta-cap span{color:#7BD7FF;}
+
+/* Phone home bar */
+.phone-home{
+    position:absolute;left:50%;transform:translateX(-50%);bottom:4px;
+    width:42%;height:4px;background:#fff;border-radius:3px;opacity:0.6;z-index:55;
 }
 .stage{position:absolute;inset:0;}
 .scene{position:absolute;inset:0;opacity:0;transition:opacity 0.5s ease;}
@@ -241,19 +323,57 @@ footer a{color:#FFD700;text-decoration:none;}
     <button class="ep-tab" data-ep="5"><span class="num">5</span>ESTATE 💛</button>
 </div>
 
-<div class="stage-wrap">
-    <div class="stage" id="stage"></div>
+<div class="phone-frame">
+    <div class="stage-wrap">
+        <div class="stage" id="stage"></div>
 
-    <div class="sound-overlay" id="soundOverlay">
-        <div class="sound-card">
-            <div class="icon">🎵</div>
-            <div class="title">CLICK TO START WITH MUSIC</div>
-            <div class="sub">(no voices · text + music + SFX)</div>
+        <!-- Phone status bar -->
+        <div class="phone-status">
+            <span id="phoneTime">9:41</span>
+            <span class="right">📶 🔋 100%</span>
         </div>
-    </div>
 
-    <div class="scene-indicator" id="sceneInd">SCENE 1 / 6</div>
-    <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+        <!-- Platform indicator -->
+        <div class="platform-pill" id="platformPill">📱 REELS · TIKTOK · SHORTS</div>
+
+        <!-- Social action stack (right side, like Instagram/TikTok) -->
+        <div class="social-stack">
+            <div class="action">
+                <div class="icon-circle heart">❤️</div>
+                <span>2.4K</span>
+            </div>
+            <div class="action">
+                <div class="icon-circle">💬</div>
+                <span>148</span>
+            </div>
+            <div class="action">
+                <div class="icon-circle">↗️</div>
+                <span>Share</span>
+            </div>
+            <div class="action">
+                <div class="icon-circle">🔖</div>
+                <span>Save</span>
+            </div>
+        </div>
+
+        <!-- Bottom: username + caption preview (TikTok/Reels-style) -->
+        <div class="social-bottom">
+            <div class="username">@firefellascalgary</div>
+            <div class="insta-cap" id="bottomCap">Calgary's Multi-Service Pros 🔥 <span>#yyc #moving #junkremoval</span></div>
+        </div>
+
+        <div class="sound-overlay" id="soundOverlay">
+            <div class="sound-card">
+                <div class="icon">🎵</div>
+                <div class="title">TAP TO START</div>
+                <div class="sub">(reels-style · text + music + SFX)</div>
+            </div>
+        </div>
+
+        <div class="scene-indicator" id="sceneInd">SCENE 1 / 6</div>
+        <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+    </div>
+    <div class="phone-home"></div>
 </div>
 
 <div class="controls">
@@ -1163,10 +1283,20 @@ function startTimeline(){
     progressRAF = requestAnimationFrame(tick);
 }
 
+const EPISODE_CAPTIONS = {
+    1: "Calgary's new homeowners — we make moving day stress-free 🔥 <span>#yyc #calgarymovers #newhome #movingday</span>",
+    2: "Park your car in your garage again 🚗 We haul it ALL <span>#yyc #junkremoval #calgary #garagecleanout</span>",
+    3: "Reno crew gone, mess remains? Same-day haul 🔨 <span>#yyc #renovation #construction #calgary</span>",
+    4: "When you can't shovel — we will. By hand, damage-free ❄️ <span>#yyc #snowremoval #calgary #seniors</span>",
+    5: "Estate cleanouts handled with respect 💛 <span>#yyc #estatecleanout #calgary #downsizing</span>",
+};
+
 function loadEpisode(num){
     currentEp = num;
     buildEpisodeDOM(num);
     document.querySelectorAll('.ep-tab').forEach(t => t.classList.toggle('active', parseInt(t.dataset.ep)===num));
+    const cap = document.getElementById('bottomCap');
+    if (cap) cap.innerHTML = EPISODE_CAPTIONS[num] || EPISODE_CAPTIONS[1];
     progress.style.width = '0%';
     startTimeline();
 }
