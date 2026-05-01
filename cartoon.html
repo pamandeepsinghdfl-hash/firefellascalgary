@@ -328,9 +328,9 @@ footer a{color:#FFD700;text-decoration:none;}
     <!-- Sound unlock overlay (browsers block audio until first click) -->
     <div class="sound-overlay" id="soundOverlay">
         <div class="sound-card">
-            <div class="speaker-icon">🔊</div>
-            <div class="sound-title">CLICK TO START WITH SOUND</div>
-            <div class="sound-sub">(or it'll play silent)</div>
+            <div class="speaker-icon">🎙️🔊</div>
+            <div class="sound-title">CLICK TO START WITH<br>VOICES & SOUND</div>
+            <div class="sound-sub">(meet the Fire Fellas — they talk!)</div>
         </div>
     </div>
 
@@ -341,7 +341,8 @@ footer a{color:#FFD700;text-decoration:none;}
 <div class="controls">
     <button class="btn" id="playBtn">▶ Replay</button>
     <button class="btn secondary" id="recordBtn">⬇ Record MP4</button>
-    <button class="btn muted" id="soundBtn">🔊 Sound: ON</button>
+    <button class="btn muted" id="voiceBtn">🎙️ Voices: ON</button>
+    <button class="btn muted" id="soundBtn">🔊 SFX: ON</button>
     <a class="btn muted" href="index.html" style="text-decoration:none;display:inline-flex;align-items:center;">🏠 Home</a>
 </div>
 
@@ -1194,13 +1195,125 @@ const EPISODES = {
     },
 };
 
-/* ============== AUDIO ============== */
+/* ============== VOICE LINES (per episode, per scene index) ============== */
+/* Two characters alternate: 'a' (Fella #1, deeper) and 'b' (Fella #2, peppier).
+   "p" is a short pause baked in via slower rate. */
+const VOICE_LINES = {
+    1: [ // Moving Day
+        null,
+        [ {who:'a', text:"Hey Calgary!", delay:600}, {who:'b', text:"We're the Fire Fellas, and we got you covered!", delay:1500} ],
+        [ {who:'a', text:"Moving, junk, hauling, snow... we do it all!", delay:600} ],
+        [ {who:'b', text:"Pack it, lift it, deliver it. Careful and quick!", delay:600} ],
+        [ {who:'a', text:"Delivered, with fire!", delay:700} ],
+        [ {who:'b', text:"Five hundred plus happy Calgarians, and counting!", delay:1500} ],
+        [ {who:'a', text:"Call us at three six eight, two nine nine, seven seven nine two. Get your free quote today!", delay:1000} ],
+    ],
+    2: [ // Junk Removal
+        null,
+        [ {who:'a', text:"Yikes, that's a lot of stuff!", delay:600}, {who:'b', text:"Don't worry, we'll handle it!", delay:2200} ],
+        [ {who:'b', text:"Time to call the Fire Fellas!", delay:500} ],
+        [ {who:'a', text:"Same-day junk removal! We got it!", delay:1500} ],
+        [ {who:'b', text:"Point at it, we haul it. Poof, gone!", delay:600} ],
+        [ {who:'a', text:"Clear, clean, done!", delay:700} ],
+        [ {who:'b', text:"Donate, recycle, dispose. Eco friendly disposal.", delay:600} ],
+        [ {who:'a', text:"Call three six eight, two nine nine, seven seven nine two!", delay:1000} ],
+    ],
+    3: [ // Construction
+        null,
+        [ {who:'a', text:"Reno crew gone, but the mess remains!", delay:700} ],
+        [ {who:'b', text:"Fire Fellas to the rescue!", delay:1500} ],
+        [ {who:'a', text:"Drywall, lumber, debris... we haul it all!", delay:600} ],
+        [ {who:'b', text:"Site swept, tidy, ready!", delay:700} ],
+        [ {who:'a', text:"Fast, clean, fair pricing. Your go-to haul crew!", delay:1500} ],
+        [ {who:'b', text:"Call three six eight, two nine nine, seven seven nine two!", delay:1000} ],
+    ],
+    4: [ // Snow Day
+        null,
+        [ {who:'a', text:"Calgary snowstorm? Driveway buried?", delay:600} ],
+        [ {who:'b', text:"Snow heroes incoming!", delay:1500} ],
+        [ {who:'a', text:"By hand, damage free! Scoop, shovel, clear!", delay:700} ],
+        [ {who:'b', text:"Safe, dry, done!", delay:700} ],
+        [ {who:'a', text:"On call all winter. Seasonal contracts available!", delay:600} ],
+        [ {who:'b', text:"Call three six eight, two nine nine, seven seven nine two!", delay:1000} ],
+    ],
+    5: [ // Estate
+        null,
+        [ {who:'a', text:"A full house of memories. Where do you even start?", delay:700} ],
+        [ {who:'b', text:"We treat it like family. With respect.", delay:700} ],
+        [ {who:'a', text:"Sort, donate, keep, at your pace.", delay:600} ],
+        [ {who:'b', text:"Respectful, kind, and dignified.", delay:1500} ],
+        [ {who:'a', text:"Every estate, every family, every time.", delay:700} ],
+        [ {who:'b', text:"Call three six eight, two nine nine, seven seven nine two!", delay:1000} ],
+    ],
+};
+
+let fellaVoiceA = null; // Fella #1 (deeper)
+let fellaVoiceB = null; // Fella #2 (peppier)
+let voiceOn = true;
+let pendingSpeechTimeouts = [];
+
+function pickFellaVoices() {
+    if (!('speechSynthesis' in window)) return;
+    const voices = speechSynthesis.getVoices();
+    if (!voices.length) return;
+    const en = voices.filter(v => v.lang && v.lang.toLowerCase().startsWith('en'));
+    // Prefer well-known male English voices
+    const malePatterns = /(Mark|David|James|Daniel|Alex|Fred|George|Tom|Aaron|Adam|Ryan|Liam|Eric|Brian|Joey)/i;
+    const males = en.filter(v => malePatterns.test(v.name));
+    fellaVoiceA = males[0] || en[0] || voices[0];
+    fellaVoiceB = males[1] || males[0] || en[1] || en[0] || voices[0];
+}
+if ('speechSynthesis' in window) {
+    pickFellaVoices();
+    speechSynthesis.onvoiceschanged = pickFellaVoices;
+}
+
+function cancelSpeech() {
+    pendingSpeechTimeouts.forEach(t => clearTimeout(t));
+    pendingSpeechTimeouts = [];
+    if ('speechSynthesis' in window) speechSynthesis.cancel();
+}
+
+function speakLines(lines) {
+    cancelSpeech();
+    if (!voiceOn || !lines || !('speechSynthesis' in window)) return;
+    lines.forEach(line => {
+        const t = setTimeout(() => {
+            try {
+                const u = new SpeechSynthesisUtterance(line.text);
+                if (line.who === 'a' && fellaVoiceA) {
+                    u.voice = fellaVoiceA;
+                    u.pitch = 0.95;  // slightly deeper
+                    u.rate = 1.05;
+                } else if (line.who === 'b' && fellaVoiceB) {
+                    u.voice = fellaVoiceB;
+                    u.pitch = 1.15;  // peppier
+                    u.rate = 1.10;
+                } else {
+                    u.rate = 1.05;
+                }
+                u.volume = 1.0;
+                speechSynthesis.speak(u);
+            } catch(e) { console.warn(e); }
+        }, line.delay || 0);
+        pendingSpeechTimeouts.push(t);
+    });
+}
+
+const voiceBtn = document.getElementById('voiceBtn');
+voiceBtn.addEventListener('click', () => {
+    voiceOn = !voiceOn;
+    voiceBtn.textContent = '🎙️ Voices: ' + (voiceOn ? 'ON' : 'OFF');
+    if (!voiceOn) cancelSpeech();
+});
+
+/* ============== AUDIO (SFX) ============== */
 let audioCtx = null;
 let audioOn = true;
 const soundBtn = document.getElementById('soundBtn');
 soundBtn.addEventListener('click', ()=>{
     audioOn = !audioOn;
-    soundBtn.textContent = '🔊 Sound: ' + (audioOn ? 'ON' : 'OFF');
+    soundBtn.textContent = '🔊 SFX: ' + (audioOn ? 'ON' : 'OFF');
 });
 function ctxAudio(){
     if (!audioCtx) audioCtx = new (window.AudioContext||window.webkitAudioContext)();
@@ -1284,6 +1397,12 @@ function setActive(idx){
     if (scenes[idx]) applyAnimDelays(scenes[idx]);
     sceneInd.textContent = `SCENE ${idx+1} / ${ep.scenes.length} · ${ep.name}`;
     if (isPlaying && audioOn && ep.scenes[idx].sfx) ep.scenes[idx].sfx();
+    // Voice-acting: speak this scene's lines
+    cancelSpeech();
+    if (isPlaying) {
+        const lines = (VOICE_LINES[currentEp] || [])[idx];
+        if (lines) speakLines(lines);
+    }
 }
 
 function totalMs(){
@@ -1312,6 +1431,7 @@ function startTimeline(){
 }
 
 function loadEpisode(num){
+    cancelSpeech();
     currentEp = num;
     buildEpisodeDOM(num);
     epTag.textContent = `EP. 0${num} · ${EPISODES[num].name}`;
