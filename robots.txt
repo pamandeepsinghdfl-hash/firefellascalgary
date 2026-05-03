@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /hub.html
+Disallow: /marketing.html
+Disallow: /freebies.html
+
+Sitemap: https://pamandeepsinghdfl-hash.github.io/firefellascalgary/sitemap.xml

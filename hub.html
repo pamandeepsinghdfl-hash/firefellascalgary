@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>🔥 Fire Fellas — Owner Hub</title>
+<meta name="robots" content="noindex,nofollow" />
+<link rel="icon" type="image/png" href="logo.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fredoka:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+:root{--firered:#FF4500;--fireorange:#FF8C00;--firegold:#FFD700;--firenavy:#0A0F1F;--pinkpop:#FF1493;--cyanpop:#00D9FF;--limepop:#A6FF00;--purplepop:#9D4EDD;}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{margin:0;padding:0;background:#0A0F1F;color:#fff;font-family:Inter,sans-serif;}
+.container{max-width:1200px;margin:0 auto;padding:24px 18px 80px;}
+
+header{text-align:center;padding:24px 0 16px;}
+.brand{display:inline-flex;align-items:center;gap:12px;justify-content:center;margin-bottom:14px;}
+.brand .logo{width:60px;height:60px;background:linear-gradient(135deg,#FFD700,#FF4500,#FF1493);background-size:200% 200%;animation:bgShift 6s ease-in-out infinite;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:32px;border:3px solid #1a1a1a;box-shadow:0 8px 24px rgba(255,69,0,0.4);}
+@keyframes bgShift{0%,100%{background-position:0% 50%;}50%{background-position:100% 50%;}}
+h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(34px,6vw,60px);letter-spacing:3px;margin:0;
+    background:linear-gradient(135deg,#FFEB3B,#FF8C00,#FF4500,#FF1493);background-size:200% 200%;animation:bgShift 6s ease-in-out infinite;
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+header p{margin:6px 0 0;color:#FFD700;font-family:'Bebas Neue',sans-serif;letter-spacing:5px;font-size:14px;}
+
+.bookmark{background:linear-gradient(135deg,rgba(0,217,255,0.1),rgba(255,20,147,0.1));border:2px dashed #FFD700;border-radius:14px;padding:14px 18px;margin:18px 0;text-align:center;}
+.bookmark .key{font-family:'Bebas Neue',sans-serif;letter-spacing:3px;color:#FFD700;font-size:14px;}
+.bookmark p{margin:6px 0 0;color:rgba(255,255,255,0.85);font-size:13px;}
+
+.urls{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-bottom:22px;}
+.url-card{background:linear-gradient(135deg,#141C32,#0F1628);border:1px solid rgba(255,140,0,0.2);border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:8px;transition:all 0.25s;}
+.url-card:hover{border-color:#FFD700;transform:translateY(-3px);box-shadow:0 14px 28px rgba(255,69,0,0.18);}
+.url-card .icon{font-size:30px;line-height:1;}
+.url-card .name{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:#FFD700;margin:0;}
+.url-card .desc{color:rgba(255,255,255,0.7);font-size:13px;line-height:1.4;flex:1;}
+.url-card .url-row{display:flex;gap:6px;align-items:center;background:rgba(0,0,0,0.3);padding:6px 8px;border-radius:8px;font-family:monospace;font-size:11px;color:#00D9FF;overflow:hidden;}
+.url-card .url-row span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;}
+.url-card .actions{display:flex;gap:6px;}
+.url-card .btn{flex:1;font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:12px;padding:8px 10px;border-radius:50px;text-align:center;cursor:pointer;border:none;}
+.btn.primary{background:linear-gradient(135deg,#FFD700,#FF4500);color:#1a1a1a;text-decoration:none;display:block;}
+.btn.copy{background:rgba(255,255,255,0.1);color:#FFD700;border:1px solid rgba(255,215,0,0.3);}
+.btn.copy.copied{background:linear-gradient(135deg,#A6FF00,#00D9FF);color:#0A0F1F;}
+
+.section{background:linear-gradient(135deg,#141C32,#0F1628);border:1px solid rgba(255,140,0,0.15);border-radius:20px;padding:22px;margin-bottom:18px;}
+.section h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(20px,3vw,30px);letter-spacing:2px;margin:0 0 6px;color:#FFD700;display:flex;align-items:center;gap:8px;}
+.section .desc{color:rgba(255,255,255,0.7);font-size:13px;margin:0 0 14px;}
+
+.contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;}
+.c-card{background:rgba(0,0,0,0.3);border:1px solid rgba(255,215,0,0.15);border-radius:12px;padding:14px;text-align:center;}
+.c-card .label{font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:11px;color:#FFD700;}
+.c-card .val{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1.5px;color:#fff;margin:6px 0;display:block;text-decoration:none;line-height:1.1;word-break:break-all;}
+.c-card .val:hover{color:#FFD700;}
+
+.checklist{list-style:none;padding:0;margin:0;}
+.checklist li{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.05);}
+.checklist input[type=checkbox]{margin-top:4px;width:18px;height:18px;accent-color:#FF4500;cursor:pointer;flex-shrink:0;}
+.checklist label{flex:1;font-size:14px;color:rgba(255,255,255,0.92);cursor:pointer;}
+.checklist label small{display:block;color:rgba(255,255,255,0.55);font-size:12px;margin-top:2px;}
+.checklist label small a{color:#FFD700;}
+.checklist li.done label{text-decoration:line-through;opacity:0.55;}
+
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:16px;}
+.stat{background:rgba(0,0,0,0.3);border:1px solid rgba(255,215,0,0.15);border-radius:12px;padding:14px;text-align:center;}
+.stat .num{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:2px;line-height:1;background:linear-gradient(135deg,#FFD700,#FF4500);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.stat .lbl{font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:2px;color:rgba(255,255,255,0.7);margin-top:4px;}
+
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(100px);background:linear-gradient(135deg,#A6FF00,#00D9FF);color:#0A0F1F;padding:12px 24px;border-radius:50px;font-family:'Bebas Neue',sans-serif;letter-spacing:2px;box-shadow:0 10px 30px rgba(0,0,0,0.4);transition:transform 0.3s ease;z-index:100;}
+.toast.show{transform:translateX(-50%) translateY(0);}
+
+footer{text-align:center;padding:24px 0;color:rgba(255,255,255,0.5);font-size:12px;border-top:1px solid rgba(255,215,0,0.15);margin-top:30px;}
+footer a{color:#FFD700;text-decoration:none;}
+
+.cta-row{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:14px;}
+.cta-big{background:linear-gradient(135deg,#FFD700,#FF4500,#FF1493);background-size:200% 200%;animation:bgShift 5s ease-in-out infinite;color:#1a1a1a;font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:16px;font-weight:bold;padding:14px 26px;border-radius:50px;text-decoration:none;box-shadow:0 8px 24px rgba(255,69,0,0.4);display:inline-flex;align-items:center;gap:8px;}
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+    <div class="brand">
+        <div class="logo">🔥</div>
+    </div>
+    <h1>OWNER HUB</h1>
+    <p>YOUR FIRE FELLAS COMMAND CENTER</p>
+</header>
+
+<div class="bookmark">
+    <div class="key">⭐ BOOKMARK THIS PAGE — Press <kbd>Ctrl+D</kbd> (or <kbd>Cmd+D</kbd> on Mac) ⭐</div>
+    <p>This is the ONE link to remember. Everything you need is here.</p>
+</div>
+
+<!-- ========== AT-A-GLANCE STATS ========== -->
+<div class="stats">
+    <div class="stat"><div class="num">7</div><div class="lbl">PAGES LIVE</div></div>
+    <div class="stat"><div class="num">5</div><div class="lbl">VIDEO STORIES</div></div>
+    <div class="stat"><div class="num">8</div><div class="lbl">PRINTABLES</div></div>
+    <div class="stat"><div class="num">$0</div><div class="lbl">MONTHLY COST</div></div>
+    <div class="stat"><div class="num">100%</div><div class="lbl">OWNED BY YOU</div></div>
+</div>
+
+<!-- ========== ALL YOUR LINKS ========== -->
+<section class="section">
+    <h2>🌐 ALL YOUR LIVE PAGES</h2>
+    <p class="desc">Every URL you have. Click VISIT to open, COPY to grab the link for sharing.</p>
+
+    <div class="urls">
+        <div class="url-card">
+            <div class="icon">🏠</div>
+            <h3 class="name">MAIN WEBSITE</h3>
+            <div class="desc">Your full site — hero, services, pricing, contact form. Send THIS to customers.</div>
+            <div class="url-row"><span data-url="https://pamandeepsinghdfl-hash.github.io/firefellascalgary/">https://pamandeepsinghdfl-hash.github.io/firefellascalgary/</span></div>
+            <div class="actions">
+                <a class="btn primary" href="https://pamandeepsinghdfl-hash.github.io/firefellascalgary/" target="_blank">VISIT</a>
+                <button class="btn copy" data-copy="https://pamandeepsinghdfl-hash.github.io/firefellascalgary/">📋 COPY</button>
+            </div>
+        </div>
+
+        <div class="url-card">
+            <div class="icon">📱</div>
+            <h3 class="name">SHORTS (60s VERTICAL)</h3>
+            <div class="desc">5 story-driven shorts for TikTok / Instagram Reels / YouTube Shorts.</div>
+            <div class="url-row"><span data-url="https://pamandeepsinghdfl-hash.github.io/firefellascalgary/shorts.html">https://.../shorts.html</span></div>
+            <div class="actions">
+                <a class="btn primary" href="https://pamandeepsinghdfl-hash.github.io/firefellascalgary/shorts.html" target="_blank">VISIT</a>
+                <button class="btn copy" data-copy="https://pamandeepsinghdfl-hash.github.io/firefellascalgary/shorts.html">📋 COPY</button>
+            </div>
+        </div>
+
+        <div class="url-card">
+            <div class="icon">📺</div>
+            <h3 class="name">LONG EPISODES</h3>
+            <div class="desc">5 longer 30-sec episodes with voices — for embedding on website / ads.</div>
+            <div class="url-row"><span data-url="https://pamandeepsinghdfl-hash.github.io/firefellascalgary/cartoon.html">https://.../cartoon.html</span></div>
+            <div class="actions">
+                <a class="btn primary" href="https://pamandeepsinghdfl-hash.github.io/firefellascalgary/cartoon.html" target="_blank">VISIT</a>
+                <button class="btn copy" data-copy="https://pamandeepsinghdfl-hash.github.io/firefellascalgary/cartoon.html">📋 COPY</button>
+            </div>
+        </div>
+
+        <div class="url-card">
+            <div class="icon">📋</div>
+            <h3 class="name">MARKETING HUB</h3>
+            <div class="desc">All your copy: GBP, Kijiji ads, IG captions, realtor emails, hashtags.</div>
+            <div class="url-row"><span data-url="https://pamandeepsinghdfl-hash.github.io/firefellascalgary/marketing.html">https://.../marketing.html</span></div>
+            <div class="actions">
+                <a class="btn primary" href="https://pamandeepsinghdfl-hash.github.io/firefellascalgary/marketing.html" target="_blank">VISIT</a>
+                <button class="btn copy" data-copy="https://pamandeepsinghdfl-hash.github.io/firefellascalgary/marketing.html">📋 COPY</button>
+            </div>
+        </div>
+
+        <div class="url-card">
+            <div class="icon">🎁</div>
+            <h3 class="name">FREE PRINTABLES</h3>
+            <div class="desc">Business cards, door hangers, truck signs, invoices, QR codes — print & use today.</div>
+            <div class="url-row"><span data-url="https://pamandeepsinghdfl-hash.github.io/firefellascalgary/freebies.html">https://.../freebies.html</span></div>
+            <div class="actions">
+                <a class="btn primary" href="https://pamandeepsinghdfl-hash.github.io/firefellascalgary/freebies.html" target="_blank">VISIT</a>
+                <button class="btn copy" data-copy="https://pamandeepsinghdfl-hash.github.io/firefellascalgary/freebies.html">📋 COPY</button>
+            </div>
+        </div>
+
+        <div class="url-card">
+            <div class="icon">⚙️</div>
+            <h3 class="name">GITHUB CODE</h3>
+            <div class="desc">All source code — open if you ever want to edit, hire someone, or move hosts.</div>
+            <div class="url-row"><span data-url="https://github.com/pamandeepsinghdfl-hash/firefellascalgary">github.com/.../firefellascalgary</span></div>
+            <div class="actions">
+                <a class="btn primary" href="https://github.com/pamandeepsinghdfl-hash/firefellascalgary" target="_blank">VISIT</a>
+                <button class="btn copy" data-copy="https://github.com/pamandeepsinghdfl-hash/firefellascalgary">📋 COPY</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== CONTACT INFO ========== -->
+<section class="section">
+    <h2>📞 YOUR BUSINESS DETAILS</h2>
+    <p class="desc">Tap any of these to test. Make sure they all work.</p>
+    <div class="contact-grid">
+        <div class="c-card">
+            <div class="label">📞 PHONE</div>
+            <a class="val" href="tel:+13682997792">(368) 299-7792</a>
+        </div>
+        <div class="c-card">
+            <div class="label">📧 EMAIL</div>
+            <a class="val" href="mailto:firefellasmoving@gmail.com" style="font-size:14px;">firefellasmoving@gmail.com</a>
+        </div>
+        <div class="c-card">
+            <div class="label">📷 INSTAGRAM</div>
+            <a class="val" href="https://www.instagram.com/firefellascalgary/" target="_blank">@firefellascalgary</a>
+        </div>
+        <div class="c-card">
+            <div class="label">📍 SERVICE AREA</div>
+            <span class="val" style="font-size:14px;">Calgary · Airdrie · Cochrane · Okotoks</span>
+        </div>
+    </div>
+</section>
+
+<!-- ========== TODAY'S 3 BIG MOVES ========== -->
+<section class="section">
+    <h2>🎯 TODAY'S 3 BIGGEST MOVES (15 min total)</h2>
+    <p class="desc">If you do nothing else today, do these three. Each one starts paying off within 24-48 hrs.</p>
+    <ul class="checklist" id="cl3">
+        <li><input type="checkbox" id="big1"><label for="big1"><b>5 min — Submit Google Business Profile</b><small>Open <a href="https://google.com/business" target="_blank">google.com/business</a> → "Manage now" → name "Fire Fellas Calgary" → category "Mover" → service area Calgary → Verify by phone. <a href="https://pamandeepsinghdfl-hash.github.io/firefellascalgary/marketing.html#gbp" target="_blank">Use the copy here</a>.</small></label></li>
+        <li><input type="checkbox" id="big2"><label for="big2"><b>5 min — Post 1 Kijiji ad (Movers section)</b><small><a href="https://www.kijiji.ca/p-post-ad.html" target="_blank">kijiji.ca/p-post-ad.html</a> → Calgary → Services › Movers & Storage. <a href="https://pamandeepsinghdfl-hash.github.io/firefellascalgary/marketing.html#kijiji" target="_blank">Copy ad here</a>.</small></label></li>
+        <li><input type="checkbox" id="big3"><label for="big3"><b>5 min — Print 10 business cards at home</b><small>Open <a href="https://pamandeepsinghdfl-hash.github.io/firefellascalgary/freebies.html#cards" target="_blank">freebies.html</a> → Click "🖨 PRINT 10 CARDS" → use any printer. Hand to anyone you talk to today.</small></label></li>
+    </ul>
+</section>
+
+<!-- ========== THIS WEEK ========== -->
+<section class="section">
+    <h2>📅 REST OF THIS WEEK</h2>
+    <p class="desc">Build the foundation. Each task = under 30 min. Spread across 5 days.</p>
+    <ul class="checklist" id="clWeek">
+        <li><input type="checkbox" id="w1"><label for="w1"><b>Post 4 more Kijiji ads</b> (junk, snow, construction, estate)<small><a href="https://pamandeepsinghdfl-hash.github.io/firefellascalgary/marketing.html#kijiji" target="_blank">All 5 ads ready to copy</a></small></label></li>
+        <li><input type="checkbox" id="w2"><label for="w2"><b>Create Instagram Business account</b> @firefellascalgary<small>Switch to Professional → Business → category "Local service"</small></label></li>
+        <li><input type="checkbox" id="w3"><label for="w3"><b>Post first Reel</b> — Episode 1 (New Home Heroes)<small><a href="https://pamandeepsinghdfl-hash.github.io/firefellascalgary/shorts.html" target="_blank">Record from Shorts page</a> → upload → use caption from Marketing Hub</small></label></li>
+        <li><input type="checkbox" id="w4"><label for="w4"><b>Get 3 Google reviews from friends/family</b><small>Even 3 reviews = above 80% of new local competitors</small></label></li>
+        <li><input type="checkbox" id="w5"><label for="w5"><b>Set up Facebook Marketplace listing</b><small>Marketplace → Sell → Service. Reposts free every 7 days.</small></label></li>
+        <li><input type="checkbox" id="w6"><label for="w6"><b>Set up Nextdoor business page</b> at <a href="https://nextdoor.com/business" target="_blank">nextdoor.com/business</a><small>Calgarians use Nextdoor heavily for service recommendations</small></label></li>
+        <li><input type="checkbox" id="w7"><label for="w7"><b>Print 50 door hangers</b> (Staples ~$10) and walk one Calgary neighbourhood<small>Recommended: Bowness, Kensington, Bridgeland</small></label></li>
+    </ul>
+</section>
+
+<!-- ========== WHEN A LEAD COMES IN ========== -->
+<section class="section">
+    <h2>📞 WHEN YOUR PHONE RINGS</h2>
+    <p class="desc">A 4-step playbook. Print this and tape it next to your phone.</p>
+    <ol style="font-size:14px;line-height:1.8;color:rgba(255,255,255,0.92);padding-left:20px;">
+        <li><b>Answer fast</b> — within 5 min if possible. Speed wins.<br>
+            <i style="color:#FFD700;">"Fire Fellas Calgary, this is [name] — how can I help?"</i></li>
+        <li><b>Get details:</b> What service · Where · When · How much stuff</li>
+        <li><b>Quote on the spot</b> using these tiers:
+            <ul style="margin-top:6px;">
+                <li>🟦 <b>$129</b> — single item, small load, quick haul</li>
+                <li>🟧 <b>$399</b> — apartment move, medium clean-out (~4 hrs)</li>
+                <li>🟥 <b>$799</b> — full house, estate, big construction (full day)</li>
+            </ul>
+        </li>
+        <li><b>Confirm via text</b> using the template in <a style="color:#FFD700;" href="https://pamandeepsinghdfl-hash.github.io/firefellascalgary/freebies.html#scripts" target="_blank">freebies.html#scripts</a></li>
+    </ol>
+</section>
+
+<!-- ========== AFTER A JOB ========== -->
+<section class="section">
+    <h2>✅ AFTER EVERY JOB</h2>
+    <ul class="checklist">
+        <li><input type="checkbox"><label><b>Take 1 before + 1 after photo</b> for social media</label></li>
+        <li><input type="checkbox"><label><b>Send invoice</b> via email or text<small>Use the <a style="color:#FFD700;" href="https://pamandeepsinghdfl-hash.github.io/firefellascalgary/freebies.html#quote" target="_blank">printable invoice template</a></small></label></li>
+        <li><input type="checkbox"><label><b>Send review request</b> within 24 hrs<small>Use the <a style="color:#FFD700;" href="https://pamandeepsinghdfl-hash.github.io/firefellascalgary/marketing.html#reviews" target="_blank">text template</a></small></label></li>
+        <li><input type="checkbox"><label><b>Hand them 3 business cards</b> — "if you know anyone who needs us"</label></li>
+        <li><input type="checkbox"><label><b>Post a 15-sec story on IG</b> with the before/after photo</label></li>
+    </ul>
+</section>
+
+<!-- ========== ASK ME ========== -->
+<section class="section" style="background:linear-gradient(135deg,rgba(255,140,0,0.08),rgba(255,20,147,0.08));border-color:#FFD700;">
+    <h2>💬 WHEN TO COME BACK TO ME</h2>
+    <p class="desc">Just say one of these and I'll handle it:</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px;">
+        <div style="background:rgba(0,0,0,0.3);padding:10px 14px;border-radius:10px;font-family:'Bebas Neue',sans-serif;letter-spacing:2px;color:#FFD700;">"GBP DONE, WHAT NEXT"</div>
+        <div style="background:rgba(0,0,0,0.3);padding:10px 14px;border-radius:10px;font-family:'Bebas Neue',sans-serif;letter-spacing:2px;color:#FFD700;">"FIRST LEAD CAME IN"</div>
+        <div style="background:rgba(0,0,0,0.3);padding:10px 14px;border-radius:10px;font-family:'Bebas Neue',sans-serif;letter-spacing:2px;color:#FFD700;">"MAKE 5 MORE SHORTS"</div>
+        <div style="background:rgba(0,0,0,0.3);padding:10px 14px;border-radius:10px;font-family:'Bebas Neue',sans-serif;letter-spacing:2px;color:#FFD700;">"NEED MORE BUSINESS CARDS"</div>
+        <div style="background:rgba(0,0,0,0.3);padding:10px 14px;border-radius:10px;font-family:'Bebas Neue',sans-serif;letter-spacing:2px;color:#FFD700;">"WIRE UP THE FORM"</div>
+        <div style="background:rgba(0,0,0,0.3);padding:10px 14px;border-radius:10px;font-family:'Bebas Neue',sans-serif;letter-spacing:2px;color:#FFD700;">"CUSTOM DOMAIN"</div>
+        <div style="background:rgba(0,0,0,0.3);padding:10px 14px;border-radius:10px;font-family:'Bebas Neue',sans-serif;letter-spacing:2px;color:#FFD700;">"ADD A FAQ PAGE"</div>
+        <div style="background:rgba(0,0,0,0.3);padding:10px 14px;border-radius:10px;font-family:'Bebas Neue',sans-serif;letter-spacing:2px;color:#FFD700;">"PRICING SHEET"</div>
+    </div>
+</section>
+
+<div class="cta-row">
+    <a class="cta-big" href="https://pamandeepsinghdfl-hash.github.io/firefellascalgary/" target="_blank">🏠 OPEN MY WEBSITE</a>
+    <a class="cta-big" href="https://pamandeepsinghdfl-hash.github.io/firefellascalgary/marketing.html" target="_blank" style="background:linear-gradient(135deg,#00D9FF,#9D4EDD);color:#fff;">📋 MARKETING HUB</a>
+    <a class="cta-big" href="https://pamandeepsinghdfl-hash.github.io/firefellascalgary/freebies.html" target="_blank" style="background:linear-gradient(135deg,#A6FF00,#00D9FF);color:#0A0F1F;">🎁 PRINTABLES</a>
+</div>
+
+<footer>
+    <p>Fire Fellas Calgary · <a href="tel:+13682997792">(368) 299-7792</a> · <a href="mailto:firefellasmoving@gmail.com">firefellasmoving@gmail.com</a></p>
+    <p>Built with 🔥 in Calgary. Free hosting forever. 100% yours.</p>
+</footer>
+
+</div>
+
+<div class="toast" id="toast">✅ COPIED!</div>
+
+<script>
+// Copy buttons
+document.querySelectorAll('.btn.copy').forEach(btn => {
+    btn.addEventListener('click', async () => {
+        const url = btn.dataset.copy;
+        try { await navigator.clipboard.writeText(url); }
+        catch(e) {
+            const ta = document.createElement('textarea');
+            ta.value = url; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
+        }
+        btn.classList.add('copied');
+        btn.textContent = '✅ COPIED';
+        showToast('✅ COPIED!');
+        setTimeout(()=>{ btn.classList.remove('copied'); btn.textContent = '📋 COPY'; }, 2000);
+    });
+});
+
+// Toast
+const toast = document.getElementById('toast');
+function showToast(msg){
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(()=> toast.classList.remove('show'), 1800);
+}
+
+// Persist checklist
+const KEY = 'firefellas_hub_progress';
+function loadProgress(){ try { return JSON.parse(localStorage.getItem(KEY) || '{}'); } catch(e){ return {}; } }
+function saveProgress(s){ try { localStorage.setItem(KEY, JSON.stringify(s)); } catch(e){} }
+const state = loadProgress();
+document.querySelectorAll('.checklist input[type=checkbox]').forEach(cb => {
+    if (cb.id && state[cb.id]) { cb.checked = true; cb.closest('li').classList.add('done'); }
+    cb.addEventListener('change', () => {
+        if (cb.id) { state[cb.id] = cb.checked; saveProgress(state); }
+        cb.closest('li').classList.toggle('done', cb.checked);
+    });
+});
+</script>
+
+</body>
+</html>
