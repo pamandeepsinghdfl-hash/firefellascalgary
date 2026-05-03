@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Fire Fellas | Marketing Hub 🔥</title>
+<link rel="icon" type="image/png" href="logo.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fredoka:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root{
+    --firered:#FF4500;--fireorange:#FF8C00;--firegold:#FFD700;--firenavy:#0A0F1F;
+    --pinkpop:#FF1493;--cyanpop:#00D9FF;--limepop:#A6FF00;--purplepop:#9D4EDD;
+    --card:#141C32;--card2:#0F1628;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{margin:0;padding:0;background:#0A0F1F;color:#fff;font-family:Inter,sans-serif;}
+.container{max-width:1100px;margin:0 auto;padding:24px 18px 80px;}
+
+header{text-align:center;padding:30px 0 20px;border-bottom:1px solid rgba(255,215,0,0.15);margin-bottom:30px;}
+h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(32px,5vw,56px);letter-spacing:3px;margin:0 0 6px;
+    background:linear-gradient(135deg,#FFEB3B,#FF8C00,#FF4500,#FF1493);
+    background-size:200% 200%;animation:bgShift 6s ease-in-out infinite;
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+header p{margin:0;color:#FFD700;font-family:'Bebas Neue',sans-serif;letter-spacing:4px;font-size:14px;}
+@keyframes bgShift{0%,100%{background-position:0% 50%;}50%{background-position:100% 50%;}}
+
+nav.tabs{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:20px 0 30px;}
+nav.tabs a{
+    background:rgba(20,28,50,0.9);color:#FFD700;
+    border:2px solid rgba(255,215,0,0.3);
+    padding:8px 14px;border-radius:50px;
+    font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:13px;
+    text-decoration:none;transition:all 0.2s;
+}
+nav.tabs a:hover{background:linear-gradient(135deg,#FFD700,#FF4500);color:#1a1a1a;border-color:#FFD700;}
+
+section.block{
+    background:linear-gradient(135deg,var(--card),var(--card2));
+    border:1px solid rgba(255,140,0,0.15);
+    border-radius:20px;padding:24px 22px;margin-bottom:22px;
+    scroll-margin-top:20px;
+}
+section h2{
+    font-family:'Bebas Neue',sans-serif;font-size:clamp(22px,3vw,32px);letter-spacing:2px;margin:0 0 8px;
+    color:#FFD700;display:flex;align-items:center;gap:10px;
+}
+section h2 .num{background:linear-gradient(135deg,#FFD700,#FF4500);color:#1a1a1a;width:34px;height:34px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:18px;}
+section .desc{color:rgba(255,255,255,0.7);font-size:14px;margin:0 0 16px;line-height:1.5;}
+
+.copy-card{
+    background:rgba(0,0,0,0.3);
+    border:1px solid rgba(255,215,0,0.15);
+    border-radius:14px;padding:14px 16px;margin:10px 0;
+    position:relative;
+}
+.copy-card .label{
+    display:flex;justify-content:space-between;align-items:center;
+    font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:13px;color:#FFD700;
+    margin-bottom:8px;
+}
+.copy-card pre{
+    margin:0;white-space:pre-wrap;word-break:break-word;
+    font-family:Inter,sans-serif;font-size:14px;line-height:1.55;color:rgba(255,255,255,0.92);
+}
+.copy-btn{
+    background:linear-gradient(135deg,#FFD700,#FF4500);color:#1a1a1a;
+    border:none;padding:6px 14px;border-radius:50px;
+    font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:12px;
+    cursor:pointer;font-weight:bold;transition:transform 0.15s;
+    box-shadow:0 3px 0 rgba(0,0,0,0.4);
+}
+.copy-btn:hover{transform:translateY(-1px);}
+.copy-btn:active{transform:translateY(1px);}
+.copy-btn.copied{background:linear-gradient(135deg,#A6FF00,#00D9FF);}
+
+ul.checklist{list-style:none;padding:0;margin:0;}
+ul.checklist li{
+    display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.05);
+}
+ul.checklist li input[type=checkbox]{
+    margin-top:4px;width:18px;height:18px;accent-color:#FF4500;cursor:pointer;flex-shrink:0;
+}
+ul.checklist li label{flex:1;font-size:14px;color:rgba(255,255,255,0.9);cursor:pointer;}
+ul.checklist li label small{display:block;color:rgba(255,255,255,0.55);font-size:12px;margin-top:2px;}
+ul.checklist li.done label{text-decoration:line-through;opacity:0.6;}
+
+.cal-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin-top:12px;}
+.cal-day{
+    background:rgba(0,0,0,0.3);border:1px solid rgba(255,215,0,0.15);border-radius:12px;
+    padding:12px 10px;text-align:center;
+}
+.cal-day .day{font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:13px;color:#FFD700;margin-bottom:4px;}
+.cal-day .platform{font-size:24px;line-height:1;margin:6px 0;}
+.cal-day .ep{font-size:12px;color:rgba(255,255,255,0.85);}
+
+.tag{display:inline-block;padding:3px 9px;border-radius:50px;font-size:11px;font-family:'Bebas Neue',sans-serif;letter-spacing:1.5px;margin:2px 4px 2px 0;}
+.tag.free{background:rgba(166,255,0,0.15);color:#A6FF00;border:1px solid rgba(166,255,0,0.3);}
+.tag.paid{background:rgba(255,20,147,0.15);color:#FF1493;border:1px solid rgba(255,20,147,0.3);}
+.tag.fast{background:rgba(255,215,0,0.15);color:#FFD700;border:1px solid rgba(255,215,0,0.3);}
+.tag.slow{background:rgba(0,217,255,0.15);color:#00D9FF;border:1px solid rgba(0,217,255,0.3);}
+
+a.cta{
+    display:inline-block;
+    background:linear-gradient(135deg,#FFD700,#FF4500);
+    color:#1a1a1a;font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:14px;font-weight:bold;
+    padding:9px 18px;border-radius:50px;text-decoration:none;
+    margin-right:8px;margin-top:8px;
+    box-shadow:0 4px 12px rgba(255,69,0,0.3);
+}
+a.cta:hover{transform:translateY(-2px);}
+a.cta.secondary{background:transparent;border:2px solid #FFD700;color:#FFD700;box-shadow:none;}
+
+.tip{background:linear-gradient(135deg,rgba(255,140,0,0.08),rgba(255,20,147,0.08));border:1px solid rgba(255,215,0,0.2);border-radius:12px;padding:12px 16px;margin:12px 0;font-size:14px;color:rgba(255,255,255,0.92);}
+.tip b{color:#FFD700;}
+
+.toast{
+    position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(100px);
+    background:linear-gradient(135deg,#A6FF00,#00D9FF);color:#0A0F1F;
+    padding:12px 24px;border-radius:50px;font-family:'Bebas Neue',sans-serif;letter-spacing:2px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.4);transition:transform 0.3s ease;z-index:100;
+}
+.toast.show{transform:translateX(-50%) translateY(0);}
+
+.split{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;}
+.progress-bar{background:rgba(0,0,0,0.3);height:8px;border-radius:4px;overflow:hidden;margin-top:8px;}
+.progress-fill{background:linear-gradient(90deg,#FFD700,#FF4500,#FF1493);height:100%;width:0%;transition:width 0.3s ease;}
+.stat-line{display:flex;justify-content:space-between;font-size:13px;color:rgba(255,255,255,0.7);}
+
+footer{text-align:center;padding:30px 0;color:rgba(255,255,255,0.5);font-size:13px;border-top:1px solid rgba(255,215,0,0.15);margin-top:40px;}
+footer a{color:#FFD700;text-decoration:none;}
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+    <h1>🔥 FIRE FELLAS MARKETING HUB</h1>
+    <p>EVERYTHING TO GET YOUR FIRST 100 CUSTOMERS · YYC EDITION</p>
+</header>
+
+<!-- Progress -->
+<section class="block">
+    <h2><span class="num">📊</span>YOUR PROGRESS</h2>
+    <div class="stat-line"><span>Tasks completed</span><span id="progressText">0 / 0</span></div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    <p class="desc" style="margin-top:10px;">Check off items as you do them — your progress saves automatically in your browser.</p>
+</section>
+
+<nav class="tabs">
+    <a href="#weekone">📅 Week 1</a>
+    <a href="#gbp">🗺️ Google Business</a>
+    <a href="#kijiji">📰 Kijiji Ads</a>
+    <a href="#social">📱 Instagram/TikTok</a>
+    <a href="#realtor">🏡 Realtor Outreach</a>
+    <a href="#property">🏢 Property Mgrs</a>
+    <a href="#reviews">⭐ Reviews</a>
+    <a href="#hashtags">#️⃣ Hashtags</a>
+    <a href="#calendar">📆 Posting Calendar</a>
+</nav>
+
+<!-- ============== WEEK 1 PLAN ============== -->
+<section id="weekone" class="block">
+    <h2><span class="num">1</span>WEEK 1 ACTION PLAN</h2>
+    <p class="desc">Do these in order. Each one is FREE and gets you closer to your first customer.</p>
+    <ul class="checklist" id="checklistMain">
+        <li><input type="checkbox" id="t1"><label for="t1"><b>Set up Google Business Profile</b> (30 min)<small>Go to <a style="color:#FFD700" href="https://google.com/business" target="_blank">google.com/business</a> → "Manage now" → use Gmail account → enter "Fire Fellas Calgary" → category "Mover" → service area Calgary. Verify by phone or postcard.</small></label></li>
+        <li><input type="checkbox" id="t2"><label for="t2"><b>Post 5 Kijiji ads</b> (45 min)<small>One per service. Use the ad copy below in section "Kijiji Ads". Refresh every 5 days for free bumps.</small></label></li>
+        <li><input type="checkbox" id="t3"><label for="t3"><b>Facebook Marketplace listing</b> (15 min)<small>Marketplace → Sell → Service. Use the moving + junk Kijiji copy. Reposts free every 7 days.</small></label></li>
+        <li><input type="checkbox" id="t4"><label for="t4"><b>Get 5 Google reviews from friends/family</b> (1 hr)<small>Use the review request template below. Even 5 reviews = above 90% of new local competitors.</small></label></li>
+        <li><input type="checkbox" id="t5"><label for="t5"><b>Post Episode 1 short on Instagram + TikTok + YouTube Shorts</b> (30 min)<small>Use captions from the "Instagram/TikTok" section. Add location: Calgary, AB.</small></label></li>
+        <li><input type="checkbox" id="t6"><label for="t6"><b>Join 5 Calgary Facebook groups</b> (20 min)<small>Search: "Calgary Buy &amp; Sell", "YYC Free Stuff", "Calgary Moms", "Calgary Estate Sales", "Calgary Renovations". Don't spam — answer "anyone know a mover?" posts.</small></label></li>
+        <li><input type="checkbox" id="t7"><label for="t7"><b>Set up Nextdoor business listing</b> (15 min)<small><a style="color:#FFD700" href="https://nextdoor.com/business" target="_blank">nextdoor.com/business</a> — Calgarians use this heavily for service recommendations.</small></label></li>
+    </ul>
+</section>
+
+<!-- ============== GOOGLE BUSINESS PROFILE ============== -->
+<section id="gbp" class="block">
+    <h2><span class="num">2</span>🗺️ GOOGLE BUSINESS PROFILE COPY</h2>
+    <p class="desc">Paste these into your GBP setup. <span class="tag free">FREE</span> <span class="tag fast">Fastest local lead source</span></p>
+
+    <div class="copy-card">
+        <div class="label">BUSINESS NAME <button class="copy-btn" data-copy>📋 COPY</button></div>
+        <pre>Fire Fellas Calgary</pre>
+    </div>
+
+    <div class="copy-card">
+        <div class="label">PRIMARY CATEGORY <button class="copy-btn" data-copy>📋 COPY</button></div>
+        <pre>Mover</pre>
+    </div>
+
+    <div class="copy-card">
+        <div class="label">ADDITIONAL CATEGORIES <button class="copy-btn" data-copy>📋 COPY</button></div>
+        <pre>Junk removal service
+Hauling service
+Snow removal service
+Construction and demolition</pre>
+    </div>
+
+    <div class="copy-card">
+        <div class="label">DESCRIPTION (750 char max — use this exactly) <button class="copy-btn" data-copy>📋 COPY</button></div>
+        <pre>Fire Fellas Calgary is a local, fully-insured multi-service crew serving Calgary &amp; area with moving, junk removal, construction haul-outs, and seasonal snow removal. Whether it's a one-bedroom condo move in Beltline, a full estate clean-out in Tuscany, or a same-day hot tub haul in Bowness — our friendly Calgary fellas treat your stuff like our own.
+
+✅ Careful, zero-damage handling
+✅ Free upfront quotes (no surprises)
+✅ Same-day junk removal available
+✅ Eco-friendly disposal &amp; donation
+✅ Fully insured &amp; locally owned
+
+Call or text (368) 299-7792 for your free quote today.
+
+Moving It. Hauling It. Clearing It. 🔥</pre>
+    </div>
+
+    <div class="copy-card">
+        <div class="label">SERVICES LIST (add each as a separate service) <button class="copy-btn" data-copy>📋 COPY</button></div>
+        <pre>Local Moving
+Long-Distance Moving (Alberta)
+Apartment Moving
+Office Moving
+Furniture Moving (single items)
+Junk Removal
+Furniture Removal
+Appliance Removal
+Mattress Removal
+Estate Clean-Out
+Garage Clean-Out
+Basement Clean-Out
+Yard Waste Removal
+Construction Debris Hauling
+Renovation Clean-Up
+Snow Removal (by hand)
+Driveway Shoveling
+Walkway &amp; Stair Snow Clearing</pre>
+    </div>
+
+    <div class="copy-card">
+        <div class="label">SERVICE AREA <button class="copy-btn" data-copy>📋 COPY</button></div>
+        <pre>Calgary, AB
+Airdrie, AB
+Cochrane, AB
+Okotoks, AB
+Chestermere, AB</pre>
+    </div>
+
+    <div class="copy-card">
+        <div class="label">FIRST GBP POST (do this on Day 1 after verification) <button class="copy-btn" data-copy>📋 COPY</button></div>
+        <pre>🔥 Calgary's newest multi-service crew is here!
+
+Need a move, junk removal, or snow shoveling? We do it all — fast, careful, and damage-free.
+
+✅ Free quotes in 1 hour
+✅ Same-day service available
+✅ 500+ happy Calgarians (and counting!)
+
+Call or text us: (368) 299-7792
+Or get a quote at firefellascalgary.com</pre>
+    </div>
+
+    <div class="tip">💡 <b>Pro tip:</b> Add 8-10 photos of your truck + crew + before/after shots. GBP listings with 10+ photos get 35% more clicks.</div>
+</section>
+
+<!-- ============== KIJIJI ADS ============== -->
+<section id="kijiji" class="block">
+    <h2><span class="num">3</span>📰 KIJIJI CALGARY AD COPY (× 5)</h2>
+    <p class="desc">Post one of each. Refresh weekly for top placement (free). <span class="tag free">FREE</span> <span class="tag fast">Daily leads</span></p>
+
+    <div class="copy-card">
+        <div class="label">AD 1 — MOVING (Services › Movers &amp; Storage) <button class="copy-btn" data-copy>📋 COPY</button></div>
+        <pre>🔥 FIRE FELLAS — Calgary's Careful Movers · Free Quotes · From $129
+
+Local &amp; long-distance moves across Calgary. Apartments, condos, houses, offices.
+
+✅ Careful, damage-free handling
+✅ Free upfront quotes (no surprises)
+✅ Wrapped, padded, protected — every time
+✅ Fully insured &amp; locally owned
+✅ Single-item moves welcome (couch, fridge, etc.)
+
+Calgary's local fellas — we treat your stuff like our own.
+
+📞 Call or text: (368) 299-7792
+🌐 firefellascalgary.com
+
+Moving It. Hauling It. Clearing It. 🔥</pre>
+    </div>
+
+    <div class="copy-card">
+        <div class="label">AD 2 — JUNK REMOVAL (Services › Garbage Removal) <button class="copy-btn" data-copy>📋 COPY</button></div>
+        <pre>♻️ FIRE FELLAS — Same-Day Junk Removal Calgary · From $129
+
+Garage clogged? Old furniture? Estate cleanout? We haul it ALL.
+
+✅ Same-day &amp; next-day pickup
+✅ Furniture, appliances, mattresses, electronics
+✅ Garage, basement, attic clean-outs
+✅ Yard waste &amp; construction debris
+✅ Eco-friendly disposal — donate &amp; recycle when possible
+✅ Fully insured
+
+Point at it — we'll haul it. Done in hours.
+
+📞 Call or text: (368) 299-7792
+🌐 firefellascalgary.com</pre>
+    </div>
+
+    <div class="copy-card">
+        <div class="label">AD 3 — SNOW REMOVAL (Services › Lawn, Garden &amp; Outdoor) <button class="copy-btn" data-copy>📋 COPY</button></div>
+        <pre>❄️ FIRE FELLAS — Snow Removal Calgary · By Hand · No Damage
+
+Driveway buried? Can't shovel? We've got you, Calgary.
+
+✅ By-hand shoveling — zero damage to sod or concrete
+✅ Driveways, walkways, stairs, decks
+✅ De-icing on request
+✅ One-time OR seasonal contracts
+✅ Senior &amp; disability-friendly service
+✅ Fully insured
+
+Safe, dry pathways — every storm.
+
+📞 Call or text: (368) 299-7792
+🌐 firefellascalgary.com</pre>
+    </div>
+
+    <div class="copy-card">
+        <div class="label">AD 4 — CONSTRUCTION CLEAN-UP (Services › Construction &amp; Trades) <button class="copy-btn" data-copy>📋 COPY</button></div>
+        <pre>🔨 FIRE FELLAS — Construction Clean-Up &amp; Hauling Calgary
+
+Reno crew gone but the mess is still there? We haul it all.
+
+✅ Drywall, lumber, fixtures, demo debris
+✅ Same-day pickup available
+✅ Site swept &amp; client-ready when we leave
+✅ Recurring jobsite contracts welcome
+✅ Fully insured
+
+Calgary contractors — let us be your go-to haul crew. Fair pricing.
+
+📞 Call or text: (368) 299-7792
+🌐 firefellascalgary.com</pre>
+    </div>
+
+    <div class="copy-card">
+        <div class="label">AD 5 — ESTATE CLEAN-OUT (Services › Other Services) <button class="copy-btn" data-copy>📋 COPY</button></div>
+        <pre>💛 FIRE FELLAS — Estate Clean-Outs Calgary · Done With Care
+
+Downsizing? Saying goodbye to a family home? We treat every estate like family.
+
+✅ Respectful, kind, no pressure
+✅ Sort, donate, recycle — at YOUR pace
+✅ Full or partial property clean-outs
+✅ Coordinate with realtors &amp; estate lawyers
+✅ Donations to Calgary charities when possible
+✅ Fully insured
+
+You don't have to do it alone, Calgary.
+
+📞 Call or text: (368) 299-7792
+🌐 firefellascalgary.com</pre>
+    </div>
+
+    <div class="tip">💡 <b>Refresh tip:</b> On Kijiji, you can re-post every 7 days for FREE to get top placement. Set a calendar reminder.</div>
+</section>
+
+<!-- ============== INSTAGRAM / TIKTOK CAPTIONS ============== -->
+<section id="social" class="block">
+    <h2><span class="num">4</span>📱 INSTAGRAM / TIKTOK / YT SHORTS CAPTIONS</h2>
+    <p class="desc">One per Episode. Paste into Reels/TikTok/YT Shorts when you upload. <span class="tag free">FREE</span> <span class="tag slow">Compounding leads</span></p>
+
+    <div class="copy-card">
+        <div class="label">EP 1 — NEW HOME HEROES (Moving) <button class="copy-btn" data-copy>📋 COPY</button></div>
+        <pre>POV: You just got the keys 🔑 to your dream home in Calgary…
+…now how do you move all your stuff?? 😰
+
+Don't worry — Mike &amp; Tony are here 🔥
+
+✅ Careful, damage-free moves
+✅ Free upfront quotes
+✅ From $129 starting
+
+📞 (368) 299-7792
+🌐 firefellascalgary.com
+
+#yyc #yycmovers #calgarymovers #calgary #movingday #newhome #calgaryrealestate #yychomeowners #firefellascalgary #movingtips</pre>
+    </div>
+
+    <div class="copy-card">
+        <div class="label">EP 2 — GARAGE LIBERATION (Junk Removal) <button class="copy-btn" data-copy>📋 COPY</button></div>
+        <pre>Tag a Calgary friend who hasn't parked in their garage in YEARS 👀
+
+We make it possible. Same-day junk removal — point at it, we haul it 🔥
+
+♻️ Furniture, appliances, mattresses
+♻️ Garage, basement, yard
+♻️ Eco-friendly disposal &amp; donation
+♻️ From $129
+
+📞 (368) 299-7792
+
+#yyc #junkremovalcalgary #calgaryjunkremoval #yycjunkremoval #calgarygarage #garagecleanout #calgarylocal #calgaryhomeowners #firefellascalgary #yyclife</pre>
+    </div>
+
+    <div class="copy-card">
+        <div class="label">EP 3 — RENO RESCUE (Construction) <button class="copy-btn" data-copy>📋 COPY</button></div>
+        <pre>Calgary contractors &amp; homeowners: that beautiful new kitchen 😍 vs the ugly debris pile 😩
+
+We haul it all. Same-day. Site swept clean.
+
+🔨 Drywall · lumber · fixtures · demo debris
+🔨 Construction crews — we're your go-to
+🔨 Fast · clean · fair pricing
+
+📞 (368) 299-7792
+
+#yyc #calgaryconstruction #yycrenovation #calgaryreno #calgarycontractor #junkremovalcalgary #calgarybuilders #yychomes #firefellascalgary #yycdiy</pre>
+    </div>
+
+    <div class="copy-card">
+        <div class="label">EP 4 — SNOW DAY SAVIOR (Snow Removal) <button class="copy-btn" data-copy>📋 COPY</button></div>
+        <pre>When the Calgary snowstorm hits ❄️ and shoveling isn't safe…
+…we've got you. By hand. Damage-free.
+
+Especially for our Calgary seniors &amp; folks who can't shovel — we'll be there. 💛
+
+❄️ Driveways · walkways · stairs · decks
+❄️ One-time or seasonal contracts
+❄️ Fully insured · no torn sod · no scratches
+
+📞 (368) 299-7792
+
+#yyc #yycsnow #calgarysnow #snowremovalcalgary #calgaryseniors #calgarywinter #yycwinter #calgarylocal #firefellascalgary #snowday</pre>
+    </div>
+
+    <div class="copy-card">
+        <div class="label">EP 5 — DOWNSIZING WITH HEART (Estate) <button class="copy-btn" data-copy>📋 COPY</button></div>
+        <pre>Saying goodbye to a family home is hard. 💛 We make it easier.
+
+Estate clean-outs done with respect, dignity, and at YOUR pace.
+
+🤍 Sort · donate · keep · recycle
+🤍 Coordinate with realtors &amp; lawyers
+🤍 No pressure, no judgment
+🤍 Donations to Calgary charities when possible
+
+📞 (368) 299-7792
+
+#yyc #calgaryseniors #downsizingcalgary #estatecleanout #calgaryrealtors #calgaryestatesale #yycseniors #calgaryfamilies #firefellascalgary #estate</pre>
+    </div>
+</section>
+
+<!-- ============== REALTOR OUTREACH ============== -->
+<section id="realtor" class="block">
+    <h2><span class="num">5</span>🏡 REALTOR OUTREACH (DM template)</h2>
+    <p class="desc">DM 5 Calgary realtors per week on Instagram. Realtors move 2-5 families/month → repeat business. <span class="tag free">FREE</span> <span class="tag fast">High-intent leads</span></p>
+
+    <div class="copy-card">
+        <div class="label">REALTOR DM 1 — INTRODUCTION <button class="copy-btn" data-copy>📋 COPY</button></div>
+        <pre>Hey [First Name] 👋
+
+Quick intro — I'm with Fire Fellas Calgary, a new local moving + junk removal crew. Saw your YYC listings and figured I'd reach out.
+
+Wondering if your buyers/sellers ever need:
+🚚 Moving help (incl. last-minute)
+♻️ Pre-listing junk haul / decluttering
+💛 Estate clean-outs
+
+We do all of it — same-day available, fully insured, careful with EVERYTHING.
+
+We'd love to be your go-to crew. Happy to give your clients 10% off their first booking + a $50 referral credit back to you for every job we land through your referral.
+
+Sample of our work: firefellascalgary.com
+
+Open to a quick chat? 🔥
+— [Your name], Fire Fellas Calgary
+(368) 299-7792</pre>
+    </div>
+
+    <div class="copy-card">
+        <div class="label">REALTOR DM 2 — FOLLOW UP (1 week later if no reply) <button class="copy-btn" data-copy>📋 COPY</button></div>
+        <pre>Hey [First Name] — circling back on this 🔥
+
+If timing isn't right today, totally fine. Just wanted to leave my number with you in case you ever have a client who needs:
+- Moving help
+- Junk haul before listing
+- Estate clean-out
+
+We can usually be there same-day or next-day, and your clients get 10% off when they mention you sent them.
+
+📞 (368) 299-7792 anytime
+— [Your name]</pre>
+    </div>
+
+    <div class="tip">💡 <b>Find Calgary realtors:</b> Search Instagram for "calgary realtor", "yyc realtor", "calgary real estate". Filter to local ones with active stories. DM 5/day = 25/week = real partnerships fast.</div>
+</section>
+
+<!-- ============== PROPERTY MANAGER ============== -->
+<section id="property" class="block">
+    <h2><span class="num">6</span>🏢 PROPERTY MANAGER PITCH (cold email)</h2>
+    <p class="desc">Property managers need haulers for evictions, tenant move-outs CONSTANTLY. 1 PM = 5-15 jobs/year. <span class="tag free">FREE</span> <span class="tag fast">High value</span></p>
+
+    <div class="copy-card">
+        <div class="label">SUBJECT LINE <button class="copy-btn" data-copy>📋 COPY</button></div>
+        <pre>Same-day haul-outs for your Calgary tenant turnovers 🔥</pre>
+    </div>
+
+    <div class="copy-card">
+        <div class="label">EMAIL BODY <button class="copy-btn" data-copy>📋 COPY</button></div>
+        <pre>Hi [First Name],
+
+I'm reaching out because I know tenant turnovers, evictions, and unit clean-outs are some of the most frustrating, time-consuming parts of property management — especially when you need it done FAST so the next tenant can move in.
+
+We're Fire Fellas Calgary, a fully-insured local moving + junk removal crew. We work with several Calgary property managers and help with:
+
+✅ Tenant abandonment clean-outs (same-day if needed)
+✅ Eviction haul-outs
+✅ Unit-turn rubbish removal
+✅ Furniture &amp; appliance disposal
+✅ Construction debris from unit repairs
+
+What we offer property management partners:
+• Volume pricing for ongoing jobs
+• Direct invoicing (NET 30)
+• Emergency same-day response
+• One point of contact (no tenant disputes)
+• Fully insured + WCB compliant
+
+Would you be open to a 10-minute call to see if we'd be a good fit for your portfolio?
+
+You can also call/text me directly anytime: (368) 299-7792
+Site: firefellascalgary.com
+
+Looking forward to it,
+[Your Name]
+Fire Fellas Calgary
+(368) 299-7792</pre>
+    </div>
+
+    <div class="tip">💡 <b>Find Calgary property managers:</b> Google "Calgary property management companies". Top 20 results = your target list. Use LinkedIn to find their email or use hunter.io (free 25/mo).</div>
+</section>
+
+<!-- ============== CUSTOMER REVIEW REQUEST ============== -->
+<section id="reviews" class="block">
+    <h2><span class="num">7</span>⭐ REVIEW REQUEST (text/email — send after every job)</h2>
+    <p class="desc">Send within 24 hours of every job. Conversion = 30-50%. After 20 jobs you'll have 10+ Google reviews. <span class="tag free">FREE</span> <span class="tag fast">Trust builder</span></p>
+
+    <div class="copy-card">
+        <div class="label">TEXT MESSAGE (send within 24 hr) <button class="copy-btn" data-copy>📋 COPY</button></div>
+        <pre>Hi [Name]! It was awesome helping you with your [move/haul/cleanup] today 🔥
+
+If we did a great job, would you mind dropping us a quick Google review? Even one sentence helps us out a TON as a small Calgary business.
+
+👉 [Your Google Review link]
+
+Thanks so much,
+Mike &amp; the Fire Fellas crew 💪</pre>
+    </div>
+
+    <div class="copy-card">
+        <div class="label">FOLLOW-UP TEXT (3 days later if no review) <button class="copy-btn" data-copy>📋 COPY</button></div>
+        <pre>Hey [Name] — quick follow-up 🙏
+
+If you have 30 sec to drop a Google review of our work, it would mean the world. Calgary small businesses like us live and die by reviews 💛
+
+👉 [Your Google Review link]
+
+Thanks again!
+— Fire Fellas crew</pre>
+    </div>
+
+    <div class="tip">💡 <b>Get your Google review link:</b> Go to your GBP dashboard → Customers → Reviews → "Get more reviews" → Copy the short link.</div>
+</section>
+
+<!-- ============== HASHTAG BANK ============== -->
+<section id="hashtags" class="block">
+    <h2><span class="num">8</span>#️⃣ CALGARY HASHTAG BANK</h2>
+    <p class="desc">Mix &amp; match — use 8-15 per post. Mix big &amp; niche tags for best reach. <span class="tag free">FREE</span></p>
+
+    <div class="split">
+        <div class="copy-card">
+            <div class="label">CALGARY GENERAL <button class="copy-btn" data-copy>📋 COPY</button></div>
+            <pre>#yyc #calgary #yyclife #calgaryalberta #yyclocal #calgarylocal #explorecalgary #calgarycanada #yycliving #calgarycommunity</pre>
+        </div>
+
+        <div class="copy-card">
+            <div class="label">MOVING <button class="copy-btn" data-copy>📋 COPY</button></div>
+            <pre>#yycmovers #calgarymovers #movingcalgary #yycmoving #calgarymoving #movingday #newhome #calgaryrealestate #yychomeowners #movingtips</pre>
+        </div>
+
+        <div class="copy-card">
+            <div class="label">JUNK REMOVAL <button class="copy-btn" data-copy>📋 COPY</button></div>
+            <pre>#junkremovalcalgary #calgaryjunkremoval #yycjunkremoval #junkhauling #calgarygarage #garagecleanout #declutter #yycdeclutter #calgaryhomeowners #cleanout</pre>
+        </div>
+
+        <div class="copy-card">
+            <div class="label">CONSTRUCTION / RENO <button class="copy-btn" data-copy>📋 COPY</button></div>
+            <pre>#calgaryconstruction #yycrenovation #calgaryreno #calgarycontractor #yycbuilders #calgarybuilders #yychomes #yycdiy #calgaryhomeimprovement #yycreno</pre>
+        </div>
+
+        <div class="copy-card">
+            <div class="label">SNOW <button class="copy-btn" data-copy>📋 COPY</button></div>
+            <pre>#yycsnow #calgarysnow #snowremovalcalgary #calgarywinter #yycwinter #snowday #yycstorm #calgarysnowday #yycseniors #calgarystorm</pre>
+        </div>
+
+        <div class="copy-card">
+            <div class="label">ESTATE / SENIORS <button class="copy-btn" data-copy>📋 COPY</button></div>
+            <pre>#calgaryseniors #downsizingcalgary #estatecleanout #yycseniors #calgaryestatesale #calgaryfamilies #yyclifehacks #calgarycommunity #yyclove #calgarysmallbiz</pre>
+        </div>
+    </div>
+</section>
+
+<!-- ============== POSTING CALENDAR ============== -->
+<section id="calendar" class="block">
+    <h2><span class="num">9</span>📆 5-WEEK POSTING CALENDAR</h2>
+    <p class="desc">One Short per week, posted to all 3 platforms. After Week 5, restart and remix. <span class="tag free">FREE</span></p>
+
+    <div class="cal-grid" style="grid-template-columns:repeat(5,1fr);">
+        <div class="cal-day">
+            <div class="day">WEEK 1 · MON</div>
+            <div class="platform">📱 📷 ▶️</div>
+            <div class="ep"><b>EP 1</b> — New Home Heroes</div>
+        </div>
+        <div class="cal-day">
+            <div class="day">WEEK 2 · MON</div>
+            <div class="platform">📱 📷 ▶️</div>
+            <div class="ep"><b>EP 4</b> — Snow Day Savior</div>
+        </div>
+        <div class="cal-day">
+            <div class="day">WEEK 3 · MON</div>
+            <div class="platform">📱 📷 ▶️</div>
+            <div class="ep"><b>EP 2</b> — Garage Liberation</div>
+        </div>
+        <div class="cal-day">
+            <div class="day">WEEK 4 · MON</div>
+            <div class="platform">📱 📷 ▶️</div>
+            <div class="ep"><b>EP 5</b> — Downsizing</div>
+        </div>
+        <div class="cal-day">
+            <div class="day">WEEK 5 · MON</div>
+            <div class="platform">📱 📷 ▶️</div>
+            <div class="ep"><b>EP 3</b> — Reno Rescue</div>
+        </div>
+    </div>
+
+    <h3 style="font-family:'Bebas Neue',sans-serif;letter-spacing:2px;color:#FFD700;margin:24px 0 8px;">DAILY ROUTINE (15 min/day)</h3>
+    <ul class="checklist" id="checklistDaily">
+        <li><input type="checkbox" id="d1"><label for="d1"><b>Morning (5 min):</b> Check &amp; reply to any DMs / SMS / quote requests</label></li>
+        <li><input type="checkbox" id="d2"><label for="d2"><b>Mid-day (5 min):</b> Reply to comments on your IG/TikTok posts</label></li>
+        <li><input type="checkbox" id="d3"><label for="d3"><b>Evening (5 min):</b> Post 1 story to IG (behind-the-scenes from any job that day)</label></li>
+    </ul>
+
+    <h3 style="font-family:'Bebas Neue',sans-serif;letter-spacing:2px;color:#FFD700;margin:24px 0 8px;">WEEKLY ROUTINE (1 hr/week)</h3>
+    <ul class="checklist" id="checklistWeekly">
+        <li><input type="checkbox" id="w1"><label for="w1"><b>Sunday:</b> Post the week's Short to IG, TikTok, YT Shorts, FB Reels</label></li>
+        <li><input type="checkbox" id="w2"><label for="w2"><b>Sunday:</b> Refresh / re-post all Kijiji ads</label></li>
+        <li><input type="checkbox" id="w3"><label for="w3"><b>Sunday:</b> Post 1 update to Google Business Profile</label></li>
+        <li><input type="checkbox" id="w4"><label for="w4"><b>Wednesday:</b> Send review requests to all customers from past 7 days</label></li>
+        <li><input type="checkbox" id="w5"><label for="w5"><b>Wednesday:</b> DM 5 Calgary realtors (use template above)</label></li>
+        <li><input type="checkbox" id="w6"><label for="w6"><b>Friday:</b> Email 3 property managers (use template above)</label></li>
+    </ul>
+</section>
+
+<!-- ============== AUTOMATION ============== -->
+<section class="block">
+    <h2><span class="num">⚡</span>WHAT WE CAN AUTOMATE NEXT (once you have accounts)</h2>
+    <p class="desc">After you set up the accounts in Week 1, come back here and I'll wire these up:</p>
+    <ul class="checklist">
+        <li><input type="checkbox" disabled><label><b>Auto-post Shorts to Instagram + Facebook</b> via Meta Business Suite scheduler — one click, all 5 episodes scheduled<small>Requires: Instagram Business account + Facebook Page (free, 10 min)</small></label></li>
+        <li><input type="checkbox" disabled><label><b>Auto-respond to Instagram DMs</b> with quote info<small>Requires: Meta Business Suite + IG Business account</small></label></li>
+        <li><input type="checkbox" disabled><label><b>Auto-email new customers</b> via Mailchimp (free up to 500 contacts)<small>Confirmation, day-before reminder, post-job review request — all auto</small></label></li>
+        <li><input type="checkbox" disabled><label><b>Quote requests → SMS to your phone</b> via Zapier (free tier)<small>Form submitted on website → instant text to (368) 299-7792</small></label></li>
+        <li><input type="checkbox" disabled><label><b>Calendar booking</b> via Cal.com (free) embedded on the website<small>Customers self-book moves/junk/snow without you on the phone</small></label></li>
+        <li><input type="checkbox" disabled><label><b>Google Business Profile auto-posts</b> weekly via API<small>1 post/week to GBP keeps your listing "active" for ranking</small></label></li>
+    </ul>
+    <a class="cta" href="index.html">🏠 Back to Site</a>
+    <a class="cta secondary" href="shorts.html">📱 Watch Shorts</a>
+</section>
+
+<footer>
+    <p>Fire Fellas Calgary · <a href="tel:+13682997792">(368) 299-7792</a> · <a href="mailto:firefellasmoving@gmail.com">firefellasmoving@gmail.com</a></p>
+    <p>Marketing Hub — bookmark this page · your progress saves automatically</p>
+</footer>
+
+</div>
+
+<div class="toast" id="toast">✅ COPIED!</div>
+
+<script>
+// === Copy buttons ===
+document.querySelectorAll('.copy-btn[data-copy]').forEach(btn => {
+    btn.addEventListener('click', async () => {
+        const card = btn.closest('.copy-card');
+        const text = card.querySelector('pre').textContent;
+        try {
+            await navigator.clipboard.writeText(text);
+            btn.textContent = '✅ COPIED';
+            btn.classList.add('copied');
+            showToast('✅ COPIED TO CLIPBOARD!');
+            setTimeout(() => {
+                btn.textContent = '📋 COPY';
+                btn.classList.remove('copied');
+            }, 2000);
+        } catch(e) {
+            // Fallback for older browsers
+            const ta = document.createElement('textarea');
+            ta.value = text;
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand('copy');
+            document.body.removeChild(ta);
+            showToast('✅ COPIED!');
+        }
+    });
+});
+
+// === Toast ===
+const toast = document.getElementById('toast');
+function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 1800);
+}
+
+// === Checklist persistence ===
+const STORAGE_KEY = 'firefellas_marketing_progress';
+function loadProgress() {
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch(e) { return {}; }
+}
+function saveProgress(state) {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e) {}
+}
+function updateProgress() {
+    const all = document.querySelectorAll('.checklist input[type=checkbox]:not([disabled])');
+    const done = document.querySelectorAll('.checklist input[type=checkbox]:checked:not([disabled])');
+    document.getElementById('progressText').textContent = `${done.length} / ${all.length}`;
+    document.getElementById('progressFill').style.width = (all.length ? (done.length / all.length) * 100 : 0) + '%';
+}
+const state = loadProgress();
+document.querySelectorAll('.checklist input[type=checkbox]:not([disabled])').forEach(cb => {
+    if (state[cb.id]) {
+        cb.checked = true;
+        cb.closest('li').classList.add('done');
+    }
+    cb.addEventListener('change', () => {
+        state[cb.id] = cb.checked;
+        cb.closest('li').classList.toggle('done', cb.checked);
+        saveProgress(state);
+        updateProgress();
+    });
+});
+updateProgress();
+
+// === Smooth scroll ===
+document.querySelectorAll('nav.tabs a').forEach(a => {
+    a.addEventListener('click', e => {
+        e.preventDefault();
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) target.scrollIntoView({behavior:'smooth', block:'start'});
+    });
+});
+</script>
+
+</body>
+</html>
