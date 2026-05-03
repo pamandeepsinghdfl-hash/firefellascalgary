@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Fire Fellas | FREE Printables Pack 🔥</title>
+<link rel="icon" type="image/png" href="logo.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fredoka:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+:root{--firered:#FF4500;--fireorange:#FF8C00;--firegold:#FFD700;--firenavy:#0A0F1F;--pinkpop:#FF1493;--cyanpop:#00D9FF;}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;background:#0A0F1F;color:#fff;font-family:Inter,sans-serif;}
+.container{max-width:1100px;margin:0 auto;padding:24px 18px 80px;}
+header{text-align:center;padding:30px 0 20px;border-bottom:1px solid rgba(255,215,0,0.15);margin-bottom:30px;}
+h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(32px,5vw,52px);letter-spacing:3px;margin:0 0 6px;
+    background:linear-gradient(135deg,#FFEB3B,#FF8C00,#FF4500,#FF1493);background-size:200% 200%;animation:bgShift 6s ease-in-out infinite;
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+header p{margin:0;color:#FFD700;font-family:'Bebas Neue',sans-serif;letter-spacing:4px;font-size:14px;}
+@keyframes bgShift{0%,100%{background-position:0% 50%;}50%{background-position:100% 50%;}}
+
+.tabs{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:18px 0 24px;}
+.tabs a{background:rgba(20,28,50,0.9);color:#FFD700;border:2px solid rgba(255,215,0,0.3);padding:8px 14px;border-radius:50px;font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:13px;text-decoration:none;}
+.tabs a:hover{background:linear-gradient(135deg,#FFD700,#FF4500);color:#1a1a1a;}
+
+.section{background:linear-gradient(135deg,#141C32,#0F1628);border:1px solid rgba(255,140,0,0.15);border-radius:20px;padding:24px;margin-bottom:22px;scroll-margin-top:20px;}
+.section h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(22px,3vw,32px);letter-spacing:2px;margin:0 0 8px;color:#FFD700;display:flex;align-items:center;gap:10px;}
+.section h2 .num{background:linear-gradient(135deg,#FFD700,#FF4500);color:#1a1a1a;width:34px;height:34px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:18px;font-weight:bold;}
+.section .desc{color:rgba(255,255,255,0.75);font-size:14px;margin:0 0 18px;line-height:1.5;}
+
+.controls{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px;}
+button.print-btn,a.dl-btn{background:linear-gradient(135deg,#FFD700,#FF4500);color:#1a1a1a;border:none;padding:10px 20px;border-radius:50px;font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:14px;font-weight:bold;cursor:pointer;text-decoration:none;display:inline-block;box-shadow:0 4px 12px rgba(255,69,0,0.3);}
+button.print-btn:hover,a.dl-btn:hover{transform:translateY(-2px);}
+a.dl-btn.alt{background:transparent;border:2px solid #FFD700;color:#FFD700;}
+
+.preview{background:#fff;color:#000;padding:20px;border-radius:12px;display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:14px;}
+
+.tip{background:linear-gradient(135deg,rgba(255,140,0,0.08),rgba(255,20,147,0.08));border:1px solid rgba(255,215,0,0.2);border-radius:12px;padding:12px 16px;margin:12px 0;font-size:14px;color:rgba(255,255,255,0.92);}
+.tip b{color:#FFD700;}
+
+footer{text-align:center;padding:30px 0;color:rgba(255,255,255,0.5);font-size:13px;border-top:1px solid rgba(255,215,0,0.15);margin-top:40px;}
+footer a{color:#FFD700;text-decoration:none;}
+
+/* ============== PRINTABLE STYLES ============== */
+.print-area{background:#fff;color:#000;border-radius:8px;overflow:hidden;display:none;}
+.print-area.show{display:block;}
+
+/* Business Card: 3.5" × 2" — 8 cards on a Letter sheet (4 cols × 2 rows actually no — 2 cols × 5 rows) */
+@page { size: letter; margin: 0.5in; }
+
+/* === Business Card grid (10 cards on 8.5x11) === */
+.bcards{display:grid;grid-template-columns:repeat(2,3.5in);grid-template-rows:repeat(5,2in);gap:0.05in;justify-content:center;padding:0;}
+.bcard{width:3.5in;height:2in;color:#1a1a1a;background:linear-gradient(135deg,#FFD700,#FF8C00 60%,#FF4500);position:relative;border-radius:6px;overflow:hidden;display:flex;padding:8px;page-break-inside:avoid;}
+.bcard::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 20% 30%, rgba(255,255,255,0.3) 0%, transparent 50%);}
+.bcard .left{flex:0 0 1.2in;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;text-shadow:0 2px 0 rgba(0,0,0,0.4);position:relative;z-index:1;}
+.bcard .badge{background:#1a1a1a;border:3px solid #FFD700;border-radius:50%;width:0.95in;height:0.95in;display:flex;align-items:center;justify-content:center;font-size:32px;}
+.bcard .left .name{font-family:'Bebas Neue',sans-serif;letter-spacing:1px;font-size:13px;margin-top:6px;text-align:center;line-height:1;}
+.bcard .right{flex:1;padding-left:8px;color:#1a1a1a;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:1;}
+.bcard .biz{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:1.5px;line-height:1;margin-bottom:2px;}
+.bcard .tag{font-family:'Fredoka',sans-serif;font-size:9px;font-weight:600;color:#5a1f00;margin-bottom:6px;}
+.bcard .svc{font-family:'Bebas Neue',sans-serif;font-size:10px;letter-spacing:1px;color:#1a1a1a;line-height:1.3;margin-bottom:6px;}
+.bcard .ph{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:1.5px;color:#1a1a1a;line-height:1;}
+.bcard .web{font-family:'Fredoka',sans-serif;font-size:9px;font-weight:600;color:#5a1f00;}
+
+/* === Door Hanger: 4.25" × 11" — 2 per Letter === */
+.hangers{display:grid;grid-template-columns:repeat(2,4.25in);grid-template-rows:11in;justify-content:center;gap:0;}
+.hanger{width:4.25in;height:11in;background:linear-gradient(180deg,#FFD700 0%,#FF8C00 50%,#FF4500 100%);position:relative;color:#1a1a1a;padding:0.4in 0.3in;page-break-inside:avoid;border:1px dashed #ccc;display:flex;flex-direction:column;}
+.hanger .hole-area{height:1.4in;display:flex;justify-content:center;align-items:center;border-bottom:2px dashed rgba(0,0,0,0.3);}
+.hanger .hole{width:1.2in;height:1.2in;border:3px dashed #1a1a1a;border-radius:50%;background:#fff;position:relative;}
+.hanger .hole::after{content:'CUT OUT';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:2px;color:#666;}
+.hanger .body{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:space-between;text-align:center;padding-top:0.2in;}
+.hanger .h-logo{background:#1a1a1a;border:4px solid #fff;border-radius:50%;width:1.6in;height:1.6in;display:flex;align-items:center;justify-content:center;font-size:60px;color:#FFD700;box-shadow:0 6px 0 rgba(0,0,0,0.3);margin-bottom:8px;}
+.hanger .h-name{font-family:'Bebas Neue',sans-serif;font-size:34px;letter-spacing:2px;line-height:0.95;color:#fff;text-shadow:0 3px 0 #1a1a1a, 0 4px 0 #1a1a1a;}
+.hanger .h-tag{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:3px;color:#fff;text-shadow:0 2px 0 #1a1a1a;margin:6px 0 12px;}
+.hanger .h-services{display:flex;flex-direction:column;gap:5px;width:100%;margin-bottom:12px;}
+.hanger .h-svc{background:#1a1a1a;color:#FFD700;padding:6px 10px;border-radius:8px;font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;text-align:center;}
+.hanger .h-offer{background:#fff;color:#FF4500;padding:8px 12px;border:2px dashed #1a1a1a;border-radius:8px;width:90%;text-align:center;margin-bottom:12px;}
+.hanger .h-offer .o-big{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:1px;line-height:1;color:#1a1a1a;}
+.hanger .h-offer .o-sub{font-family:'Fredoka',sans-serif;font-size:10px;font-weight:600;color:#666;margin-top:4px;}
+.hanger .h-cta{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1px;color:#1a1a1a;line-height:1;text-align:center;}
+.hanger .h-cta .ph{font-size:30px;display:block;margin:4px 0;}
+.hanger .h-cta .web{font-size:12px;font-family:'Fredoka',sans-serif;font-weight:700;color:#5a1f00;}
+
+/* === Truck Magnet: 12" × 24" — 1 per Letter (scaled to fit preview) === */
+.magnet-wrap{display:flex;justify-content:center;}
+.magnet{width:11in;height:5.5in;background:linear-gradient(135deg,#FFD700 0%,#FF8C00 40%,#FF4500 80%,#FF1493 100%);background-size:200% 200%;color:#1a1a1a;border:5px solid #1a1a1a;border-radius:14px;padding:18px;position:relative;display:grid;grid-template-columns:1.5fr 1fr;gap:12px;align-items:center;page-break-inside:avoid;overflow:hidden;}
+.magnet::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 70% 50%,rgba(255,255,255,0.25),transparent 60%);}
+.magnet .m-left{position:relative;z-index:1;}
+.magnet .m-name{font-family:'Bebas Neue',sans-serif;font-size:60px;letter-spacing:3px;color:#fff;text-shadow:0 6px 0 #1a1a1a, 0 8px 12px rgba(0,0,0,0.4);line-height:0.85;}
+.magnet .m-tag{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:5px;color:#1a1a1a;margin:14px 0;}
+.magnet .m-svcs{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0;}
+.magnet .m-svc{background:#1a1a1a;color:#FFD700;padding:6px 12px;border-radius:50px;font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;}
+.magnet .m-right{position:relative;z-index:1;text-align:right;}
+.magnet .m-ph{font-family:'Bebas Neue',sans-serif;font-size:54px;letter-spacing:2px;color:#1a1a1a;line-height:1;text-shadow:0 4px 0 #fff;}
+.magnet .m-call{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:3px;color:#fff;text-shadow:0 3px 0 #1a1a1a;margin-bottom:8px;}
+.magnet .m-web{font-family:'Fredoka',sans-serif;font-weight:700;font-size:18px;color:#1a1a1a;margin-top:14px;}
+.magnet .m-badge{position:absolute;top:14px;right:14px;background:#1a1a1a;color:#FFD700;border-radius:50%;width:1.2in;height:1.2in;display:flex;align-items:center;justify-content:center;font-size:50px;border:4px solid #fff;}
+
+/* === Quote/Invoice form === */
+.invoice{background:#fff;color:#1a1a1a;padding:0.5in;border:1px solid #ddd;border-radius:8px;font-family:Inter,sans-serif;font-size:13px;page-break-inside:avoid;}
+.invoice .head{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:3px solid #FF4500;padding-bottom:12px;margin-bottom:18px;}
+.invoice .head .biz{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:2px;color:#FF4500;line-height:1;}
+.invoice .head .biz-sub{color:#666;font-size:12px;margin-top:4px;}
+.invoice .head .meta{text-align:right;font-size:12px;color:#666;}
+.invoice .head .meta .label{font-family:'Bebas Neue',sans-serif;font-size:10px;letter-spacing:2px;color:#999;display:block;}
+.invoice .head .doc-type{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:3px;color:#1a1a1a;}
+.invoice .row{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:14px 0;}
+.invoice .field{}
+.invoice .field label{display:block;font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:2px;color:#999;margin-bottom:4px;}
+.invoice .field .val{border-bottom:1px solid #ccc;padding:5px 0;min-height:22px;}
+.invoice table{width:100%;border-collapse:collapse;margin:18px 0;}
+.invoice table th{background:#FF4500;color:#fff;font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:12px;padding:8px;text-align:left;}
+.invoice table td{padding:10px 8px;border-bottom:1px solid #eee;font-size:13px;}
+.invoice .total{display:flex;justify-content:flex-end;margin-top:12px;}
+.invoice .total .box{background:#1a1a1a;color:#FFD700;padding:12px 22px;border-radius:8px;}
+.invoice .total .label{font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:2px;}
+.invoice .total .amt{font-family:'Bebas Neue',sans-serif;font-size:30px;letter-spacing:2px;}
+.invoice .footer{margin-top:24px;padding-top:14px;border-top:2px solid #FF4500;font-size:11px;color:#666;text-align:center;}
+.invoice .signbox{margin-top:24px;display:grid;grid-template-columns:1fr 1fr;gap:30px;}
+.invoice .signbox .sig{border-top:1px solid #1a1a1a;padding-top:6px;font-size:11px;color:#666;}
+
+/* === Lead Magnet PDF === */
+.leadpdf{background:#fff;color:#1a1a1a;padding:0.5in;border-radius:8px;font-family:Inter,sans-serif;page-break-inside:avoid;}
+.leadpdf .lp-head{background:linear-gradient(135deg,#FFD700,#FF4500);color:#fff;padding:24px;border-radius:12px;margin-bottom:18px;text-align:center;}
+.leadpdf .lp-head h1{font-family:'Bebas Neue',sans-serif;font-size:42px;letter-spacing:2px;margin:0;line-height:0.95;text-shadow:0 4px 0 #1a1a1a;}
+.leadpdf .lp-head p{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:3px;margin:8px 0 0;}
+.leadpdf h2{font-family:'Bebas Neue',sans-serif;color:#FF4500;letter-spacing:2px;margin:18px 0 8px;font-size:22px;border-bottom:2px solid #FF4500;padding-bottom:4px;}
+.leadpdf ul{list-style:none;padding:0;margin:6px 0 14px;}
+.leadpdf li{padding:6px 0 6px 28px;position:relative;font-size:13px;line-height:1.5;border-bottom:1px solid #f0f0f0;}
+.leadpdf li::before{content:'☐';position:absolute;left:0;top:6px;font-size:18px;color:#FF4500;}
+.leadpdf .lp-cta{background:#1a1a1a;color:#FFD700;padding:18px;text-align:center;border-radius:12px;margin-top:24px;}
+.leadpdf .lp-cta .big{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:2px;}
+.leadpdf .lp-cta .ph{font-family:'Bebas Neue',sans-serif;font-size:30px;color:#FFD700;margin:6px 0;}
+.leadpdf .lp-cta .web{font-family:'Fredoka',sans-serif;font-weight:600;}
+
+/* QR code */
+.qr-wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;}
+.qr-card{background:#fff;color:#1a1a1a;border-radius:12px;padding:18px;text-align:center;page-break-inside:avoid;border:2px dashed #FF4500;}
+.qr-card h3{font-family:'Bebas Neue',sans-serif;letter-spacing:2px;margin:0 0 12px;color:#FF4500;font-size:20px;}
+.qr-card .qr-img{margin:8px auto;display:block;width:200px;height:200px;border:8px solid #1a1a1a;border-radius:12px;background:#fff;}
+.qr-card .url{font-family:'Fredoka',sans-serif;font-size:12px;color:#666;margin-top:8px;word-break:break-all;}
+.qr-card .label{font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:14px;color:#1a1a1a;margin-top:6px;}
+
+/* ============== PRINT MODE ============== */
+@media print {
+    body{background:#fff;color:#000;}
+    .container{padding:0;max-width:none;}
+    header,.tabs,.section h2,.section .desc,.controls,.tip,footer,.section{background:none;border:none;padding:0;margin:0;color:#000;}
+    .section{display:none;}
+    .section.printing{display:block !important;background:#fff;}
+    .print-area{display:block !important;background:#fff;border:none;border-radius:0;padding:0;}
+    .preview{background:#fff;padding:0;}
+    @page { size: letter; margin: 0; }
+    .bcard,.hanger,.invoice,.leadpdf,.magnet,.qr-card{box-shadow:none !important;}
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+    <h1>🎁 FREE PRINTABLES PACK</h1>
+    <p>BUSINESS CARDS · DOOR HANGERS · TRUCK SIGNS · INVOICES · QR CODES</p>
+</header>
+
+<div class="tip" style="text-align:center;font-size:15px;">
+    💡 <b>How to use:</b> Each section has a "🖨 PRINT" button. Hit it → your browser's print dialog opens → "Save as PDF" or print directly.
+    Use any printer at home, or take the PDF to <b>Staples / Costco Photo / VistaPrint</b> for ~$5-15.
+</div>
+
+<div class="tabs">
+    <a href="#cards">💳 Business Cards</a>
+    <a href="#hanger">🚪 Door Hangers</a>
+    <a href="#magnet">🚚 Truck Sign</a>
+    <a href="#quote">📋 Quote / Invoice</a>
+    <a href="#leadmag">📥 Lead Magnet PDF</a>
+    <a href="#qr">📱 QR Codes</a>
+    <a href="#scripts">📞 Scripts</a>
+    <a href="#email">✉️ Email Signature</a>
+</div>
+
+<!-- ============= 1. BUSINESS CARDS ============= -->
+<section class="section" id="cards">
+    <h2><span class="num">1</span>💳 BUSINESS CARDS — 10 per page</h2>
+    <p class="desc">Print on plain or thick paper (60-100lb cardstock recommended). Cut along grid. <b>10 cards per Letter sheet</b> = ~1¢ per card if you print at home.</p>
+    <div class="controls"><button class="print-btn" onclick="printSection('cards-print')">🖨 PRINT 10 CARDS</button></div>
+    <div class="preview"><div class="print-area show" id="cards-print" style="background:#fff;width:8.5in;height:11in;padding:0.5in 0.5in;">
+        <div class="bcards">
+            <!-- 10 identical cards -->
+            <!-- Card template, repeated -->
+            <div class="bcard"><div class="left"><div class="badge">🔥</div><div class="name">FIRE FELLAS</div></div><div class="right"><div class="biz">FIRE FELLAS</div><div class="tag">CALGARY · MULTI-SERVICE PROS</div><div class="svc">🚚 MOVING<br>♻️ JUNK REMOVAL<br>🔨 HAULING · ❄️ SNOW</div><div class="ph">📞 (368) 299-7792</div><div class="web">firefellascalgary.com</div></div></div>
+            <div class="bcard"><div class="left"><div class="badge">🔥</div><div class="name">FIRE FELLAS</div></div><div class="right"><div class="biz">FIRE FELLAS</div><div class="tag">CALGARY · MULTI-SERVICE PROS</div><div class="svc">🚚 MOVING<br>♻️ JUNK REMOVAL<br>🔨 HAULING · ❄️ SNOW</div><div class="ph">📞 (368) 299-7792</div><div class="web">firefellascalgary.com</div></div></div>
+            <div class="bcard"><div class="left"><div class="badge">🔥</div><div class="name">FIRE FELLAS</div></div><div class="right"><div class="biz">FIRE FELLAS</div><div class="tag">CALGARY · MULTI-SERVICE PROS</div><div class="svc">🚚 MOVING<br>♻️ JUNK REMOVAL<br>🔨 HAULING · ❄️ SNOW</div><div class="ph">📞 (368) 299-7792</div><div class="web">firefellascalgary.com</div></div></div>
+            <div class="bcard"><div class="left"><div class="badge">🔥</div><div class="name">FIRE FELLAS</div></div><div class="right"><div class="biz">FIRE FELLAS</div><div class="tag">CALGARY · MULTI-SERVICE PROS</div><div class="svc">🚚 MOVING<br>♻️ JUNK REMOVAL<br>🔨 HAULING · ❄️ SNOW</div><div class="ph">📞 (368) 299-7792</div><div class="web">firefellascalgary.com</div></div></div>
+            <div class="bcard"><div class="left"><div class="badge">🔥</div><div class="name">FIRE FELLAS</div></div><div class="right"><div class="biz">FIRE FELLAS</div><div class="tag">CALGARY · MULTI-SERVICE PROS</div><div class="svc">🚚 MOVING<br>♻️ JUNK REMOVAL<br>🔨 HAULING · ❄️ SNOW</div><div class="ph">📞 (368) 299-7792</div><div class="web">firefellascalgary.com</div></div></div>
+            <div class="bcard"><div class="left"><div class="badge">🔥</div><div class="name">FIRE FELLAS</div></div><div class="right"><div class="biz">FIRE FELLAS</div><div class="tag">CALGARY · MULTI-SERVICE PROS</div><div class="svc">🚚 MOVING<br>♻️ JUNK REMOVAL<br>🔨 HAULING · ❄️ SNOW</div><div class="ph">📞 (368) 299-7792</div><div class="web">firefellascalgary.com</div></div></div>
+            <div class="bcard"><div class="left"><div class="badge">🔥</div><div class="name">FIRE FELLAS</div></div><div class="right"><div class="biz">FIRE FELLAS</div><div class="tag">CALGARY · MULTI-SERVICE PROS</div><div class="svc">🚚 MOVING<br>♻️ JUNK REMOVAL<br>🔨 HAULING · ❄️ SNOW</div><div class="ph">📞 (368) 299-7792</div><div class="web">firefellascalgary.com</div></div></div>
+            <div class="bcard"><div class="left"><div class="badge">🔥</div><div class="name">FIRE FELLAS</div></div><div class="right"><div class="biz">FIRE FELLAS</div><div class="tag">CALGARY · MULTI-SERVICE PROS</div><div class="svc">🚚 MOVING<br>♻️ JUNK REMOVAL<br>🔨 HAULING · ❄️ SNOW</div><div class="ph">📞 (368) 299-7792</div><div class="web">firefellascalgary.com</div></div></div>
+            <div class="bcard"><div class="left"><div class="badge">🔥</div><div class="name">FIRE FELLAS</div></div><div class="right"><div class="biz">FIRE FELLAS</div><div class="tag">CALGARY · MULTI-SERVICE PROS</div><div class="svc">🚚 MOVING<br>♻️ JUNK REMOVAL<br>🔨 HAULING · ❄️ SNOW</div><div class="ph">📞 (368) 299-7792</div><div class="web">firefellascalgary.com</div></div></div>
+            <div class="bcard"><div class="left"><div class="badge">🔥</div><div class="name">FIRE FELLAS</div></div><div class="right"><div class="biz">FIRE FELLAS</div><div class="tag">CALGARY · MULTI-SERVICE PROS</div><div class="svc">🚚 MOVING<br>♻️ JUNK REMOVAL<br>🔨 HAULING · ❄️ SNOW</div><div class="ph">📞 (368) 299-7792</div><div class="web">firefellascalgary.com</div></div></div>
+        </div>
+    </div></div>
+    <div class="tip"><b>Pro tip:</b> Hand 1 card to every customer + ask them to give 2 to neighbours/friends. Cheapest CAC ever.</div>
+</section>
+
+<!-- ============= 2. DOOR HANGERS ============= -->
+<section class="section" id="hanger">
+    <h2><span class="num">2</span>🚪 DOOR HANGERS — 1 per page</h2>
+    <p class="desc">Walk a Calgary neighbourhood, hang on doorknobs (no postage, no permission needed). Targets you can park near & walk in 1-2 hours: Bowness, Kensington, Bridgeland, Inglewood, Hillhurst.</p>
+    <div class="controls"><button class="print-btn" onclick="printSection('hanger-print')">🖨 PRINT 1 HANGER</button></div>
+    <div class="preview"><div class="print-area show" id="hanger-print" style="background:#fff;display:flex;justify-content:center;padding:0.2in;">
+        <div class="hanger">
+            <div class="hole-area"><div class="hole"></div></div>
+            <div class="body">
+                <div class="h-logo">🔥</div>
+                <div>
+                    <div class="h-name">FIRE FELLAS<br>CALGARY</div>
+                    <div class="h-tag">MULTI-SERVICE PROS</div>
+                </div>
+                <div class="h-services">
+                    <div class="h-svc">🚚 MOVING · FROM $129</div>
+                    <div class="h-svc">♻️ JUNK REMOVAL · SAME-DAY</div>
+                    <div class="h-svc">🔨 HAULING & RENO</div>
+                    <div class="h-svc">❄️ SNOW · BY HAND</div>
+                </div>
+                <div class="h-offer">
+                    <div class="o-big">10% OFF FIRST JOB</div>
+                    <div class="o-sub">MENTION "DOOR HANGER" WHEN YOU CALL</div>
+                </div>
+                <div class="h-cta">
+                    CALL OR TEXT
+                    <span class="ph">📞 (368) 299-7792</span>
+                    <span class="web">firefellascalgary.com</span>
+                </div>
+            </div>
+        </div>
+    </div></div>
+    <div class="tip"><b>Cheap & effective:</b> Print 50 hangers at Staples for ~$10. Walk a target neighbourhood in 1 hour. Even 1 conversion = your money back 10x.</div>
+</section>
+
+<!-- ============= 3. TRUCK MAGNET / SIGN ============= -->
+<section class="section" id="magnet">
+    <h2><span class="num">3</span>🚚 TRUCK / VEHICLE SIGN</h2>
+    <p class="desc">Print this design and take to <b>Calgary signage shops</b> ($30-80 for vinyl magnetic signs that stick to any vehicle). Or print on regular paper, laminate, tape inside your truck windows for free.</p>
+    <div class="controls"><button class="print-btn" onclick="printSection('magnet-print')">🖨 PRINT TRUCK SIGN</button></div>
+    <div class="preview"><div class="print-area show" id="magnet-print" style="background:#fff;padding:0.5in;display:flex;justify-content:center;">
+        <div class="magnet-wrap"><div class="magnet">
+            <div class="m-badge">🔥</div>
+            <div class="m-left">
+                <div class="m-name">FIRE FELLAS</div>
+                <div class="m-tag">CALGARY · MULTI-SERVICE PROS</div>
+                <div class="m-svcs">
+                    <div class="m-svc">🚚 MOVING</div>
+                    <div class="m-svc">♻️ JUNK</div>
+                    <div class="m-svc">🔨 HAULING</div>
+                    <div class="m-svc">❄️ SNOW</div>
+                </div>
+            </div>
+            <div class="m-right">
+                <div class="m-call">CALL US</div>
+                <div class="m-ph">368<br>299-7792</div>
+                <div class="m-web">firefellascalgary.com</div>
+            </div>
+        </div></div>
+    </div></div>
+    <div class="tip"><b>The hidden ROI:</b> A wrapped vehicle gets 30,000-70,000 daily impressions in Calgary. That's $0 marketing every time you drive.</div>
+</section>
+
+<!-- ============= 4. QUOTE / INVOICE ============= -->
+<section class="section" id="quote">
+    <h2><span class="num">4</span>📋 QUOTE / INVOICE TEMPLATE</h2>
+    <p class="desc">Hand to every customer when you give a quote AND when you finish a job. Looks professional → builds trust → easier to charge fair prices.</p>
+    <div class="controls">
+        <button class="print-btn" onclick="setDoc('QUOTE'); printSection('quote-print')">🖨 PRINT AS QUOTE</button>
+        <button class="print-btn" onclick="setDoc('INVOICE'); printSection('quote-print')">🖨 PRINT AS INVOICE</button>
+    </div>
+    <div class="preview"><div class="print-area show" id="quote-print" style="background:#fff;padding:0.3in;">
+        <div class="invoice">
+            <div class="head">
+                <div>
+                    <div class="biz">FIRE FELLAS CALGARY</div>
+                    <div class="biz-sub">Multi-Service Pros · Moving · Junk · Hauling · Snow<br>(368) 299-7792 · firefellasmoving@gmail.com · firefellascalgary.com</div>
+                </div>
+                <div class="meta">
+                    <div class="doc-type" id="docType">QUOTE</div>
+                    <div style="margin-top:8px;"><span class="label">DATE</span><span style="display:inline-block;border-bottom:1px solid #ccc;min-width:140px;">_______________</span></div>
+                    <div style="margin-top:6px;"><span class="label">QUOTE / INV #</span><span style="display:inline-block;border-bottom:1px solid #ccc;min-width:140px;">_______________</span></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="field"><label>CUSTOMER NAME</label><div class="val"></div></div>
+                <div class="field"><label>PHONE</label><div class="val"></div></div>
+            </div>
+            <div class="row">
+                <div class="field"><label>PICKUP / SERVICE ADDRESS</label><div class="val"></div></div>
+                <div class="field"><label>DROP-OFF (if moving)</label><div class="val"></div></div>
+            </div>
+            <div class="row">
+                <div class="field"><label>SERVICE DATE</label><div class="val"></div></div>
+                <div class="field"><label>EMAIL</label><div class="val"></div></div>
+            </div>
+            <table>
+                <thead><tr><th style="width:55%;">SERVICE / DESCRIPTION</th><th style="width:15%;text-align:center;">QTY / HRS</th><th style="width:15%;text-align:right;">RATE</th><th style="width:15%;text-align:right;">TOTAL</th></tr></thead>
+                <tbody>
+                    <tr><td>&nbsp;<br>&nbsp;</td><td></td><td></td><td></td></tr>
+                    <tr><td>&nbsp;<br>&nbsp;</td><td></td><td></td><td></td></tr>
+                    <tr><td>&nbsp;<br>&nbsp;</td><td></td><td></td><td></td></tr>
+                    <tr><td>&nbsp;<br>&nbsp;</td><td></td><td></td><td></td></tr>
+                    <tr><td style="text-align:right;font-weight:bold;">SUBTOTAL</td><td></td><td></td><td></td></tr>
+                    <tr><td style="text-align:right;font-weight:bold;">GST (5%)</td><td></td><td></td><td></td></tr>
+                </tbody>
+            </table>
+            <div class="total"><div class="box"><div class="label">TOTAL DUE</div><div class="amt">$ ______</div></div></div>
+            <div class="signbox">
+                <div class="sig">CUSTOMER SIGNATURE</div>
+                <div class="sig">FIRE FELLAS REP</div>
+            </div>
+            <div class="footer">
+                <p><b>Thank you for choosing Fire Fellas Calgary! 🔥</b></p>
+                <p>Payment accepted: cash · e-transfer (firefellasmoving@gmail.com) · credit/debit on request<br>
+                100% damage-free guarantee · fully insured · locally owned</p>
+            </div>
+        </div>
+    </div></div>
+</section>
+
+<!-- ============= 5. LEAD MAGNET PDF ============= -->
+<section class="section" id="leadmag">
+    <h2><span class="num">5</span>📥 LEAD MAGNET — "Calgary Moving Day Checklist"</h2>
+    <p class="desc">Free PDF you give away in your Instagram bio: <i>"DM us 'CHECKLIST' for our free Calgary Moving Day Checklist!"</i> → captures contact + builds trust BEFORE they need a mover.</p>
+    <div class="controls"><button class="print-btn" onclick="printSection('lead-print')">🖨 PRINT / SAVE PDF</button></div>
+    <div class="preview"><div class="print-area show" id="lead-print" style="background:#fff;padding:0.3in;">
+        <div class="leadpdf">
+            <div class="lp-head">
+                <h1>YOUR CALGARY<br>MOVING DAY CHECKLIST 🔥</h1>
+                <p>BROUGHT TO YOU BY FIRE FELLAS CALGARY</p>
+            </div>
+
+            <h2>📅 4 WEEKS BEFORE YOUR MOVE</h2>
+            <ul>
+                <li>Get 3 quotes from local Calgary movers (call us at (368) 299-7792 for yours!)</li>
+                <li>Declutter — donate / sell what you don't need (less = cheaper move)</li>
+                <li>Order packing supplies (boxes, tape, bubble wrap, sharpies)</li>
+                <li>Notify your landlord / Calgary utilities of move date</li>
+                <li>Book moving day off work</li>
+            </ul>
+
+            <h2>📅 2 WEEKS BEFORE</h2>
+            <ul>
+                <li>Pack non-essentials (off-season clothes, books, decor)</li>
+                <li>Update address: bank, ENMAX, Direct Energy, City of Calgary, doctors</li>
+                <li>Confirm moving day with movers (1-week reminder text!)</li>
+                <li>Forward mail through Canada Post</li>
+                <li>Plan transport for kids / pets on moving day</li>
+            </ul>
+
+            <h2>📅 1 WEEK BEFORE</h2>
+            <ul>
+                <li>Pack a "first-night" box: toilet paper, snacks, charger, sheets, kettle</li>
+                <li>Empty &amp; defrost your fridge / freezer</li>
+                <li>Confirm parking at both addresses (especially for downtown / condos)</li>
+                <li>Withdraw cash for tipping movers ($20-50 per mover is standard in Calgary)</li>
+                <li>Take photos of any valuables BEFORE the move (insurance)</li>
+            </ul>
+
+            <h2>📅 MOVING DAY</h2>
+            <ul>
+                <li>Be on-site 30 min before movers arrive</li>
+                <li>Walk-through with movers: show fragile, heavy, "load last" items</li>
+                <li>Keep important documents + valuables WITH YOU (not on truck)</li>
+                <li>Final walk-through of old place before leaving (check every closet!)</li>
+                <li>Tip your movers if they crushed it 🔥</li>
+            </ul>
+
+            <h2>📅 FIRST WEEK IN NEW PLACE</h2>
+            <ul>
+                <li>Unpack ESSENTIALS box first (kitchen, bathroom, bedroom)</li>
+                <li>Test all utilities: water, gas, internet, heat</li>
+                <li>Find your nearest grocery, pharmacy, gas station</li>
+                <li>Meet your new neighbours (Calgary's a friendly city!)</li>
+                <li>Update your driver's license &amp; vehicle registration with Service Alberta</li>
+            </ul>
+
+            <div class="lp-cta">
+                <div class="big">NEED CALGARY MOVERS?</div>
+                <div class="ph">📞 (368) 299-7792</div>
+                <div class="web">firefellascalgary.com · @firefellascalgary</div>
+                <div style="margin-top:10px;font-size:13px;color:#FFD700;">🔥 MENTION "CHECKLIST" FOR 10% OFF YOUR MOVE 🔥</div>
+            </div>
+        </div>
+    </div></div>
+    <div class="tip"><b>How to use:</b> "Save as PDF" → upload to Google Drive → put share link in IG bio. Or just text the PDF directly to anyone who DMs you "checklist".</div>
+</section>
+
+<!-- ============= 6. QR CODES ============= -->
+<section class="section" id="qr">
+    <h2><span class="num">6</span>📱 QR CODES — Print &amp; Stick Anywhere</h2>
+    <p class="desc">QR codes that link directly to your services. Stick them on your truck, business cards, door hangers, coffee shop bulletin boards, anywhere.</p>
+    <div class="controls"><button class="print-btn" onclick="printSection('qr-print')">🖨 PRINT QR SHEET</button></div>
+    <div class="preview"><div class="print-area show" id="qr-print" style="background:#fff;padding:0.3in;">
+        <div class="qr-wrap">
+            <div class="qr-card">
+                <h3>📞 GET FREE QUOTE</h3>
+                <img class="qr-img" alt="QR" src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://pamandeepsinghdfl-hash.github.io/firefellascalgary/&color=1a1a1a&bgcolor=ffffff" />
+                <div class="label">SCAN TO VISIT WEBSITE</div>
+                <div class="url">firefellascalgary.com</div>
+            </div>
+            <div class="qr-card">
+                <h3>📱 CALL US</h3>
+                <img class="qr-img" alt="QR" src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=tel:+13682997792&color=1a1a1a&bgcolor=ffffff" />
+                <div class="label">SCAN TO CALL</div>
+                <div class="url">(368) 299-7792</div>
+            </div>
+            <div class="qr-card">
+                <h3>📺 WATCH OUR SHORTS</h3>
+                <img class="qr-img" alt="QR" src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://pamandeepsinghdfl-hash.github.io/firefellascalgary/shorts.html&color=1a1a1a&bgcolor=ffffff" />
+                <div class="label">SCAN TO WATCH</div>
+                <div class="url">firefellascalgary.com/shorts</div>
+            </div>
+            <div class="qr-card">
+                <h3>📷 FOLLOW ON IG</h3>
+                <img class="qr-img" alt="QR" src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://www.instagram.com/firefellascalgary/&color=1a1a1a&bgcolor=ffffff" />
+                <div class="label">SCAN TO FOLLOW</div>
+                <div class="url">@firefellascalgary</div>
+            </div>
+        </div>
+    </div></div>
+</section>
+
+<!-- ============= 7. SCRIPTS ============= -->
+<section class="section" id="scripts">
+    <h2><span class="num">7</span>📞 PHONE / TEXT SCRIPTS</h2>
+    <p class="desc">Copy these. Use word-for-word until you have your own rhythm.</p>
+
+    <div style="background:#fff;color:#000;border-radius:12px;padding:18px;margin-bottom:14px;">
+        <h3 style="font-family:'Bebas Neue',sans-serif;color:#FF4500;letter-spacing:2px;margin:0 0 8px;">📞 ANSWERING THE PHONE</h3>
+        <p style="font-size:14px;line-height:1.6;"><b>"Fire Fellas Calgary, this is [your name] — how can I help?"</b><br>
+        Then: <i>"Got it. So you need help with [moving / junk]. Tell me a bit about it — where are you in Calgary, what's the date, and roughly how much stuff?"</i><br>
+        End with: <i>"Sounds good. I'll send you a quote in the next hour by text. Sound good?"</i></p>
+    </div>
+
+    <div style="background:#fff;color:#000;border-radius:12px;padding:18px;margin-bottom:14px;">
+        <h3 style="font-family:'Bebas Neue',sans-serif;color:#FF4500;letter-spacing:2px;margin:0 0 8px;">📱 VOICEMAIL GREETING</h3>
+        <p style="font-size:14px;line-height:1.6;"><i>"Hey, you've reached Fire Fellas Calgary — Calgary's multi-service pros for moving, junk removal, and snow. We're either on a job or with a customer. Leave your name, number, and what you need help with — we'll text you a quote within the hour. Or text us right now at 368-299-7792. Thanks!"</i></p>
+    </div>
+
+    <div style="background:#fff;color:#000;border-radius:12px;padding:18px;margin-bottom:14px;">
+        <h3 style="font-family:'Bebas Neue',sans-serif;color:#FF4500;letter-spacing:2px;margin:0 0 8px;">💬 TEXT QUOTE TEMPLATE</h3>
+        <p style="font-size:14px;line-height:1.6;font-family:monospace;background:#f5f5f5;padding:10px;border-radius:6px;">Hi [Name]! 🔥<br><br>
+Thanks for reaching out to Fire Fellas Calgary.<br><br>
+For your [move / junk haul / snow] at [address] on [date], here's your quote:<br><br>
+💰 $[XXX] (all-in, no surprises)<br>
+👥 [X] crew + truck<br>
+⏱️ Estimated [X] hours<br><br>
+Want to lock it in? Reply YES and I'll book you 🔥<br><br>
+— [Your name], Fire Fellas Calgary</p>
+    </div>
+
+    <div style="background:#fff;color:#000;border-radius:12px;padding:18px;">
+        <h3 style="font-family:'Bebas Neue',sans-serif;color:#FF4500;letter-spacing:2px;margin:0 0 8px;">⏰ DAY-BEFORE REMINDER TEXT</h3>
+        <p style="font-size:14px;line-height:1.6;font-family:monospace;background:#f5f5f5;padding:10px;border-radius:6px;">Hey [Name] — Mike here from Fire Fellas 🔥<br>
+Just confirming we'll be at [address] tomorrow at [time]. Crew of [X] + truck. We'll text when we're 15 min out.<br><br>
+Anything change? Just hit reply.<br>
+See you tomorrow!</p>
+    </div>
+</section>
+
+<!-- ============= 8. EMAIL SIGNATURE ============= -->
+<section class="section" id="email">
+    <h2><span class="num">8</span>✉️ EMAIL SIGNATURE</h2>
+    <p class="desc">Paste into your Gmail signature settings. Every email becomes a marketing touchpoint.</p>
+    <div class="controls"><button class="print-btn" onclick="copyEmail()">📋 COPY HTML SIGNATURE</button></div>
+    <div class="preview" style="padding:30px;">
+        <div id="emailSig" style="background:#fff;color:#1a1a1a;padding:18px;border-left:5px solid #FF4500;border-radius:6px;font-family:Inter,Arial,sans-serif;font-size:13px;width:100%;max-width:520px;">
+            <div style="display:flex;align-items:center;gap:14px;margin-bottom:6px;">
+                <div style="background:linear-gradient(135deg,#FFD700,#FF4500);width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:30px;border:3px solid #1a1a1a;">🔥</div>
+                <div>
+                    <div style="font-family:'Bebas Neue','Arial Black',sans-serif;font-size:24px;letter-spacing:2px;color:#FF4500;line-height:1;">FIRE FELLAS CALGARY</div>
+                    <div style="font-size:11px;color:#666;letter-spacing:2px;font-weight:bold;">MULTI-SERVICE PROS</div>
+                </div>
+            </div>
+            <div style="font-size:12px;color:#666;margin-top:8px;">🚚 MOVING · ♻️ JUNK · 🔨 HAULING · ❄️ SNOW</div>
+            <div style="margin-top:8px;font-size:13px;">
+                📞 <b style="color:#FF4500;">(368) 299-7792</b><br>
+                📧 firefellasmoving@gmail.com<br>
+                🌐 <a href="https://pamandeepsinghdfl-hash.github.io/firefellascalgary/" style="color:#FF4500;">firefellascalgary.com</a><br>
+                📷 <a href="https://www.instagram.com/firefellascalgary/" style="color:#FF4500;">@firefellascalgary</a>
+            </div>
+            <div style="margin-top:8px;padding-top:8px;border-top:1px solid #eee;font-size:11px;color:#999;font-style:italic;">"Moving It. Hauling It. Clearing It. 🔥"</div>
+        </div>
+    </div>
+    <div class="tip"><b>Gmail:</b> Settings ⚙️ → "See all settings" → General tab → scroll to "Signature" → paste it in.</div>
+</section>
+
+<a class="dl-btn" href="index.html" style="display:inline-block;margin-top:14px;">🏠 Home</a>
+<a class="dl-btn alt" href="marketing.html" style="display:inline-block;margin-top:14px;">📋 Marketing Hub</a>
+<a class="dl-btn alt" href="shorts.html" style="display:inline-block;margin-top:14px;">📱 Shorts</a>
+
+<footer>
+    <p>Fire Fellas Calgary · <a href="tel:+13682997792">(368) 299-7792</a> · <a href="mailto:firefellasmoving@gmail.com">firefellasmoving@gmail.com</a></p>
+    <p>All printables free forever · No watermarks · Full ownership</p>
+</footer>
+
+</div>
+
+<script>
+function printSection(id) {
+    // Hide all section contents
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('printing'));
+    // Show only the one being printed
+    const target = document.getElementById(id);
+    if (target) target.closest('.section').classList.add('printing');
+    setTimeout(() => {
+        window.print();
+    }, 100);
+}
+function setDoc(type) {
+    document.getElementById('docType').textContent = type;
+}
+function copyEmail() {
+    const sig = document.getElementById('emailSig');
+    // Strip the signature for clipboard
+    const html = sig.outerHTML;
+    const text = sig.innerText;
+    if (window.ClipboardItem && navigator.clipboard.write) {
+        const blob = new Blob([html], {type:'text/html'});
+        const blobText = new Blob([text], {type:'text/plain'});
+        navigator.clipboard.write([new ClipboardItem({'text/html':blob, 'text/plain':blobText})]);
+    } else {
+        navigator.clipboard.writeText(text);
+    }
+    alert('✅ Copied! Paste into Gmail Settings → Signature.');
+}
+</script>
+
+</body>
+</html>
