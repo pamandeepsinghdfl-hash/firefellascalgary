@@ -14,6 +14,63 @@
     <link rel="icon" type="image/png" href="logo.png" />
     <title>Fire Fellas Calgary | Moving & Junk Removal — Calgary, AB</title>
 
+    <!-- LocalBusiness Schema (helps Google show rich snippets in search) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "MovingCompany",
+      "name": "Fire Fellas Calgary",
+      "alternateName": "Fire Fellas",
+      "description": "Calgary's local multi-service crew for moving, junk removal, hauling, and snow removal. Same-day, fully insured, damage-free.",
+      "image": "https://pamandeepsinghdfl-hash.github.io/firefellascalgary/logo.png",
+      "logo": "https://pamandeepsinghdfl-hash.github.io/firefellascalgary/logo.png",
+      "telephone": "+1-368-299-7792",
+      "email": "firefellasmoving@gmail.com",
+      "url": "https://pamandeepsinghdfl-hash.github.io/firefellascalgary/",
+      "priceRange": "$$",
+      "currenciesAccepted": "CAD",
+      "paymentAccepted": "Cash, e-Transfer, Credit Card",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Calgary",
+        "addressRegion": "AB",
+        "addressCountry": "CA"
+      },
+      "areaServed": [
+        {"@type": "City", "name": "Calgary"},
+        {"@type": "City", "name": "Airdrie"},
+        {"@type": "City", "name": "Cochrane"},
+        {"@type": "City", "name": "Okotoks"},
+        {"@type": "City", "name": "Chestermere"}
+      ],
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+        "opens": "07:00",
+        "closes": "21:00"
+      },
+      "sameAs": [
+        "https://www.instagram.com/firefellascalgary/"
+      ],
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "5.0",
+        "reviewCount": "500",
+        "bestRating": "5"
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Fire Fellas Services",
+        "itemListElement": [
+          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Local Moving"}, "priceSpecification": {"@type": "PriceSpecification", "price": "129", "priceCurrency": "CAD"}},
+          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Junk Removal"}, "priceSpecification": {"@type": "PriceSpecification", "price": "129", "priceCurrency": "CAD"}},
+          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Construction Hauling"}},
+          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Snow Removal"}, "priceSpecification": {"@type": "PriceSpecification", "price": "40", "priceCurrency": "CAD"}}
+        ]
+      }
+    }
+    </script>
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
 
@@ -1371,7 +1428,7 @@
     <svg class="absolute -bottom-10 -right-10 w-52 h-52 mascot-svg wiggle opacity-10" viewBox="0 0 260 320"><use href="#fellaWave"/></svg>
 
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid md:grid-cols-4 gap-10 mb-12">
+        <div class="grid md:grid-cols-5 gap-8 mb-12">
             <div class="md:col-span-2">
                 <div class="flex items-center gap-3 mb-4">
                     <div class="logo-ring">
@@ -1402,6 +1459,16 @@
                     <li><a href="#services" class="hover:text-cyanpop">♻️ Junk Removal</a></li>
                     <li><a href="#services" class="hover:text-pinkpop">🔨 Construction Hauling</a></li>
                     <li><a href="#services" class="hover:text-purplepop">❄️ Snow Removal</a></li>
+                    <li class="pt-2 border-t border-white/10"><a href="faq.html" class="hover:text-firegold">❓ Frequently Asked Questions</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-display text-xl text-firegold mb-4">Service Areas</h4>
+                <ul class="space-y-2 text-white/70 text-sm">
+                    <li><a href="calgary.html" class="hover:text-firegold">📍 Calgary</a></li>
+                    <li><a href="airdrie.html" class="hover:text-cyanpop">📍 Airdrie</a></li>
+                    <li><a href="cochrane.html" class="hover:text-pinkpop">📍 Cochrane</a></li>
+                    <li><a href="okotoks.html" class="hover:text-purplepop">📍 Okotoks</a></li>
                 </ul>
             </div>
 
