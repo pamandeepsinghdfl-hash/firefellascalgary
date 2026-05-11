@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Submit to Google Search Console | Fire Fellas Owner Guide</title>
+<meta name="robots" content="noindex,nofollow" />
+<link rel="icon" type="image/png" href="logo.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fredoka:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+:root{--firered:#FF4500;--firegold:#FFD700;--firenavy:#0A0F1F;--pinkpop:#FF1493;--cyanpop:#00D9FF;--limepop:#A6FF00;}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;background:#0A0F1F;color:#fff;font-family:Inter,sans-serif;}
+.container{max-width:800px;margin:0 auto;padding:24px 18px 80px;}
+header{text-align:center;padding:30px 0 20px;border-bottom:1px solid rgba(255,215,0,0.15);margin-bottom:24px;}
+h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(32px,5vw,52px);letter-spacing:3px;margin:0 0 6px;line-height:0.95;
+    background:linear-gradient(135deg,#FFEB3B,#FF8C00,#FF4500,#FF1493);background-size:200% 200%;animation:bgShift 6s ease-in-out infinite;
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+header .sub{margin:6px 0 0;color:#FFD700;font-family:'Bebas Neue',sans-serif;letter-spacing:4px;font-size:14px;}
+@keyframes bgShift{0%,100%{background-position:0% 50%;}50%{background-position:100% 50%;}}
+
+.notice{background:linear-gradient(135deg,rgba(166,255,0,0.08),rgba(0,217,255,0.08));border:2px solid #A6FF00;border-radius:14px;padding:16px 18px;font-size:14px;color:rgba(255,255,255,0.95);margin-bottom:20px;text-align:center;}
+.notice b{color:#A6FF00;}
+
+.step{background:linear-gradient(135deg,#141C32,#0F1628);border:1px solid rgba(255,140,0,0.2);border-radius:18px;padding:22px;margin-bottom:14px;border-left:6px solid #FFD700;}
+.step .num{display:inline-block;background:linear-gradient(135deg,#FFD700,#FF4500);color:#1a1a1a;width:32px;height:32px;border-radius:50%;text-align:center;line-height:32px;font-family:'Bebas Neue',sans-serif;letter-spacing:1px;font-size:16px;font-weight:bold;margin-right:10px;vertical-align:middle;}
+.step h2{display:inline;font-family:'Bebas Neue',sans-serif;letter-spacing:2px;color:#FFD700;font-size:22px;vertical-align:middle;}
+.step p{color:rgba(255,255,255,0.88);line-height:1.65;margin:12px 0;font-size:15px;}
+.step p strong{color:#FFD700;}
+.step ol,.step ul{padding-left:24px;color:rgba(255,255,255,0.85);font-size:14px;line-height:1.7;}
+.step li{margin-bottom:6px;}
+
+.copy-box{background:rgba(0,0,0,0.4);border:1px dashed rgba(255,215,0,0.4);border-radius:10px;padding:10px 14px;font-family:monospace;font-size:13px;color:#FFD700;word-break:break-all;margin:10px 0;}
+button.copy-btn{background:linear-gradient(135deg,#FFD700,#FF4500);color:#1a1a1a;border:none;padding:6px 14px;border-radius:50px;font-family:'Bebas Neue',sans-serif;letter-spacing:1.5px;font-size:11px;cursor:pointer;margin-top:6px;font-weight:bold;}
+button.copy-btn.copied{background:linear-gradient(135deg,#A6FF00,#00D9FF);}
+
+a.link{color:#FFD700;text-decoration:underline;font-weight:600;}
+
+.checklist{background:rgba(0,217,255,0.06);border:1px solid rgba(0,217,255,0.3);border-radius:14px;padding:18px;margin-top:18px;}
+.checklist h3{font-family:'Bebas Neue',sans-serif;letter-spacing:2px;color:#00D9FF;margin:0 0 10px;font-size:18px;}
+.checklist label{display:flex;align-items:flex-start;gap:8px;padding:6px 0;font-size:14px;color:rgba(255,255,255,0.88);cursor:pointer;}
+.checklist input[type=checkbox]{margin-top:3px;width:16px;height:16px;accent-color:#FF4500;cursor:pointer;flex-shrink:0;}
+.checklist label.done{text-decoration:line-through;opacity:0.6;}
+
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(80px);background:linear-gradient(135deg,#A6FF00,#00D9FF);color:#0A0F1F;padding:10px 20px;border-radius:50px;font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:13px;transition:transform 0.3s;z-index:100;}
+.toast.show{transform:translateX(-50%) translateY(0);}
+
+nav.tabs{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:24px 0;}
+nav.tabs a{background:rgba(20,28,50,0.9);color:#FFD700;border:1px solid rgba(255,215,0,0.3);padding:7px 12px;border-radius:50px;font-family:'Bebas Neue',sans-serif;letter-spacing:1.5px;font-size:11px;text-decoration:none;}
+nav.tabs a:hover{background:linear-gradient(135deg,#FFD700,#FF4500);color:#1a1a1a;}
+
+footer{text-align:center;padding:20px 0;color:rgba(255,255,255,0.5);font-size:12px;border-top:1px solid rgba(255,215,0,0.15);margin-top:30px;}
+footer a{color:#FFD700;text-decoration:none;}
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+    <h1>SUBMIT TO GOOGLE</h1>
+    <div class="sub">SPEED UP INDEXING · 4 WEEKS → 1-2 DAYS 🔥</div>
+</header>
+
+<div class="notice">
+    ⚡ <b>Why this matters:</b> Without this, Google takes 2-6 weeks to find your new pages. With this, indexing starts within 24-48 hours. <b>This is the single highest-leverage thing you can do for SEO.</b>
+</div>
+
+<!-- STEP 1 -->
+<div class="step">
+    <span class="num">1</span><h2>OPEN GOOGLE SEARCH CONSOLE</h2>
+    <p>Go here in your browser (sign in with the same Gmail you used for your Google Business Profile):</p>
+    <a class="link" href="https://search.google.com/search-console" target="_blank">→ search.google.com/search-console</a>
+    <p>Click <strong>"Start now"</strong>. Sign in. Accept terms.</p>
+</div>
+
+<!-- STEP 2 -->
+<div class="step">
+    <span class="num">2</span><h2>ADD YOUR PROPERTY</h2>
+    <p>Pick <strong>"URL prefix"</strong> (not Domain).</p>
+    <p>Paste this exact URL:</p>
+    <div class="copy-box" id="url1">https://pamandeepsinghdfl-hash.github.io/firefellascalgary/</div>
+    <button class="copy-btn" data-target="url1">📋 COPY URL</button>
+    <p>Click <strong>"Continue"</strong>.</p>
+</div>
+
+<!-- STEP 3 -->
+<div class="step">
+    <span class="num">3</span><h2>VERIFY OWNERSHIP</h2>
+    <p>Google will offer several verification methods. Since this is a GitHub Pages site, the easiest are:</p>
+    <ul>
+        <li><strong>Option A — HTML tag (recommended):</strong> Google gives you a meta tag like <code style="background:rgba(0,0,0,0.4);padding:2px 6px;border-radius:4px;font-size:12px;">&lt;meta name="google-site-verification" content="ABC123..."&gt;</code><br>Copy that whole tag → paste it into a NEW message to me ("verify this Google code: [paste]") and I'll add it to index.html and push live.</li>
+        <li><strong>Option B — HTML file:</strong> Google gives you a file like <code style="background:rgba(0,0,0,0.4);padding:2px 6px;border-radius:4px;font-size:12px;">google1234.html</code> to upload. Tell me the filename and I'll create it.</li>
+    </ul>
+    <p>Either way takes ~30 seconds once you give me the code.</p>
+</div>
+
+<!-- STEP 4 -->
+<div class="step">
+    <span class="num">4</span><h2>SUBMIT YOUR SITEMAP</h2>
+    <p>Once verified, in the left sidebar click <strong>"Sitemaps"</strong>.</p>
+    <p>In the "Add a new sitemap" field, paste:</p>
+    <div class="copy-box" id="url2">sitemap.xml</div>
+    <button class="copy-btn" data-target="url2">📋 COPY</button>
+    <p>Click <strong>"Submit"</strong>. Status should change to <strong>"Success"</strong> within minutes.</p>
+</div>
+
+<!-- STEP 5 -->
+<div class="step">
+    <span class="num">5</span><h2>REQUEST INDEXING FOR TOP PAGES</h2>
+    <p>For your most important pages, use the <strong>URL Inspection</strong> tool at the top of the page. Paste each URL one at a time, then click <strong>"Request indexing"</strong>.</p>
+    <p>Priority URLs to request (in this order):</p>
+    <ol>
+        <li><span class="copy-box" id="u1" style="margin:6px 0;display:inline-block;width:100%;">https://pamandeepsinghdfl-hash.github.io/firefellascalgary/</span></li>
+        <li><span class="copy-box" id="u2" style="margin:6px 0;display:inline-block;width:100%;">https://pamandeepsinghdfl-hash.github.io/firefellascalgary/calgary.html</span></li>
+        <li><span class="copy-box" id="u3" style="margin:6px 0;display:inline-block;width:100%;">https://pamandeepsinghdfl-hash.github.io/firefellascalgary/quote.html</span></li>
+        <li><span class="copy-box" id="u4" style="margin:6px 0;display:inline-block;width:100%;">https://pamandeepsinghdfl-hash.github.io/firefellascalgary/pricing.html</span></li>
+        <li><span class="copy-box" id="u5" style="margin:6px 0;display:inline-block;width:100%;">https://pamandeepsinghdfl-hash.github.io/firefellascalgary/faq.html</span></li>
+    </ol>
+    <p>Each one takes ~30 seconds. You can request 10-12 per day from a free account.</p>
+</div>
+
+<!-- STEP 6 -->
+<div class="step">
+    <span class="num">6</span><h2>CONNECT GOOGLE BUSINESS PROFILE</h2>
+    <p>If you've already set up your Google Business Profile, link it here so reviews/photos show up in search results.</p>
+    <p>Search Console → <strong>Settings (gear icon)</strong> → <strong>Associations</strong> → Add your GBP.</p>
+</div>
+
+<!-- STEP 7 -->
+<div class="step">
+    <span class="num">7</span><h2>CHECK BACK IN 48 HOURS</h2>
+    <p>After 48 hours, log back into Search Console and check:</p>
+    <ul>
+        <li><strong>"Coverage" / "Pages":</strong> Should show 20+ pages indexed</li>
+        <li><strong>"Performance":</strong> First impressions data starts appearing within 5-7 days</li>
+        <li><strong>"Sitemaps":</strong> Should show "Success" with 32 URLs discovered</li>
+    </ul>
+    <p>By week 2, you should start ranking for some Calgary search terms.</p>
+</div>
+
+<div class="checklist">
+    <h3>✅ MY CHECKLIST</h3>
+    <label><input type="checkbox" id="t1"><span>Step 1: Opened Search Console &amp; signed in</span></label>
+    <label><input type="checkbox" id="t2"><span>Step 2: Added URL prefix property</span></label>
+    <label><input type="checkbox" id="t3"><span>Step 3: Got verification code from Google (sent to Claude for setup)</span></label>
+    <label><input type="checkbox" id="t4"><span>Step 4: Submitted sitemap.xml</span></label>
+    <label><input type="checkbox" id="t5"><span>Step 5: Requested indexing for top 5 pages</span></label>
+    <label><input type="checkbox" id="t6"><span>Step 6: Linked Google Business Profile (if exists)</span></label>
+    <label><input type="checkbox" id="t7"><span>Step 7: Checked back in 48 hours</span></label>
+</div>
+
+<div class="step" style="background:linear-gradient(135deg,rgba(255,140,0,0.1),rgba(255,20,147,0.1));border-color:#FFD700;border-left-color:#FFD700;">
+    <span class="num">!</span><h2>BONUS: BING WEBMASTER TOOLS (5 EXTRA MIN)</h2>
+    <p>Bing has 6% of search traffic in Canada. Easy free indexing too.</p>
+    <p>Go to <a class="link" href="https://www.bing.com/webmasters" target="_blank">bing.com/webmasters</a> → <strong>"Import from Google Search Console"</strong>. One click, you're done. Bing inherits your verification and sitemap automatically.</p>
+</div>
+
+<nav class="tabs">
+    <a href="hub.html">🏠 Owner Hub</a>
+    <a href="marketing.html">📋 Marketing Hub</a>
+    <a href="index.html">🌐 Main Site</a>
+    <a href="sitemap.xml">🗺️ Sitemap</a>
+</nav>
+
+<footer>
+    <p>Fire Fellas Calgary · <a href="tel:+13682997792">(368) 299-7792</a> · <a href="mailto:firefellasmoving@gmail.com">firefellasmoving@gmail.com</a></p>
+</footer>
+
+</div>
+
+<div class="toast" id="toast">✅ COPIED!</div>
+
+<script>
+// Copy buttons
+document.querySelectorAll('.copy-btn').forEach(btn => {
+    btn.addEventListener('click', async () => {
+        const target = document.getElementById(btn.dataset.target);
+        if (!target) return;
+        try { await navigator.clipboard.writeText(target.textContent.trim()); }
+        catch(e){ const ta=document.createElement('textarea');ta.value=target.textContent.trim();document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);}
+        btn.classList.add('copied'); btn.textContent = '✅ COPIED';
+        const toast = document.getElementById('toast'); toast.classList.add('show');
+        setTimeout(() => { btn.classList.remove('copied'); btn.textContent = '📋 COPY'; toast.classList.remove('show'); }, 1800);
+    });
+});
+
+// Checklist persistence
+const KEY = 'firefellas_gsc_progress';
+let state = {}; try { state = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch(e){}
+document.querySelectorAll('.checklist input[type=checkbox]').forEach(cb => {
+    if (state[cb.id]) { cb.checked = true; cb.closest('label').classList.add('done'); }
+    cb.addEventListener('change', () => {
+        state[cb.id] = cb.checked;
+        cb.closest('label').classList.toggle('done', cb.checked);
+        try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e){}
+    });
+});
+</script>
+
+</body>
+</html>
