@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Free Quote Calculator | Fire Fellas Calgary 🔥</title>
+<meta name="description" content="Get an instant price estimate for moving, junk removal, hauling, or snow removal in Calgary. Free, no signup, takes 30 seconds." />
+<link rel="icon" type="image/png" href="logo.png" />
+<link rel="canonical" href="https://pamandeepsinghdfl-hash.github.io/firefellascalgary/quote.html" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fredoka:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+:root{--firered:#FF4500;--fireorange:#FF8C00;--firegold:#FFD700;--firenavy:#0A0F1F;--pinkpop:#FF1493;--cyanpop:#00D9FF;--limepop:#A6FF00;--purplepop:#9D4EDD;}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{margin:0;padding:0;background:#0A0F1F;color:#fff;font-family:Inter,sans-serif;min-height:100vh;}
+.container{max-width:780px;margin:0 auto;padding:24px 16px 60px;}
+
+header{text-align:center;padding:24px 0 16px;}
+h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(34px,6vw,56px);letter-spacing:3px;margin:0 0 6px;line-height:0.95;
+    background:linear-gradient(135deg,#FFEB3B,#FF8C00,#FF4500,#FF1493);background-size:200% 200%;animation:bgShift 6s ease-in-out infinite;
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+header .sub{margin:6px 0 0;color:#FFD700;font-family:'Bebas Neue',sans-serif;letter-spacing:5px;font-size:13px;}
+@keyframes bgShift{0%,100%{background-position:0% 50%;}50%{background-position:100% 50%;}}
+
+/* Progress bar */
+.progress{margin:24px 0;}
+.progress-track{background:rgba(255,255,255,0.08);height:8px;border-radius:4px;overflow:hidden;}
+.progress-fill{background:linear-gradient(90deg,#FFD700,#FF4500,#FF1493);height:100%;width:20%;transition:width 0.4s cubic-bezier(0.4,0,0.2,1);border-radius:4px;}
+.progress-label{font-family:'Bebas Neue',sans-serif;letter-spacing:2px;color:#FFD700;font-size:13px;margin-top:8px;display:flex;justify-content:space-between;}
+
+/* Steps */
+.step{display:none;animation:slideIn 0.4s ease;}
+.step.active{display:block;}
+@keyframes slideIn{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+
+.step h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(24px,4vw,36px);letter-spacing:2px;color:#FFD700;margin:0 0 6px;line-height:1.05;}
+.step .q-sub{color:rgba(255,255,255,0.7);font-size:14px;margin:0 0 20px;}
+
+/* Option cards */
+.options{display:grid;gap:10px;margin-bottom:20px;}
+.options.grid-2{grid-template-columns:repeat(2,1fr);}
+.options.grid-1{grid-template-columns:1fr;}
+.opt{
+    background:linear-gradient(135deg,#141C32,#0F1628);
+    border:2px solid rgba(255,140,0,0.2);
+    border-radius:14px;padding:14px 16px;
+    cursor:pointer;display:flex;align-items:center;gap:14px;
+    transition:all 0.2s;
+}
+.opt:hover{border-color:#FFD700;transform:translateY(-2px);}
+.opt.selected{border-color:#FFD700;background:linear-gradient(135deg,rgba(255,215,0,0.1),rgba(255,69,0,0.05));}
+.opt.selected::before{content:'✓';position:absolute;}
+.opt .icon{font-size:32px;line-height:1;flex-shrink:0;}
+.opt .text{flex:1;}
+.opt .name{font-family:'Bebas Neue',sans-serif;letter-spacing:2px;color:#FFD700;font-size:18px;line-height:1.1;}
+.opt .desc{color:rgba(255,255,255,0.7);font-size:12px;margin-top:2px;}
+.opt .price{font-family:'Bebas Neue',sans-serif;letter-spacing:1px;color:#FFD700;font-size:14px;}
+
+/* Input fields */
+.field{margin-bottom:14px;}
+.field label{display:block;font-family:'Bebas Neue',sans-serif;letter-spacing:2px;color:#FFD700;font-size:12px;margin-bottom:6px;}
+.field input,.field select,.field textarea{
+    width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,215,0,0.2);
+    color:#fff;font-family:Inter,sans-serif;font-size:15px;
+    padding:11px 14px;border-radius:10px;
+    transition:all 0.2s;
+}
+.field input:focus,.field select:focus,.field textarea:focus{
+    outline:none;border-color:#FFD700;background:rgba(255,255,255,0.1);
+    box-shadow:0 0 0 3px rgba(255,215,0,0.15);
+}
+.field select option{background:#141C32;}
+.field textarea{resize:vertical;min-height:80px;font-family:Inter,sans-serif;}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+
+/* Buttons */
+.btn-row{display:flex;gap:10px;margin-top:18px;}
+.btn{
+    flex:1;padding:14px;border:none;border-radius:50px;cursor:pointer;
+    font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:15px;font-weight:bold;
+    transition:transform 0.2s;
+}
+.btn.primary{background:linear-gradient(135deg,#FFD700,#FF4500);color:#1a1a1a;box-shadow:0 6px 18px rgba(255,69,0,0.3);}
+.btn.primary:hover{transform:translateY(-2px);}
+.btn.primary:disabled{opacity:0.4;cursor:not-allowed;}
+.btn.alt{background:transparent;color:#FFD700;border:2px solid rgba(255,215,0,0.4);}
+.btn.alt:hover{border-color:#FFD700;}
+.btn.big{padding:18px;font-size:18px;}
+
+/* Quote result */
+.result{background:linear-gradient(135deg,#141C32,#0F1628);border:3px solid #FFD700;border-radius:20px;padding:24px;text-align:center;animation:popIn 0.6s cubic-bezier(0.68,-0.55,0.27,1.55);}
+@keyframes popIn{0%{transform:scale(0.5);opacity:0;}80%{transform:scale(1.05);}100%{transform:scale(1);opacity:1;}}
+.result .badge{background:linear-gradient(135deg,#FFD700,#FF4500);color:#1a1a1a;font-family:'Bebas Neue',sans-serif;letter-spacing:3px;font-size:14px;padding:6px 16px;border-radius:50px;display:inline-block;margin-bottom:14px;}
+.result .estimate{font-family:'Bebas Neue',sans-serif;font-size:clamp(48px,12vw,90px);letter-spacing:2px;line-height:0.95;
+    background:linear-gradient(135deg,#FFEB3B,#FF8C00,#FF4500,#FF1493);background-size:200% 200%;animation:bgShift 4s ease-in-out infinite;
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.result .range{color:#fff;font-family:'Bebas Neue',sans-serif;letter-spacing:3px;font-size:18px;margin:6px 0 14px;}
+.result .summary{background:rgba(0,0,0,0.3);border-radius:12px;padding:14px;text-align:left;margin:14px 0;font-size:13px;color:rgba(255,255,255,0.85);line-height:1.6;}
+.result .summary b{color:#FFD700;font-family:'Bebas Neue',sans-serif;letter-spacing:1.5px;}
+.result .ctas{display:flex;flex-direction:column;gap:8px;margin-top:18px;}
+.result .small-note{color:rgba(255,255,255,0.6);font-size:11px;margin-top:14px;line-height:1.5;}
+
+/* Confidence indicators */
+.trust{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:18px;}
+.trust .pill{background:rgba(166,255,0,0.1);color:#A6FF00;border:1px solid rgba(166,255,0,0.3);padding:4px 10px;border-radius:50px;font-size:11px;font-family:'Bebas Neue',sans-serif;letter-spacing:1.5px;}
+
+nav.foot-tabs{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:30px;padding-top:20px;border-top:1px solid rgba(255,215,0,0.15);}
+nav.foot-tabs a{background:rgba(20,28,50,0.9);color:#FFD700;border:1px solid rgba(255,215,0,0.3);padding:6px 12px;border-radius:50px;font-family:'Bebas Neue',sans-serif;letter-spacing:1.5px;font-size:11px;text-decoration:none;}
+nav.foot-tabs a:hover{background:linear-gradient(135deg,#FFD700,#FF4500);color:#1a1a1a;}
+
+footer{text-align:center;padding:20px 0;color:rgba(255,255,255,0.5);font-size:11px;}
+footer a{color:#FFD700;text-decoration:none;}
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+    <h1>FREE INSTANT QUOTE</h1>
+    <div class="sub">30 SECONDS · NO CREDIT CARD · NO SIGNUP</div>
+</header>
+
+<div class="progress">
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="progress-label"><span id="progressStep">STEP 1 OF 5</span><span id="progressPercent">20%</span></div>
+</div>
+
+<!-- ============ STEP 1: SERVICE TYPE ============ -->
+<div class="step active" id="step-1">
+    <h2>WHAT DO YOU NEED HELP WITH?</h2>
+    <p class="q-sub">Pick one. You can always change later when we talk.</p>
+    <div class="options">
+        <div class="opt" data-service="moving"><div class="icon">🚚</div><div class="text"><div class="name">MOVING</div><div class="desc">Apartment, condo, house, office — local or long-distance</div></div></div>
+        <div class="opt" data-service="junk"><div class="icon">♻️</div><div class="text"><div class="name">JUNK REMOVAL</div><div class="desc">Furniture, appliances, garage / basement clean-out</div></div></div>
+        <div class="opt" data-service="hauling"><div class="icon">🔨</div><div class="text"><div class="name">CONSTRUCTION HAULING</div><div class="desc">Reno debris, drywall, lumber, demolition waste</div></div></div>
+        <div class="opt" data-service="snow"><div class="icon">❄️</div><div class="text"><div class="name">SNOW REMOVAL</div><div class="desc">Driveway, walkway — one-time or seasonal</div></div></div>
+        <div class="opt" data-service="other"><div class="icon">🤔</div><div class="text"><div class="name">NOT SURE / OTHER</div><div class="desc">Hot tub, piano, single item — we'll figure it out</div></div></div>
+    </div>
+    <div class="btn-row">
+        <button class="btn primary" id="next1" disabled>NEXT &rarr;</button>
+    </div>
+</div>
+
+<!-- ============ STEP 2: SIZE / SCOPE (dynamic) ============ -->
+<div class="step" id="step-2">
+    <h2 id="step2Title">HOW BIG?</h2>
+    <p class="q-sub" id="step2Sub">Roughly. Don't stress — this is just for the estimate.</p>
+    <div class="options" id="step2Options"></div>
+    <div class="btn-row">
+        <button class="btn alt" onclick="goStep(1)">&larr; BACK</button>
+        <button class="btn primary" id="next2" disabled>NEXT &rarr;</button>
+    </div>
+</div>
+
+<!-- ============ STEP 3: WHEN + WHERE ============ -->
+<div class="step" id="step-3">
+    <h2>WHEN &amp; WHERE?</h2>
+    <p class="q-sub">Helps us check our availability.</p>
+    <div class="row">
+        <div class="field">
+            <label>WHEN DO YOU NEED IT?</label>
+            <select id="whenSel">
+                <option value="asap">ASAP / Same day</option>
+                <option value="tomorrow">Tomorrow / This week</option>
+                <option value="2week">Within 2 weeks</option>
+                <option value="month">Within a month</option>
+                <option value="future">Just exploring</option>
+            </select>
+        </div>
+        <div class="field">
+            <label>SERVICE AREA</label>
+            <select id="areaSel">
+                <option value="calgary">Calgary</option>
+                <option value="airdrie">Airdrie</option>
+                <option value="cochrane">Cochrane</option>
+                <option value="okotoks">Okotoks</option>
+                <option value="chestermere">Chestermere</option>
+                <option value="other">Other / Outside city</option>
+            </select>
+        </div>
+    </div>
+    <div class="field">
+        <label>NEIGHBOURHOOD OR POSTAL CODE (OPTIONAL)</label>
+        <input type="text" id="neighbourhood" placeholder="e.g. Beltline, Tuscany, T2P 1J9" />
+    </div>
+    <div class="row" id="movingDistance" style="display:none;">
+        <div class="field">
+            <label>DESTINATION (FOR MOVES)</label>
+            <select id="distSel">
+                <option value="local">Within same city (≤30 min)</option>
+                <option value="regional">Calgary ↔ Airdrie/Cochrane/Okotoks</option>
+                <option value="long">Long-distance Alberta (Edmonton, Red Deer, etc.)</option>
+            </select>
+        </div>
+        <div class="field">
+            <label>STAIRS / ELEVATOR?</label>
+            <select id="stairsSel">
+                <option value="ground">Ground floor only</option>
+                <option value="elevator">Elevator building</option>
+                <option value="1flight">1 flight of stairs</option>
+                <option value="2flight">2+ flights of stairs</option>
+            </select>
+        </div>
+    </div>
+    <div class="btn-row">
+        <button class="btn alt" onclick="goStep(2)">&larr; BACK</button>
+        <button class="btn primary" onclick="goStep(4)">NEXT &rarr;</button>
+    </div>
+</div>
+
+<!-- ============ STEP 4: CONTACT INFO ============ -->
+<div class="step" id="step-4">
+    <h2>WHERE DO WE SEND YOUR QUOTE?</h2>
+    <p class="q-sub">No spam. Just your quote + a follow-up if you have questions.</p>
+    <div class="row">
+        <div class="field">
+            <label>FIRST NAME</label>
+            <input type="text" id="firstName" placeholder="John" />
+        </div>
+        <div class="field">
+            <label>PHONE</label>
+            <input type="tel" id="phone" placeholder="(403) 000-0000" />
+        </div>
+    </div>
+    <div class="field">
+        <label>EMAIL (OPTIONAL)</label>
+        <input type="email" id="email" placeholder="you@example.com" />
+    </div>
+    <div class="field">
+        <label>ANYTHING ELSE WE SHOULD KNOW? (OPTIONAL)</label>
+        <textarea id="notes" placeholder="Pet on site, parking situation, fragile items, etc."></textarea>
+    </div>
+    <div class="btn-row">
+        <button class="btn alt" onclick="goStep(3)">&larr; BACK</button>
+        <button class="btn primary big" onclick="calculate()">🔥 GET MY QUOTE</button>
+    </div>
+</div>
+
+<!-- ============ STEP 5: RESULT ============ -->
+<div class="step" id="step-5">
+    <div class="result">
+        <div class="badge">YOUR ESTIMATE</div>
+        <div class="estimate" id="estimatePrice">$0</div>
+        <div class="range" id="estimateRange">— TO —</div>
+        <div class="summary" id="summary"></div>
+        <div class="trust">
+            <div class="pill">✓ NO OBLIGATION</div>
+            <div class="pill">✓ FREE</div>
+            <div class="pill">✓ FULLY INSURED</div>
+            <div class="pill">✓ DAMAGE-FREE GUARANTEE</div>
+        </div>
+        <div class="ctas">
+            <a class="btn primary big" id="callLink" href="tel:+13682997792">📞 CALL TO BOOK NOW: (368) 299-7792</a>
+            <a class="btn alt" id="textLink" href="sms:+13682997792">💬 TEXT US TO LOCK IT IN</a>
+            <button class="btn alt" onclick="resetForm()">🔄 START OVER</button>
+        </div>
+        <div class="small-note">
+            Estimate is based on typical Calgary jobs matching your description. Final quote depends on access, distance, and specifics — but our flat-rate quotes are usually within 10% of this estimate. <br><br>
+            <b>Want a precise quote in writing?</b> Call or text us — we respond within an hour during business hours.
+        </div>
+    </div>
+</div>
+
+<nav class="foot-tabs">
+    <a href="index.html">🏠 Home</a>
+    <a href="faq.html">❓ FAQ</a>
+    <a href="shorts.html">📱 Shorts</a>
+    <a href="calgary.html">📍 Calgary</a>
+    <a href="airdrie.html">📍 Airdrie</a>
+    <a href="cochrane.html">📍 Cochrane</a>
+    <a href="okotoks.html">📍 Okotoks</a>
+</nav>
+
+<footer>
+    <p>Fire Fellas Calgary · <a href="tel:+13682997792">(368) 299-7792</a> · <a href="mailto:firefellasmoving@gmail.com">firefellasmoving@gmail.com</a></p>
+</footer>
+
+</div>
+
+<script>
+let currentStep = 1;
+const data = {
+    service: null,
+    scope: null,
+    scopeLabel: '',
+    when: 'asap',
+    area: 'calgary',
+    neighbourhood: '',
+    distance: 'local',
+    stairs: 'ground',
+    name: '',
+    phone: '',
+    email: '',
+    notes: ''
+};
+
+// === Step navigation ===
+function goStep(n) {
+    document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+    document.getElementById('step-' + n).classList.add('active');
+    currentStep = n;
+    updateProgress();
+    window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function updateProgress() {
+    const pct = (currentStep / 5) * 100;
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('progressStep').textContent = `STEP ${currentStep} OF 5`;
+    document.getElementById('progressPercent').textContent = pct + '%';
+}
+
+// === Step 1: Service selection ===
+document.querySelectorAll('#step-1 .opt').forEach(opt => {
+    opt.addEventListener('click', () => {
+        document.querySelectorAll('#step-1 .opt').forEach(o => o.classList.remove('selected'));
+        opt.classList.add('selected');
+        data.service = opt.dataset.service;
+        document.getElementById('next1').disabled = false;
+    });
+});
+
+document.getElementById('next1').addEventListener('click', () => {
+    buildStep2();
+    goStep(2);
+});
+
+// === Step 2: Dynamic scope options ===
+const SCOPE_OPTIONS = {
+    moving: {
+        title: 'HOW BIG IS THE MOVE?',
+        sub: 'Pick the closest match.',
+        options: [
+            { key:'single', icon:'📦', name:'Just 1-2 items', desc:'Couch, bed, fridge, single piece', priceLabel:'~$129-180' },
+            { key:'studio', icon:'🛏️', name:'Studio / Bachelor', desc:'1 room of stuff, no big furniture', priceLabel:'~$299-450' },
+            { key:'1bd', icon:'🏠', name:'1 Bedroom', desc:'Apartment or small condo', priceLabel:'~$399-600' },
+            { key:'2bd', icon:'🏠', name:'2 Bedroom', desc:'Apartment, condo, or small house', priceLabel:'~$599-850' },
+            { key:'3bd', icon:'🏡', name:'3 Bedroom House', desc:'Typical family home', priceLabel:'~$799-1200' },
+            { key:'4bd', icon:'🏘️', name:'4+ Bedroom', desc:'Large home, lots of stuff', priceLabel:'~$1200-1800' },
+            { key:'office', icon:'🏢', name:'Office / Commercial', desc:'Custom quote based on size', priceLabel:'Custom quote' },
+        ]
+    },
+    junk: {
+        title: 'HOW MUCH JUNK?',
+        sub: 'Visual estimate. Don\'t overthink it.',
+        options: [
+            { key:'single', icon:'📺', name:'1-2 items', desc:'Single appliance, couch, mattress', priceLabel:'~$129-180' },
+            { key:'pickup', icon:'🚛', name:'Pickup-truck load', desc:'Fits in the back of a pickup', priceLabel:'~$199-299' },
+            { key:'half', icon:'🚚', name:'Half truck load', desc:'About 6-8 cubic yards', priceLabel:'~$299-450' },
+            { key:'full', icon:'🚚', name:'Full truck load', desc:'15+ cubic yards (~garage worth)', priceLabel:'~$499-699' },
+            { key:'multi', icon:'🏗️', name:'Multiple truck loads', desc:'Estate clean-out, big property', priceLabel:'~$799-1500' },
+        ]
+    },
+    hauling: {
+        title: 'WHAT KIND OF DEBRIS?',
+        sub: '',
+        options: [
+            { key:'small', icon:'🔨', name:'Small reno cleanup', desc:'Bathroom reno, single room', priceLabel:'~$199-399' },
+            { key:'medium', icon:'🪜', name:'Medium reno', desc:'Kitchen reno, basement', priceLabel:'~$399-699' },
+            { key:'large', icon:'🏗️', name:'Full renovation', desc:'Full house, large debris', priceLabel:'~$799-1500' },
+            { key:'recurring', icon:'🔁', name:'Recurring jobsite', desc:'Contractor — multiple visits', priceLabel:'Custom quote' },
+        ]
+    },
+    snow: {
+        title: 'HOW MUCH SNOW WORK?',
+        sub: '',
+        options: [
+            { key:'singlesmall', icon:'❄️', name:'One-time, small driveway', desc:'Single-car driveway + walkway', priceLabel:'~$40-60' },
+            { key:'singlelarge', icon:'❄️❄️', name:'One-time, large driveway', desc:'Double driveway + walkway + stairs', priceLabel:'~$70-100' },
+            { key:'seasonal', icon:'📅', name:'Seasonal contract', desc:'Every storm, Nov-Apr', priceLabel:'~$400-800/season' },
+            { key:'commercial', icon:'🏢', name:'Commercial / parking lot', desc:'Custom contract', priceLabel:'Custom quote' },
+        ]
+    },
+    other: {
+        title: 'WHAT IS IT?',
+        sub: 'Specific items have specific pricing.',
+        options: [
+            { key:'hottub', icon:'♨️', name:'Hot tub removal', desc:'Drain + disassemble + haul', priceLabel:'~$249-499' },
+            { key:'piano', icon:'🎹', name:'Piano move', desc:'Upright or grand', priceLabel:'~$249-499' },
+            { key:'shed', icon:'🏚️', name:'Shed teardown', desc:'Demolish + haul away', priceLabel:'~$299-799' },
+            { key:'appliance', icon:'🧊', name:'Single appliance', desc:'Fridge, washer, dryer, etc.', priceLabel:'~$129-189' },
+            { key:'unknown', icon:'❓', name:'Something else', desc:'We\'ll call you for details', priceLabel:'Custom quote' },
+        ]
+    }
+};
+
+function buildStep2() {
+    const cfg = SCOPE_OPTIONS[data.service];
+    document.getElementById('step2Title').textContent = cfg.title;
+    document.getElementById('step2Sub').textContent = cfg.sub;
+    const wrap = document.getElementById('step2Options');
+    wrap.innerHTML = '';
+    cfg.options.forEach(o => {
+        const div = document.createElement('div');
+        div.className = 'opt';
+        div.dataset.scope = o.key;
+        div.dataset.label = o.name;
+        div.innerHTML = `<div class="icon">${o.icon}</div><div class="text"><div class="name">${o.name}</div><div class="desc">${o.desc}</div></div><div class="price">${o.priceLabel}</div>`;
+        div.addEventListener('click', () => {
+            document.querySelectorAll('#step-2 .opt').forEach(x => x.classList.remove('selected'));
+            div.classList.add('selected');
+            data.scope = o.key;
+            data.scopeLabel = o.name;
+            document.getElementById('next2').disabled = false;
+        });
+        wrap.appendChild(div);
+    });
+    document.getElementById('next2').disabled = true;
+    // Show moving distance if moving
+    document.getElementById('movingDistance').style.display = (data.service === 'moving') ? 'grid' : 'none';
+}
+
+document.getElementById('next2').addEventListener('click', () => goStep(3));
+
+// === Pricing engine ===
+// Returns [low, high]
+function calculatePrice() {
+    const s = data.service, scope = data.scope;
+    const PRICING = {
+        moving: {
+            single:[129,180], studio:[299,450], '1bd':[399,600],
+            '2bd':[599,850], '3bd':[799,1200], '4bd':[1200,1800], office:[800,2000]
+        },
+        junk: {
+            single:[129,180], pickup:[199,299], half:[299,450], full:[499,699], multi:[799,1500]
+        },
+        hauling: {
+            small:[199,399], medium:[399,699], large:[799,1500], recurring:[300,800]
+        },
+        snow: {
+            singlesmall:[40,60], singlelarge:[70,100], seasonal:[400,800], commercial:[200,1500]
+        },
+        other: {
+            hottub:[249,499], piano:[249,499], shed:[299,799], appliance:[129,189], unknown:[150,500]
+        }
+    };
+    let [low, high] = PRICING[s][scope] || [200, 500];
+    // Distance modifier (moving only)
+    if (s === 'moving') {
+        if (data.distance === 'regional') { low *= 1.2; high *= 1.3; }
+        if (data.distance === 'long') { low *= 1.6; high *= 2.2; }
+        // Stairs modifier
+        if (data.stairs === '1flight') { low += 30; high += 80; }
+        if (data.stairs === '2flight') { low += 60; high += 150; }
+    }
+    // Area modifier (outside Calgary)
+    if (data.area === 'cochrane' || data.area === 'airdrie' || data.area === 'okotoks' || data.area === 'chestermere') {
+        // Small surcharge for outside-city
+        low *= 1.0; high *= 1.0; // Actually no surcharge - same Calgary pricing
+    }
+    return [Math.round(low), Math.round(high)];
+}
+
+function calculate() {
+    // Capture contact info
+    data.name = document.getElementById('firstName').value.trim();
+    data.phone = document.getElementById('phone').value.trim();
+    data.email = document.getElementById('email').value.trim();
+    data.notes = document.getElementById('notes').value.trim();
+    data.when = document.getElementById('whenSel').value;
+    data.area = document.getElementById('areaSel').value;
+    data.neighbourhood = document.getElementById('neighbourhood').value.trim();
+    if (data.service === 'moving') {
+        data.distance = document.getElementById('distSel').value;
+        data.stairs = document.getElementById('stairsSel').value;
+    }
+
+    const [low, high] = calculatePrice();
+
+    document.getElementById('estimatePrice').textContent = `$${low}`;
+    document.getElementById('estimateRange').textContent = `to $${high}`;
+
+    // Build summary
+    const serviceNames = { moving:'🚚 Moving', junk:'♻️ Junk Removal', hauling:'🔨 Hauling', snow:'❄️ Snow Removal', other:'🔧 Special service' };
+    const whenLabels = { asap:'ASAP / same day', tomorrow:'This week', '2week':'Within 2 weeks', month:'Within a month', future:'Exploring' };
+    const areaLabels = { calgary:'Calgary', airdrie:'Airdrie', cochrane:'Cochrane', okotoks:'Okotoks', chestermere:'Chestermere', other:'Outside our usual area' };
+
+    let summary = `<b>Service:</b> ${serviceNames[data.service]}<br><b>Size:</b> ${data.scopeLabel}<br><b>When:</b> ${whenLabels[data.when]}<br><b>Where:</b> ${areaLabels[data.area]}`;
+    if (data.neighbourhood) summary += ` (${data.neighbourhood})`;
+    if (data.service === 'moving') summary += `<br><b>Distance:</b> ${data.distance==='local'?'Same city':data.distance==='regional'?'Regional':'Long-distance'}<br><b>Access:</b> ${data.stairs==='ground'?'Ground floor':data.stairs==='elevator'?'Elevator':data.stairs==='1flight'?'1 flight stairs':'2+ flights'}`;
+    if (data.name) summary += `<br><br><b>Customer:</b> ${data.name}`;
+
+    document.getElementById('summary').innerHTML = summary;
+
+    // Pre-fill text message with summary
+    const smsBody = encodeURIComponent(`Hi Fire Fellas! ${data.name || 'I'} just got a quote of $${low}-${high} for: ${serviceNames[data.service]} - ${data.scopeLabel} in ${areaLabels[data.area]}. ${data.when==='asap'?'Need it ASAP.':'Need: '+whenLabels[data.when]+'.'}${data.notes ? ' Notes: ' + data.notes : ''} Can you confirm?`);
+    document.getElementById('textLink').href = `sms:+13682997792?body=${smsBody}`;
+
+    goStep(5);
+
+    // Log lead to localStorage (so user can reference later)
+    try {
+        const leads = JSON.parse(localStorage.getItem('firefellas_leads') || '[]');
+        leads.push({...data, low, high, ts: new Date().toISOString()});
+        localStorage.setItem('firefellas_leads', JSON.stringify(leads));
+    } catch(e){}
+}
+
+function resetForm() {
+    Object.keys(data).forEach(k => data[k] = (k==='when'?'asap':k==='area'?'calgary':k==='distance'?'local':k==='stairs'?'ground':''));
+    document.getElementById('firstName').value = '';
+    document.getElementById('phone').value = '';
+    document.getElementById('email').value = '';
+    document.getElementById('notes').value = '';
+    document.getElementById('neighbourhood').value = '';
+    document.querySelectorAll('.opt').forEach(o => o.classList.remove('selected'));
+    document.getElementById('next1').disabled = true;
+    goStep(1);
+}
+</script>
+
+</body>
+</html>

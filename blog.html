@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Calgary Moving & Junk Removal Blog | Fire Fellas 🔥</title>
+<meta name="description" content="Real Calgary moving tips, junk removal pricing guides, and decluttering advice from your local Fire Fellas crew." />
+<link rel="icon" type="image/png" href="logo.png" />
+<link rel="canonical" href="https://pamandeepsinghdfl-hash.github.io/firefellascalgary/blog.html" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fredoka:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+:root{--firered:#FF4500;--fireorange:#FF8C00;--firegold:#FFD700;--firenavy:#0A0F1F;--pinkpop:#FF1493;--cyanpop:#00D9FF;}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{margin:0;padding:0;background:#0A0F1F;color:#fff;font-family:Inter,sans-serif;}
+.container{max-width:1100px;margin:0 auto;padding:24px 18px 80px;}
+header{text-align:center;padding:30px 0 20px;border-bottom:1px solid rgba(255,215,0,0.15);margin-bottom:30px;}
+h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,6vw,68px);letter-spacing:3px;margin:0 0 6px;line-height:0.95;
+    background:linear-gradient(135deg,#FFEB3B,#FF8C00,#FF4500,#FF1493);background-size:200% 200%;animation:bgShift 6s ease-in-out infinite;
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+header .sub{margin:6px 0 0;color:#FFD700;font-family:'Bebas Neue',sans-serif;letter-spacing:5px;font-size:13px;}
+@keyframes bgShift{0%,100%{background-position:0% 50%;}50%{background-position:100% 50%;}}
+
+.posts{display:grid;gap:18px;margin-bottom:30px;}
+.post-card{background:linear-gradient(135deg,#141C32,#0F1628);border:1px solid rgba(255,140,0,0.2);border-radius:18px;padding:22px;transition:all 0.25s;}
+.post-card:hover{border-color:#FFD700;transform:translateY(-3px);box-shadow:0 14px 28px rgba(255,69,0,0.15);}
+.post-card .tag{display:inline-block;background:rgba(255,140,0,0.15);color:#FF8C00;padding:3px 10px;border-radius:50px;font-size:11px;font-family:'Bebas Neue',sans-serif;letter-spacing:2px;margin-bottom:8px;}
+.post-card h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(22px,3.5vw,32px);letter-spacing:2px;color:#FFD700;margin:0 0 6px;line-height:1.1;}
+.post-card .excerpt{color:rgba(255,255,255,0.75);font-size:14px;line-height:1.55;margin:0 0 10px;}
+.post-card .meta{display:flex;justify-content:space-between;align-items:center;color:rgba(255,255,255,0.5);font-size:12px;}
+.post-card .read-more{color:#FFD700;font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:13px;text-decoration:none;}
+.post-card .read-more:hover{color:#FF4500;}
+.post-card a.full-link{position:absolute;inset:0;}
+
+/* Article view */
+.article{background:linear-gradient(135deg,#141C32,#0F1628);border:1px solid rgba(255,140,0,0.18);border-radius:20px;padding:30px;line-height:1.65;}
+.article-back{display:inline-block;color:#FFD700;font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:13px;margin-bottom:16px;text-decoration:none;}
+.article-back:hover{color:#FF4500;}
+.article h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,5vw,46px);letter-spacing:2px;color:#FFD700;margin:0 0 10px;line-height:1.05;}
+.article .article-meta{color:rgba(255,255,255,0.55);font-size:12px;margin-bottom:24px;display:flex;gap:14px;}
+.article h3{font-family:'Bebas Neue',sans-serif;letter-spacing:2px;color:#FFD700;font-size:22px;margin:24px 0 8px;border-bottom:2px solid rgba(255,215,0,0.2);padding-bottom:4px;}
+.article p{color:rgba(255,255,255,0.85);font-size:15px;margin:0 0 14px;}
+.article p strong{color:#FFD700;}
+.article ul,.article ol{color:rgba(255,255,255,0.85);font-size:15px;padding-left:20px;margin:0 0 14px;}
+.article li{margin-bottom:6px;}
+.article .callout{background:linear-gradient(135deg,rgba(255,140,0,0.08),rgba(255,20,147,0.08));border-left:4px solid #FFD700;border-radius:8px;padding:14px 18px;margin:18px 0;}
+.article .callout strong{color:#FFD700;}
+.article .pricing-table{width:100%;border-collapse:collapse;margin:18px 0;font-size:14px;}
+.article .pricing-table th{background:#FF4500;color:#fff;font-family:'Bebas Neue',sans-serif;letter-spacing:2px;padding:8px 10px;text-align:left;}
+.article .pricing-table td{padding:10px;border-bottom:1px solid rgba(255,255,255,0.08);}
+.article .pricing-table tr:nth-child(even){background:rgba(0,0,0,0.2);}
+
+.cta-box{background:linear-gradient(135deg,rgba(255,140,0,0.1),rgba(255,20,147,0.1));border:2px solid #FFD700;border-radius:18px;padding:22px;text-align:center;margin:24px 0;}
+.cta-box h3{margin:0 0 8px;font-family:'Bebas Neue',sans-serif;letter-spacing:2px;color:#FFD700;font-size:24px;border:none;padding:0;}
+.cta-box p{margin:0 0 14px;color:rgba(255,255,255,0.85);}
+.btn-row{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;}
+a.btn{background:linear-gradient(135deg,#FFD700,#FF4500);color:#1a1a1a;font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:14px;font-weight:bold;padding:12px 22px;border-radius:50px;text-decoration:none;box-shadow:0 4px 12px rgba(255,69,0,0.3);}
+a.btn.alt{background:transparent;border:2px solid #FFD700;color:#FFD700;box-shadow:none;}
+
+nav.tabs{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:30px 0 20px;}
+nav.tabs a{background:rgba(20,28,50,0.9);color:#FFD700;border:2px solid rgba(255,215,0,0.3);padding:8px 14px;border-radius:50px;font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:13px;text-decoration:none;}
+nav.tabs a:hover{background:linear-gradient(135deg,#FFD700,#FF4500);color:#1a1a1a;}
+
+footer{text-align:center;padding:30px 0;color:rgba(255,255,255,0.5);font-size:12px;border-top:1px solid rgba(255,215,0,0.15);margin-top:40px;}
+footer a{color:#FFD700;text-decoration:none;}
+
+.hidden{display:none;}
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+    <h1>FIRE FELLAS BLOG</h1>
+    <div class="sub">CALGARY MOVING · JUNK · LIFE TIPS 🔥</div>
+</header>
+
+<!-- ============ INDEX (default view) ============ -->
+<div id="index-view">
+    <div class="posts">
+
+        <article class="post-card" onclick="showPost('moving-cost')" style="position:relative;cursor:pointer;">
+            <div class="tag">💰 PRICING GUIDE</div>
+            <h2>How Much Does It Cost To Move In Calgary in 2026?</h2>
+            <p class="excerpt">A complete breakdown of Calgary moving costs by home size, distance, and time of year. Plus 7 ways to lower your move quote without sacrificing quality.</p>
+            <div class="meta"><span>📖 8 min read · By Fire Fellas Crew</span><span class="read-more">READ →</span></div>
+            <a href="#moving-cost" class="full-link" style="text-decoration:none;" aria-label="Read article"></a>
+        </article>
+
+        <article class="post-card" onclick="showPost('junk-prices')" style="position:relative;cursor:pointer;">
+            <div class="tag">♻️ JUNK REMOVAL</div>
+            <h2>Calgary Junk Removal Prices: What You Should Actually Pay</h2>
+            <p class="excerpt">Some Calgary haulers charge $300+ for a single couch. Here's what fair pricing looks like in 2026 — by load size, item, and neighbourhood.</p>
+            <div class="meta"><span>📖 6 min read · By Fire Fellas Crew</span><span class="read-more">READ →</span></div>
+            <a href="#junk-prices" class="full-link" style="text-decoration:none;" aria-label="Read article"></a>
+        </article>
+
+        <article class="post-card" onclick="showPost('hot-tub')" style="position:relative;cursor:pointer;">
+            <div class="tag">🛁 HOT TUB REMOVAL</div>
+            <h2>How To Get Rid Of A Hot Tub In Calgary (4 Options)</h2>
+            <p class="excerpt">Got an old hot tub draining your patio space? Here's exactly how Calgary homeowners can remove them — including the option that gets it gone in 2 hours.</p>
+            <div class="meta"><span>📖 5 min read · By Fire Fellas Crew</span><span class="read-more">READ →</span></div>
+            <a href="#hot-tub" class="full-link" style="text-decoration:none;" aria-label="Read article"></a>
+        </article>
+
+        <article class="post-card" onclick="showPost('moving-checklist')" style="position:relative;cursor:pointer;">
+            <div class="tag">📋 CHECKLIST</div>
+            <h2>The Ultimate Calgary Moving Checklist (8 Weeks Before → Day Of)</h2>
+            <p class="excerpt">A week-by-week timeline of everything you need to do before, during, and after a Calgary move. Print, save, share with the family.</p>
+            <div class="meta"><span>📖 7 min read · By Fire Fellas Crew</span><span class="read-more">READ →</span></div>
+            <a href="#moving-checklist" class="full-link" style="text-decoration:none;" aria-label="Read article"></a>
+        </article>
+
+        <article class="post-card" onclick="showPost('diy-vs-movers')" style="position:relative;cursor:pointer;">
+            <div class="tag">🤔 DECISION GUIDE</div>
+            <h2>DIY Move vs Hiring Movers in Calgary: Real Cost Comparison</h2>
+            <p class="excerpt">U-Haul + pizza for friends vs hiring pros? We did the math for a typical Calgary 2-bedroom move. The DIY savings might surprise you (good and bad).</p>
+            <div class="meta"><span>📖 6 min read · By Fire Fellas Crew</span><span class="read-more">READ →</span></div>
+            <a href="#diy-vs-movers" class="full-link" style="text-decoration:none;" aria-label="Read article"></a>
+        </article>
+
+    </div>
+</div>
+
+<!-- ============ ARTICLE: MOVING COST ============ -->
+<article class="article hidden" id="article-moving-cost">
+    <a class="article-back" onclick="showIndex()" href="#">← BACK TO BLOG</a>
+    <h2>How Much Does It Cost To Move In Calgary in 2026?</h2>
+    <div class="article-meta"><span>📖 8 min read</span><span>By Fire Fellas Crew</span><span>💰 Pricing Guide</span></div>
+
+    <p>If you're moving in Calgary in 2026, your biggest question is probably: <strong>"How much is this actually going to cost me?"</strong> We get this 30+ times a week. So here's the real answer, with real Calgary numbers.</p>
+
+    <h3>💵 Quick Answer: Calgary Moving Cost Ranges</h3>
+    <table class="pricing-table">
+        <thead><tr><th>Move Size</th><th>Local Calgary Move</th><th>Calgary → Airdrie/Cochrane/Okotoks</th><th>Long-Distance Alberta</th></tr></thead>
+        <tbody>
+            <tr><td>Single item / small load</td><td>$129 – $180</td><td>$150 – $220</td><td>$200 – $400</td></tr>
+            <tr><td>Studio / Bachelor</td><td>$299 – $450</td><td>$350 – $500</td><td>$500 – $800</td></tr>
+            <tr><td>1 bedroom</td><td>$399 – $600</td><td>$450 – $700</td><td>$700 – $1,100</td></tr>
+            <tr><td>2 bedroom</td><td>$599 – $850</td><td>$700 – $1,000</td><td>$1,000 – $1,500</td></tr>
+            <tr><td>3 bedroom house</td><td>$799 – $1,200</td><td>$950 – $1,400</td><td>$1,400 – $2,200</td></tr>
+            <tr><td>4+ bedroom</td><td>$1,200 – $1,800</td><td>$1,400 – $2,100</td><td>$2,000 – $3,500</td></tr>
+        </tbody>
+    </table>
+
+    <div class="callout">
+        <strong>💡 Important:</strong> These are FLAT-RATE quotes (what Fire Fellas charges). Hourly Calgary movers will charge $120-180/hr × 2-4 hours minimum + travel + supplies. Flat-rate is almost always cheaper when math works out.
+    </div>
+
+    <h3>🧮 What Affects Your Calgary Move Cost</h3>
+    <p>The 7 biggest factors:</p>
+    <ol>
+        <li><strong>Volume of stuff</strong> — Not square footage, but actual items. A maximalist 1-bedroom can cost more than a minimalist 2-bedroom.</li>
+        <li><strong>Distance</strong> — Local Calgary moves under 30 min are cheapest. Calgary → Edmonton is roughly 2x cost.</li>
+        <li><strong>Stairs &amp; elevator</strong> — Each flight of stairs adds ~$30-80. No elevator in a condo? Add $50-150.</li>
+        <li><strong>Time of year</strong> — May-September is PEAK in Calgary. Off-season (Nov-Mar) saves 10-20%.</li>
+        <li><strong>Day of the week</strong> — Weekends cost more. Mid-week moves can save $100+.</li>
+        <li><strong>Specialty items</strong> — Piano, hot tub, safe, antiques = extra $100-300 each.</li>
+        <li><strong>Packing service</strong> — Want movers to pack for you? Add $200-600. DIY packing = free.</li>
+    </ol>
+
+    <h3>📉 7 Ways To Lower Your Calgary Move Quote</h3>
+    <ol>
+        <li><strong>Move mid-week, mid-month</strong> — Avoid the 1st of the month and weekends. Movers in Calgary are slammed those days.</li>
+        <li><strong>Declutter first</strong> — Less stuff = smaller truck = lower price. Sell or donate before you move.</li>
+        <li><strong>Pack yourself</strong> — Saves $200-600 vs full-pack service. Get free boxes from Costco, Walmart, or LCBO.</li>
+        <li><strong>Disassemble big furniture</strong> — IKEA beds, dressers, dining tables. Movers charge for the time it takes.</li>
+        <li><strong>Reserve parking</strong> — In Beltline, Mission, Bridgeland: book a permit so movers don't waste time parking blocks away.</li>
+        <li><strong>Be done with utilities/cleaning</strong> — Don't have movers wait while you finish packing the bathroom.</li>
+        <li><strong>Get 3 quotes</strong> — Always. Prices vary 30-50% between Calgary movers. Just don't pick the cheapest if they don't have reviews.</li>
+    </ol>
+
+    <h3>⚠️ Red Flags in Calgary Movers</h3>
+    <ul>
+        <li><strong>Hourly quotes with no minimum or maximum</strong> — they can drag jobs out.</li>
+        <li><strong>No insurance proof</strong> — major Calgary movers MUST have liability insurance.</li>
+        <li><strong>Cash-only / no contract</strong> — get it in writing.</li>
+        <li><strong>Massive deposits</strong> — never pay more than $50-100 down for a residential move.</li>
+        <li><strong>Truck doesn't say a company name</strong> — sometimes called "moving brokers" who hire out and disappear.</li>
+    </ul>
+
+    <h3>📞 Get Your Real Calgary Quote</h3>
+    <p>Want a specific number for your move? <strong>Use our free quote calculator</strong> — takes 30 seconds, no signup, gives you a range based on real Calgary jobs.</p>
+
+    <div class="cta-box">
+        <h3>GET YOUR FREE CALGARY MOVE QUOTE</h3>
+        <p>30 seconds. No signup. Real Calgary pricing.</p>
+        <div class="btn-row">
+            <a class="btn" href="quote.html">⚡ INSTANT CALCULATOR</a>
+            <a class="btn alt" href="tel:+13682997792">📞 CALL (368) 299-7792</a>
+        </div>
+    </div>
+
+    <p style="font-style:italic;color:rgba(255,255,255,0.6);margin-top:24px;font-size:13px;">Last updated: 2026 · Prices based on Fire Fellas Calgary jobs and Calgary moving industry averages.</p>
+</article>
+
+<!-- ============ ARTICLE: JUNK PRICES ============ -->
+<article class="article hidden" id="article-junk-prices">
+    <a class="article-back" onclick="showIndex()" href="#">← BACK TO BLOG</a>
+    <h2>Calgary Junk Removal Prices: What You Should Actually Pay</h2>
+    <div class="article-meta"><span>📖 6 min read</span><span>By Fire Fellas Crew</span><span>♻️ Junk Removal</span></div>
+
+    <p>Look, we'll just say it: <strong>junk removal pricing in Calgary is all over the place.</strong> We've seen quotes of $250+ for a single couch. We've seen "free" pickups with $400 disposal fees tacked on. Here's what fair Calgary pricing actually looks like in 2026.</p>
+
+    <h3>💰 Calgary Junk Removal Prices in 2026 (Fair Range)</h3>
+    <table class="pricing-table">
+        <thead><tr><th>Load Size</th><th>Examples</th><th>Fair Calgary Price</th></tr></thead>
+        <tbody>
+            <tr><td><strong>Single item</strong></td><td>Couch, mattress, fridge, or 1 piece</td><td>$129 – $180</td></tr>
+            <tr><td><strong>Pickup-truck load</strong></td><td>~3 cubic yards, fits in a pickup bed</td><td>$199 – $299</td></tr>
+            <tr><td><strong>Half truck load</strong></td><td>~6-8 cubic yards (small bedroom)</td><td>$299 – $450</td></tr>
+            <tr><td><strong>Full truck load</strong></td><td>~15 cubic yards (typical garage)</td><td>$499 – $699</td></tr>
+            <tr><td><strong>Multiple loads</strong></td><td>Estate clean-out, big property</td><td>$799 – $1,500+</td></tr>
+        </tbody>
+    </table>
+
+    <h3>🪑 Single-Item Removal Prices in Calgary</h3>
+    <table class="pricing-table">
+        <thead><tr><th>Item</th><th>Fair Calgary Price</th><th>Notes</th></tr></thead>
+        <tbody>
+            <tr><td>Couch (sofa, sectional)</td><td>$129 – $180</td><td>Sectionals on higher end</td></tr>
+            <tr><td>Mattress (any size)</td><td>$129 – $159</td><td>Some haulers charge $20+ "mattress disposal fee"</td></tr>
+            <tr><td>Box spring</td><td>$129 – $159</td><td>Often combined w/ mattress</td></tr>
+            <tr><td>Fridge / Freezer</td><td>$149 – $189</td><td>Heavier = costlier</td></tr>
+            <tr><td>Washer / Dryer</td><td>$129 – $169</td><td>Pair: $200-280</td></tr>
+            <tr><td>Stove / Dishwasher</td><td>$129 – $169</td><td>Stainless steel can be recycled (cheaper)</td></tr>
+            <tr><td>BBQ / Grill</td><td>$99 – $149</td><td>Propane tanks separate</td></tr>
+            <tr><td>Exercise equipment</td><td>$129 – $249</td><td>Treadmills usually $199+</td></tr>
+            <tr><td>Hot tub</td><td>$249 – $499</td><td>See <a style="color:#FFD700;" onclick="showPost('hot-tub')" href="#hot-tub">hot tub article</a></td></tr>
+            <tr><td>Piano (upright)</td><td>$249 – $399</td><td>Grand pianos: custom quote</td></tr>
+        </tbody>
+    </table>
+
+    <h3>🚨 Hidden Fees To Watch For</h3>
+    <ul>
+        <li><strong>Stairs fees</strong> — Some charge $20-50 per flight. (Fire Fellas: included, no charge.)</li>
+        <li><strong>Mattress disposal surcharge</strong> — $20-40 in Calgary. (Included with us.)</li>
+        <li><strong>Fuel surcharge</strong> — 5-15%. Should always be included in the original quote.</li>
+        <li><strong>Minimum charges</strong> — Some require $300 minimum even for a single item.</li>
+        <li><strong>"Tipping fees"</strong> — Charges based on landfill weight. Legit but should be quoted upfront.</li>
+    </ul>
+
+    <h3>📍 Calgary Neighbourhood Pricing — Does It Vary?</h3>
+    <p>Generally <strong>no</strong>. Whether you're in Tuscany, Mahogany, Inglewood, or Bridgeland, the price should be the same. If a Calgary hauler quotes you differently based on postal code, that's a red flag.</p>
+
+    <p>What CAN vary:</p>
+    <ul>
+        <li><strong>Acreage pickups</strong> (Springbank, Bearspaw, Priddis) — sometimes 10-15% more for travel</li>
+        <li><strong>Airdrie/Cochrane/Okotoks</strong> — Fire Fellas charges same as Calgary, but some haulers add 20%</li>
+    </ul>
+
+    <h3>♻️ Where Does Calgary Junk Go?</h3>
+    <p>This matters because <strong>donation/recycling is FREE</strong> (or low-cost) but landfill is expensive ($85+/ton at Calgary's Spyhill Landfill). A good Calgary hauler:</p>
+    <ul>
+        <li>Donates working items to <strong>Calgary Drop-In Centre, Habitat ReStore, Salvation Army, Goodwill</strong></li>
+        <li>Recycles metal, e-waste, and appliances</li>
+        <li>Only sends what's truly unusable to landfill</li>
+    </ul>
+    <p>This is partly why honest Calgary haulers can charge less — they save on disposal fees.</p>
+
+    <div class="cta-box">
+        <h3>GET YOUR FAIR CALGARY JUNK QUOTE</h3>
+        <p>Skip the surprise fees. Real flat-rate pricing.</p>
+        <div class="btn-row">
+            <a class="btn" href="quote.html">⚡ INSTANT CALCULATOR</a>
+            <a class="btn alt" href="tel:+13682997792">📞 CALL (368) 299-7792</a>
+        </div>
+    </div>
+</article>
+
+<!-- ============ ARTICLE: HOT TUB ============ -->
+<article class="article hidden" id="article-hot-tub">
+    <a class="article-back" onclick="showIndex()" href="#">← BACK TO BLOG</a>
+    <h2>How To Get Rid Of A Hot Tub In Calgary (4 Options)</h2>
+    <div class="article-meta"><span>📖 5 min read</span><span>By Fire Fellas Crew</span><span>🛁 Hot Tub Removal</span></div>
+
+    <p>So you've got an old hot tub draining your patio space — broken, leaking, or just unused for years. Here are the 4 ways Calgary homeowners can get rid of it, ranked from cheapest to easiest.</p>
+
+    <h3>1. Sell It On Kijiji / Marketplace (Cheapest, Slowest)</h3>
+    <p><strong>Cost:</strong> Free or even +$$<br>
+    <strong>Time:</strong> 2 weeks to 3 months<br>
+    <strong>Effort:</strong> High</p>
+    <p>Working hot tubs (or fixable ones) sell on Calgary Kijiji and Facebook Marketplace for $200-$1,500 depending on condition, brand (Arctic Spas, Beachcomber, Jacuzzi), and age. Buyer usually arranges pickup, but you'll need to negotiate, host viewings, and disconnect electrical/plumbing.</p>
+
+    <div class="callout">
+        <strong>💡 Reality check:</strong> Calgary's hot tub resale market is slow. Unless yours is &lt;5 years old and works perfectly, expect to GIVE it away. Asking $100 with "buyer must remove" is your fastest sale.
+    </div>
+
+    <h3>2. Disassemble &amp; Take to Landfill Yourself (DIY)</h3>
+    <p><strong>Cost:</strong> ~$60-120 in dump fees + truck rental<br>
+    <strong>Time:</strong> 4-8 hours over 1-2 weekends<br>
+    <strong>Effort:</strong> Very high</p>
+    <p>Hot tubs are tough to dismantle. The shell is fiberglass — you'll need a reciprocating saw (Sawzall) and lots of muscle. Plus you'll deal with the cabinet wood, foam insulation, and the heavy steel frame.</p>
+    <p>Calgary's <strong>Spyhill Landfill</strong> accepts hot tub pieces — about $85/ton tipping fee. A typical hot tub is 600-1,000 lbs, so $50-100 in disposal.</p>
+    <p><strong>Truck rental:</strong> Home Depot Calgary rents 1-ton trucks at ~$25/hr. U-Haul pickup ~$30 + mileage.</p>
+
+    <h3>3. Hire a Hot Tub Specialist (Most Expensive)</h3>
+    <p><strong>Cost:</strong> $400-$800<br>
+    <strong>Time:</strong> 1-2 hours<br>
+    <strong>Effort:</strong> Zero</p>
+    <p>There are Calgary companies that ONLY do hot tub removal. They have the right tools and crews. Cost is high because they're specialized.</p>
+
+    <h3>4. Hire a Junk Removal Service (Sweet Spot) 🔥</h3>
+    <p><strong>Cost:</strong> $249-$499 (Fire Fellas)<br>
+    <strong>Time:</strong> 1-2 hours<br>
+    <strong>Effort:</strong> Zero</p>
+    <p>This is the option <strong>90% of Calgary homeowners pick</strong>. A general junk removal service like ours handles the whole thing: drain, disconnect, cut down, haul away. You don't lift a thing.</p>
+    <p>What we do at Fire Fellas:</p>
+    <ol>
+        <li>Arrive with truck, saws, and 2-3 crew</li>
+        <li>Drain the tub (you can pre-drain to save 15 min)</li>
+        <li>Disconnect electrical at the breaker (you may want an electrician for the actual wire removal)</li>
+        <li>Cut down the shell using a Sawzall</li>
+        <li>Haul to landfill / recycle</li>
+        <li>Sweep up</li>
+    </ol>
+
+    <h3>🤔 Which Option Should YOU Pick?</h3>
+    <ul>
+        <li><strong>Hot tub still works AND looks decent?</strong> Try Kijiji for 2 weeks. If no buyers → call us.</li>
+        <li><strong>Tub is broken / leaking / 15+ years old?</strong> Skip Kijiji. Junk removal is the move.</li>
+        <li><strong>Handy with tools and have a truck?</strong> DIY can save $150 but cost you a weekend.</li>
+        <li><strong>Want it gone TODAY?</strong> Call a junk hauler. Most Calgary services can be there same-day or next-day.</li>
+    </ul>
+
+    <h3>⚡ Things To Know Before You Schedule Removal</h3>
+    <ul>
+        <li>You'll need a <strong>licensed electrician</strong> to disconnect the dedicated 240V circuit safely (most haulers won't touch the panel).</li>
+        <li>Pre-drain to save the crew time (and your final bill).</li>
+        <li>If the tub is on a deck, mention deck access when getting your quote — it changes the price slightly.</li>
+        <li>Sunken / built-in tubs are different — those require deck demolition too, usually $500-1,200 total.</li>
+    </ul>
+
+    <div class="cta-box">
+        <h3>HOT TUB REMOVAL CALGARY · $249-499</h3>
+        <p>We bring the crew, saws, and truck. You watch from the patio.</p>
+        <div class="btn-row">
+            <a class="btn" href="quote.html">⚡ INSTANT QUOTE</a>
+            <a class="btn alt" href="tel:+13682997792">📞 CALL (368) 299-7792</a>
+        </div>
+    </div>
+</article>
+
+<!-- ============ ARTICLE: MOVING CHECKLIST ============ -->
+<article class="article hidden" id="article-moving-checklist">
+    <a class="article-back" onclick="showIndex()" href="#">← BACK TO BLOG</a>
+    <h2>The Ultimate Calgary Moving Checklist (8 Weeks Before → Day Of)</h2>
+    <div class="article-meta"><span>📖 7 min read</span><span>By Fire Fellas Crew</span><span>📋 Checklist</span></div>
+
+    <p>Moving in Calgary doesn't have to be chaos. Here's our week-by-week timeline, refined from 500+ Calgary moves. Save this page. Share it.</p>
+
+    <h3>📅 8 Weeks Before</h3>
+    <ul>
+        <li>Get <strong>3 quotes</strong> from Calgary movers (us, plus 2 others for comparison)</li>
+        <li>Decide: DIY vs hire movers (<a style="color:#FFD700;" onclick="showPost('diy-vs-movers')" href="#diy-vs-movers">read our comparison</a>)</li>
+        <li>If renting: notify landlord (Alberta = 1 month for monthly, 90 days for fixed-term)</li>
+        <li>If buying/selling: confirm closing dates</li>
+        <li>Start a "do not pack" pile — toiletries, charger, work laptop, current week's clothes</li>
+    </ul>
+
+    <h3>📅 6 Weeks Before</h3>
+    <ul>
+        <li><strong>Book your mover</strong> — Peak Calgary season (May-Sep) books out 4-6 weeks ahead</li>
+        <li>Start <strong>decluttering</strong>: 1 room per weekend. Sell on Kijiji, donate to Goodwill, recycle e-waste</li>
+        <li>Order packing supplies — boxes (Costco, Walmart, U-Haul, free from LCBO/Liquor Depot)</li>
+        <li>Research new neighbourhood: grocery, pharmacy, school zoning</li>
+    </ul>
+
+    <h3>📅 4 Weeks Before</h3>
+    <ul>
+        <li>Start packing <strong>non-essentials</strong>: off-season clothes, books, decor, fancy china</li>
+        <li>Label every box: <strong>ROOM + CONTENTS + FRAGILE</strong> (e.g. "KITCHEN — glasses — FRAGILE")</li>
+        <li>Take photos of all valuables (insurance protection)</li>
+        <li>Schedule utility transfers:
+            <ul>
+                <li><strong>ENMAX</strong> (electricity/gas) — 5 days notice</li>
+                <li><strong>Direct Energy / TELUS / Shaw</strong> (internet/TV)</li>
+                <li><strong>City of Calgary</strong> (water/garbage if applicable)</li>
+            </ul>
+        </li>
+        <li>Update address: bank, doctor, vet, school, employer</li>
+        <li>Forward mail through Canada Post (canadapost.ca)</li>
+    </ul>
+
+    <h3>📅 2 Weeks Before</h3>
+    <ul>
+        <li>Confirm movers (text/email reminder)</li>
+        <li>Confirm parking at both addresses (Beltline/Mission/Downtown = call 311 for parking permits)</li>
+        <li>Plan kids/pet logistics for moving day (daycare, sitter, friend)</li>
+        <li>Start eating fridge/freezer items (don't move groceries)</li>
+        <li>Pack room-by-room. Save bathroom + kitchen for last week.</li>
+    </ul>
+
+    <h3>📅 1 Week Before</h3>
+    <ul>
+        <li>Pack a <strong>"first-night box"</strong>: toilet paper, hand soap, towels, sheets, kettle, snacks, chargers</li>
+        <li>Empty &amp; defrost fridge / freezer (24 hours before)</li>
+        <li>Withdraw cash for movers tip ($20-50 per crew member is standard in Calgary)</li>
+        <li>Test that new place has working: water, gas, electric, heat</li>
+        <li>Take final photos of OLD place's condition (for damage deposit)</li>
+    </ul>
+
+    <h3>📅 Day Before</h3>
+    <ul>
+        <li>Finish packing — every last thing</li>
+        <li>Charge all devices</li>
+        <li>Pack a small bag of essentials YOU carry: documents, valuables, prescriptions</li>
+        <li>Get 8 hours of sleep. Moving day is exhausting.</li>
+    </ul>
+
+    <h3>📅 MOVING DAY</h3>
+    <ul>
+        <li><strong>Be on-site 30 min before movers arrive</strong></li>
+        <li>Walk-through with movers: show fragile, heavy, "load last so it's first off" items</li>
+        <li>Keep important documents + valuables WITH YOU — never on the truck</li>
+        <li>Stay reachable by phone for crew questions</li>
+        <li>Final walk-through of old place before locking up (check every closet, under sinks, garage)</li>
+        <li>Tip your movers if they crushed it 🔥</li>
+    </ul>
+
+    <h3>📅 First Week In New Place</h3>
+    <ul>
+        <li>Unpack ESSENTIALS box first</li>
+        <li>Set up bed + bathroom (sleep + shower = sanity)</li>
+        <li>Test all utilities again</li>
+        <li>Update Alberta driver's license &amp; vehicle registration at any Registry within 90 days</li>
+        <li>Meet your new neighbours (Calgary's friendly)</li>
+        <li>Leave a Google review for your movers 🙏</li>
+    </ul>
+
+    <div class="cta-box">
+        <h3>NEED CALGARY MOVERS YOU CAN TRUST?</h3>
+        <p>Insured. Damage-free guarantee. Flat-rate quotes.</p>
+        <div class="btn-row">
+            <a class="btn" href="quote.html">⚡ GET QUOTE IN 30 SEC</a>
+            <a class="btn alt" href="tel:+13682997792">📞 (368) 299-7792</a>
+        </div>
+    </div>
+</article>
+
+<!-- ============ ARTICLE: DIY VS MOVERS ============ -->
+<article class="article hidden" id="article-diy-vs-movers">
+    <a class="article-back" onclick="showIndex()" href="#">← BACK TO BLOG</a>
+    <h2>DIY Move vs Hiring Movers in Calgary: Real Cost Comparison</h2>
+    <div class="article-meta"><span>📖 6 min read</span><span>By Fire Fellas Crew</span><span>🤔 Decision Guide</span></div>
+
+    <p>"Just rent a U-Haul, buy pizza for your friends." Sounds cheap, right? Let's actually do the math for a typical Calgary 2-bedroom move (~5km within the city).</p>
+
+    <h3>💰 DIY Move: The Real Cost</h3>
+    <table class="pricing-table">
+        <thead><tr><th>Item</th><th>Cost</th></tr></thead>
+        <tbody>
+            <tr><td>U-Haul 17ft truck (5 hours)</td><td>$60 + $1.39/km = ~$80</td></tr>
+            <tr><td>Insurance (Safe Move coverage)</td><td>$20-30</td></tr>
+            <tr><td>Fuel (~50 km of driving + truck is thirsty)</td><td>$45</td></tr>
+            <tr><td>Boxes (40-50 boxes for 2BR)</td><td>$60-120</td></tr>
+            <tr><td>Tape, bubble wrap, blankets</td><td>$40</td></tr>
+            <tr><td>Dolly rental (or buy)</td><td>$15-60</td></tr>
+            <tr><td>Pizza + beer for 4 friends</td><td>$80-120</td></tr>
+            <tr><td>Your time (10-14 hours)</td><td>Free (but...)</td></tr>
+            <tr><td><strong>TOTAL DIY</strong></td><td><strong>~$340-495</strong></td></tr>
+        </tbody>
+    </table>
+
+    <h3>💰 Hire Movers: The Real Cost</h3>
+    <table class="pricing-table">
+        <thead><tr><th>Item</th><th>Cost</th></tr></thead>
+        <tbody>
+            <tr><td>Fire Fellas Calgary — 2BR move flat rate</td><td>$599 – $850</td></tr>
+            <tr><td>Tip (recommended)</td><td>$60-100</td></tr>
+            <tr><td>Boxes (if not included)</td><td>$60-120</td></tr>
+            <tr><td>Your time (4-5 hours, mostly directing)</td><td>Free</td></tr>
+            <tr><td><strong>TOTAL HIRE</strong></td><td><strong>~$719 – $1,070</strong></td></tr>
+        </tbody>
+    </table>
+
+    <h3>🧮 Difference: ~$380 – $570 more for hired movers</h3>
+    <p>So DIY IS cheaper. But it's not the whole story.</p>
+
+    <h3>⚖️ The Hidden Costs of DIY</h3>
+    <ul>
+        <li><strong>Damaged stuff</strong> — One scratched dining table = $500+. One broken TV = $800. Insurance doesn't cover most personal items.</li>
+        <li><strong>Hurt back</strong> — Heavy lifting injuries are the #1 reason people regret DIY. Chiro bills add up.</li>
+        <li><strong>Damaged walls/floors</strong> — Lose your damage deposit ($1,000-2,000 in Calgary rentals).</li>
+        <li><strong>Friend favours</strong> — That's $80 in pizza but $400+ in social IOUs. And finding 4 free friends on a Saturday in Calgary? Good luck.</li>
+        <li><strong>Time lost</strong> — 14 hours of your weekend. What's your time worth?</li>
+    </ul>
+
+    <h3>✅ DIY MAKES SENSE WHEN:</h3>
+    <ul>
+        <li>You have minimal belongings (studio, 1BR)</li>
+        <li>You have multiple strong friends/family who genuinely WANT to help</li>
+        <li>You have a flexible move date (weeknight or weekend)</li>
+        <li>You're moving short distance (under 5km in Calgary)</li>
+        <li>No stairs or elevator issues</li>
+        <li>You're under 35 and your back can take it</li>
+    </ul>
+
+    <h3>✅ HIRE MOVERS WHEN:</h3>
+    <ul>
+        <li>You have a 2BR+ amount of stuff</li>
+        <li>You have heavy furniture (couches, beds, appliances)</li>
+        <li>Stairs are involved at either address</li>
+        <li>You have valuable / fragile items (antiques, art, electronics)</li>
+        <li>You're moving in a tight time window (1 day to be out)</li>
+        <li>You're over 40 or have any back/joint issues</li>
+        <li>You're moving on the 1st of the month in Calgary (everyone moves then — chaos)</li>
+        <li>Time matters more than money</li>
+    </ul>
+
+    <h3>💡 The Hybrid Option (Best Value)</h3>
+    <p>This is what many Calgarians do:</p>
+    <ol>
+        <li><strong>You</strong> pack everything yourself (saves $200-400 vs full-pack service)</li>
+        <li><strong>You</strong> move the small stuff in your car (boxes, lamps, plants)</li>
+        <li><strong>Hire movers for just the heavy stuff</strong> (furniture, appliances, mattresses)</li>
+    </ol>
+    <p>Hybrid cost for a 2BR: <strong>$300-450</strong>. Best of both worlds.</p>
+
+    <div class="cta-box">
+        <h3>WANT US TO ONLY MOVE THE HEAVY STUFF?</h3>
+        <p>Hybrid moves welcome. Just describe what you need.</p>
+        <div class="btn-row">
+            <a class="btn" href="quote.html">⚡ INSTANT QUOTE</a>
+            <a class="btn alt" href="tel:+13682997792">📞 (368) 299-7792</a>
+        </div>
+    </div>
+</article>
+
+<nav class="tabs">
+    <a href="index.html">🏠 Home</a>
+    <a href="quote.html">⚡ Quote</a>
+    <a href="faq.html">❓ FAQ</a>
+    <a href="shorts.html">📱 Shorts</a>
+    <a href="calgary.html">📍 Calgary</a>
+</nav>
+
+<footer>
+    <p>Fire Fellas Calgary · <a href="tel:+13682997792">(368) 299-7792</a> · <a href="mailto:firefellasmoving@gmail.com">firefellasmoving@gmail.com</a></p>
+    <p>Moving · Junk Removal · Hauling · Snow Removal · Calgary &amp; Area</p>
+</footer>
+
+</div>
+
+<script>
+function showPost(slug) {
+    document.getElementById('index-view').classList.add('hidden');
+    document.querySelectorAll('.article').forEach(a => a.classList.add('hidden'));
+    const target = document.getElementById('article-' + slug);
+    if (target) {
+        target.classList.remove('hidden');
+        window.scrollTo({top:0, behavior:'smooth'});
+        history.replaceState(null, '', '#' + slug);
+    }
+    return false;
+}
+function showIndex() {
+    document.getElementById('index-view').classList.remove('hidden');
+    document.querySelectorAll('.article').forEach(a => a.classList.add('hidden'));
+    window.scrollTo({top:0, behavior:'smooth'});
+    history.replaceState(null, '', window.location.pathname);
+    return false;
+}
+// Deep-link support
+if (window.location.hash) {
+    const slug = window.location.hash.replace('#','');
+    if (document.getElementById('article-' + slug)) {
+        setTimeout(() => showPost(slug), 100);
+    }
+}
+</script>
+
+</body>
+</html>
