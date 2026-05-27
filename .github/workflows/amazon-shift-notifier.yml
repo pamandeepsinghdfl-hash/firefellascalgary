@@ -60,24 +60,33 @@ jobs:
           restore-keys: |
             amazon-seen-jobs-v2-
 
-      - name: Verify required secrets are present
+      - name: Verify at least one notification channel is configured
         env:
           SMTP_HOST: ${{ secrets.SMTP_HOST }}
           SMTP_USER: ${{ secrets.SMTP_USER }}
           SMTP_PASS: ${{ secrets.SMTP_PASS }}
           NOTIFY_TO: ${{ secrets.NOTIFY_TO }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: |
-          missing=()
-          [ -z "$SMTP_HOST" ] && missing+=(SMTP_HOST)
-          [ -z "$SMTP_USER" ] && missing+=(SMTP_USER)
-          [ -z "$SMTP_PASS" ] && missing+=(SMTP_PASS)
-          [ -z "$NOTIFY_TO" ] && missing+=(NOTIFY_TO)
-          if [ ${#missing[@]} -gt 0 ]; then
-            echo "::error::Missing required secrets: ${missing[*]}"
-            echo "Add them in Settings > Secrets and variables > Actions"
+          email_ok=0
+          if [ -n "$SMTP_HOST" ] && [ -n "$SMTP_USER" ] && [ -n "$SMTP_PASS" ] && [ -n "$NOTIFY_TO" ]; then
+            email_ok=1
+            echo "Email channel: configured"
+          else
+            echo "Email channel: NOT configured (some SMTP_* / NOTIFY_TO secrets missing)"
+          fi
+          tg_ok=0
+          if [ -n "$TELEGRAM_BOT_TOKEN" ] && [ -n "$TELEGRAM_CHAT_ID" ]; then
+            tg_ok=1
+            echo "Telegram channel: configured"
+          else
+            echo "Telegram channel: NOT configured"
+          fi
+          if [ "$email_ok" = "0" ] && [ "$tg_ok" = "0" ]; then
+            echo "::error::No notification channel configured. Set either the 5 SMTP_* secrets OR both TELEGRAM_* secrets."
             exit 1
           fi
-          echo "All required secrets present."
 
       - name: Check for new shifts
         env:
