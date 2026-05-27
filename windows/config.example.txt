@@ -1,0 +1,36 @@
+# =====================================================================
+# Amazon Shift Notifier — config
+#
+# Fill in the values below, then save this file as: config.txt
+# (Right-click > Rename, remove ".example" from the filename)
+#
+# After saving, run install.cmd ONCE.
+# =====================================================================
+
+# --- TELEGRAM (instant phone push, recommended) -----------------------
+# Get token from @BotFather  (Telegram > search BotFather > /newbot)
+# Get chat id from @userinfobot
+# Send any message to your bot once so it can DM you.
+TELEGRAM_BOT_TOKEN=
+TELEGRAM_CHAT_ID=
+
+# --- EMAIL (optional, leave blank if you only want Telegram) ----------
+# For Gmail: create an App Password at https://myaccount.google.com/apppasswords
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USER=
+SMTP_PASS=
+NOTIFY_TO=
+
+# --- OPTIONAL TUNING --------------------------------------------------
+# Search radius from downtown Calgary, in km. Default 50.
+SEARCH_RADIUS_KM=50
+
+# Suppress alerts during these hours (Mountain Time). "off" = 24/7 alerts.
+QUIET_HOURS=23-7
+
+# Skip jobs paying less than this CAD/hr. 0 = no filter.
+MIN_PAY=0
+
+# Forget seen job ids older than this many days.
+STATE_TTL_DAYS=30
