@@ -1,0 +1,57 @@
+name: Amazon Calgary Shift Notifier
+
+# Setup (one-time):
+#   In repo Settings > Secrets and variables > Actions, add:
+#     SMTP_HOST    smtp.gmail.com
+#     SMTP_PORT    587
+#     SMTP_USER    your-gmail@gmail.com
+#     SMTP_PASS    16-char Gmail App Password (myaccount.google.com > Security > App passwords)
+#     NOTIFY_TO    where to send alerts
+#     BEARER_TOKEN (optional) only if Amazon starts rejecting anonymous requests
+#
+# Notes:
+#   * GitHub cron is "best effort" and can be delayed up to ~15 min.
+#   * Scheduled workflows pause after 60 days of zero repo activity.
+#   * First run records currently-listed jobs as "seen" without emailing.
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: amazon-shift-notifier
+  cancel-in-progress: false
+
+jobs:
+  check-shifts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: amazon-shift-notifier/requirements.txt
+
+      - run: pip install -r amazon-shift-notifier/requirements.txt
+
+      - name: Restore seen-jobs state
+        uses: actions/cache@v4
+        with:
+          path: amazon-shift-notifier/seen_jobs.json
+          key: amazon-seen-jobs-${{ github.run_id }}
+          restore-keys: |
+            amazon-seen-jobs-
+
+      - name: Check for new shifts
+        env:
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+          NOTIFY_TO: ${{ secrets.NOTIFY_TO }}
+          BEARER_TOKEN: ${{ secrets.BEARER_TOKEN }}
+        run: python amazon-shift-notifier/notifier.py
