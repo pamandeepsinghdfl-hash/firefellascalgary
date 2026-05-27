@@ -25,7 +25,7 @@
 
   const cfg = Object.assign({
     targetDate: '',         // YYYY-MM-DD — your current appointment, earlier than this triggers alert
-    intervalSec: 90,        // poll interval (min 60)
+    intervalSec: 120,       // poll interval (min 90)
     telegramToken: '',
     telegramChatId: '',
     enabled: false,
@@ -217,7 +217,7 @@
     if (!cfg.enabled) return;
     // ±20% jitter to look human
     const jitter = (Math.random() - 0.5) * 0.4 * cfg.intervalSec;
-    const ms = Math.max(60, cfg.intervalSec + jitter) * 1000;
+    const ms = Math.max(90, cfg.intervalSec + jitter) * 1000;
     pollHandle = setTimeout(() => { fetchDates(); schedule(); }, ms);
   }
 
@@ -286,8 +286,8 @@
       <div id="ais-body">
         <label>Your current appointment (YYYY-MM-DD)</label>
         <input id="ais-target" type="text" placeholder="2026-12-15" value="${cfg.targetDate}">
-        <label>Poll interval (sec, min 60)</label>
-        <input id="ais-interval" type="number" min="60" max="600" value="${cfg.intervalSec}">
+        <label>Poll interval (sec, min 90 - 120+ recommended)</label>
+        <input id="ais-interval" type="number" min="90" max="600" value="${cfg.intervalSec}">
         <label>Telegram bot token (optional)</label>
         <input id="ais-tg-token" type="password" value="${cfg.telegramToken}">
         <label>Telegram chat ID (optional)</label>
@@ -306,7 +306,7 @@
     document.getElementById('ais-start').onclick = () => {
       cfg.targetDate = document.getElementById('ais-target').value.trim();
       const iv = parseInt(document.getElementById('ais-interval').value, 10);
-      cfg.intervalSec = Math.max(60, isNaN(iv) ? 90 : iv);
+      cfg.intervalSec = Math.max(90, isNaN(iv) ? 120 : iv);
       cfg.telegramToken = document.getElementById('ais-tg-token').value.trim();
       cfg.telegramChatId = document.getElementById('ais-tg-chat').value.trim();
       saveCfg(cfg);

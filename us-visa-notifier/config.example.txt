@@ -1,0 +1,18 @@
+# =====================================================================
+# US Visa Public-Monitor — config
+#
+# Fill in below, then save this file as config.txt
+# (right-click > Rename, remove ".example" from the filename)
+# Then run install.cmd ONCE.
+# =====================================================================
+
+# --- TELEGRAM (required) ---------------------------------------------
+# Same token + chat id as the Amazon bot. Get from @BotFather + @userinfobot.
+TELEGRAM_BOT_TOKEN=
+TELEGRAM_CHAT_ID=
+
+# --- KEYWORDS (optional, comma-separated, case-insensitive) ----------
+# An item alerts if it mentions at least one LOCATION term AND one TOPIC term.
+# Leave blank for sensible Calgary/Canada/B1-B2 defaults.
+KEYWORDS_LOCATION=
+KEYWORDS_TOPIC=
