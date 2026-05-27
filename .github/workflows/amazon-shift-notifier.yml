@@ -1,0 +1,96 @@
+name: Amazon Calgary Shift Notifier
+
+# Setup (one-time): repo Settings > Secrets and variables > Actions
+#
+# REQUIRED:
+#   SMTP_HOST            smtp.gmail.com
+#   SMTP_PORT            587
+#   SMTP_USER            your-gmail@gmail.com
+#   SMTP_PASS            16-char Gmail App Password
+#   NOTIFY_TO            recipient email
+#
+# OPTIONAL (highly recommended for speed):
+#   TELEGRAM_BOT_TOKEN   from @BotFather
+#   TELEGRAM_CHAT_ID     from @userinfobot (your numeric chat id)
+#
+# OPTIONAL (rarely needed):
+#   BEARER_TOKEN         only if Amazon starts rejecting anonymous requests
+#   SEARCH_RADIUS_KM     default 50
+#   QUIET_HOURS          default "23-7" (no alerts 11pm-7am MT). "off" disables.
+#   MIN_PAY              default 0 (skip jobs paying less than this CAD/hr)
+#   STATE_TTL_DAYS       default 30
+#
+# Notes:
+#   * GitHub cron is "best effort" — actual interval varies ~5-15 min.
+#   * Scheduled workflows pause after 60 days of zero repo activity.
+#   * First run baselines existing jobs as "seen" — no alert sent.
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: amazon-shift-notifier
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  check-shifts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: amazon-shift-notifier/requirements.txt
+
+      - run: pip install -r amazon-shift-notifier/requirements.txt
+
+      - name: Restore seen-jobs state
+        uses: actions/cache@v4
+        with:
+          path: amazon-shift-notifier/seen_jobs.json
+          key: amazon-seen-jobs-v2-${{ github.run_id }}
+          restore-keys: |
+            amazon-seen-jobs-v2-
+
+      - name: Verify required secrets are present
+        env:
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+          NOTIFY_TO: ${{ secrets.NOTIFY_TO }}
+        run: |
+          missing=()
+          [ -z "$SMTP_HOST" ] && missing+=(SMTP_HOST)
+          [ -z "$SMTP_USER" ] && missing+=(SMTP_USER)
+          [ -z "$SMTP_PASS" ] && missing+=(SMTP_PASS)
+          [ -z "$NOTIFY_TO" ] && missing+=(NOTIFY_TO)
+          if [ ${#missing[@]} -gt 0 ]; then
+            echo "::error::Missing required secrets: ${missing[*]}"
+            echo "Add them in Settings > Secrets and variables > Actions"
+            exit 1
+          fi
+          echo "All required secrets present."
+
+      - name: Check for new shifts
+        env:
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+          NOTIFY_TO: ${{ secrets.NOTIFY_TO }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          BEARER_TOKEN: ${{ secrets.BEARER_TOKEN }}
+          SEARCH_RADIUS_KM: ${{ vars.SEARCH_RADIUS_KM }}
+          QUIET_HOURS: ${{ vars.QUIET_HOURS }}
+          MIN_PAY: ${{ vars.MIN_PAY }}
+          STATE_TTL_DAYS: ${{ vars.STATE_TTL_DAYS }}
+        run: python amazon-shift-notifier/notifier.py
