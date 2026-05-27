@@ -1,0 +1,23 @@
+# Public RSS / Atom feeds polled by public_monitor.py
+# One URL per line. Lines starting with # are comments.
+# Add or remove sources to taste — restart not needed, picked up next run.
+
+# --- Reddit visa-related subreddits ---
+https://www.reddit.com/r/visa/.rss
+https://www.reddit.com/r/USCIS/.rss
+https://www.reddit.com/r/immigration/.rss
+https://www.reddit.com/r/IndianVisa/.rss
+
+# --- Reddit Canada-side ---
+https://www.reddit.com/r/canada/.rss
+https://www.reddit.com/r/PersonalFinanceCanada/.rss
+
+# --- Reddit by keyword search (Reddit's own search RSS) ---
+https://www.reddit.com/search.rss?q=%22B1+B2%22+Canada&sort=new&t=week
+https://www.reddit.com/search.rss?q=%22US+visa%22+Calgary&sort=new&t=week
+https://www.reddit.com/search.rss?q=%22US+visa%22+appointment+Canada&sort=new&t=week
+https://www.reddit.com/search.rss?q=AIS+visa+slot&sort=new&t=week
+
+# --- US Department of State news ---
+# (kept but typically low signal for slot openings; useful for policy changes)
+# https://travel.state.gov/feeds/news.xml
