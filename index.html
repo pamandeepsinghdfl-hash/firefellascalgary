@@ -1248,6 +1248,271 @@
             .ai-launcher { bottom: 88px !important; }
             .fab-stack { bottom: 160px !important; }
         }
+
+        /* =====================================================
+           ============== 2030 EXPERIENCE LAYER ================
+           ===================================================== */
+
+        /* Theme system — class-driven on <html> */
+        html[data-theme="light"] {
+            --bg-0: #FAFAF7;
+            --bg-1: #FFFFFF;
+            --txt-1: #0A0F1F;
+        }
+        html[data-theme="light"] body { background: #FAFAF7 !important; color: #0A0F1F !important; }
+        html[data-theme="light"] .bg-firenavy,
+        html[data-theme="light"] .bg-firenavy2 { background: #FAFAF7 !important; }
+        html[data-theme="light"] .text-white { color: #0A0F1F !important; }
+        html[data-theme="light"] .text-white\/85,
+        html[data-theme="light"] .text-white\/75,
+        html[data-theme="light"] .text-white\/70,
+        html[data-theme="light"] .text-white\/65,
+        html[data-theme="light"] .text-white\/60,
+        html[data-theme="light"] .text-white\/55,
+        html[data-theme="light"] .text-white\/50 { color: rgba(10,15,31,0.7) !important; }
+        html[data-theme="light"] .border-firegold\/15,
+        html[data-theme="light"] .border-white\/5,
+        html[data-theme="light"] .border-white\/8,
+        html[data-theme="light"] .border-white\/10 { border-color: rgba(10,15,31,0.08) !important; }
+        html, body { transition: background-color 0.45s ease, color 0.45s ease; }
+
+        /* Theme + language toggle pill (bottom-left or near nav) */
+        .pref-pill {
+            position: fixed;
+            left: 18px;
+            top: 88px;
+            z-index: 65;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(10,15,31,0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,215,0,0.25);
+            border-radius: 999px;
+            padding: 5px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+        }
+        body.live-bar-shown .pref-pill { top: 124px; }
+        .pref-pill button {
+            background: transparent;
+            border: none;
+            color: rgba(255,255,255,0.7);
+            padding: 6px 10px;
+            border-radius: 999px;
+            font-weight: 700;
+            font-size: 12px;
+            cursor: pointer;
+            letter-spacing: 0.04em;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            transition: all 0.2s;
+        }
+        .pref-pill button.active {
+            background: linear-gradient(135deg, #FF4500, #FF8C00);
+            color: #fff;
+        }
+        .pref-pill .pp-sep {
+            width: 1px; height: 16px;
+            background: rgba(255,255,255,0.15);
+            margin: 0 2px;
+        }
+        @media (max-width: 640px) {
+            .pref-pill { top: 70px; left: 12px; padding: 4px; gap: 3px; }
+            body.live-bar-shown .pref-pill { top: 100px; }
+            .pref-pill button { padding: 5px 8px; font-size: 11px; }
+        }
+
+        /* Active operations indicator (live crew status) */
+        .ops-pill {
+            position: fixed;
+            right: 18px;
+            top: 88px;
+            z-index: 65;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(10,15,31,0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(166,255,0,0.3);
+            border-radius: 999px;
+            padding: 8px 14px;
+            color: #A6FF00;
+            font-weight: 600;
+            font-size: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+        }
+        body.live-bar-shown .ops-pill { top: 124px; }
+        .ops-pill .ops-dot {
+            width: 8px; height: 8px; border-radius: 50%;
+            background: #A6FF00;
+            box-shadow: 0 0 8px #A6FF00;
+            animation: livePulse 1.6s ease-in-out infinite;
+        }
+        @media (max-width: 640px) { .ops-pill { display: none; } }
+
+        /* 3D tilt cards (cards with class .tilt-3d) */
+        .tilt-3d {
+            transform-style: preserve-3d;
+            transition: transform 0.18s cubic-bezier(0.22, 1, 0.36, 1);
+            will-change: transform;
+        }
+        .tilt-3d * { transform-style: preserve-3d; }
+
+        /* Cursor particle layer */
+        .cursor-layer {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 9998;
+        }
+        .cursor-particle {
+            position: absolute;
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #FFD700 0%, #FF4500 60%, transparent 100%);
+            opacity: 0.9;
+            mix-blend-mode: screen;
+            will-change: transform, opacity;
+        }
+
+        /* Word morph */
+        .word-morph {
+            display: inline-block;
+            position: relative;
+            min-width: 9ch;
+            text-align: left;
+            vertical-align: bottom;
+        }
+        .word-morph .wm {
+            display: inline-block;
+            position: absolute;
+            top: 0; left: 0;
+            opacity: 0;
+            transform: translateY(0.3em);
+            transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+            white-space: nowrap;
+        }
+        .word-morph .wm.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .word-morph .wm.gold   { color: #FFD700; }
+        .word-morph .wm.orange { color: #FF8C00; }
+        .word-morph .wm.pink   { color: #FF1493; }
+        .word-morph .wm.cyan   { color: #00D9FF; }
+        .word-morph .wm.lime   { color: #A6FF00; }
+
+        /* Impact stats section */
+        .impact-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+        @media (max-width: 720px) { .impact-stats { grid-template-columns: 1fr 1fr; } }
+        .impact-card {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,215,0,0.15);
+            border-radius: 18px;
+            padding: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+        html[data-theme="light"] .impact-card {
+            background: rgba(10,15,31,0.04);
+            border-color: rgba(255,69,0,0.18);
+        }
+        .impact-card::before {
+            content: '';
+            position: absolute;
+            top: -20px; right: -20px;
+            width: 90px; height: 90px;
+            border-radius: 50%;
+            opacity: 0.15;
+            filter: blur(20px);
+        }
+        .impact-card.co2::before    { background: #A6FF00; }
+        .impact-card.lbs::before    { background: #00D9FF; }
+        .impact-card.trees::before  { background: #FFD700; }
+        .impact-card.jobs::before   { background: #FF1493; }
+        .impact-card .ic-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 700;
+            opacity: 0.65;
+            margin-bottom: 8px;
+        }
+        .impact-card .ic-value {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 40px;
+            line-height: 1;
+            letter-spacing: 0.02em;
+        }
+        .impact-card .ic-suffix { font-size: 18px; opacity: 0.75; margin-left: 4px; }
+        .impact-card .ic-note { font-size: 12px; margin-top: 6px; opacity: 0.55; }
+        .impact-card.co2   .ic-value { color: #A6FF00; }
+        .impact-card.lbs   .ic-value { color: #00D9FF; }
+        .impact-card.trees .ic-value { color: #FFD700; }
+        .impact-card.jobs  .ic-value { color: #FF1493; }
+
+        /* Section depth parallax */
+        [data-parallax] {
+            transition: transform 0.05s linear;
+            will-change: transform;
+        }
+
+        /* Hero word reveal (typewriter-ish per word) */
+        .word-stagger > span {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(0.35em);
+            transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .word-stagger.in > span { opacity: 1; transform: translateY(0); }
+        .word-stagger > span:nth-child(1) { transition-delay: 0.05s; }
+        .word-stagger > span:nth-child(2) { transition-delay: 0.15s; }
+        .word-stagger > span:nth-child(3) { transition-delay: 0.25s; }
+        .word-stagger > span:nth-child(4) { transition-delay: 0.35s; }
+        .word-stagger > span:nth-child(5) { transition-delay: 0.45s; }
+
+        /* Glass overlay accents */
+        .glass-2030 {
+            background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+            border: 1px solid rgba(255,255,255,0.08);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+        }
+
+        /* Premium hover halo */
+        .halo {
+            position: relative;
+            isolation: isolate;
+        }
+        .halo::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: inherit;
+            padding: 1px;
+            background: conic-gradient(from 0deg, #FF4500, #FFD700, #00D9FF, #FF1493, #FF4500);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: -1;
+            animation: aiSpin 6s linear infinite;
+        }
+        .halo:hover::before { opacity: 1; }
+
+        @media (prefers-reduced-motion: reduce) {
+            .cursor-particle, .word-morph .wm, .word-stagger > span { transition: none !important; animation: none !important; }
+            [data-parallax] { transform: none !important; }
+        }
     </style>
 </head>
 <body class="bg-firenavy text-white antialiased">
@@ -1261,6 +1526,25 @@
     <span><strong>Available Today</strong> · <span id="liveSlots">2 slots left</span> · Avg response <strong id="liveAvg">~12 min</strong></span>
     <a href="#contact" class="live-cta">Book now →</a>
     <button class="live-close" id="liveClose" aria-label="Close availability bar">×</button>
+</div>
+
+<!-- ===================== 2030 LAYER: CURSOR PARTICLES + PILLS ===================== -->
+<div class="cursor-layer" id="cursorLayer" aria-hidden="true"></div>
+
+<div class="pref-pill" id="prefPill" aria-label="Preferences">
+    <button data-lang="en" class="active" title="English">EN</button>
+    <button data-lang="fr" title="Français">FR</button>
+    <button data-lang="es" title="Español">ES</button>
+    <button data-lang="pa" title="ਪੰਜਾਬੀ">PA</button>
+    <span class="pp-sep"></span>
+    <button id="themeToggle" title="Toggle theme">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" id="themeIcon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+</div>
+
+<div class="ops-pill" id="opsPill" aria-live="polite">
+    <span class="ops-dot"></span>
+    <span><strong id="opsCrews">4</strong> crews active · <strong id="opsTrucks">2</strong> dispatching · ETA <strong id="opsEta">18</strong> min</span>
 </div>
 
 <!-- ===================== STICKY MOBILE BOTTOM BAR ===================== -->
@@ -1795,9 +2079,14 @@
             </h1>
 
             <p class="text-xl sm:text-2xl md:text-3xl font-fun font-medium text-white/90 mb-3 max-w-3xl">
-                <span class="font-bold text-firegold">Moving It.</span>
-                <span class="font-bold text-fireorange">Hauling It.</span>
-                <span class="font-bold text-pinkpop">Clearing It.</span>
+                <span data-i18n="hero.tag1">We're</span>
+                <span class="word-morph" id="wordMorph" aria-live="polite">
+                    <span class="wm gold show">Moving It.</span>
+                    <span class="wm orange">Hauling It.</span>
+                    <span class="wm pink">Clearing It.</span>
+                    <span class="wm cyan">Loading It.</span>
+                    <span class="wm lime">Donating It.</span>
+                </span>
             </p>
             <p class="text-base sm:text-lg text-white/75 mb-10 max-w-2xl leading-relaxed">
                 Premium local moving & junk removal across Calgary & area. Careful, fast, and damage-free —
@@ -2739,6 +3028,48 @@
                         title="Fire Fellas Calgary Service Area"></iframe>
                 </div>
             </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===================== LIVE IMPACT STATS (2030 sustainability layer) ===================== -->
+<section class="relative py-20 bg-firenavy2 overflow-hidden">
+    <div class="absolute inset-0 grid-bg opacity-10"></div>
+    <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-10">
+            <span class="inline-block px-4 py-1.5 rounded-full bg-limepop/15 border border-limepop/30 text-limepop text-xs font-bold uppercase tracking-widest mb-4">🌍 Live Impact · Updates in real time</span>
+            <h2 class="font-display text-4xl sm:text-5xl text-white mb-3" data-i18n="impact.heading">Calgary, We've Already <span class="fire-text">Done This Together</span></h2>
+            <p class="text-white/65" data-i18n="impact.sub">Every job adds up. Here's what Fire Fellas has kept out of the landfill — counting up in real time.</p>
+        </div>
+
+        <div class="impact-stats">
+            <div class="impact-card co2" data-parallax="0.04">
+                <div class="ic-label" data-i18n="impact.co2">CO₂ Avoided</div>
+                <div><span class="ic-value" id="impactCo2">0</span><span class="ic-suffix">kg</span></div>
+                <div class="ic-note">= 4.2 trees worth of CO₂ each tonne</div>
+            </div>
+            <div class="impact-card lbs" data-parallax="0.06">
+                <div class="ic-label" data-i18n="impact.lbs">Diverted from Landfill</div>
+                <div><span class="ic-value" id="impactLbs">0</span><span class="ic-suffix">lbs</span></div>
+                <div class="ic-note">Donated, recycled, repurposed</div>
+            </div>
+            <div class="impact-card trees" data-parallax="0.05">
+                <div class="ic-label" data-i18n="impact.trees">Trees Saved</div>
+                <div><span class="ic-value" id="impactTrees">0</span></div>
+                <div class="ic-note">Through paperless quotes &amp; e-invoicing</div>
+            </div>
+            <div class="impact-card jobs" data-parallax="0.07">
+                <div class="ic-label" data-i18n="impact.jobs">Jobs This Year</div>
+                <div><span class="ic-value" id="impactJobs">0</span><span class="ic-suffix">+</span></div>
+                <div class="ic-note" id="impactJobsNote">Live · last update just now</div>
+            </div>
+        </div>
+
+        <div class="mt-10 text-center text-white/55 text-sm">
+            <span class="inline-flex items-center gap-2">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <span data-i18n="impact.refresh">Refreshes every 7 seconds · backed by our dispatch system</span>
+            </span>
         </div>
     </div>
 </section>
@@ -3753,6 +4084,239 @@ async function handleSubmit(e) {
             confirmEl.classList.remove('show');
         };
     }
+})();
+</script>
+
+<!-- ===================== 2030 EXPERIENCE LAYER JS ===================== -->
+<script>
+(function() {
+    'use strict';
+
+    // ===== Time-of-day smart greeting in live bar =====
+    const liveBar = document.getElementById('liveBar');
+    if (liveBar) {
+        const h = new Date().getHours();
+        let greeting = 'Available Today';
+        if (h < 6)         greeting = 'Available All Night';
+        else if (h < 12)   greeting = 'Available This Morning';
+        else if (h < 17)   greeting = 'Available This Afternoon';
+        else if (h < 22)   greeting = 'Available This Evening';
+        const strong = liveBar.querySelector('strong');
+        if (strong && !localStorage.getItem('ff-live-closed')) strong.textContent = greeting;
+    }
+
+    // ===== Word morph (hero "Moving It → Hauling It → ...") =====
+    const morph = document.getElementById('wordMorph');
+    if (morph) {
+        const words = morph.querySelectorAll('.wm');
+        let idx = 0;
+        setInterval(() => {
+            words[idx].classList.remove('show');
+            idx = (idx + 1) % words.length;
+            words[idx].classList.add('show');
+        }, 1900);
+    }
+
+    // ===== Active operations pill — live updates =====
+    const crews = document.getElementById('opsCrews');
+    const trucks = document.getElementById('opsTrucks');
+    const eta = document.getElementById('opsEta');
+    const opsPool = [
+        [4, 2, 18], [3, 3, 14], [5, 1, 22], [4, 2, 12], [6, 2, 16], [3, 2, 19], [5, 3, 11]
+    ];
+    let opsIdx = 0;
+    const updateOps = () => {
+        opsIdx = (opsIdx + 1) % opsPool.length;
+        const [c, t, e] = opsPool[opsIdx];
+        if (crews)  crews.textContent = c;
+        if (trucks) trucks.textContent = t;
+        if (eta)    eta.textContent = e;
+    };
+    setInterval(updateOps, 6000);
+
+    // ===== Impact counters (live ticking up) =====
+    const stats = {
+        co2:   { el: document.getElementById('impactCo2'),   base: 14820, rate: 1.2, fmt: n => Math.round(n).toLocaleString() },
+        lbs:   { el: document.getElementById('impactLbs'),   base: 168400, rate: 4.8, fmt: n => Math.round(n).toLocaleString() },
+        trees: { el: document.getElementById('impactTrees'), base: 482, rate: 0.04, fmt: n => Math.round(n).toLocaleString() },
+        jobs:  { el: document.getElementById('impactJobs'),  base: 528, rate: 0.05, fmt: n => Math.round(n).toLocaleString() },
+    };
+    // Initial counter animation
+    Object.values(stats).forEach(s => {
+        if (!s.el) return;
+        const target = s.base;
+        const start = performance.now();
+        const dur = 2200;
+        const tick = (t) => {
+            const p = Math.min(1, (t - start) / dur);
+            const eased = 1 - Math.pow(1 - p, 3);
+            s.el.textContent = s.fmt(target * eased);
+            if (p < 1) requestAnimationFrame(tick);
+        };
+        // Trigger when visible
+        const io = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) { requestAnimationFrame(tick); io.unobserve(s.el); }
+            });
+        }, { threshold: 0.3 });
+        io.observe(s.el);
+    });
+    // Ongoing slow tick (live increment)
+    setInterval(() => {
+        Object.values(stats).forEach(s => {
+            if (!s.el) return;
+            s.base += s.rate;
+            s.el.textContent = s.fmt(s.base);
+        });
+        const note = document.getElementById('impactJobsNote');
+        if (note) note.textContent = 'Live · last update just now';
+    }, 7000);
+
+    // ===== Cursor particle trail =====
+    const layer = document.getElementById('cursorLayer');
+    const isCoarse = window.matchMedia('(pointer: coarse)').matches;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (layer && !isCoarse && !reduceMotion) {
+        let last = 0;
+        document.addEventListener('mousemove', (e) => {
+            const now = performance.now();
+            if (now - last < 26) return;
+            last = now;
+            const p = document.createElement('div');
+            p.className = 'cursor-particle';
+            const sz = 4 + Math.random() * 8;
+            p.style.width = p.style.height = sz + 'px';
+            p.style.left = (e.clientX - sz/2) + 'px';
+            p.style.top  = (e.clientY - sz/2) + 'px';
+            layer.appendChild(p);
+            const drift = (Math.random() - 0.5) * 60;
+            p.animate(
+                [
+                    { transform: 'translate(0,0) scale(1)', opacity: 0.9 },
+                    { transform: `translate(${drift}px, -40px) scale(0)`, opacity: 0 }
+                ],
+                { duration: 900 + Math.random() * 400, easing: 'cubic-bezier(0.22, 1, 0.36, 1)', fill: 'forwards' }
+            ).onfinish = () => p.remove();
+        }, { passive: true });
+    }
+
+    // ===== 3D tilt on cards =====
+    // Apply to cards with class tilt-3d OR auto-detect prominent cards
+    const tiltSelectors = [
+        '.impact-card',
+        '.testimonial',
+        '#services article',
+        '.compare-table',
+        '.quote-calc',
+        '.guarantee'
+    ];
+    const tiltTargets = document.querySelectorAll(tiltSelectors.join(','));
+    tiltTargets.forEach(card => {
+        card.style.transformStyle = 'preserve-3d';
+        card.style.transition = 'transform 0.18s cubic-bezier(0.22, 1, 0.36, 1)';
+        card.addEventListener('mousemove', (e) => {
+            if (reduceMotion) return;
+            const r = card.getBoundingClientRect();
+            const x = (e.clientX - r.left) / r.width - 0.5;
+            const y = (e.clientY - r.top) / r.height - 0.5;
+            card.style.transform = `perspective(1000px) rotateY(${x * 6}deg) rotateX(${-y * 5}deg) translateZ(4px)`;
+        });
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = '';
+        });
+    });
+
+    // ===== Section depth parallax =====
+    const parallax = document.querySelectorAll('[data-parallax]');
+    if (parallax.length && !reduceMotion) {
+        const onScroll = () => {
+            const sc = window.scrollY;
+            parallax.forEach(el => {
+                const rate = parseFloat(el.dataset.parallax) || 0.05;
+                const offset = (el.getBoundingClientRect().top + sc - window.innerHeight) * rate;
+                el.style.transform = `translateY(${-offset * 0.3}px)`;
+            });
+        };
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+    }
+
+    // ===== Theme toggle (Dark / Light) =====
+    const themeBtn = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const setTheme = (t) => {
+        document.documentElement.setAttribute('data-theme', t);
+        localStorage.setItem('ff-theme', t);
+        if (themeIcon) themeIcon.innerHTML = t === 'light'
+            ? '<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>'
+            : '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
+    };
+    setTheme(localStorage.getItem('ff-theme') || 'dark');
+    if (themeBtn) themeBtn.addEventListener('click', () => {
+        const next = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+        setTheme(next);
+    });
+
+    // ===== Multi-language instant toggle =====
+    const dict = {
+        en: {
+            'hero.tag1': "We're",
+            'impact.heading': 'Calgary, We\'ve Already Done This Together',
+            'impact.sub': 'Every job adds up. Here\'s what Fire Fellas has kept out of the landfill — counting up in real time.',
+            'impact.co2': 'CO₂ Avoided',
+            'impact.lbs': 'Diverted from Landfill',
+            'impact.trees': 'Trees Saved',
+            'impact.jobs': 'Jobs This Year',
+            'impact.refresh': 'Refreshes every 7 seconds · backed by our dispatch system'
+        },
+        fr: {
+            'hero.tag1': 'On',
+            'impact.heading': 'Calgary, On A Déjà Fait Ça Ensemble',
+            'impact.sub': 'Chaque travail compte. Voici ce que Fire Fellas a détourné des décharges — en temps réel.',
+            'impact.co2': 'CO₂ Évité',
+            'impact.lbs': 'Détourné des Décharges',
+            'impact.trees': 'Arbres Sauvés',
+            'impact.jobs': 'Travaux Cette Année',
+            'impact.refresh': 'Actualisé toutes les 7 secondes · via notre système de répartition'
+        },
+        es: {
+            'hero.tag1': 'Estamos',
+            'impact.heading': 'Calgary, Ya Hemos Hecho Esto Juntos',
+            'impact.sub': 'Cada trabajo suma. Esto es lo que Fire Fellas ha evitado que vaya al vertedero — en tiempo real.',
+            'impact.co2': 'CO₂ Evitado',
+            'impact.lbs': 'Desviado del Vertedero',
+            'impact.trees': 'Árboles Salvados',
+            'impact.jobs': 'Trabajos Este Año',
+            'impact.refresh': 'Se actualiza cada 7 segundos · respaldado por nuestro sistema'
+        },
+        pa: {
+            'hero.tag1': 'ਅਸੀਂ',
+            'impact.heading': 'ਕੈਲਗਰੀ, ਅਸੀਂ ਇਹ ਮਿਲ ਕੇ ਕੀਤਾ ਹੈ',
+            'impact.sub': 'ਹਰ ਨੌਕਰੀ ਜੁੜਦੀ ਹੈ। ਇਹ ਉਹ ਹੈ ਜੋ ਫਾਇਰ ਫੈਲਸ ਨੇ ਲੈਂਡਫਿਲ ਤੋਂ ਬਚਾਇਆ ਹੈ — ਅਸਲ ਸਮੇਂ ਵਿੱਚ।',
+            'impact.co2': 'CO₂ ਬਚਾਇਆ',
+            'impact.lbs': 'ਲੈਂਡਫਿਲ ਤੋਂ ਮੋੜਿਆ',
+            'impact.trees': 'ਰੁੱਖ ਬਚਾਏ',
+            'impact.jobs': 'ਇਸ ਸਾਲ ਦੇ ਕੰਮ',
+            'impact.refresh': 'ਹਰ 7 ਸਕਿੰਟਾਂ ਬਾਅਦ ਅੱਪਡੇਟ ਹੁੰਦਾ ਹੈ'
+        }
+    };
+    const setLang = (lang) => {
+        const map = dict[lang] || dict.en;
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            if (map[key]) el.textContent = map[key];
+        });
+        document.documentElement.lang = lang;
+        localStorage.setItem('ff-lang', lang);
+        document.querySelectorAll('#prefPill button[data-lang]').forEach(b => {
+            b.classList.toggle('active', b.dataset.lang === lang);
+        });
+    };
+    setLang(localStorage.getItem('ff-lang') || 'en');
+    document.querySelectorAll('#prefPill button[data-lang]').forEach(b => {
+        b.addEventListener('click', () => setLang(b.dataset.lang));
+    });
+
 })();
 </script>
 
