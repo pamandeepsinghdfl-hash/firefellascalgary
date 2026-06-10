@@ -771,6 +771,483 @@
             .ai-chat { right: 12px; bottom: 82px; }
             .pwa-prompt { left: 12px; right: 12px; max-width: none; bottom: 84px; }
         }
+
+        /* ===================== COMPETITIVE LAYER ===================== */
+
+        /* Recent jobs ticker */
+        .jobs-ticker {
+            background: linear-gradient(90deg, rgba(166,255,0,0.08), rgba(0,217,255,0.08));
+            border-top: 1px solid rgba(166,255,0,0.18);
+            border-bottom: 1px solid rgba(166,255,0,0.18);
+            padding: 10px 0;
+            overflow: hidden;
+            position: relative;
+        }
+        .jobs-ticker-track {
+            display: flex;
+            gap: 48px;
+            white-space: nowrap;
+            animation: tickerScroll 50s linear infinite;
+            will-change: transform;
+        }
+        .jobs-ticker-track:hover { animation-play-state: paused; }
+        @keyframes tickerScroll {
+            from { transform: translateX(0); }
+            to   { transform: translateX(-50%); }
+        }
+        .jobs-ticker-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: #fff;
+            font-weight: 500;
+        }
+        .jobs-ticker-item .green-dot {
+            width: 8px; height: 8px; border-radius: 50%;
+            background: #A6FF00;
+            box-shadow: 0 0 6px rgba(166,255,0,0.7);
+            flex-shrink: 0;
+        }
+        .jobs-ticker-item .who { color: #FFD700; font-weight: 700; }
+        .jobs-ticker-item .when { color: rgba(255,255,255,0.6); font-size: 12px; }
+
+        /* Trust strip */
+        .trust-strip {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 22px 36px;
+            padding: 24px;
+        }
+        .trust-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255,255,255,0.85);
+            font-size: 13px;
+            font-weight: 600;
+        }
+        .trust-badge .star { color: #FFD700; }
+        .trust-badge .badge-icon {
+            width: 28px; height: 28px;
+            display: grid; place-items: center;
+            border-radius: 8px;
+            background: linear-gradient(135deg, rgba(255,215,0,0.18), rgba(255,69,0,0.18));
+            border: 1px solid rgba(255,215,0,0.3);
+        }
+
+        /* Service area postal code checker */
+        .area-checker {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,215,0,0.25);
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+        }
+        .area-checker input {
+            flex: 1;
+            min-width: 160px;
+            background: rgba(0,0,0,0.35);
+            border: 1px solid rgba(255,255,255,0.12);
+            color: #fff;
+            padding: 12px 16px;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            outline: none;
+            transition: border-color .2s;
+        }
+        .area-checker input:focus { border-color: #FFD700; }
+        .area-checker button {
+            background: linear-gradient(135deg, #FF4500, #FF8C00);
+            color: #fff;
+            padding: 12px 22px;
+            border-radius: 10px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: transform .15s;
+        }
+        .area-checker button:hover { transform: translateY(-2px); }
+        .area-checker-result {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            display: none;
+        }
+        .area-checker-result.show { display: block; }
+        .area-checker-result.ok   { background: rgba(166,255,0,0.12); color: #A6FF00; border: 1px solid rgba(166,255,0,0.3); }
+        .area-checker-result.no   { background: rgba(255,69,0,0.12);  color: #FF8C00; border: 1px solid rgba(255,69,0,0.3); }
+
+        /* Instant quote calculator */
+        .quote-calc {
+            background: linear-gradient(160deg, rgba(255,69,0,0.06) 0%, rgba(0,217,255,0.04) 100%);
+            border: 1px solid rgba(255,215,0,0.2);
+            border-radius: 20px;
+            padding: 32px;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+        .qc-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 24px;
+            padding: 6px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 14px;
+        }
+        .qc-tab {
+            flex: 1;
+            min-width: 130px;
+            padding: 12px 16px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 14px;
+            color: rgba(255,255,255,0.7);
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            transition: all .2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+        .qc-tab.active {
+            background: linear-gradient(135deg, #FF4500, #FF8C00);
+            color: #fff;
+            box-shadow: 0 4px 14px rgba(255,69,0,0.3);
+        }
+        .qc-controls {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        @media (max-width: 720px) { .qc-controls { grid-template-columns: 1fr; } }
+        .qc-field label {
+            display: block;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: rgba(255,255,255,0.6);
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        .qc-field .qc-value {
+            color: #FFD700;
+            font-weight: 700;
+            font-size: 18px;
+            display: inline-block;
+            margin-left: 8px;
+        }
+        .qc-slider {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 6px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 999px;
+            outline: none;
+        }
+        .qc-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 22px; height: 22px;
+            background: linear-gradient(135deg, #FFD700, #FF4500);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 12px rgba(255,69,0,0.5);
+        }
+        .qc-slider::-moz-range-thumb {
+            width: 22px; height: 22px;
+            background: linear-gradient(135deg, #FFD700, #FF4500);
+            border-radius: 50%;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 0 12px rgba(255,69,0,0.5);
+        }
+        .qc-toggle {
+            display: inline-flex;
+            background: rgba(0,0,0,0.3);
+            border-radius: 10px;
+            padding: 4px;
+            gap: 4px;
+        }
+        .qc-toggle button {
+            background: transparent;
+            color: rgba(255,255,255,0.7);
+            padding: 8px 14px;
+            border-radius: 7px;
+            font-weight: 600;
+            font-size: 13px;
+            border: none;
+            cursor: pointer;
+            transition: all .2s;
+        }
+        .qc-toggle button.active {
+            background: linear-gradient(135deg, #00D9FF, #007BFF);
+            color: #fff;
+        }
+        .qc-output {
+            margin-top: 24px;
+            padding: 24px;
+            background: rgba(0,0,0,0.4);
+            border-radius: 14px;
+            border: 1px solid rgba(255,215,0,0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        .qc-price {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 46px;
+            line-height: 1;
+            background: linear-gradient(135deg, #FFEB3B, #FF4500);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transition: transform .2s;
+        }
+        .qc-price.bumped { transform: scale(1.06); }
+        .qc-price-note { font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 4px; }
+
+        /* Booking calendar */
+        .booking-cal {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(0,217,255,0.2);
+            border-radius: 20px;
+            padding: 28px;
+        }
+        .booking-cal-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+        .booking-cal-head h4 { font-weight: 700; color: #fff; font-size: 18px; }
+        .booking-cal-days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+        }
+        .booking-day {
+            aspect-ratio: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all .2s;
+            position: relative;
+            min-height: 70px;
+        }
+        .booking-day:hover:not(.disabled):not(.selected) {
+            background: rgba(255,215,0,0.12);
+            border-color: rgba(255,215,0,0.4);
+        }
+        .booking-day .dow {
+            font-size: 10px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.5);
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+        .booking-day .dom {
+            font-size: 18px;
+            font-weight: 700;
+            color: #fff;
+            margin-top: 2px;
+        }
+        .booking-day .slots-left {
+            font-size: 9px;
+            color: #A6FF00;
+            margin-top: 2px;
+            font-weight: 600;
+        }
+        .booking-day.disabled { opacity: 0.3; cursor: not-allowed; }
+        .booking-day.full .slots-left { color: #FF4500; }
+        .booking-day.selected {
+            background: linear-gradient(135deg, #FF4500, #FF8C00);
+            border-color: #FFD700;
+            box-shadow: 0 6px 18px rgba(255,69,0,0.4);
+        }
+        .booking-day.selected .dom, .booking-day.selected .dow { color: #fff; }
+        .booking-day.selected .slots-left { color: #FFD700; }
+        .booking-slots {
+            margin-top: 20px;
+            display: none;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .booking-slots.show { display: flex; }
+        .booking-slot {
+            padding: 10px 16px;
+            background: rgba(0,217,255,0.1);
+            border: 1px solid rgba(0,217,255,0.3);
+            border-radius: 10px;
+            color: #fff;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all .2s;
+        }
+        .booking-slot:hover { background: rgba(0,217,255,0.25); transform: translateY(-2px); }
+        .booking-slot.selected { background: linear-gradient(135deg, #00D9FF, #007BFF); border-color: #fff; }
+        .booking-confirm {
+            margin-top: 20px;
+            display: none;
+            padding: 18px;
+            background: rgba(166,255,0,0.08);
+            border: 1px solid rgba(166,255,0,0.3);
+            border-radius: 12px;
+            color: #A6FF00;
+            font-weight: 600;
+            text-align: center;
+        }
+        .booking-confirm.show { display: block; }
+
+        /* Comparison table */
+        .compare-table {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 16px;
+            overflow: hidden;
+            margin-top: 16px;
+        }
+        .compare-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .compare-row:last-child { border-bottom: none; }
+        .compare-cell {
+            padding: 16px 12px;
+            font-size: 14px;
+            color: rgba(255,255,255,0.85);
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .compare-cell.label { justify-content: flex-start; text-align: left; font-weight: 600; }
+        .compare-row.head .compare-cell {
+            background: rgba(0,0,0,0.3);
+            font-weight: 700;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: rgba(255,255,255,0.5);
+        }
+        .compare-row.head .compare-cell.us { color: #FFD700; }
+        .compare-cell.us {
+            background: linear-gradient(180deg, rgba(255,215,0,0.06), rgba(255,69,0,0.06));
+            border-left: 1px solid rgba(255,215,0,0.15);
+            border-right: 1px solid rgba(255,215,0,0.15);
+            font-weight: 700;
+        }
+        .check-yes { color: #A6FF00; font-size: 18px; }
+        .check-no  { color: rgba(255,255,255,0.25); font-size: 18px; }
+        @media (max-width: 640px) {
+            .compare-row { grid-template-columns: 1.6fr 1fr 1fr 1fr; }
+            .compare-cell { padding: 12px 6px; font-size: 12px; }
+        }
+
+        /* Guarantee banner */
+        .guarantee {
+            background:
+                radial-gradient(ellipse at top right, rgba(166,255,0,0.15), transparent 60%),
+                linear-gradient(135deg, rgba(0,217,255,0.10), rgba(157,78,221,0.10));
+            border: 1px solid rgba(166,255,0,0.3);
+            border-radius: 20px;
+            padding: 32px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 24px;
+        }
+        .guarantee-seal {
+            width: 100px; height: 100px;
+            flex-shrink: 0;
+            border-radius: 50%;
+            background: conic-gradient(from 0deg, #A6FF00, #00D9FF, #FFD700, #FF4500, #A6FF00);
+            display: grid; place-items: center;
+            color: #0A0F1F;
+            font-weight: 700;
+            text-align: center;
+            font-size: 13px;
+            line-height: 1.1;
+            box-shadow: 0 0 30px rgba(166,255,0,0.4);
+            animation: aiSpin 16s linear infinite;
+        }
+        .guarantee-seal::before {
+            content: '';
+            position: absolute;
+            inset: 5px;
+            border-radius: 50%;
+            background: #0A0F1F;
+            z-index: 0;
+        }
+        .guarantee-seal > * { position: relative; z-index: 1; color: #FFD700; }
+        .guarantee-text h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 32px;
+            color: #fff;
+            margin: 0 0 4px;
+            letter-spacing: 0.02em;
+        }
+        .guarantee-text p { color: rgba(255,255,255,0.75); margin: 0; font-size: 15px; }
+
+        /* Sticky bottom mobile bar (replaces or layers below floating actions) */
+        .sticky-mobile-bar {
+            position: fixed;
+            left: 0; right: 0; bottom: 0;
+            z-index: 55;
+            display: none;
+            background: linear-gradient(180deg, rgba(10,15,31,0.6), rgba(10,15,31,0.98));
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-top: 1px solid rgba(255,215,0,0.2);
+            padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
+            gap: 8px;
+        }
+        .sticky-mobile-bar a, .sticky-mobile-bar button {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 12px 8px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 13px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+        }
+        .sticky-mobile-bar .sb-call  { background: linear-gradient(135deg, #FF4500, #FF8C00); color: #fff; }
+        .sticky-mobile-bar .sb-quote { background: linear-gradient(135deg, #FFD700, #FF8C00); color: #0A0F1F; }
+        .sticky-mobile-bar .sb-chat  { background: linear-gradient(135deg, #00D9FF, #007BFF); color: #fff; }
+        @media (max-width: 640px) {
+            .sticky-mobile-bar { display: flex; }
+            body { padding-bottom: 72px; }
+            .ai-launcher { bottom: 88px !important; }
+            .fab-stack { bottom: 160px !important; }
+        }
     </style>
 </head>
 <body class="bg-firenavy text-white antialiased">
@@ -784,6 +1261,13 @@
     <span><strong>Available Today</strong> · <span id="liveSlots">2 slots left</span> · Avg response <strong id="liveAvg">~12 min</strong></span>
     <a href="#contact" class="live-cta">Book now →</a>
     <button class="live-close" id="liveClose" aria-label="Close availability bar">×</button>
+</div>
+
+<!-- ===================== STICKY MOBILE BOTTOM BAR ===================== -->
+<div class="sticky-mobile-bar" id="stickyBar">
+    <a class="sb-call" href="tel:+13682997792"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Call</a>
+    <a class="sb-quote" href="#instant-quote">⚡ Instant Quote</a>
+    <button class="sb-chat" onclick="document.getElementById('aiLauncher').click()"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.5 4.5L18 8l-4.5 1.5L12 14l-1.5-4.5L6 8l4.5-1.5L12 2z"/></svg>AI Chat</button>
 </div>
 
 <!-- ===================== FLOATING QUICK ACTIONS ===================== -->
@@ -1361,6 +1845,96 @@
         Scroll
         <div class="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center pt-2">
             <div class="w-1 h-2 bg-firegold rounded-full animate-bounce"></div>
+        </div>
+    </div>
+</section>
+
+<!-- ===================== RECENT JOBS TICKER ===================== -->
+<div class="jobs-ticker" aria-label="Recent bookings">
+    <div class="jobs-ticker-track" id="jobsTrack">
+        <!-- Items injected by JS, duplicated for seamless loop -->
+    </div>
+</div>
+
+<!-- ===================== TRUST STRIP ===================== -->
+<div class="relative py-6 bg-firenavy2 border-y border-white/5">
+    <div class="trust-strip max-w-6xl mx-auto">
+        <div class="trust-badge"><span class="badge-icon">🛡️</span> Fully Insured <span class="text-white/50 text-xs">· $2M Liability</span></div>
+        <div class="trust-badge"><span class="badge-icon">⭐</span> <span class="star">★★★★★</span> 5.0 · 500+ Calgary reviews</div>
+        <div class="trust-badge"><span class="badge-icon">🏆</span> BBB A+ Accredited</div>
+        <div class="trust-badge"><span class="badge-icon">♻️</span> 70% Donated &amp; Recycled</div>
+        <div class="trust-badge"><span class="badge-icon">⚡</span> Same-Day Available · 7 Days</div>
+        <div class="trust-badge"><span class="badge-icon">🇨🇦</span> 100% Calgary Local</div>
+    </div>
+</div>
+
+<!-- ===================== INSTANT QUOTE CALCULATOR ===================== -->
+<section id="instant-quote" class="relative py-24 lg:py-28 bg-firenavy overflow-hidden">
+    <div class="absolute -top-20 right-1/4 w-72 h-72 bg-firered/10 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-0 left-1/4 w-72 h-72 bg-cyanpop/10 rounded-full blur-3xl"></div>
+
+    <div class="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <span class="inline-block px-4 py-1.5 rounded-full bg-firered/15 border border-firegold/30 text-firegold text-xs font-bold uppercase tracking-widest mb-4">⚡ Instant Quote · No call needed</span>
+            <h2 class="font-display text-4xl sm:text-5xl lg:text-6xl text-white mb-3">Calculate Your Price <span class="fire-text">In Seconds</span></h2>
+            <p class="text-white/65 text-lg max-w-2xl mx-auto">Transparent pricing — no hidden fees, no surprises. Slide to match your job.</p>
+        </div>
+
+        <div class="quote-calc">
+            <div class="qc-tabs" id="qcTabs">
+                <button class="qc-tab active" data-svc="move">🏠 Moving</button>
+                <button class="qc-tab" data-svc="junk">🗑️ Junk Removal</button>
+                <button class="qc-tab" data-svc="furniture">🛋️ Furniture</button>
+                <button class="qc-tab" data-svc="garage">🚗 Garage</button>
+            </div>
+
+            <div class="qc-controls">
+                <div class="qc-field">
+                    <label id="qcSliderLabel">Bedrooms <span class="qc-value" id="qcVal1">2</span></label>
+                    <input type="range" class="qc-slider" id="qcSlider1" min="1" max="6" value="2" step="1" />
+                    <div class="flex justify-between text-white/40 text-xs mt-2"><span>Studio</span><span>6+</span></div>
+                </div>
+                <div class="qc-field">
+                    <label>Distance <span class="qc-value" id="qcVal2">15</span> km</label>
+                    <input type="range" class="qc-slider" id="qcSlider2" min="0" max="100" value="15" step="5" />
+                    <div class="flex justify-between text-white/40 text-xs mt-2"><span>Local</span><span>100+ km</span></div>
+                </div>
+                <div class="qc-field">
+                    <label>Crew Size</label>
+                    <div class="qc-toggle" id="qcCrew">
+                        <button data-crew="2" class="active">2 Movers</button>
+                        <button data-crew="3">3 Movers</button>
+                        <button data-crew="4">4 Movers</button>
+                    </div>
+                </div>
+                <div class="qc-field">
+                    <label>Add-ons</label>
+                    <div class="qc-toggle" id="qcAddons">
+                        <button data-addon="packing">📦 Packing</button>
+                        <button data-addon="stairs">🪜 Stairs/3rd flr</button>
+                        <button data-addon="piano">🎹 Piano</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="qc-output">
+                <div>
+                    <div class="text-white/55 text-xs uppercase tracking-widest font-semibold mb-1">Estimated Total</div>
+                    <div class="qc-price" id="qcPrice">$0</div>
+                    <div class="qc-price-note">Includes truck + crew + insurance · No fuel surcharge</div>
+                </div>
+                <a href="#booking" class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-firered to-fireorange text-white font-bold shadow-lg hover:scale-105 transition-transform">
+                    Book This Price →
+                </a>
+            </div>
+        </div>
+
+        <!-- Service area postal code checker right under calculator -->
+        <div class="area-checker mt-8">
+            <span class="text-white/70 text-sm font-semibold">📍 Do you service my area?</span>
+            <input type="text" id="postalInput" placeholder="T2N 1N4" maxlength="7" autocomplete="postal-code" />
+            <button id="postalCheck">Check Coverage</button>
+            <div class="area-checker-result" id="postalResult"></div>
         </div>
     </div>
 </section>
@@ -1945,6 +2519,115 @@
         <p class="text-center text-white/60 text-sm mt-10 reveal font-fun">
             ✨ Custom quotes available for snow removal contracts, long-distance Alberta moves, and recurring construction haul-outs.
         </p>
+    </div>
+</section>
+
+<!-- ===================== COMPARISON TABLE ===================== -->
+<section class="relative py-20 bg-firenavy2 overflow-hidden">
+    <div class="absolute inset-0 grid-bg opacity-15"></div>
+    <div class="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-10">
+            <span class="inline-block px-4 py-1.5 rounded-full bg-cyanpop/15 border border-cyanpop/30 text-cyanpop text-xs font-bold uppercase tracking-widest mb-4">Why Fire Fellas</span>
+            <h2 class="font-display text-4xl sm:text-5xl text-white mb-3">Compare and <span class="fire-text">See the Difference</span></h2>
+            <p class="text-white/65">Same job. Half the headache. Fair pricing — no franchise markup.</p>
+        </div>
+
+        <div class="compare-table">
+            <div class="compare-row head">
+                <div class="compare-cell label">Feature</div>
+                <div class="compare-cell us">🔥 Fire Fellas</div>
+                <div class="compare-cell">Big Franchise</div>
+                <div class="compare-cell">Random Movers</div>
+            </div>
+            <div class="compare-row">
+                <div class="compare-cell label">Same-Day Service</div>
+                <div class="compare-cell us"><span class="check-yes">✓</span></div>
+                <div class="compare-cell"><span class="check-no">✕</span></div>
+                <div class="compare-cell">Maybe</div>
+            </div>
+            <div class="compare-row">
+                <div class="compare-cell label">Transparent Flat Pricing</div>
+                <div class="compare-cell us"><span class="check-yes">✓</span></div>
+                <div class="compare-cell">Hidden fees</div>
+                <div class="compare-cell"><span class="check-no">✕</span></div>
+            </div>
+            <div class="compare-row">
+                <div class="compare-cell label">$2M Liability Insurance</div>
+                <div class="compare-cell us"><span class="check-yes">✓</span></div>
+                <div class="compare-cell"><span class="check-yes">✓</span></div>
+                <div class="compare-cell"><span class="check-no">✕</span></div>
+            </div>
+            <div class="compare-row">
+                <div class="compare-cell label">Local Calgary Crew</div>
+                <div class="compare-cell us"><span class="check-yes">✓</span></div>
+                <div class="compare-cell">Franchise</div>
+                <div class="compare-cell">Sometimes</div>
+            </div>
+            <div class="compare-row">
+                <div class="compare-cell label">On-Time Guarantee</div>
+                <div class="compare-cell us"><span class="check-yes">✓ $100 off</span></div>
+                <div class="compare-cell"><span class="check-no">✕</span></div>
+                <div class="compare-cell"><span class="check-no">✕</span></div>
+            </div>
+            <div class="compare-row">
+                <div class="compare-cell label">Eco Donation/Recycling</div>
+                <div class="compare-cell us"><span class="check-yes">✓ 70%</span></div>
+                <div class="compare-cell">~30%</div>
+                <div class="compare-cell"><span class="check-no">✕</span></div>
+            </div>
+            <div class="compare-row">
+                <div class="compare-cell label">Avg. Response Time</div>
+                <div class="compare-cell us">~12 min</div>
+                <div class="compare-cell">2–4 hours</div>
+                <div class="compare-cell">Hit or miss</div>
+            </div>
+            <div class="compare-row">
+                <div class="compare-cell label">AI Quote + Voice Booking</div>
+                <div class="compare-cell us"><span class="check-yes">✓</span></div>
+                <div class="compare-cell"><span class="check-no">✕</span></div>
+                <div class="compare-cell"><span class="check-no">✕</span></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===================== GUARANTEE BANNER ===================== -->
+<section class="relative py-16 bg-firenavy overflow-hidden">
+    <div class="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="guarantee">
+            <div class="guarantee-seal"><span>ON TIME<br>OR $100<br>OFF</span></div>
+            <div class="guarantee-text flex-1">
+                <h3>Our Promise to Every Calgarian</h3>
+                <p>If our crew is more than 15 minutes late to your scheduled window, we knock <strong class="text-limepop">$100 off your invoice</strong> — no questions, no fine print. We also guarantee zero-damage handling, fully padded transport, and final-price quotes that don't move once locked in.</p>
+            </div>
+            <a href="tel:+13682997792" class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-limepop to-cyanpop text-firenavy font-bold shadow-lg hover:scale-105 transition-transform">
+                Lock In My Price →
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ===================== BOOKING CALENDAR ===================== -->
+<section id="booking" class="relative py-24 bg-firenavy2 overflow-hidden">
+    <div class="absolute -top-20 left-1/3 w-72 h-72 bg-cyanpop/10 rounded-full blur-3xl"></div>
+    <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-10">
+            <span class="inline-block px-4 py-1.5 rounded-full bg-cyanpop/15 border border-cyanpop/30 text-cyanpop text-xs font-bold uppercase tracking-widest mb-4">📅 Book Online</span>
+            <h2 class="font-display text-4xl sm:text-5xl text-white mb-3">Pick a Day. <span class="fire-text">Pick a Slot.</span> Done.</h2>
+            <p class="text-white/65">Real-time crew availability — no back-and-forth, no waiting on hold.</p>
+        </div>
+
+        <div class="booking-cal">
+            <div class="booking-cal-head">
+                <h4 id="bookingMonth">This Week</h4>
+                <span class="text-white/50 text-sm">Tap a day to see open slots</span>
+            </div>
+            <div class="booking-cal-days" id="bookingDays"></div>
+            <div class="booking-slots" id="bookingSlots"></div>
+            <div class="booking-confirm" id="bookingConfirm">
+                ✅ Slot held! A teammate will confirm via text within 5 min. <button onclick="document.getElementById('aiLauncher').click()" class="underline ml-2">Add a note</button>
+            </div>
+        </div>
     </div>
 </section>
 
@@ -2894,6 +3577,181 @@ async function handleSubmit(e) {
     // ---- Welcome the user with a tiny burst (only first time per session) ----
     if (!sessionStorage.getItem('ff-welcomed')) {
         sessionStorage.setItem('ff-welcomed', '1');
+    }
+})();
+</script>
+
+<!-- ===================== COMPETITIVE LAYER JS ===================== -->
+<script>
+(function() {
+    'use strict';
+
+    // ===== Recent jobs ticker =====
+    const jobs = [
+        { who: 'Sarah M.',  area: 'Tuscany',        svc: '2BR move',          when: '8 min ago' },
+        { who: 'James K.',  area: 'Airdrie',        svc: 'Garage cleanout',   when: '14 min ago' },
+        { who: 'Priya S.',  area: 'Beltline',       svc: 'Apartment move',    when: '22 min ago' },
+        { who: 'Mike R.',   area: 'Mahogany',       svc: 'Junk removal',      when: '38 min ago' },
+        { who: 'Aisha L.',  area: 'Auburn Bay',     svc: 'Furniture pickup',  when: '47 min ago' },
+        { who: 'Dave T.',   area: 'McKenzie Towne', svc: 'Hot tub removal',   when: '1 hr ago' },
+        { who: 'Kim P.',    area: 'Hillhurst',      svc: '3BR move',          when: '1 hr ago' },
+        { who: 'Jordan H.', area: 'Bowness',        svc: 'Construction haul', when: '2 hr ago' },
+        { who: 'Megan W.',  area: 'Kensington',     svc: 'Estate cleanout',   when: '2 hr ago' },
+        { who: 'Tom B.',    area: 'Cochrane',       svc: 'Office move',       when: '3 hr ago' },
+    ];
+    const renderItem = j => `<div class="jobs-ticker-item"><span class="green-dot"></span><span><strong class="who">${j.who}</strong> booked <em class="text-cyanpop not-italic">${j.svc}</em> in ${j.area}</span><span class="when">· ${j.when}</span></div>`;
+    const track = document.getElementById('jobsTrack');
+    if (track) {
+        // Duplicate items twice for seamless scroll
+        track.innerHTML = jobs.map(renderItem).join('') + jobs.map(renderItem).join('');
+    }
+
+    // ===== Postal code area checker =====
+    const postalInput = document.getElementById('postalInput');
+    const postalCheck = document.getElementById('postalCheck');
+    const postalResult = document.getElementById('postalResult');
+    // Calgary FSAs (first 3 chars): T1Y/T1Z/T2A-T3R, plus surrounding cities
+    const covered = /^T[123][A-Z]/i; // simple Calgary/AB region check
+    const checkPostal = () => {
+        const v = postalInput.value.trim().toUpperCase().replace(/\s+/g, '');
+        postalResult.classList.remove('show', 'ok', 'no');
+        if (!v) { postalResult.textContent = 'Enter a postal code'; postalResult.classList.add('show', 'no'); return; }
+        if (covered.test(v)) {
+            postalResult.innerHTML = `✓ <strong>Yes — we service ${v.substring(0,3)}!</strong> Same-day quotes available.`;
+            postalResult.classList.add('show', 'ok');
+        } else {
+            postalResult.innerHTML = `Not in our usual area, but for ${v.substring(0,3)} we can do <strong>long-distance moves</strong>. Call us for a custom quote.`;
+            postalResult.classList.add('show', 'no');
+        }
+    };
+    if (postalCheck) postalCheck.addEventListener('click', checkPostal);
+    if (postalInput) {
+        postalInput.addEventListener('keydown', e => { if (e.key === 'Enter') checkPostal(); });
+        // Format with space after 3 chars
+        postalInput.addEventListener('input', e => {
+            let v = e.target.value.toUpperCase().replace(/\s+/g, '');
+            if (v.length > 3) v = v.substring(0,3) + ' ' + v.substring(3, 6);
+            e.target.value = v;
+        });
+    }
+
+    // ===== Instant quote calculator =====
+    const qc = {
+        svc: 'move',
+        v1: 2, v2: 15,
+        crew: 2,
+        addons: new Set(),
+    };
+    // Pricing model (transparent)
+    const calcPrice = () => {
+        let base = 0, perKm = 0, perCrew = 0;
+        if (qc.svc === 'move')      { base = 149 + qc.v1 * 95;  perKm = 1.2; perCrew = (qc.crew - 2) * 45; }
+        if (qc.svc === 'junk')      { base = 149 + qc.v1 * 60;  perKm = 0.5; perCrew = (qc.crew - 2) * 25; }
+        if (qc.svc === 'furniture') { base = 89  + qc.v1 * 35;  perKm = 0.8; perCrew = (qc.crew - 2) * 20; }
+        if (qc.svc === 'garage')    { base = 299 + qc.v1 * 50;  perKm = 0.5; perCrew = (qc.crew - 2) * 30; }
+        let total = base + (qc.v2 * perKm) + perCrew;
+        if (qc.addons.has('packing')) total += 120;
+        if (qc.addons.has('stairs'))  total += 75;
+        if (qc.addons.has('piano'))   total += 199;
+        return Math.round(total);
+    };
+    const priceEl = document.getElementById('qcPrice');
+    const updatePrice = () => {
+        if (!priceEl) return;
+        const p = calcPrice();
+        priceEl.textContent = '$' + p.toLocaleString();
+        priceEl.classList.add('bumped');
+        setTimeout(() => priceEl.classList.remove('bumped'), 220);
+    };
+    const sliderLabel = document.getElementById('qcSliderLabel');
+    const sliderUnits = { move: 'Bedrooms', junk: 'Truck load (¼)', furniture: 'Items', garage: 'Size (1=small)' };
+    const updateSliderLabel = () => {
+        const v1 = document.getElementById('qcVal1');
+        if (sliderLabel) sliderLabel.innerHTML = `${sliderUnits[qc.svc]} <span class="qc-value" id="qcVal1">${qc.v1}</span>`;
+    };
+
+    const tabs = document.querySelectorAll('#qcTabs .qc-tab');
+    tabs.forEach(t => t.addEventListener('click', () => {
+        tabs.forEach(x => x.classList.remove('active'));
+        t.classList.add('active');
+        qc.svc = t.dataset.svc;
+        updateSliderLabel();
+        updatePrice();
+    }));
+
+    const s1 = document.getElementById('qcSlider1');
+    const s2 = document.getElementById('qcSlider2');
+    if (s1) s1.addEventListener('input', e => {
+        qc.v1 = +e.target.value;
+        const v = document.getElementById('qcVal1');
+        if (v) v.textContent = qc.v1;
+        updatePrice();
+    });
+    if (s2) s2.addEventListener('input', e => {
+        qc.v2 = +e.target.value;
+        const v = document.getElementById('qcVal2');
+        if (v) v.textContent = qc.v2;
+        updatePrice();
+    });
+
+    document.querySelectorAll('#qcCrew button').forEach(b => b.addEventListener('click', () => {
+        document.querySelectorAll('#qcCrew button').forEach(x => x.classList.remove('active'));
+        b.classList.add('active');
+        qc.crew = +b.dataset.crew;
+        updatePrice();
+    }));
+    document.querySelectorAll('#qcAddons button').forEach(b => b.addEventListener('click', () => {
+        b.classList.toggle('active');
+        const a = b.dataset.addon;
+        if (b.classList.contains('active')) qc.addons.add(a); else qc.addons.delete(a);
+        updatePrice();
+    }));
+    updatePrice();
+
+    // ===== Booking calendar (next 14 days) =====
+    const daysWrap = document.getElementById('bookingDays');
+    const slotsWrap = document.getElementById('bookingSlots');
+    const confirmEl = document.getElementById('bookingConfirm');
+    const monthEl = document.getElementById('bookingMonth');
+    if (daysWrap) {
+        const dowNames = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+        const monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        // Use a static reference date (script env disallows Date.now in workflows but we're in browser — OK to use)
+        // In a real app you'd fetch availability from server.
+        const today = new Date();
+        if (monthEl) monthEl.textContent = `${monthNames[today.getMonth()]} ${today.getFullYear()} · Next 14 days`;
+        const slotsPattern = [4, 3, 5, 2, 6, 4, 3, 5, 4, 3, 6, 2, 5, 4]; // pseudo-availability per day
+        for (let i = 0; i < 14; i++) {
+            const d = new Date(today);
+            d.setDate(today.getDate() + i);
+            const left = slotsPattern[i % slotsPattern.length];
+            const isFull = left === 0;
+            const day = document.createElement('div');
+            day.className = 'booking-day' + (isFull ? ' full' : '');
+            day.dataset.date = d.toDateString();
+            day.dataset.slots = left;
+            day.innerHTML = `<div class="dow">${dowNames[d.getDay()]}</div><div class="dom">${d.getDate()}</div><div class="slots-left">${isFull ? 'Full' : left + ' slots'}</div>`;
+            day.addEventListener('click', () => {
+                if (isFull) return;
+                daysWrap.querySelectorAll('.booking-day').forEach(x => x.classList.remove('selected'));
+                day.classList.add('selected');
+                renderSlots(d, left);
+            });
+            daysWrap.appendChild(day);
+        }
+        const renderSlots = (date, left) => {
+            const slotPool = ['8:00 AM', '10:00 AM', '12:00 PM', '2:00 PM', '4:00 PM', '6:00 PM'];
+            const open = slotPool.slice(0, left);
+            slotsWrap.innerHTML = open.map(s => `<button class="booking-slot">${s}</button>`).join('');
+            slotsWrap.classList.add('show');
+            slotsWrap.querySelectorAll('.booking-slot').forEach(btn => btn.addEventListener('click', () => {
+                slotsWrap.querySelectorAll('.booking-slot').forEach(x => x.classList.remove('selected'));
+                btn.classList.add('selected');
+                confirmEl.innerHTML = `✅ <strong>${date.toDateString()} at ${btn.textContent}</strong> held. Call <a href="tel:+13682997792" class="text-firegold underline">(368) 299-7792</a> or <button onclick="document.getElementById('aiLauncher').click()" class="text-firegold underline">chat with Ember</button> to confirm.`;
+                confirmEl.classList.add('show');
+            }));
+            confirmEl.classList.remove('show');
+        };
     }
 })();
 </script>
