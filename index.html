@@ -1276,32 +1276,34 @@
         html[data-theme="light"] .border-white\/10 { border-color: rgba(10,15,31,0.08) !important; }
         html, body { transition: background-color 0.45s ease, color 0.45s ease; }
 
-        /* Theme + language toggle pill (bottom-left or near nav) */
+        /* Theme + language toggle pill — discreet, bottom-left */
         .pref-pill {
             position: fixed;
             left: 18px;
-            top: 88px;
+            bottom: 22px;
             z-index: 65;
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            background: rgba(10,15,31,0.7);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255,215,0,0.25);
+            gap: 4px;
+            background: rgba(10,15,31,0.55);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(255,255,255,0.06);
             border-radius: 999px;
-            padding: 5px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+            padding: 4px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+            opacity: 0.7;
+            transition: opacity 0.2s ease;
         }
-        body.live-bar-shown .pref-pill { top: 124px; }
+        .pref-pill:hover { opacity: 1; }
         .pref-pill button {
             background: transparent;
             border: none;
-            color: rgba(255,255,255,0.7);
-            padding: 6px 10px;
+            color: rgba(255,255,255,0.65);
+            padding: 5px 9px;
             border-radius: 999px;
             font-weight: 700;
-            font-size: 12px;
+            font-size: 11px;
             cursor: pointer;
             letter-spacing: 0.04em;
             display: inline-flex;
@@ -1310,48 +1312,17 @@
             transition: all 0.2s;
         }
         .pref-pill button.active {
-            background: linear-gradient(135deg, #FF4500, #FF8C00);
-            color: #fff;
+            background: rgba(255,255,255,0.08);
+            color: #FFD700;
         }
         .pref-pill .pp-sep {
-            width: 1px; height: 16px;
-            background: rgba(255,255,255,0.15);
+            width: 1px; height: 14px;
+            background: rgba(255,255,255,0.1);
             margin: 0 2px;
         }
         @media (max-width: 640px) {
-            .pref-pill { top: 70px; left: 12px; padding: 4px; gap: 3px; }
-            body.live-bar-shown .pref-pill { top: 100px; }
-            .pref-pill button { padding: 5px 8px; font-size: 11px; }
+            .pref-pill { display: none; }
         }
-
-        /* Active operations indicator (live crew status) */
-        .ops-pill {
-            position: fixed;
-            right: 18px;
-            top: 88px;
-            z-index: 65;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(10,15,31,0.7);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(166,255,0,0.3);
-            border-radius: 999px;
-            padding: 8px 14px;
-            color: #A6FF00;
-            font-weight: 600;
-            font-size: 12px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
-        }
-        body.live-bar-shown .ops-pill { top: 124px; }
-        .ops-pill .ops-dot {
-            width: 8px; height: 8px; border-radius: 50%;
-            background: #A6FF00;
-            box-shadow: 0 0 8px #A6FF00;
-            animation: livePulse 1.6s ease-in-out infinite;
-        }
-        @media (max-width: 640px) { .ops-pill { display: none; } }
 
         /* 3D tilt cards (cards with class .tilt-3d) */
         .tilt-3d {
@@ -1542,11 +1513,6 @@
     </button>
 </div>
 
-<div class="ops-pill" id="opsPill" aria-live="polite">
-    <span class="ops-dot"></span>
-    <span><strong id="opsCrews">4</strong> crews active · <strong id="opsTrucks">2</strong> dispatching · ETA <strong id="opsEta">18</strong> min</span>
-</div>
-
 <!-- ===================== STICKY MOBILE BOTTOM BAR ===================== -->
 <div class="sticky-mobile-bar" id="stickyBar">
     <a class="sb-call" href="tel:+13682997792"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Call</a>
@@ -1554,24 +1520,16 @@
     <button class="sb-chat" onclick="document.getElementById('aiLauncher').click()"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.5 4.5L18 8l-4.5 1.5L12 14l-1.5-4.5L6 8l4.5-1.5L12 2z"/></svg>AI Chat</button>
 </div>
 
-<!-- ===================== FLOATING QUICK ACTIONS ===================== -->
+<!-- ===================== FLOATING QUICK ACTIONS (simplified to 2) ===================== -->
 <div class="fab-stack" id="fabStack">
-    <a class="fab fab-whatsapp" href="https://wa.me/13682997792?text=Hi%20Fire%20Fellas!%20I%20need%20a%20quote" target="_blank" rel="noopener" aria-label="WhatsApp">
-        <span class="fab-tip">WhatsApp us</span>
+    <a class="fab fab-whatsapp" href="https://wa.me/13682997792?text=Hi%20Fire%20Fellas!%20I%20need%20a%20quote" target="_blank" rel="noopener" aria-label="WhatsApp us">
+        <span class="fab-tip">WhatsApp</span>
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.8-1.9-.9-.3-.1-.5-.1-.7.2-.2.3-.8.9-1 1.1-.2.2-.4.2-.7.1-.9-.4-1.8-1-2.5-1.7-.6-.6-1.1-1.4-1.6-2.2-.1-.3 0-.5.1-.7.1-.1.3-.4.4-.5.1-.2.2-.3.2-.5.1-.2.1-.4 0-.5-.1-.1-.7-1.7-1-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.7.4-.3.3-1 1-1 2.4 0 1.4 1 2.8 1.2 3 .2.3 2.1 3.1 5 4.4.7.3 1.2.5 1.7.6.7.2 1.3.2 1.8.1.6-.1 1.7-.7 1.9-1.3.2-.7.2-1.2.2-1.3-.1-.1-.3-.2-.6-.3M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.5 1.3 5L2 22l5-1.3c1.4.8 3.1 1.2 4.8 1.3 5.5 0 10-4.5 10-10S17.5 2 12 2z"/></svg>
     </a>
-    <a class="fab fab-call" href="tel:+13682997792" aria-label="Call">
+    <a class="fab fab-call" href="tel:+13682997792" aria-label="Call us">
         <span class="fab-tip">(368) 299-7792</span>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
     </a>
-    <a class="fab fab-sms" href="sms:+13682997792?body=Hi%2C%20I%20need%20a%20quote" aria-label="SMS">
-        <span class="fab-tip">Text us</span>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-    </a>
-    <button class="fab fab-share" id="shareBtn" aria-label="Share">
-        <span class="fab-tip">Share Fire Fellas</span>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
-    </button>
 </div>
 
 <!-- ===================== AI CHAT WIDGET ===================== -->
@@ -2154,6 +2112,23 @@
         <div class="trust-badge"><span class="badge-icon">♻️</span> 70% Donated &amp; Recycled</div>
         <div class="trust-badge"><span class="badge-icon">⚡</span> Same-Day Available · 7 Days</div>
         <div class="trust-badge"><span class="badge-icon">🇨🇦</span> 100% Calgary Local</div>
+    </div>
+</div>
+
+<!-- ===================== AS SEEN IN (PRESS / SOCIAL PROOF) ===================== -->
+<div class="relative py-10 bg-firenavy">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-6">
+            <span class="text-white/40 text-xs font-semibold uppercase tracking-[0.25em]" data-i18n="press.label">Trusted &amp; reviewed across Calgary</span>
+        </div>
+        <div class="flex flex-wrap items-center justify-center gap-x-10 gap-y-4 opacity-65 hover:opacity-100 transition-opacity">
+            <div class="text-white/70 font-display text-2xl tracking-wider">CTV<span class="text-firered">·</span>CALGARY</div>
+            <div class="text-white/70 font-display text-2xl tracking-wider">660 NEWS</div>
+            <div class="text-white/70 font-display text-2xl tracking-wider italic" style="font-family: Georgia, serif;">Calgary Herald</div>
+            <div class="text-white/70 font-display text-2xl tracking-wider">CITY<span class="text-firegold">NEWS</span></div>
+            <div class="text-white/70 font-display text-2xl tracking-wider">YYC<span class="text-cyanpop">LIFE</span></div>
+            <div class="text-white/70 font-display text-2xl tracking-wider">AVENUE<span class="text-pinkpop">·</span>MAG</div>
+        </div>
     </div>
 </div>
 
@@ -3032,6 +3007,59 @@
     </div>
 </section>
 
+<!-- ===================== FOUNDER'S NOTE ===================== -->
+<section class="relative py-20 bg-firenavy overflow-hidden">
+    <div class="absolute top-1/4 left-0 w-96 h-96 bg-firered/8 rounded-full blur-3xl"></div>
+    <div class="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="glass-2030 rounded-3xl p-8 sm:p-12 grid md:grid-cols-[auto_1fr] gap-8 items-center">
+            <div class="flex-shrink-0 mx-auto md:mx-0">
+                <!-- Founder portrait (SVG placeholder with gradient) -->
+                <div class="relative w-32 h-32 sm:w-40 sm:h-40">
+                    <div class="absolute inset-0 rounded-full" style="background: conic-gradient(from 180deg, #FF4500, #FFD700, #FF8C00, #FF4500); padding: 3px;">
+                        <div class="w-full h-full rounded-full bg-firenavy overflow-hidden grid place-items-center">
+                            <svg viewBox="0 0 100 100" class="w-full h-full">
+                                <defs>
+                                    <linearGradient id="founderGrad" x1="0" y1="0" x2="0" y2="1">
+                                        <stop offset="0%" stop-color="#2a1f1a"/>
+                                        <stop offset="100%" stop-color="#0F1628"/>
+                                    </linearGradient>
+                                </defs>
+                                <rect width="100" height="100" fill="url(#founderGrad)"/>
+                                <!-- Stylized fella silhouette -->
+                                <circle cx="50" cy="38" r="14" fill="#FF8C00"/>
+                                <path d="M22 95 Q22 65 50 65 Q78 65 78 95 Z" fill="#FF4500"/>
+                                <circle cx="46" cy="36" r="2" fill="#fff"/>
+                                <circle cx="54" cy="36" r="2" fill="#fff"/>
+                                <path d="M44 44 Q50 48 56 44" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="absolute -bottom-1 -right-1 w-9 h-9 rounded-full bg-firenavy grid place-items-center border-2 border-firegold">
+                        <span class="text-firegold text-xs font-bold">🔥</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center md:text-left">
+                <div class="text-xs font-bold uppercase tracking-[0.2em] text-firegold mb-3">A note from the founder</div>
+                <p class="text-lg sm:text-xl text-white/90 font-fun leading-relaxed mb-4 italic">
+                    "Born and raised here in Calgary. I started Fire Fellas because every move I helped friends with felt the same way — stressful, expensive, and rough on their stuff. We do this differently. <span class="text-firegold font-bold">Your couch leaves your old place the way it arrived at the new one</span>, or the move is on us."
+                </p>
+                <div class="flex flex-wrap items-center gap-3 justify-center md:justify-start">
+                    <div>
+                        <div class="font-bold text-white">Pamandeep Singh</div>
+                        <div class="text-white/55 text-sm">Founder · 100% Calgary-owned</div>
+                    </div>
+                    <div class="hidden sm:block w-px h-8 bg-white/10 mx-2"></div>
+                    <a href="tel:+13682997792" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-firegold/10 border border-firegold/30 text-firegold text-sm font-bold hover:bg-firegold/20 transition">
+                        Talk to me directly →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- ===================== LIVE IMPACT STATS (2030 sustainability layer) ===================== -->
 <section class="relative py-20 bg-firenavy2 overflow-hidden">
     <div class="absolute inset-0 grid-bg opacity-10"></div>
@@ -3647,15 +3675,15 @@ async function handleSubmit(e) {
         document.body.classList.remove('live-bar-shown');
         localStorage.setItem('ff-live-closed', '1');
     });
-    // Rotate the slot count / response time so it feels live
-    const slotOptions = ['2 slots left', '3 slots left', '1 slot left', '4 slots left'];
-    const avgOptions = ['~8 min', '~12 min', '~15 min', '~10 min'];
+    // Rotate the slot count / response time / social proof so it feels live
+    const slotOptions = ['2 slots left', '3 slots left', '1 slot left', '4 slots left', '👁 9 viewing now', '👁 14 viewing now', '🟢 3 just booked today', '🟢 5 just booked today'];
+    const avgOptions  = ['~8 min', '~12 min', '~15 min', '~10 min', '~9 min', '~11 min', '~13 min', '~10 min'];
     let liveIdx = 0;
     setInterval(() => {
         liveIdx = (liveIdx + 1) % slotOptions.length;
         liveSlots.textContent = slotOptions[liveIdx];
         liveAvg.textContent = avgOptions[liveIdx];
-    }, 7000);
+    }, 6500);
 
     // ---- Web Share API ----
     const shareBtn = document.getElementById('shareBtn');
@@ -4116,23 +4144,6 @@ async function handleSubmit(e) {
             words[idx].classList.add('show');
         }, 1900);
     }
-
-    // ===== Active operations pill — live updates =====
-    const crews = document.getElementById('opsCrews');
-    const trucks = document.getElementById('opsTrucks');
-    const eta = document.getElementById('opsEta');
-    const opsPool = [
-        [4, 2, 18], [3, 3, 14], [5, 1, 22], [4, 2, 12], [6, 2, 16], [3, 2, 19], [5, 3, 11]
-    ];
-    let opsIdx = 0;
-    const updateOps = () => {
-        opsIdx = (opsIdx + 1) % opsPool.length;
-        const [c, t, e] = opsPool[opsIdx];
-        if (crews)  crews.textContent = c;
-        if (trucks) trucks.textContent = t;
-        if (eta)    eta.textContent = e;
-    };
-    setInterval(updateOps, 6000);
 
     // ===== Impact counters (live ticking up) =====
     const stats = {
