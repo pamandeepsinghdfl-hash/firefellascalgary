@@ -260,8 +260,8 @@
             height: 100px;
             transform-style: preserve-3d;
             will-change: transform;
-            opacity: 0.55;
-            animation: drift 28s linear infinite;
+            opacity: 0.28;
+            animation: drift 42s linear infinite;
         }
         .box-3d .face {
             position: absolute;
@@ -297,8 +297,8 @@
 
         @keyframes drift {
             0%   { transform: translate3d(var(--x, 0), 100vh, 0) rotateX(0deg) rotateY(0deg); opacity: 0; }
-            10%  { opacity: 0.55; }
-            90%  { opacity: 0.55; }
+            10%  { opacity: 0.28; }
+            90%  { opacity: 0.28; }
             100% { transform: translate3d(calc(var(--x, 0) + var(--drift, 80px)), -20vh, 0) rotateX(360deg) rotateY(540deg); opacity: 0; }
         }
 
@@ -1484,9 +1484,41 @@
             .cursor-particle, .word-morph .wm, .word-stagger > span { transition: none !important; animation: none !important; }
             [data-parallax] { transform: none !important; }
         }
+
+        /* ===== Accessibility polish ===== */
+        .skip-link {
+            position: absolute;
+            top: -100px;
+            left: 16px;
+            background: #FFD700;
+            color: #0A0F1F;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-weight: 700;
+            z-index: 200;
+            text-decoration: none;
+            transition: top 0.2s ease;
+        }
+        .skip-link:focus {
+            top: 16px;
+            outline: 3px solid #fff;
+            outline-offset: 2px;
+        }
+
+        /* Visible focus rings on all interactive elements */
+        a:focus-visible,
+        button:focus-visible,
+        input:focus-visible,
+        [tabindex]:focus-visible {
+            outline: 3px solid #FFD700;
+            outline-offset: 3px;
+            border-radius: 8px;
+        }
     </style>
 </head>
 <body class="bg-firenavy text-white antialiased">
+
+<a href="#home" class="skip-link">Skip to main content</a>
 
 <!-- ===================== SCROLL PROGRESS ===================== -->
 <div class="scroll-progress" id="scrollProgress"></div>
@@ -3683,7 +3715,7 @@ async function handleSubmit(e) {
         liveIdx = (liveIdx + 1) % slotOptions.length;
         liveSlots.textContent = slotOptions[liveIdx];
         liveAvg.textContent = avgOptions[liveIdx];
-    }, 6500);
+    }, 12000);
 
     // ---- Web Share API ----
     const shareBtn = document.getElementById('shareBtn');
@@ -3740,15 +3772,7 @@ async function handleSubmit(e) {
     launcher.addEventListener('click', () => chat.classList.contains('open') ? closeChat() : openChat());
     closeBtn.addEventListener('click', closeChat);
 
-    // Auto-pop the chat after 12 sec for first-time visitors
-    if (!sessionStorage.getItem('ff-chat-seen')) {
-        setTimeout(() => {
-            if (!chat.classList.contains('open')) {
-                launcher.style.animation = 'aiSpin 8s linear infinite, bounceSlow 1.5s ease-in-out 3';
-            }
-            sessionStorage.setItem('ff-chat-seen', '1');
-        }, 12000);
-    }
+    // Chat auto-bounce disabled — launcher is already eye-catching; let the user discover it on their own.
 
     // Intent → response map
     const responses = {
@@ -4133,16 +4157,19 @@ async function handleSubmit(e) {
         if (strong && !localStorage.getItem('ff-live-closed')) strong.textContent = greeting;
     }
 
-    // ===== Word morph (hero "Moving It → Hauling It → ...") =====
+    // ===== Word morph — runs 2 cycles then settles on first word so motion stops =====
     const morph = document.getElementById('wordMorph');
     if (morph) {
         const words = morph.querySelectorAll('.wm');
-        let idx = 0;
-        setInterval(() => {
+        let idx = 0, cycles = 0;
+        const maxCycles = 2;
+        const timer = setInterval(() => {
             words[idx].classList.remove('show');
             idx = (idx + 1) % words.length;
+            if (idx === 0) cycles++;
             words[idx].classList.add('show');
-        }, 1900);
+            if (cycles >= maxCycles) clearInterval(timer);
+        }, 2400);
     }
 
     // ===== Impact counters (live ticking up) =====
@@ -4183,33 +4210,9 @@ async function handleSubmit(e) {
         if (note) note.textContent = 'Live · last update just now';
     }, 7000);
 
-    // ===== Cursor particle trail =====
-    const layer = document.getElementById('cursorLayer');
-    const isCoarse = window.matchMedia('(pointer: coarse)').matches;
+    // ===== Cursor particle trail — OFF by default for readability (users can enable via pref pill) =====
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (layer && !isCoarse && !reduceMotion) {
-        let last = 0;
-        document.addEventListener('mousemove', (e) => {
-            const now = performance.now();
-            if (now - last < 26) return;
-            last = now;
-            const p = document.createElement('div');
-            p.className = 'cursor-particle';
-            const sz = 4 + Math.random() * 8;
-            p.style.width = p.style.height = sz + 'px';
-            p.style.left = (e.clientX - sz/2) + 'px';
-            p.style.top  = (e.clientY - sz/2) + 'px';
-            layer.appendChild(p);
-            const drift = (Math.random() - 0.5) * 60;
-            p.animate(
-                [
-                    { transform: 'translate(0,0) scale(1)', opacity: 0.9 },
-                    { transform: `translate(${drift}px, -40px) scale(0)`, opacity: 0 }
-                ],
-                { duration: 900 + Math.random() * 400, easing: 'cubic-bezier(0.22, 1, 0.36, 1)', fill: 'forwards' }
-            ).onfinish = () => p.remove();
-        }, { passive: true });
-    }
+    // Particles intentionally disabled — interfered with reading. Keeping the layer/CSS in case we re-enable per-user.
 
     // ===== 3D tilt on cards =====
     // Apply to cards with class tilt-3d OR auto-detect prominent cards
@@ -4230,27 +4233,14 @@ async function handleSubmit(e) {
             const r = card.getBoundingClientRect();
             const x = (e.clientX - r.left) / r.width - 0.5;
             const y = (e.clientY - r.top) / r.height - 0.5;
-            card.style.transform = `perspective(1000px) rotateY(${x * 6}deg) rotateX(${-y * 5}deg) translateZ(4px)`;
+            card.style.transform = `perspective(1200px) rotateY(${x * 3}deg) rotateX(${-y * 2.5}deg) translateZ(2px)`;
         });
         card.addEventListener('mouseleave', () => {
             card.style.transform = '';
         });
     });
 
-    // ===== Section depth parallax =====
-    const parallax = document.querySelectorAll('[data-parallax]');
-    if (parallax.length && !reduceMotion) {
-        const onScroll = () => {
-            const sc = window.scrollY;
-            parallax.forEach(el => {
-                const rate = parseFloat(el.dataset.parallax) || 0.05;
-                const offset = (el.getBoundingClientRect().top + sc - window.innerHeight) * rate;
-                el.style.transform = `translateY(${-offset * 0.3}px)`;
-            });
-        };
-        window.addEventListener('scroll', onScroll, { passive: true });
-        onScroll();
-    }
+    // ===== Section depth parallax — disabled for calmer scroll experience =====
 
     // ===== Theme toggle (Dark / Light) =====
     const themeBtn = document.getElementById('themeToggle');
