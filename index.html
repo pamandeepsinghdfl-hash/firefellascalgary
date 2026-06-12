@@ -393,6 +393,12 @@
             flex-direction: column;
             gap: 12px;
             z-index: 70;
+            transition: opacity 0.25s ease, transform 0.25s ease;
+        }
+        body.chat-open .fab-stack {
+            opacity: 0;
+            transform: translateX(20px);
+            pointer-events: none;
         }
         .fab {
             width: 52px; height: 52px;
@@ -1276,11 +1282,11 @@
         html[data-theme="light"] .border-white\/10 { border-color: rgba(10,15,31,0.08) !important; }
         html, body { transition: background-color 0.45s ease, color 0.45s ease; }
 
-        /* Theme + language toggle pill — discreet, bottom-left */
+        /* Theme + language toggle pill — discreet, bottom-left (sits above PWA prompt) */
         .pref-pill {
             position: fixed;
             left: 18px;
-            bottom: 22px;
+            bottom: 90px;
             z-index: 65;
             display: inline-flex;
             align-items: center;
@@ -1331,23 +1337,6 @@
             will-change: transform;
         }
         .tilt-3d * { transform-style: preserve-3d; }
-
-        /* Cursor particle layer */
-        .cursor-layer {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: 9998;
-        }
-        .cursor-particle {
-            position: absolute;
-            width: 6px; height: 6px;
-            border-radius: 50%;
-            background: radial-gradient(circle, #FFD700 0%, #FF4500 60%, transparent 100%);
-            opacity: 0.9;
-            mix-blend-mode: screen;
-            will-change: transform, opacity;
-        }
 
         /* Word morph */
         .word-morph {
@@ -1481,8 +1470,7 @@
         .halo:hover::before { opacity: 1; }
 
         @media (prefers-reduced-motion: reduce) {
-            .cursor-particle, .word-morph .wm, .word-stagger > span { transition: none !important; animation: none !important; }
-            [data-parallax] { transform: none !important; }
+            .word-morph .wm, .word-stagger > span { transition: none !important; animation: none !important; }
         }
 
         /* ===== Accessibility polish ===== */
@@ -1531,9 +1519,7 @@
     <button class="live-close" id="liveClose" aria-label="Close availability bar">×</button>
 </div>
 
-<!-- ===================== 2030 LAYER: CURSOR PARTICLES + PILLS ===================== -->
-<div class="cursor-layer" id="cursorLayer" aria-hidden="true"></div>
-
+<!-- ===================== 2030 LAYER: PILLS ===================== -->
 <div class="pref-pill" id="prefPill" aria-label="Preferences">
     <button data-lang="en" class="active" title="English">EN</button>
     <button data-lang="fr" title="Français">FR</button>
@@ -3717,23 +3703,28 @@ async function handleSubmit(e) {
         liveAvg.textContent = avgOptions[liveIdx];
     }, 12000);
 
-    // ---- Web Share API ----
+    // ---- Web Share API (share button was removed; guard kept in case re-added) ----
     const shareBtn = document.getElementById('shareBtn');
-    shareBtn.addEventListener('click', async () => {
-        const data = {
-            title: 'Fire Fellas Calgary',
-            text: 'Best moving & junk removal in Calgary — fast, careful, fully insured.',
-            url: window.location.href
-        };
-        try {
-            if (navigator.share) await navigator.share(data);
-            else {
-                await navigator.clipboard.writeText(data.url);
-                shareBtn.querySelector('.fab-tip').textContent = 'Link copied!';
-                setTimeout(() => { shareBtn.querySelector('.fab-tip').textContent = 'Share Fire Fellas'; }, 1800);
-            }
-        } catch(e) {}
-    });
+    if (shareBtn) {
+        shareBtn.addEventListener('click', async () => {
+            const data = {
+                title: 'Fire Fellas Calgary',
+                text: 'Best moving & junk removal in Calgary — fast, careful, fully insured.',
+                url: window.location.href
+            };
+            try {
+                if (navigator.share) await navigator.share(data);
+                else {
+                    await navigator.clipboard.writeText(data.url);
+                    const tip = shareBtn.querySelector('.fab-tip');
+                    if (tip) {
+                        tip.textContent = 'Link copied!';
+                        setTimeout(() => { tip.textContent = 'Share Fire Fellas'; }, 1800);
+                    }
+                }
+            } catch(e) {}
+        });
+    }
 
     // ---- AI Chat ----
     const launcher = document.getElementById('aiLauncher');
@@ -3764,10 +3755,14 @@ async function handleSubmit(e) {
     };
     const openChat = () => {
         chat.classList.add('open');
+        document.body.classList.add('chat-open');
         badge.style.display = 'none';
         setTimeout(() => input.focus(), 300);
     };
-    const closeChat = () => chat.classList.remove('open');
+    const closeChat = () => {
+        chat.classList.remove('open');
+        document.body.classList.remove('chat-open');
+    };
 
     launcher.addEventListener('click', () => chat.classList.contains('open') ? closeChat() : openChat());
     closeBtn.addEventListener('click', closeChat);
