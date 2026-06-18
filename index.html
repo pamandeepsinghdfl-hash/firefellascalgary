@@ -22,10 +22,11 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
 
-<!-- Three.js + GSAP/ScrollTrigger for the fully immersive scroll-driven scene -->
+<!-- Three.js + GSAP/ScrollTrigger + Lenis (smooth scroll) for premium motion -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lenis/1.0.45/lenis.min.js"></script>
 
 <!-- LocalBusiness JSON-LD (preserved from prior build) -->
 <script type="application/ld+json">
@@ -280,6 +281,81 @@
     box-shadow: 0 0 6px var(--accent);
   }
   @media (max-width: 640px) { .scene-narrator { display: none; } }
+  /* ===== Kinetic marquee bands (Obys/Cuberto-inspired) ===== */
+  .kinetic-band {
+    overflow: hidden;
+    padding: clamp(28px, 5vw, 48px) 0;
+    border-top: 1px solid rgba(255, 180, 130, 0.10);
+    border-bottom: 1px solid rgba(255, 180, 130, 0.10);
+    background: linear-gradient(180deg, rgba(40, 22, 50, 0.28), rgba(20, 14, 28, 0.42));
+    backdrop-filter: blur(18px) saturate(170%);
+    -webkit-backdrop-filter: blur(18px) saturate(170%);
+    position: relative;
+    z-index: 10;
+  }
+  .kinetic-track {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: clamp(40px, 8vw, 88px);
+    letter-spacing: -0.04em;
+    line-height: 1;
+    color: var(--text);
+    animation: kineticSlide 40s linear infinite;
+    will-change: transform;
+  }
+  .kinetic-band.reverse .kinetic-track { animation-direction: reverse; }
+  .kinetic-band.slow .kinetic-track { animation-duration: 60s; }
+  .kinetic-band:hover .kinetic-track { animation-play-state: paused; }
+  .kinetic-track span { padding: 0 32px; display: inline-flex; align-items: center; }
+  .kinetic-track .dot {
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+    padding: 0;
+  }
+  .kinetic-track .outline {
+    color: transparent;
+    -webkit-text-stroke: 1.5px var(--accent);
+    text-stroke: 1.5px var(--accent);
+  }
+  @keyframes kineticSlide {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .kinetic-track { animation: none; }
+  }
+
+  /* ===== Split-word hero reveal (Zentry-style clip-mask) ===== */
+  .word-wrap {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: top;
+    line-height: 1.05;
+  }
+  .word-wrap > span {
+    display: inline-block;
+    transform: translateY(110%);
+    transition: transform 1.1s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .word-wrap.in > span {
+    transform: translateY(0);
+  }
+  .word-wrap:nth-child(1) > span { transition-delay: 0.05s; }
+  .word-wrap:nth-child(2) > span { transition-delay: 0.18s; }
+  .word-wrap:nth-child(3) > span { transition-delay: 0.31s; }
+  .word-wrap:nth-child(4) > span { transition-delay: 0.44s; }
+  .word-wrap:nth-child(5) > span { transition-delay: 0.57s; }
+  .word-wrap:nth-child(6) > span { transition-delay: 0.70s; }
+  .word-wrap:nth-child(7) > span { transition-delay: 0.83s; }
+  @media (prefers-reduced-motion: reduce) {
+    .word-wrap > span { transform: none; transition: none; }
+  }
+
   /* Scroll-hint chevron in hero, fades out after first scroll */
   .scroll-hint {
     position: absolute;
@@ -972,7 +1048,15 @@
   <div class="container">
     <div class="hero-content reveal">
       <span class="eyebrow">Calgary · Moving &amp; Junk Removal</span>
-      <h1 class="display-xl">Move faster. Less stress. <br>No damage.</h1>
+      <h1 class="display-xl" id="heroHeadline" aria-label="Move faster. Less stress. No damage.">
+        <span class="word-wrap"><span>Move</span></span>
+        <span class="word-wrap"><span>faster.</span></span>
+        <span class="word-wrap"><span>Less</span></span>
+        <span class="word-wrap"><span>stress.</span></span>
+        <br>
+        <span class="word-wrap"><span>No</span></span>
+        <span class="word-wrap"><span>damage.</span></span>
+      </h1>
       <p class="body-l">Premium local moving and junk removal across Calgary. Same-day available, fully insured, flat rates with no surprises. Built by Calgarians, for Calgarians.</p>
       <div class="hero-ctas">
         <a href="#quote" class="btn btn-primary btn-lg">Get free quote →</a>
@@ -1004,6 +1088,14 @@
     </div>
   </div>
 </section>
+
+<!-- ============================================================ KINETIC BAND #1 ============================================================ -->
+<div class="kinetic-band" aria-hidden="true">
+  <div class="kinetic-track">
+    <span>Moving</span><span class="dot"></span><span class="outline">Hauling</span><span class="dot"></span><span>Clearing</span><span class="dot"></span><span class="outline">Calgary</span><span class="dot"></span><span>Same-day</span><span class="dot"></span>
+    <span>Moving</span><span class="dot"></span><span class="outline">Hauling</span><span class="dot"></span><span>Clearing</span><span class="dot"></span><span class="outline">Calgary</span><span class="dot"></span><span>Same-day</span><span class="dot"></span>
+  </div>
+</div>
 
 <!-- ============================================================ SERVICES (BENTO) ============================================================ -->
 <section class="section" id="services">
@@ -1139,6 +1231,14 @@
     </div>
   </div>
 </section>
+
+<!-- ============================================================ KINETIC BAND #2 (reverse direction) ============================================================ -->
+<div class="kinetic-band reverse" aria-hidden="true">
+  <div class="kinetic-track">
+    <span class="outline">Fast</span><span class="dot"></span><span>Insured</span><span class="dot"></span><span class="outline">Damage-free</span><span class="dot"></span><span>Flat-rate</span><span class="dot"></span><span class="outline">Calgary-owned</span><span class="dot"></span>
+    <span class="outline">Fast</span><span class="dot"></span><span>Insured</span><span class="dot"></span><span class="outline">Damage-free</span><span class="dot"></span><span>Flat-rate</span><span class="dot"></span><span class="outline">Calgary-owned</span><span class="dot"></span>
+  </div>
+</div>
 
 <!-- ============================================================ GUARANTEE + COMPARISON ============================================================ -->
 <section class="section" style="padding-top: 0;">
@@ -2269,6 +2369,58 @@
 
   // Try once at parse; fall back to window.load if scripts haven't loaded yet
   if (!init()) window.addEventListener('load', init, { once: true });
+})();
+</script>
+
+<!-- ============================================================ MOTION POLISH: Lenis smooth scroll + split-word hero reveal ============================================================ -->
+<script>
+(function () {
+  'use strict';
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isCoarse = window.matchMedia('(pointer: coarse)').matches;
+
+  // ---- Lenis smooth scroll (Locomotive-style) + GSAP ScrollTrigger sync ----
+  // Skipped on touch (native momentum is better there) and reduced-motion.
+  if (typeof Lenis !== 'undefined' && !isCoarse && !reduceMotion) {
+    const lenis = new Lenis({
+      duration: 1.15,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+      smoothTouch: false,
+    });
+
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+      // Drive Lenis off GSAP's ticker so it shares the same loop as ScrollTrigger updates
+      lenis.on('scroll', ScrollTrigger.update);
+      gsap.ticker.add((time) => { lenis.raf(time * 1000); });
+      gsap.ticker.lagSmoothing(0);
+    } else {
+      (function raf(time) { lenis.raf(time); requestAnimationFrame(raf); })();
+    }
+
+    // In-page anchor links (#hash) routed through Lenis for buttery scroll
+    document.querySelectorAll('a[href^="#"]').forEach((a) => {
+      const href = a.getAttribute('href');
+      if (href.length < 2) return;
+      a.addEventListener('click', (e) => {
+        const target = document.querySelector(href);
+        if (!target) return;
+        e.preventDefault();
+        lenis.scrollTo(target, { offset: -80, duration: 1.4 });
+      });
+    });
+  }
+
+  // ---- Split-word hero reveal (Zentry-style clip-mask) ----
+  // Trigger right after the page settles so the headline rises into view dramatically
+  const triggerHeroReveal = () => {
+    document.querySelectorAll('#heroHeadline .word-wrap').forEach((w) => {
+      // Use rAF so the initial transform has a frame to register before the .in toggle
+      requestAnimationFrame(() => w.classList.add('in'));
+    });
+  };
+  if (document.readyState === 'complete') triggerHeroReveal();
+  else window.addEventListener('load', triggerHeroReveal, { once: true });
 })();
 </script>
 
