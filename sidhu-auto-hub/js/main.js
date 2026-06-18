@@ -163,18 +163,23 @@ function initFilters() {
   });
 }
 
-/* ----- Modal ----- */
+/* ----- Modal (vehicle detail page) ----- */
+let activeVehicle = "";
 function openModal(i) {
   const v = INVENTORY[i];
   const m = document.getElementById("modal");
+  activeVehicle = `${v.year} ${v.name}`;
   m.querySelector("[data-m-img]").src = v.img;
-  m.querySelector("[data-m-title]").textContent = `${v.year} ${v.name}`;
+  m.querySelector("[data-m-title]").textContent = activeVehicle;
   m.querySelector("[data-m-price]").textContent = v.price;
   m.querySelector("[data-m-desc]").textContent = v.desc;
   m.querySelector("[data-m-specs]").innerHTML = [
     ["Power", v.hp], ["0–100 km/h", v.zero], ["Drivetrain", v.sub.split("·").pop().trim()],
     ["Transmission", v.trans], ["Mileage", v.km], ["Engine", v.sub.split("·")[0].trim()]
   ].map(([k, val]) => `<div class="spec"><span class="s-val">${val}</span><span class="s-lbl">${k}</span></div>`).join("");
+  // wire modal action buttons to the chosen vehicle + price for the calculator
+  m.querySelectorAll("[data-m-action]").forEach(btn => btn.dataset.vehicle = activeVehicle);
+  m.dataset.price = (v.price.match(/[\d,]+/) || ["0"])[0].replace(/,/g, "");
   m.classList.add("open");
   document.body.style.overflow = "hidden";
 }
@@ -183,6 +188,13 @@ function initModal() {
   m.querySelector(".modal__close").addEventListener("click", closeModal);
   m.addEventListener("click", e => { if (e.target === m) closeModal(); });
   document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
+  // modal actions: prefill lead form / calculator, then jump there
+  m.querySelectorAll("[data-m-action]").forEach(btn => btn.addEventListener("click", () => {
+    const act = btn.dataset.m_action || btn.dataset.mAction || btn.getAttribute("data-m-action");
+    if (act === "finance" && m.dataset.price) prefillCalculator(+m.dataset.price);
+    else setLeadForm(act, activeVehicle);
+    closeModal();
+  }));
   function closeModal() { m.classList.remove("open"); document.body.style.overflow = ""; }
 }
 
@@ -210,7 +222,7 @@ async function initThree() {
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
 
   const scene = new THREE.Scene();
-  scene.fog = new THREE.FogExp2(0x0a0718, 0.055);
+  scene.fog = new THREE.FogExp2(0xeef0f4, 0.045);
 
   const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 200);
   camera.position.set(0, 0, 12);
@@ -225,8 +237,8 @@ async function initThree() {
     positions[i * 3 + 2] = (Math.random() - 0.5) * 120;
     speeds[i] = 0.6 + Math.random();
   }
-  // vivid multicolour particles
-  const PALETTE = [0xff2d9b, 0xff7a18, 0xffd000, 0x5cff9d, 0x19e3ff, 0x4d7cff, 0xb14bff];
+  // warm orange/amber particles, subtle on a light page (normal blending)
+  const PALETTE = [0xff6a00, 0xff9a3d, 0xffb15a, 0xe85d04, 0xcf7a3a, 0xffc987];
   const colors = new Float32Array(COUNT * 3);
   const tmp = new THREE.Color();
   for (let i = 0; i < COUNT; i++) {
@@ -237,13 +249,13 @@ async function initThree() {
   pGeo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
   pGeo.setAttribute("color", new THREE.BufferAttribute(colors, 3));
   const pMat = new THREE.PointsMaterial({
-    size: 0.13, transparent: true, opacity: 0.95, vertexColors: true,
-    sizeAttenuation: true, depthWrite: false, blending: THREE.AdditiveBlending
+    size: 0.1, transparent: true, opacity: 0.5, vertexColors: true,
+    sizeAttenuation: true, depthWrite: false, blending: THREE.NormalBlending
   });
   const points = new THREE.Points(pGeo, pMat);
   scene.add(points);
 
-  // --- floating neon shapes ---
+  // --- floating amber shapes (subtle) ---
   const shapes = [];
   const geos = [
     new THREE.IcosahedronGeometry(1.5, 0),
@@ -255,8 +267,8 @@ async function initThree() {
     const col = PALETTE[i % PALETTE.length];
     const useWire = i % 2 === 0;
     const m = useWire
-      ? new THREE.MeshBasicMaterial({ color: col, wireframe: true, transparent: true, opacity: 0.55 })
-      : new THREE.MeshStandardMaterial({ color: col, metalness: 0.6, roughness: 0.25, emissive: col, emissiveIntensity: 0.45 });
+      ? new THREE.MeshBasicMaterial({ color: col, wireframe: true, transparent: true, opacity: 0.32 })
+      : new THREE.MeshStandardMaterial({ color: col, metalness: 0.5, roughness: 0.35, emissive: col, emissiveIntensity: 0.5, transparent: true, opacity: 0.85 });
     const mesh = new THREE.Mesh(geos[i % geos.length], m);
     const s = 0.5 + Math.random() * 0.9;
     mesh.scale.setScalar(s);
@@ -267,12 +279,12 @@ async function initThree() {
     scene.add(mesh);
   }
 
-  // --- colourful lighting ---
-  const key = new THREE.DirectionalLight(0xffffff, 2.0); key.position.set(5, 8, 10); scene.add(key);
-  const rim = new THREE.PointLight(0xff2d9b, 22, 70); rim.position.set(-9, -4, 4); scene.add(rim);
-  const rim2 = new THREE.PointLight(0x19e3ff, 20, 70); rim2.position.set(9, 5, 2); scene.add(rim2);
-  const rim3 = new THREE.PointLight(0xb14bff, 16, 70); rim3.position.set(0, -8, 6); scene.add(rim3);
-  scene.add(new THREE.AmbientLight(0x3a2f6e, 0.8));
+  // --- warm lighting ---
+  const key = new THREE.DirectionalLight(0xffffff, 2.2); key.position.set(5, 8, 10); scene.add(key);
+  const rim = new THREE.PointLight(0xff6a00, 20, 70); rim.position.set(-9, -4, 4); scene.add(rim);
+  const rim2 = new THREE.PointLight(0xffb15a, 16, 70); rim2.position.set(9, 5, 2); scene.add(rim2);
+  const rim3 = new THREE.PointLight(0xe85d04, 14, 70); rim3.position.set(0, -8, 6); scene.add(rim3);
+  scene.add(new THREE.AmbientLight(0xffffff, 0.9));
 
   // pointer parallax
   if (!isTouch) {
@@ -282,9 +294,11 @@ async function initThree() {
     });
   }
 
-  // --- UnrealBloom post-processing (Lusion-style glow) ---
+  // --- UnrealBloom post-processing ---
+  // Disabled on the light theme: EffectComposer renders to an opaque buffer,
+  // which would black out the transparent canvas and hide the light page behind it.
   let composer = null, bloom = null;
-  if (!isTouch) {
+  if (false) {
     try {
       const [{ EffectComposer }, { RenderPass }, { UnrealBloomPass }, { OutputPass }] = await Promise.all([
         import("./vendor/jsm/postprocessing/EffectComposer.js"),
@@ -295,7 +309,7 @@ async function initThree() {
       composer = new EffectComposer(renderer);
       composer.addPass(new RenderPass(scene, camera));
       bloom = new UnrealBloomPass(
-        new THREE.Vector2(window.innerWidth, window.innerHeight), 0.9, 0.6, 0.18);
+        new THREE.Vector2(window.innerWidth, window.innerHeight), 0.35, 0.5, 0.55);
       composer.addPass(bloom);
       composer.addPass(new OutputPass());
       composer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -538,8 +552,8 @@ function playIntro() {
   if (!window.gsap) return;
   gsap.fromTo(".hero h1 .line > span", { yPercent: 110 },
     { yPercent: 0, duration: 1.1, stagger: 0.12, ease: "expo.out" });
-  gsap.fromTo(".hero__sub, .hero__actions, .hero__logo, .hero__scroll",
-    { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 1, stagger: 0.1, ease: "power3.out", delay: 0.2 });
+  gsap.fromTo(".hero__logo, .hero__tag, .hero__sub, .hero__actions, .hero__chips, .hero__visual, .hero__scroll",
+    { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 1, stagger: 0.09, ease: "power3.out", delay: 0.2 });
 }
 
 /* ----- Kinetic word split + reveal (Obys / Zentry) ----- */
@@ -620,6 +634,212 @@ function initGarage() {
 }
 
 /* ----------------------------------------------------------------
+   5.  DEALERSHIP INTERACTION PATTERNS
+---------------------------------------------------------------- */
+
+/* ----- Right-rail scroll dots ----- */
+function initDots() {
+  const rail = document.getElementById("dots");
+  if (!rail) return;
+  const secs = [...document.querySelectorAll("[data-dot]")];
+  rail.innerHTML = secs.map((s, i) =>
+    `<button data-i="${i}" aria-label="${s.dataset.dot}"><span>${s.dataset.dot}</span></button>`).join("");
+  const btns = [...rail.querySelectorAll("button")];
+  btns.forEach((b, i) => b.addEventListener("click", () => {
+    const t = secs[i];
+    if (lenis) lenis.scrollTo(t, { offset: -60 });
+    else t.scrollIntoView({ behavior: "smooth" });
+  }));
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const i = secs.indexOf(e.target);
+        btns.forEach(b => b.classList.remove("active"));
+        if (btns[i]) btns[i].classList.add("active");
+      }
+    });
+  }, { rootMargin: "-45% 0px -45% 0px" });
+  secs.forEach(s => io.observe(s));
+}
+
+/* ----- 3D Showroom: tab swap + drag-to-explore parallax ----- */
+const SHOWROOM_VIEWS = {
+  exterior: "assets/showroom/exterior.jpg",
+  interior: "assets/showroom/interior.jpg",
+  engine:   "assets/showroom/engine.jpg"
+};
+function initShowroom() {
+  const viewer = document.getElementById("viewer");
+  const img = document.getElementById("viewer-img");
+  if (!viewer || !img) return;
+
+  // tabs
+  document.querySelectorAll(".showroom__tab").forEach(tab => {
+    tab.addEventListener("click", () => {
+      document.querySelectorAll(".showroom__tab").forEach(t => t.classList.remove("active"));
+      tab.classList.add("active");
+      const src = SHOWROOM_VIEWS[tab.dataset.view];
+      if (!src) return;
+      img.style.opacity = "0";
+      setTimeout(() => { img.src = src; img.onload = () => img.style.opacity = "1"; }, 200);
+    });
+  });
+
+  // drag to parallax/rotate the car (touch + mouse)
+  let dragging = false, sx = 0, rotX = 0, rotY = 0, tRotX = 0, tRotY = 0;
+  const base = 1.08;
+  img.style.transform = `scale(${base})`;
+  const down = x => { dragging = true; sx = x; viewer.classList.add("dragging"); };
+  const move = (x, y, rect) => {
+    if (!dragging) {
+      // gentle hover parallax
+      tRotY = ((x - rect.left) / rect.width - 0.5) * 10;
+      tRotX = ((y - rect.top) / rect.height - 0.5) * -6;
+    } else {
+      tRotY += (x - sx) * 0.25; sx = x;
+    }
+  };
+  const up = () => { dragging = false; viewer.classList.remove("dragging"); };
+
+  viewer.addEventListener("mousedown", e => down(e.clientX));
+  window.addEventListener("mouseup", up);
+  viewer.addEventListener("mousemove", e => move(e.clientX, e.clientY, viewer.getBoundingClientRect()));
+  viewer.addEventListener("mouseleave", () => { if (!dragging) { tRotX = 0; tRotY = 0; } });
+  viewer.addEventListener("touchstart", e => down(e.touches[0].clientX), { passive: true });
+  window.addEventListener("touchend", up);
+  viewer.addEventListener("touchmove", e => { move(e.touches[0].clientX, e.touches[0].clientY, viewer.getBoundingClientRect()); }, { passive: true });
+
+  (function loop() {
+    rotX += (tRotX - rotX) * 0.08;
+    rotY += (tRotY - rotY) * 0.08;
+    img.style.transform = `scale(${base}) perspective(1200px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateX(${-rotY * 0.4}%)`;
+    requestAnimationFrame(loop);
+  })();
+}
+
+/* ----- Finance / monthly payment calculator ----- */
+const calcState = { price: 80000, down: 8000, apr: 6.9, term: 60 };
+function fmt(n) { return Math.round(n).toLocaleString(); }
+function computeMonthly() {
+  const principal = Math.max(0, calcState.price - calcState.down);
+  const r = calcState.apr / 100 / 12;
+  const n = calcState.term;
+  const m = r === 0 ? principal / n : principal * r / (1 - Math.pow(1 + r, -n));
+  return principal === 0 ? 0 : m;
+}
+function renderCalc() {
+  const price = document.getElementById("calc-price");
+  const down = document.getElementById("calc-down");
+  const apr = document.getElementById("calc-apr");
+  document.getElementById("o-price").textContent = "$" + fmt(calcState.price);
+  document.getElementById("o-down").textContent = "$" + fmt(calcState.down);
+  document.getElementById("o-apr").textContent = calcState.apr.toFixed(1) + "%";
+  const setFill = (el, min, max) => el && el.style.setProperty("--p", ((el.value - min) / (max - min) * 100) + "%");
+  setFill(price, 20000, 320000); setFill(down, 0, 100000); setFill(apr, 0, 15);
+  const monthly = computeMonthly();
+  const out = document.getElementById("o-monthly");
+  if (window.gsap) {
+    const o = { v: +out.textContent.replace(/,/g, "") || 0 };
+    gsap.to(o, { v: monthly, duration: 0.5, ease: "power2.out", onUpdate: () => out.textContent = fmt(o.v) });
+  } else out.textContent = fmt(monthly);
+}
+function prefillCalculator(price) {
+  const el = document.getElementById("calc-price");
+  if (!el) return;
+  calcState.price = Math.min(320000, Math.max(20000, price));
+  el.value = calcState.price;
+  if (calcState.down > calcState.price) { calcState.down = Math.round(calcState.price * 0.1); document.getElementById("calc-down").value = calcState.down; }
+  renderCalc();
+  const sec = document.getElementById("finance");
+  if (lenis) lenis.scrollTo(sec, { offset: -60 }); else sec.scrollIntoView({ behavior: "smooth" });
+}
+function initCalculator() {
+  const price = document.getElementById("calc-price");
+  if (!price) return;
+  const down = document.getElementById("calc-down");
+  const apr = document.getElementById("calc-apr");
+  price.addEventListener("input", () => { calcState.price = +price.value; if (+down.value > calcState.price) { down.value = calcState.price; calcState.down = calcState.price; } renderCalc(); });
+  down.addEventListener("input", () => { calcState.down = Math.min(+down.value, calcState.price); down.value = calcState.down; renderCalc(); });
+  apr.addEventListener("input", () => { calcState.apr = +apr.value; renderCalc(); });
+  document.querySelectorAll("#calc-terms button").forEach(b => b.addEventListener("click", () => {
+    document.querySelectorAll("#calc-terms button").forEach(x => x.classList.remove("active"));
+    b.classList.add("active"); calcState.term = +b.dataset.term; renderCalc();
+  }));
+  renderCalc();
+}
+
+/* ----- Lead forms: tabs, vehicle prefill, mailto submit ----- */
+function setLeadForm(type, vehicle) {
+  const map = { testdrive: "testdrive", quote: "quote", trade: "trade" };
+  type = map[type] || "quote";
+  const tab = document.querySelector(`.lead__tab[data-form="${type}"]`);
+  if (tab) tab.click();
+  if (vehicle) { const vf = document.querySelector('#lead-form [name="vehicle"]'); if (vf) vf.value = vehicle; }
+  const sec = document.getElementById("contact");
+  if (lenis) lenis.scrollTo(sec, { offset: -60 }); else sec.scrollIntoView({ behavior: "smooth" });
+}
+function initLeadForm() {
+  const form = document.getElementById("lead-form");
+  if (!form) return;
+  let current = "testdrive";
+  const rows = { date: form.querySelector('[data-row="date"]'), trade: form.querySelector('[data-row="trade"]'), vehicle: form.querySelector('[data-row="vehicle"]') };
+  const submit = document.getElementById("lead-submit");
+  const labels = { testdrive: "Book Test Drive", quote: "Send Quote Request", trade: "Get Trade Value" };
+
+  function apply(type) {
+    current = type;
+    document.querySelectorAll(".lead__tab").forEach(t => t.classList.toggle("active", t.dataset.form === type));
+    rows.date.hidden = type !== "testdrive";
+    rows.trade.hidden = type !== "trade";
+    submit.textContent = labels[type];
+  }
+  document.querySelectorAll(".lead__tab").forEach(t => t.addEventListener("click", () => apply(t.dataset.form)));
+
+  form.addEventListener("submit", e => {
+    e.preventDefault();
+    const d = Object.fromEntries(new FormData(form).entries());
+    if (!d.name || !d.phone || !d.email) { form.reportValidity && form.reportValidity(); return; }
+    const subjMap = { testdrive: "Test Drive Request", quote: "Quote Request", trade: "Trade-In Valuation" };
+    const subject = `${subjMap[current]} — Sidhu Auto Hub`;
+    const lines = [
+      `Request type: ${subjMap[current]}`,
+      `Name: ${d.name}`, `Phone: ${d.phone}`, `Email: ${d.email}`,
+      d.vehicle ? `Vehicle: ${d.vehicle}` : "",
+      current === "testdrive" && d.datetime ? `Preferred date/time: ${d.datetime}` : "",
+      current === "trade" && d.trade ? `Trade-in: ${d.trade}` : "",
+      d.message ? `Message: ${d.message}` : ""
+    ].filter(Boolean);
+    window.location.href = `mailto:Sidhu4747@icloud.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join("\n"))}`;
+    document.getElementById("form-ok").classList.add("show");
+  });
+  apply("testdrive");
+}
+
+/* any element with [data-lead] opens the matching form (and prefills vehicle) */
+function initLeadTriggers() {
+  document.querySelectorAll("[data-lead]").forEach(el => el.addEventListener("click", e => {
+    if (el.tagName === "A" && el.getAttribute("href") === "#contact") e.preventDefault();
+    setLeadForm(el.dataset.lead, el.dataset.vehicle || "");
+  }));
+}
+
+/* ----- Sticky action bar (show after hero) ----- */
+function initActionBar() {
+  const bar = document.getElementById("actionbar");
+  if (!bar) return;
+  const onScroll = () => bar.classList.toggle("show", window.scrollY > window.innerHeight * 0.7);
+  window.addEventListener("scroll", onScroll, { passive: true }); onScroll();
+}
+
+/* ----- Chat / message widget ----- */
+function initChat() {
+  const chat = document.getElementById("chat");
+  if (!chat) return;
+  document.getElementById("chat-btn").addEventListener("click", () => chat.classList.toggle("open"));
+  document.addEventListener("click", e => { if (!chat.contains(e.target)) chat.classList.remove("open"); });
+}
+
+/* ----------------------------------------------------------------
    BOOT
 ---------------------------------------------------------------- */
 document.addEventListener("DOMContentLoaded", () => {
@@ -632,6 +852,13 @@ document.addEventListener("DOMContentLoaded", () => {
   initBandParallax();
   initCinema();          // Apple-style pinned product story
   initGarage();          // Locomotive-style horizontal scroll
+  initShowroom();        // 3D showroom: tabs + drag
+  initCalculator();      // finance / payment calculator
+  initLeadForm();        // test drive / quote / trade-in
+  initLeadTriggers();    // [data-lead] buttons across the page
+  initDots();            // right-rail scroll dots
+  initActionBar();       // sticky call/text/quote bar
+  initChat();            // message widget
   initNav();
   initCursor();
   initMagnetic();

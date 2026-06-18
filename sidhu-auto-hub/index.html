@@ -3,13 +3,12 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Sidhu Auto Hub — Premium Performance Inventory | Brampton, ON</title>
-<meta name="description" content="Sidhu Auto Hub — premium pre-owned performance, muscle and luxury vehicles in Brampton, Ontario. Explore our handpicked inventory of V8 muscle, sports cars and luxury SUVs." />
-<meta name="theme-color" content="#0a0718" />
+<title>Sidhu Auto Hub — Drive Your Passion | Premium Auto Dealership, Brampton ON</title>
+<meta name="description" content="Sidhu Auto Hub — Brampton's premium dealership for performance, muscle and luxury vehicles. Explore the 3D showroom, estimate your payment, book a test drive and get an instant quote." />
+<meta name="theme-color" content="#ff6a00" />
 
-<!-- Open Graph -->
-<meta property="og:title" content="Sidhu Auto Hub — Premium Performance Inventory" />
-<meta property="og:description" content="Handpicked muscle, sport and luxury vehicles. Brampton, ON." />
+<meta property="og:title" content="Sidhu Auto Hub — Drive Your Passion" />
+<meta property="og:description" content="Premium performance, muscle & luxury vehicles. Brampton, ON. 3D showroom, finance calculator, test drives." />
 <meta property="og:type" content="website" />
 <meta property="og:image" content="assets/logo.jpeg" />
 
@@ -17,12 +16,10 @@
 <link rel="stylesheet" href="assets/fonts/fonts.css" />
 <link rel="stylesheet" href="css/style.css" />
 
-<!-- Three.js as ES module (vendored locally — works fully offline) -->
 <script type="importmap">
 { "imports": { "three": "./js/vendor/three.module.js" } }
 </script>
 
-<!-- LocalBusiness structured data -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -31,104 +28,101 @@
   "image": "assets/logo.jpeg",
   "telephone": "+1-437-230-3608",
   "email": "Sidhu4747@icloud.com",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "22 Bramsteele Rd",
-    "addressLocality": "Brampton",
-    "addressRegion": "ON",
-    "postalCode": "L6W 1B3",
-    "addressCountry": "CA"
-  },
+  "address": { "@type": "PostalAddress", "streetAddress": "22 Bramsteele Rd", "addressLocality": "Brampton", "addressRegion": "ON", "postalCode": "L6W 1B3", "addressCountry": "CA" },
   "priceRange": "$$$"
 }
 </script>
 </head>
 <body>
 
-<!-- ============ PRELOADER ============ -->
+<!-- PRELOADER -->
 <div class="preloader" id="preloader">
   <div class="preloader__inner">
     <img class="preloader__logo" src="assets/logo.jpeg" alt="Sidhu Auto Hub" />
     <div class="preloader__bar"><span class="preloader__fill"></span></div>
-    <div class="preloader__meta">
-      <span class="preloader__word">SIDHU AUTO HUB</span>
-      <span class="preloader__count">0</span>
-    </div>
+    <div class="preloader__meta"><span>SIDHU AUTO HUB</span><span class="preloader__count">0</span></div>
   </div>
 </div>
 
-<!-- depth layers -->
 <canvas id="bg-canvas"></canvas>
 <div class="grain"></div>
 <div class="scroll-progress"></div>
 <div class="cursor"><span class="cursor__label"></span></div>
 <div class="cursor-dot"></div>
+<nav class="dots" id="dots" aria-label="Section navigation"></nav>
 
-<!-- ============ NAV ============ -->
+<!-- NAV -->
 <header class="nav">
+  <div class="nav__shell"></div>
   <a class="nav__brand" href="#top">
     <img src="assets/logo.jpeg" alt="Sidhu Auto Hub logo" />
     <span class="nav__brand-txt"><b>SIDHU</b><span>AUTO HUB</span></span>
   </a>
   <nav class="nav__links">
+    <a href="#showroom">Showroom</a>
     <a href="#inventory">Inventory</a>
+    <a href="#finance">Finance</a>
     <a href="#about">About</a>
-    <a href="#process">How It Works</a>
     <a href="#contact">Contact</a>
-    <a class="nav__cta" href="tel:+14372303608">Call Now</a>
+    <a class="nav__cta" href="#contact" data-lead="testdrive">Book Test Drive</a>
   </nav>
   <div class="nav__burger" aria-label="Menu"><span></span><span></span><span></span></div>
 </header>
 
-<!-- ============ HERO ============ -->
-<section class="hero" id="top">
-  <video class="hero__video" src="assets/hero.mp4" autoplay muted loop playsinline></video>
-  <div class="hero__scrim"></div>
-  <div class="hero__inner">
-    <img class="hero__logo" src="assets/logo.jpeg" alt="Sidhu Auto Hub" />
-    <h1>
-      <span class="line"><span>DRIVE THE</span></span>
-      <span class="line"><span class="chrome-text">EXTRAORDINARY</span></span>
-    </h1>
-    <p class="hero__sub">
-      <strong>Sidhu Auto Hub</strong> — Brampton's home for handpicked muscle, sport
-      and luxury machines. Raw power, immaculate condition, and a buying experience
-      built for the driver who refuses to settle.
-    </p>
-    <div class="hero__actions">
-      <a class="btn btn--primary" href="#inventory">Explore Inventory <span>→</span></a>
-      <a class="btn btn--ghost" href="#contact">Book a Viewing</a>
+<!-- HERO -->
+<section class="hero" id="top" data-dot="Home">
+  <div class="hero__grid">
+    <div class="hero__copy">
+      <img class="hero__logo" src="assets/logo.jpeg" alt="Sidhu Auto Hub" />
+      <h1>
+        <span class="line"><span>DRIVE YOUR</span></span>
+        <span class="line"><span class="brush accent-text">Passion</span></span>
+      </h1>
+      <p class="hero__tag">Discover. Experience. Own.</p>
+      <p class="hero__sub">Brampton's premium home for performance, muscle and luxury machines —
+        wrapped in an experience built for the driver who refuses to settle.</p>
+      <div class="hero__actions">
+        <a class="btn btn--primary" href="#showroom">Explore 3D Showroom <span>→</span></a>
+        <a class="btn btn--glass" href="#contact" data-lead="quote">Get a Quote</a>
+      </div>
+      <div class="hero__chips">
+        <div class="hero__chip"><b>50+</b><span>In Stock</span></div>
+        <div class="hero__chip"><b>120-pt</b><span>Inspection</span></div>
+        <div class="hero__chip"><b>4.9★</b><span>Buyer Rating</span></div>
+      </div>
+    </div>
+    <div class="hero__visual reveal">
+      <div class="hero__floater">From 3.1s<br><b>0–100</b></div>
+      <div class="hero__card">
+        <img src="assets/showroom/hero.jpg" alt="Sidhu Auto Hub showroom" />
+      </div>
+      <div class="hero__badge">
+        <div><div class="k">This Week</div><div class="v">New Arrivals In Stock</div></div>
+        <a class="btn btn--primary btn--sm" href="#inventory">View</a>
+      </div>
     </div>
   </div>
-  <div class="hero__scroll">
-    <div class="mouse"></div>
-    Scroll to Enter
-  </div>
+  <div class="hero__scroll"><div class="mouse"></div>Scroll</div>
 </section>
 
-<!-- ============ MARQUEE ============ -->
+<!-- MARQUEE -->
 <div class="marquee">
   <div class="marquee__track">
-    <span>MUSCLE</span><span>PERFORMANCE</span><span>LUXURY SUV</span><span>SPORT</span>
-    <span>MUSCLE</span><span>PERFORMANCE</span><span>LUXURY SUV</span><span>SPORT</span>
+    <span>MUSCLE</span><span>PERFORMANCE</span><span>LUXURY SUV</span><span>EXOTIC</span>
+    <span>MUSCLE</span><span>PERFORMANCE</span><span>LUXURY SUV</span><span>EXOTIC</span>
   </div>
 </div>
 
-<!-- ============ ABOUT ============ -->
-<section class="about section-pad" id="about">
+<!-- ABOUT -->
+<section class="about section-pad" id="about" data-dot="About">
   <div class="wrap about__grid">
     <div class="reveal">
       <span class="eyebrow">The Sidhu Standard</span>
       <p class="about__lead">We don't just sell cars. We curate <b>machines worth owning.</b></p>
-      <p class="about__copy">
-        Every vehicle on our floor is inspected, road-tested and hand-selected for
-        condition and character. From supercharged V8 muscle to mid-engine sports cars
-        and flagship luxury SUVs — if it carries the Sidhu Auto Hub badge, it has
-        earned its place. Transparent history, fair pricing, and a no-pressure room.
-      </p>
-      <div class="hero__actions">
-        <a class="btn btn--chrome" href="#inventory">View the Collection</a>
-      </div>
+      <p class="about__copy">Every vehicle on our floor is inspected, road-tested and hand-selected for
+        condition and character. Transparent history, fair pricing, in-house financing, and a
+        no-pressure room — that's how buying a car should feel.</p>
+      <div class="hero__actions"><a class="btn btn--primary" href="#inventory">View the Collection</a></div>
     </div>
     <div class="about__stats reveal">
       <div class="stat"><div class="num"><span data-count="350">0</span>+</div><div class="lbl">Cars Delivered</div></div>
@@ -139,7 +133,107 @@
   </div>
 </section>
 
-<!-- ============ SCROLL CINEMA (Apple-style pinned product story) ============ -->
+<!-- 3D SHOWROOM (drag + tabs) -->
+<section class="showroom section-pad" id="showroom" data-dot="Showroom">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Interactive Showroom</span>
+      <h2 class="kinetic">Explore Every Angle</h2>
+      <p>Drag to move around the car, then switch between exterior, interior and engine.
+         The closest thing to standing on our showroom floor.</p>
+    </div>
+    <div class="showroom__stage reveal">
+      <div class="showroom__viewer" id="viewer" data-cursor="Drag">
+        <img class="showroom__img" id="viewer-img" src="assets/showroom/exterior.jpg" alt="Featured vehicle" />
+        <div class="showroom__shine"></div>
+        <div class="showroom__360">360°</div>
+        <div class="showroom__hint"><span class="ring"></span> Drag to explore</div>
+      </div>
+      <div class="showroom__panel">
+        <span class="eyebrow">Featured</span>
+        <h3>McLaren 720S</h3>
+        <div class="price">$329,000</div>
+        <div class="showroom__tabs">
+          <button class="showroom__tab active" data-view="exterior">Exterior</button>
+          <button class="showroom__tab" data-view="interior">Interior</button>
+          <button class="showroom__tab" data-view="engine">Engine</button>
+        </div>
+        <div class="showroom__specs">
+          <div class="spec"><span class="s-val">710 HP</span><span class="s-lbl">Power</span></div>
+          <div class="spec"><span class="s-val">2.8s</span><span class="s-lbl">0–100</span></div>
+          <div class="spec"><span class="s-val">341 km/h</span><span class="s-lbl">Top Speed</span></div>
+          <div class="spec"><span class="s-val">4.0L V8</span><span class="s-lbl">Engine</span></div>
+        </div>
+        <a class="btn btn--primary" href="#contact" data-lead="testdrive" data-vehicle="McLaren 720S">Book a Test Drive</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INVENTORY -->
+<section class="section-pad" id="inventory" data-dot="Inventory">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Sample Inventory</span>
+      <h2 class="kinetic">The Collection</h2>
+      <p>A curated lineup of performance, muscle and luxury. Hover, tilt and tap any vehicle
+         for the full spec sheet, payment estimate and test-drive booking.</p>
+    </div>
+    <div class="filters reveal">
+      <button class="filter active" data-filter="all">All</button>
+      <button class="filter" data-filter="muscle">Muscle</button>
+      <button class="filter" data-filter="sport">Sport</button>
+      <button class="filter" data-filter="suv">Luxury SUV</button>
+    </div>
+    <div class="grid" id="inventory-grid"></div>
+  </div>
+</section>
+
+<!-- FINANCE CALCULATOR -->
+<section class="section-pad" id="finance" data-dot="Finance">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Plan Your Purchase</span>
+      <h2 class="kinetic">Payment Calculator</h2>
+      <p>Estimate your monthly payment in seconds, then apply with our in-house finance team.
+         No impact to your credit to get started.</p>
+    </div>
+    <div class="finance__grid reveal">
+      <div class="calc">
+        <div class="calc__field">
+          <label>Vehicle Price <b id="o-price">$80,000</b></label>
+          <input type="range" id="calc-price" min="20000" max="320000" step="1000" value="80000" />
+        </div>
+        <div class="calc__field">
+          <label>Down Payment <b id="o-down">$8,000</b></label>
+          <input type="range" id="calc-down" min="0" max="100000" step="500" value="8000" />
+        </div>
+        <div class="calc__field">
+          <label>Estimated APR <b id="o-apr">6.9%</b></label>
+          <input type="range" id="calc-apr" min="0" max="15" step="0.1" value="6.9" />
+        </div>
+        <div class="calc__field">
+          <label>Term</label>
+          <div class="calc__terms" id="calc-terms">
+            <button data-term="36">36 mo</button>
+            <button data-term="48">48 mo</button>
+            <button data-term="60" class="active">60 mo</button>
+            <button data-term="72">72 mo</button>
+            <button data-term="84">84 mo</button>
+          </div>
+        </div>
+      </div>
+      <div class="calc__result">
+        <div class="lbl">Estimated Monthly</div>
+        <div class="amt"><small>$</small><span id="o-monthly">0</span><small>/mo</small></div>
+        <div class="note">Estimate only — taxes, fees and final terms confirmed in-store. OAC.</div>
+        <a class="btn btn--primary" href="#contact" data-lead="quote">Get Pre-Approved</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CINEMA (dark contrast break) -->
 <section class="cinema" id="cinema">
   <div class="cinema__sticky">
     <div class="cinema__bg">
@@ -148,9 +242,8 @@
     </div>
     <div class="cinema__hud">
       <span class="eyebrow">Spotlight</span>
-      <h2 class="cinema__title chrome-text" data-cinema-title>HURACÁN EVO</h2>
+      <h2 class="cinema__title" data-cinema-title>HURACÁN EVO</h2>
     </div>
-    <!-- chapters (aligned to the three spotlight vehicles) -->
     <div class="cinema__chapter" data-chapter="0">
       <div class="cinema__stat"><span class="cinema__big">631</span><span class="cinema__unit">HP · V10</span></div>
       <p>Naturally aspirated mid-engine fury. Exotic, alive, relentless.</p>
@@ -165,38 +258,13 @@
     </div>
     <div class="cinema__progress"><span data-cinema-bar></span></div>
   </div>
-  <!-- scroll-distance drivers -->
   <div class="cinema__track"></div>
 </section>
 
-<!-- ============ INVENTORY ============ -->
-<section class="inventory section-pad" id="inventory">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <span class="eyebrow">Sample Inventory</span>
-      <h2 class="kinetic">The Collection</h2>
-      <p>A curated lineup of performance, muscle and luxury. Tilt, hover and tap any
-         vehicle to dive into the spec sheet. New stock arrives weekly.</p>
-    </div>
-
-    <div class="filters reveal">
-      <button class="filter active" data-filter="all">All</button>
-      <button class="filter" data-filter="muscle">Muscle</button>
-      <button class="filter" data-filter="sport">Sport</button>
-      <button class="filter" data-filter="suv">Luxury SUV</button>
-    </div>
-
-    <div class="grid" id="inventory-grid"><!-- cards injected by JS --></div>
-  </div>
-</section>
-
-<!-- ============ HORIZONTAL GALLERY (Locomotive-style pinned scroll) ============ -->
+<!-- HORIZONTAL GARAGE -->
 <section class="garage" id="garage">
   <div class="garage__pin">
-    <div class="garage__head">
-      <span class="eyebrow">In The Garage</span>
-      <h2 class="garage__title kinetic">SCROLL THE FLOOR</h2>
-    </div>
+    <div class="garage__head"><span class="eyebrow">In The Garage</span><h2 class="garage__title">Scroll The Floor</h2></div>
     <div class="garage__track" data-garage-track data-cursor="Drag">
       <figure class="garage__slide"><img src="assets/cars/huracan.jpg" alt="Lamborghini Huracán EVO"><figcaption><b>01</b> Huracán EVO</figcaption></figure>
       <figure class="garage__slide"><img src="assets/cars/challenger.jpg" alt="Dodge Challenger"><figcaption><b>02</b> Challenger R/T</figcaption></figure>
@@ -207,98 +275,72 @@
   </div>
 </section>
 
-<!-- ============ DEPTH BAND ============ -->
-<section class="depth-band">
-  <div class="depth-band__bg" style="background-image:url('assets/cars/band.jpg')"></div>
-  <div class="depth-band__scrim"></div>
-  <div class="wrap reveal">
-    <span class="eyebrow" style="justify-content:center;color:var(--chrome-2)">Engineered Obsession</span>
-    <h2 class="chrome-text">POWER<br>HAS A HOME</h2>
-  </div>
-</section>
-
-<!-- ============ PROCESS ============ -->
-<section class="section-pad" id="process" style="background:var(--bg)">
+<!-- PROCESS -->
+<section class="section-pad" id="process">
   <div class="wrap">
-    <div class="sec-head reveal">
-      <span class="eyebrow">How It Works</span>
-      <h2 class="kinetic">Buying, Done Right</h2>
-    </div>
+    <div class="sec-head reveal"><span class="eyebrow">How It Works</span><h2 class="kinetic">Buying, Done Right</h2></div>
     <div class="steps">
-      <div class="step reveal">
-        <div class="num">01</div>
-        <h3>Browse &amp; Reserve</h3>
-        <p>Explore the live inventory and flag the machine that speaks to you. A quick
-           message or call holds it while you decide.</p>
-      </div>
-      <div class="step reveal">
-        <div class="num">02</div>
-        <h3>Inspect &amp; Drive</h3>
-        <p>Come see it in person at our Brampton showroom. Full history, real numbers,
-           and a test drive — no pressure, no gimmicks.</p>
-      </div>
-      <div class="step reveal">
-        <div class="num">03</div>
-        <h3>Own It</h3>
-        <p>Financing, trade-ins and clean paperwork handled in-house. You leave with
-           the keys and the confidence to enjoy them.</p>
-      </div>
+      <div class="step reveal"><div class="num">01</div><h3>Browse &amp; Reserve</h3><p>Explore the inventory and flag your machine. A quick message or call holds it while you decide.</p></div>
+      <div class="step reveal"><div class="num">02</div><h3>Inspect &amp; Drive</h3><p>Come see it at our Brampton showroom. Full history, real numbers, and a test drive — no pressure.</p></div>
+      <div class="step reveal"><div class="num">03</div><h3>Finance &amp; Own</h3><p>In-house financing, trade-ins and clean paperwork. You leave with the keys and total confidence.</p></div>
     </div>
   </div>
 </section>
 
-<!-- ============ CONTACT ============ -->
-<section class="contact section-pad" id="contact">
+<!-- CONTACT + LEAD FORMS -->
+<section class="section-pad" id="contact" data-dot="Contact">
   <div class="wrap">
-    <div class="sec-head reveal">
-      <span class="eyebrow">Visit The Hub</span>
-      <h2 class="kinetic">Get In Touch</h2>
-    </div>
+    <div class="sec-head reveal"><span class="eyebrow">Let's Talk</span><h2 class="kinetic">Get In Touch</h2>
+      <p>Book a test drive, request a quote or value your trade — we'll get right back to you.</p></div>
     <div class="contact__grid">
+      <!-- LEAD FORM -->
+      <div class="lead reveal">
+        <div class="lead__tabs">
+          <button class="lead__tab active" data-form="testdrive">Test Drive</button>
+          <button class="lead__tab" data-form="quote">Get a Quote</button>
+          <button class="lead__tab" data-form="trade">Value Trade-In</button>
+        </div>
+        <form id="lead-form" novalidate>
+          <div class="field"><label>Full Name</label><input type="text" name="name" required placeholder="Your name" /></div>
+          <div class="field--row">
+            <div class="field"><label>Phone</label><input type="tel" name="phone" required placeholder="(437) 230-3608" /></div>
+            <div class="field"><label>Email</label><input type="email" name="email" required placeholder="you@email.com" /></div>
+          </div>
+          <div class="field" data-row="vehicle"><label>Vehicle of Interest</label><input type="text" name="vehicle" placeholder="e.g. Lamborghini Huracán EVO" /></div>
+          <div class="field" data-row="date" hidden><label>Preferred Date &amp; Time</label><input type="datetime-local" name="datetime" /></div>
+          <div class="field" data-row="trade" hidden><label>Your Trade-In (Year / Make / Model)</label><input type="text" name="trade" placeholder="e.g. 2019 BMW 340i, 60,000 km" /></div>
+          <div class="field"><label>Message</label><textarea name="message" rows="3" placeholder="Anything we should know?"></textarea></div>
+          <button class="btn btn--primary" type="submit" style="width:100%;justify-content:center" id="lead-submit">Send Request</button>
+          <p class="lead__note">By submitting you agree to be contacted by Sidhu Auto Hub. We never share your info.</p>
+          <div class="form-ok" id="form-ok">✓ Thanks! Your request is ready — your email app will open to send it to us. Prefer to talk now? Call <a href="tel:+14372303608">+1 (437) 230-3608</a>.</div>
+        </form>
+      </div>
+      <!-- INFO + MAP -->
       <div class="contact__card reveal">
         <ul class="contact__list">
-          <li>
-            <span class="contact__ic">📍</span>
-            <div><div class="contact__k">Showroom</div>
-              <div class="contact__v"><a href="https://maps.google.com/?q=22+Bramsteele+Rd,+Brampton,+ON+L6W+1B3" target="_blank" rel="noopener">22 Bramsteele Rd, Brampton, ON L6W 1B3</a></div></div>
-          </li>
-          <li>
-            <span class="contact__ic">📞</span>
-            <div><div class="contact__k">Call / Text</div>
-              <div class="contact__v"><a href="tel:+14372303608">+1 (437) 230-3608</a></div></div>
-          </li>
-          <li>
-            <span class="contact__ic">✉️</span>
-            <div><div class="contact__k">Email</div>
-              <div class="contact__v"><a href="mailto:Sidhu4747@icloud.com">Sidhu4747@icloud.com</a></div></div>
-          </li>
-          <li>
-            <span class="contact__ic">🕑</span>
-            <div><div class="contact__k">Hours</div>
-              <div class="contact__v">Mon–Sat · 9:00 AM – 7:00 PM<br>Sunday · By Appointment</div></div>
-          </li>
+          <li><span class="contact__ic">📍</span><div><div class="contact__k">Showroom</div><div class="contact__v"><a href="https://maps.google.com/?q=22+Bramsteele+Rd,+Brampton,+ON+L6W+1B3" target="_blank" rel="noopener">22 Bramsteele Rd, Brampton, ON L6W 1B3</a></div></div></li>
+          <li><span class="contact__ic">📞</span><div><div class="contact__k">Call / Text</div><div class="contact__v"><a href="tel:+14372303608">+1 (437) 230-3608</a></div></div></li>
+          <li><span class="contact__ic">✉️</span><div><div class="contact__k">Email</div><div class="contact__v"><a href="mailto:Sidhu4747@icloud.com">Sidhu4747@icloud.com</a></div></div></li>
+          <li><span class="contact__ic">🕑</span><div><div class="contact__k">Hours</div><div class="contact__v">Mon–Sat · 9:00 AM – 7:00 PM<br>Sunday · By Appointment</div></div></li>
         </ul>
-      </div>
-      <div class="map-frame reveal">
-        <iframe title="Sidhu Auto Hub location"
-          src="https://www.google.com/maps?q=22%20Bramsteele%20Rd,%20Brampton,%20ON%20L6W%201B3&output=embed"
-          loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <div class="map-frame" style="margin-top:18px">
+          <iframe title="Sidhu Auto Hub location" src="https://www.google.com/maps?q=22%20Bramsteele%20Rd,%20Brampton,%20ON%20L6W%201B3&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
       </div>
     </div>
 
     <div class="cta-banner reveal">
-      <h2 class="chrome-text">Ready To Find Yours?</h2>
-      <p>Tell us what you're hunting for. We'll match you with the right machine —
-         or source it. The keys are waiting.</p>
+      <h2>Ready To Find Yours?</h2>
+      <p>Tell us what you're hunting for. We'll match you with the right machine — or source it.</p>
       <div class="hero__actions">
         <a class="btn btn--primary" href="tel:+14372303608">Call +1 (437) 230-3608</a>
-        <a class="btn btn--ghost" href="mailto:Sidhu4747@icloud.com">Email The Hub</a>
+        <a class="btn btn--glass" href="mailto:Sidhu4747@icloud.com">Email The Hub</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============ FOOTER ============ -->
+<!-- FOOTER -->
 <footer class="footer">
   <div class="wrap">
     <div class="footer__top">
@@ -307,19 +349,8 @@
         <div><b>SIDHU AUTO HUB</b><span>BRAMPTON · ONTARIO</span></div>
       </div>
       <div class="footer__cols">
-        <div class="footer__col">
-          <h4>Explore</h4>
-          <a href="#inventory">Inventory</a>
-          <a href="#about">About Us</a>
-          <a href="#process">How It Works</a>
-          <a href="#contact">Contact</a>
-        </div>
-        <div class="footer__col">
-          <h4>Visit</h4>
-          <p>22 Bramsteele Rd<br>Brampton, ON L6W 1B3</p>
-          <a href="tel:+14372303608">+1 (437) 230-3608</a>
-          <a href="mailto:Sidhu4747@icloud.com">Sidhu4747@icloud.com</a>
-        </div>
+        <div class="footer__col"><h4>Explore</h4><a href="#showroom">3D Showroom</a><a href="#inventory">Inventory</a><a href="#finance">Finance</a><a href="#about">About</a></div>
+        <div class="footer__col"><h4>Visit</h4><p>22 Bramsteele Rd<br>Brampton, ON L6W 1B3</p><a href="tel:+14372303608">+1 (437) 230-3608</a><a href="mailto:Sidhu4747@icloud.com">Sidhu4747@icloud.com</a></div>
       </div>
     </div>
     <div class="footer__bottom">
@@ -329,7 +360,31 @@
   </div>
 </footer>
 
-<!-- ============ MODAL ============ -->
+<!-- STICKY ACTION BAR -->
+<div class="actionbar" id="actionbar">
+  <a href="tel:+14372303608">📞 <span>Call</span></a>
+  <a href="sms:+14372303608">💬 <span>Text</span></a>
+  <a class="primary" href="#contact" data-lead="quote">⚡ <span>Get a Quote</span></a>
+</div>
+
+<!-- CHAT / MESSAGE WIDGET -->
+<div class="chat" id="chat">
+  <button class="chat__btn" id="chat-btn" aria-label="Message us">💬</button>
+  <div class="chat__panel">
+    <div class="chat__head"><b>Chat with Sidhu Auto Hub</b><span>Typically replies within minutes</span></div>
+    <div class="chat__body">
+      <p>Hi 👋 How can we help you drive home today?</p>
+      <div class="chat__opts">
+        <a href="sms:+14372303608">💬 Text us — (437) 230-3608</a>
+        <a href="https://wa.me/14372303608" target="_blank" rel="noopener">🟢 WhatsApp us</a>
+        <a href="tel:+14372303608">📞 Call the showroom</a>
+        <a href="#contact" data-lead="testdrive" id="chat-testdrive">🚗 Book a test drive</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL (VDP) -->
 <div class="modal" id="modal" aria-hidden="true">
   <div class="modal__box">
     <button class="modal__close" aria-label="Close">×</button>
@@ -339,15 +394,15 @@
       <div class="modal__price" data-m-price>$0</div>
       <p style="color:var(--muted)" data-m-desc></p>
       <div class="modal__specs" data-m-specs></div>
-      <div class="hero__actions">
-        <a class="btn btn--primary" href="tel:+14372303608">Enquire &amp; Reserve</a>
-        <a class="btn btn--ghost" href="#contact" onclick="document.getElementById('modal').classList.remove('open');document.body.style.overflow=''">Book Viewing</a>
+      <div class="modal__actions">
+        <a class="btn btn--primary" href="#contact" data-lead="testdrive" data-m-action="testdrive">Book Test Drive</a>
+        <a class="btn btn--glass" href="#contact" data-lead="quote" data-m-action="quote">Get Quote</a>
+        <a class="btn btn--ghost" href="#finance" data-m-action="finance">Estimate Payment</a>
       </div>
     </div>
   </div>
 </div>
 
-<!-- libs (vendored locally — works fully offline) -->
 <script src="js/vendor/gsap.min.js"></script>
 <script src="js/vendor/ScrollTrigger.min.js"></script>
 <script src="js/vendor/lenis.min.js"></script>
