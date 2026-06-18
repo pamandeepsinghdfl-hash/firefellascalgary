@@ -22,6 +22,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
 
+<!-- Three.js for the single hero box (lazy, defer) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js" defer></script>
+
 <!-- LocalBusiness JSON-LD (preserved from prior build) -->
 <script type="application/ld+json">
 {
@@ -200,7 +203,31 @@
     background: radial-gradient(circle, rgba(255, 107, 26, 0.08) 0%, transparent 55%);
     pointer-events: none;
   }
-  .hero-content { position: relative; max-width: 820px; }
+  .hero-grid {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 56px;
+    align-items: center;
+  }
+  @media (min-width: 900px) {
+    .hero-grid { grid-template-columns: minmax(0, 1fr) auto; gap: 72px; }
+  }
+  .hero-content { max-width: 720px; }
+  .hero-box-stage {
+    position: relative;
+    width: 320px;
+    height: 320px;
+    margin: 0 auto;
+  }
+  @media (max-width: 899px) {
+    .hero-box-stage { width: 240px; height: 240px; }
+  }
+  #heroBoxCanvas {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+  }
   .hero h1 { margin: 16px 0 24px; }
   .hero .body-l { max-width: 620px; margin-bottom: 36px; }
   .hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 56px; }
@@ -857,19 +884,24 @@
 <!-- ============================================================ HERO ============================================================ -->
 <section class="hero">
   <div class="container">
-    <div class="hero-content reveal">
-      <span class="eyebrow">Calgary · Moving &amp; Junk Removal</span>
-      <h1 class="display-xl">Move faster. Less stress. <br>No damage.</h1>
-      <p class="body-l">Premium local moving and junk removal across Calgary. Same-day available, fully insured, flat rates with no surprises. Built by Calgarians, for Calgarians.</p>
-      <div class="hero-ctas">
-        <a href="#quote" class="btn btn-primary btn-lg">Get free quote →</a>
-        <a href="tel:+13682997792" class="btn btn-ghost btn-lg">Call (368) 299-7792</a>
+    <div class="hero-grid">
+      <div class="hero-content reveal">
+        <span class="eyebrow">Calgary · Moving &amp; Junk Removal</span>
+        <h1 class="display-xl">Move faster. Less stress. <br>No damage.</h1>
+        <p class="body-l">Premium local moving and junk removal across Calgary. Same-day available, fully insured, flat rates with no surprises. Built by Calgarians, for Calgarians.</p>
+        <div class="hero-ctas">
+          <a href="#quote" class="btn btn-primary btn-lg">Get free quote →</a>
+          <a href="tel:+13682997792" class="btn btn-ghost btn-lg">Call (368) 299-7792</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat"><div class="num tabular" data-counter="500" data-suffix="+">0+</div><div class="label">Moves done</div></div>
+          <div class="stat"><div class="num tabular">4.9★</div><div class="label">212 reviews</div></div>
+          <div class="stat"><div class="num tabular" data-counter="99" data-suffix="%">0%</div><div class="label">On-time</div></div>
+          <div class="stat"><div class="num tabular">7 days</div><div class="label">A week</div></div>
+        </div>
       </div>
-      <div class="hero-stats">
-        <div class="stat"><div class="num tabular" data-counter="500" data-suffix="+">0+</div><div class="label">Moves done</div></div>
-        <div class="stat"><div class="num tabular">4.9★</div><div class="label">212 reviews</div></div>
-        <div class="stat"><div class="num tabular" data-counter="99" data-suffix="%">0%</div><div class="label">On-time</div></div>
-        <div class="stat"><div class="num tabular">7 days</div><div class="label">A week</div></div>
+      <div class="hero-box-stage reveal" aria-hidden="true">
+        <canvas id="heroBoxCanvas"></canvas>
       </div>
     </div>
   </div>
@@ -1519,6 +1551,93 @@
   });
   send.addEventListener('click', () => handle(input.value));
   input.addEventListener('keydown', (e) => { if (e.key === 'Enter') handle(input.value); });
+})();
+</script>
+
+<!-- ============================================================ HERO BOX (single 3D moment, Dasher & Crank-style cursor tilt) ============================================================ -->
+<script>
+(function() {
+  'use strict';
+  const init = () => {
+    if (typeof THREE === 'undefined') return false;
+    const canvas = document.getElementById('heroBoxCanvas');
+    if (!canvas) return true;
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(32, 1, 0.1, 100);
+    camera.position.z = 5.2;
+
+    // The box itself — flat dark-gray fill in our surface-2 color
+    const SIZE = 1.7;
+    const boxGeo = new THREE.BoxGeometry(SIZE, SIZE, SIZE);
+    const boxMat = new THREE.MeshBasicMaterial({ color: 0x1A1A1D });
+    const box = new THREE.Mesh(boxGeo, boxMat);
+
+    // Orange edge wireframe — the only accent
+    const edgesGeo = new THREE.EdgesGeometry(boxGeo);
+    const edgesMat = new THREE.LineBasicMaterial({ color: 0xFF6B1A, transparent: true, opacity: 0.95 });
+    const edges = new THREE.LineSegments(edgesGeo, edgesMat);
+    box.add(edges);
+
+    // Single tape stripe on the top face — one thin orange line so it reads "moving box"
+    const tapeGeo = new THREE.PlaneGeometry(SIZE * 1.001, SIZE * 0.12);
+    const tapeMat = new THREE.MeshBasicMaterial({ color: 0xFF6B1A, transparent: true, opacity: 0.35 });
+    const tape = new THREE.Mesh(tapeGeo, tapeMat);
+    tape.rotation.x = -Math.PI / 2;
+    tape.position.y = SIZE / 2 + 0.001;
+    box.add(tape);
+
+    scene.add(box);
+
+    // Resting pose — slight 3/4 angle
+    box.rotation.x = 0.3;
+    box.rotation.y = 0.5;
+
+    let targetRotX = 0.3;
+    let targetRotY = 0.5;
+    let lastMouseMove = performance.now();
+
+    if (!reduceMotion) {
+      window.addEventListener('mousemove', (e) => {
+        // Map cursor position to a small rotation range (~5deg max)
+        const nx = (e.clientX / window.innerWidth) - 0.5;
+        const ny = (e.clientY / window.innerHeight) - 0.5;
+        targetRotY = 0.5 + nx * 0.45;
+        targetRotX = 0.3 - ny * 0.35;
+        lastMouseMove = performance.now();
+      }, { passive: true });
+    }
+
+    const resize = () => {
+      const sz = canvas.clientWidth;
+      renderer.setSize(sz, sz, false);
+    };
+    window.addEventListener('resize', resize);
+    resize();
+
+    const animate = () => {
+      requestAnimationFrame(animate);
+      if (!reduceMotion) {
+        // Damped follow
+        box.rotation.x += (targetRotX - box.rotation.x) * 0.06;
+        box.rotation.y += (targetRotY - box.rotation.y) * 0.06;
+        // Slow idle drift after ~1.5s of no movement
+        if (performance.now() - lastMouseMove > 1500) {
+          targetRotY += 0.0025;
+        }
+      }
+      renderer.render(scene, camera);
+    };
+    animate();
+    return true;
+  };
+
+  // Three.js is deferred — try once at parse, fall back to window.load
+  if (!init()) window.addEventListener('load', init, { once: true });
 })();
 </script>
 
