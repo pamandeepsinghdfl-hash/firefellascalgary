@@ -1,8 +1,10 @@
 /* ============================================================
    SIDHU AUTO HUB — interaction + 3D depth engine
    Three.js (module) + GSAP ScrollTrigger + Lenis smooth scroll
+
+   Three.js is loaded lazily as progressive enhancement — if the
+   module CDN is unreachable the rest of the site still renders.
    ============================================================ */
-import * as THREE from "three";
 
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const isTouch = window.matchMedia("(hover: none)").matches;
@@ -16,7 +18,7 @@ const INVENTORY = [
     year: 2023, price: "$78,900", cat: "muscle", tag: "New Arrival",
     sub: "6.2L Supercharged HEMI V8 · RWD",
     hp: "717 HP", zero: "3.6s", trans: "8-Speed Auto", km: "12,400 km",
-    img: "https://images.unsplash.com/photo-1612825173281-9a193378527e?auto=format&fit=crop&w=1280&q=80",
+    img: "assets/cars/charger.jpg",
     desc: "A street-legal monster. Supercharged HEMI thunder, launch control, and a presence that owns every lane it touches."
   },
   {
@@ -24,7 +26,7 @@ const INVENTORY = [
     year: 2022, price: "$54,500", cat: "muscle", tag: "Featured",
     sub: "5.0L Coyote V8 · RWD",
     hp: "460 HP", zero: "4.2s", trans: "6-Speed Manual", km: "21,800 km",
-    img: "https://images.unsplash.com/photo-1584345604476-8ec5e12e42dd?auto=format&fit=crop&w=1280&q=80",
+    img: "assets/cars/mustang.jpg",
     desc: "American icon with a row-your-own gearbox, active exhaust, and that unmistakable V8 bark."
   },
   {
@@ -32,7 +34,7 @@ const INVENTORY = [
     year: 2023, price: "$112,000", cat: "sport", tag: "Just In",
     sub: "6.2L Mid-Engine V8 · RWD",
     hp: "495 HP", zero: "2.9s", trans: "8-Speed DCT", km: "6,200 km",
-    img: "https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=1280&q=80",
+    img: "assets/cars/corvette.jpg",
     desc: "Mid-engine supercar performance at a fraction of the cost. Razor-sharp handling and brutal straight-line pace."
   },
   {
@@ -40,7 +42,7 @@ const INVENTORY = [
     year: 2021, price: "$84,750", cat: "sport", tag: "",
     sub: "3.0L Twin-Turbo I6 · AWD",
     hp: "503 HP", zero: "3.4s", trans: "8-Speed M Steptronic", km: "18,500 km",
-    img: "https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1280&q=80",
+    img: "assets/cars/m4.jpg",
     desc: "Track-bred precision with daily-driver comfort. Carbon trim, M differential, and surgical throttle response."
   },
   {
@@ -48,7 +50,7 @@ const INVENTORY = [
     year: 2023, price: "$214,900", cat: "suv", tag: "Premium",
     sub: "4.0L Biturbo V8 · 4MATIC",
     hp: "577 HP", zero: "4.5s", trans: "9-Speed Auto", km: "9,100 km",
-    img: "https://images.unsplash.com/photo-1520031441872-265e4ff70366?auto=format&fit=crop&w=1280&q=80",
+    img: "assets/cars/g63.jpg",
     desc: "The undisputed king of statement SUVs. Hand-built AMG V8, military DNA, first-class luxury throughout."
   },
   {
@@ -56,7 +58,7 @@ const INVENTORY = [
     year: 2022, price: "$129,500", cat: "sport", tag: "",
     sub: "4.0L Twin-Turbo V8 · quattro",
     hp: "591 HP", zero: "3.5s", trans: "8-Speed Tiptronic", km: "15,300 km",
-    img: "https://images.unsplash.com/photo-1606016159991-dfe4f2746ad5?auto=format&fit=crop&w=1280&q=80",
+    img: "assets/cars/rs7.jpg",
     desc: "Four-door grand tourer with supercar muscle. Effortless quattro grip and a cabin built for long-haul pace."
   },
   {
@@ -64,7 +66,7 @@ const INVENTORY = [
     year: 2023, price: "$92,300", cat: "suv", tag: "New Arrival",
     sub: "6.4L HEMI V8 · 4x4",
     hp: "470 HP", zero: "4.5s", trans: "8-Speed Auto", km: "8,700 km",
-    img: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1280&q=80",
+    img: "assets/cars/wrangler.jpg",
     desc: "V8 power meets go-anywhere capability. Locking diffs, sway-bar disconnect, and trail-rated dominance."
   },
   {
@@ -72,7 +74,7 @@ const INVENTORY = [
     year: 2021, price: "$138,000", cat: "sport", tag: "Featured",
     sub: "3.8L Twin-Turbo V6 · AWD",
     hp: "565 HP", zero: "2.9s", trans: "6-Speed DCT", km: "14,600 km",
-    img: "https://images.unsplash.com/photo-1626668893632-6f3a4466d22f?auto=format&fit=crop&w=1280&q=80",
+    img: "assets/cars/gtr.jpg",
     desc: "Godzilla. The legendary all-wheel-drive launch and relentless turbocharged thrust that humble exotics."
   },
   {
@@ -80,7 +82,7 @@ const INVENTORY = [
     year: 2022, price: "$71,400", cat: "muscle", tag: "Sold",
     sub: "6.2L Supercharged V8 · RWD",
     hp: "650 HP", zero: "3.5s", trans: "10-Speed Auto", km: "19,900 km",
-    img: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1280&q=80",
+    img: "assets/cars/camaro.jpg",
     desc: "The most track-capable Camaro ever built. Supercharged fury with magnetic ride and aggressive aero."
   }
 ];
@@ -190,9 +192,17 @@ function initModal() {
 let scrollProgress = 0;          // 0..1 over whole page
 const pointer = { x: 0, y: 0, tx: 0, ty: 0 };
 
-function initThree() {
+async function initThree() {
   const canvas = document.getElementById("bg-canvas");
   if (!canvas || reduceMotion) return;
+
+  let THREE;
+  try {
+    THREE = await import("three");
+  } catch (e) {
+    console.warn("3D background unavailable (Three.js failed to load):", e);
+    return; // progressive enhancement — page works without it
+  }
 
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));

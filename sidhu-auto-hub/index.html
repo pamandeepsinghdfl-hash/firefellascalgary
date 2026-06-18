@@ -14,14 +14,12 @@
 <meta property="og:image" content="assets/logo.jpeg" />
 
 <link rel="icon" type="image/jpeg" href="assets/logo.jpeg" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Oswald:wght@300;400;500;600&family=Saira+Condensed:wght@600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/fonts/fonts.css" />
 <link rel="stylesheet" href="css/style.css" />
 
-<!-- Three.js as ES module -->
+<!-- Three.js as ES module (vendored locally — works fully offline) -->
 <script type="importmap">
-{ "imports": { "three": "https://unpkg.com/three@0.160.0/build/three.module.js" } }
+{ "imports": { "three": "./js/vendor/three.module.js" } }
 </script>
 
 <!-- LocalBusiness structured data -->
@@ -152,7 +150,7 @@
 
 <!-- ============ DEPTH BAND ============ -->
 <section class="depth-band">
-  <div class="depth-band__bg" style="background-image:url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1900&q=80')"></div>
+  <div class="depth-band__bg" style="background-image:url('assets/cars/band.jpg')"></div>
   <div class="depth-band__scrim"></div>
   <div class="wrap reveal">
     <span class="eyebrow" style="justify-content:center;color:var(--chrome-2)">Engineered Obsession</span>
@@ -290,10 +288,10 @@
   </div>
 </div>
 
-<!-- libs -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<!-- libs (vendored locally — works fully offline) -->
+<script src="js/vendor/gsap.min.js"></script>
+<script src="js/vendor/ScrollTrigger.min.js"></script>
+<script src="js/vendor/lenis.min.js"></script>
 <script type="module" src="js/main.js"></script>
 </body>
 </html>
