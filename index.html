@@ -1473,6 +1473,88 @@
             .word-morph .wm, .word-stagger > span { transition: none !important; animation: none !important; }
         }
 
+        /* ===== 3D Globe (Service Reach) ===== */
+        .globe-stage {
+            position: relative;
+            aspect-ratio: 1 / 1;
+            max-width: 520px;
+            margin: 0 auto;
+        }
+        #globeCanvas {
+            display: block;
+            width: 100% !important;
+            height: 100% !important;
+            cursor: grab;
+        }
+        #globeCanvas:active { cursor: grabbing; }
+        .globe-rings {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            border-radius: 50%;
+            box-shadow:
+                0 0 80px rgba(255,69,0,0.18),
+                inset 0 0 60px rgba(0,217,255,0.10);
+        }
+        .globe-label {
+            position: absolute;
+            background: rgba(10,15,31,0.9);
+            border: 1px solid rgba(255,215,0,0.4);
+            color: #FFD700;
+            padding: 6px 12px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+            white-space: nowrap;
+            pointer-events: none;
+            transition: transform 0.1s linear, opacity 0.2s;
+        }
+        .globe-label::before {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1px;
+            height: 16px;
+            background: linear-gradient(180deg, #FFD700, transparent);
+        }
+
+        /* ===== Service spheres (floating 3D balls) ===== */
+        .sphere-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            max-width: 800px;
+            margin: 40px auto 0;
+        }
+        @media (max-width: 640px) {
+            .sphere-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+        }
+        .sphere-item { text-align: center; }
+        .sphere-canvas {
+            width: 100%;
+            aspect-ratio: 1;
+            cursor: pointer;
+        }
+        .sphere-label {
+            margin-top: 12px;
+            font-weight: 700;
+            color: #fff;
+            font-size: 14px;
+            letter-spacing: 0.02em;
+        }
+        .sphere-label .sl-sub {
+            display: block;
+            font-size: 11px;
+            color: rgba(255,255,255,0.55);
+            font-weight: 500;
+            margin-top: 2px;
+        }
+
         /* ===== Accessibility polish ===== */
         .skip-link {
             position: absolute;
@@ -2913,6 +2995,62 @@
     </div>
 </section>
 
+<!-- ===================== SERVICE REACH (3D GLOBE) ===================== -->
+<section id="reach" class="relative py-24 lg:py-32 bg-firenavy overflow-hidden">
+    <div class="absolute -top-32 left-1/4 w-96 h-96 bg-cyanpop/10 rounded-full blur-3xl"></div>
+    <div class="absolute -bottom-32 right-1/4 w-96 h-96 bg-firered/10 rounded-full blur-3xl"></div>
+
+    <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+                <span class="inline-block px-4 py-1.5 rounded-full bg-cyanpop/15 border border-cyanpop/30 text-cyanpop text-xs font-bold uppercase tracking-widest mb-4" data-i18n="reach.label">📍 Service Reach · Real-time</span>
+                <h2 class="font-display text-4xl sm:text-5xl lg:text-6xl text-white mb-4" data-i18n="reach.heading">Right Where You Need Us — <span class="fire-text">Calgary &amp; Around</span></h2>
+                <p class="text-white/65 text-lg mb-8" data-i18n="reach.sub">Local crews dispatched from 3 zones across the city. Average drive to your door: <strong class="text-firegold">12–18 minutes</strong>. Spin the globe to see where Fire Fellas is rolling right now.</p>
+
+                <ul class="space-y-3 mb-8">
+                    <li class="flex items-start gap-3"><span class="text-limepop text-lg">✓</span><span class="text-white/80"><strong>Calgary core</strong> — Downtown, Beltline, Kensington, Inglewood, Bridgeland</span></li>
+                    <li class="flex items-start gap-3"><span class="text-limepop text-lg">✓</span><span class="text-white/80"><strong>NW &amp; NE</strong> — Tuscany, Hillhurst, Bowness, Auburn Bay, Mahogany</span></li>
+                    <li class="flex items-start gap-3"><span class="text-limepop text-lg">✓</span><span class="text-white/80"><strong>Surrounding</strong> — Airdrie, Cochrane, Okotoks, Chestermere</span></li>
+                    <li class="flex items-start gap-3"><span class="text-firegold text-lg">★</span><span class="text-white/80"><strong>Long-distance</strong> — Calgary ↔ Edmonton, Red Deer, Banff (custom quotes)</span></li>
+                </ul>
+
+                <a href="#instant-quote" class="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-gradient-to-r from-firered to-fireorange text-white font-bold shadow-lg hover:scale-105 transition-transform">
+                    Check My Address →
+                </a>
+            </div>
+
+            <div class="globe-stage">
+                <canvas id="globeCanvas" aria-label="Interactive 3D globe showing service area"></canvas>
+                <div class="globe-rings"></div>
+                <div class="globe-label" id="globeLabel">📍 Calgary, AB</div>
+            </div>
+        </div>
+
+        <!-- Floating service spheres (à la JS Mastery tech stack balls) -->
+        <div class="mt-16 text-center">
+            <p class="text-xs uppercase tracking-[0.25em] text-white/40 font-bold mb-6" data-i18n="spheres.label">Tap a sphere · 4 services, one trusted crew</p>
+            <div class="sphere-grid">
+                <div class="sphere-item">
+                    <canvas class="sphere-canvas" data-sphere="move" data-color="#FF4500" data-icon="🏠" data-href="#instant-quote"></canvas>
+                    <div class="sphere-label">Moving<span class="sl-sub">from $149/hr</span></div>
+                </div>
+                <div class="sphere-item">
+                    <canvas class="sphere-canvas" data-sphere="junk" data-color="#FFD700" data-icon="🗑️" data-href="#instant-quote"></canvas>
+                    <div class="sphere-label">Junk Removal<span class="sl-sub">1/4 truck · $149</span></div>
+                </div>
+                <div class="sphere-item">
+                    <canvas class="sphere-canvas" data-sphere="furniture" data-color="#00D9FF" data-icon="🛋️" data-href="#instant-quote"></canvas>
+                    <div class="sphere-label">Furniture<span class="sl-sub">from $89</span></div>
+                </div>
+                <div class="sphere-item">
+                    <canvas class="sphere-canvas" data-sphere="garage" data-color="#A6FF00" data-icon="🚗" data-href="#instant-quote"></canvas>
+                    <div class="sphere-label">Garage Cleanup<span class="sl-sub">from $299</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- ===================== CONTACT ===================== -->
 <section id="contact" class="relative py-24 lg:py-32 bg-firenavy2 overflow-hidden">
     <div class="absolute inset-0 grid-bg opacity-20"></div>
@@ -4311,6 +4449,247 @@ async function handleSubmit(e) {
     setLang(localStorage.getItem('ff-lang') || 'en');
     document.querySelectorAll('#prefPill button[data-lang]').forEach(b => {
         b.addEventListener('click', () => setLang(b.dataset.lang));
+    });
+
+})();
+</script>
+
+<!-- ===================== 3D GLOBE + FLOATING SERVICE SPHERES (Three.js) ===================== -->
+<script>
+(function() {
+    if (typeof THREE === 'undefined') return;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    /* ========== 1. ROTATING EARTH GLOBE ========== */
+    const globeCanvas = document.getElementById('globeCanvas');
+    const globeLabel = document.getElementById('globeLabel');
+    if (globeCanvas) {
+        const w = globeCanvas.clientWidth || 480;
+        const renderer = new THREE.WebGLRenderer({ canvas: globeCanvas, antialias: true, alpha: true });
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.setSize(w, w, false);
+
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
+        camera.position.z = 3.6;
+
+        // Earth sphere — stylized with brand colors (no external texture needed)
+        const earthGroup = new THREE.Group();
+        scene.add(earthGroup);
+
+        // Glow halo behind globe
+        const haloGeo = new THREE.SphereGeometry(1.18, 64, 64);
+        const haloMat = new THREE.MeshBasicMaterial({
+            color: 0xFF7A00, transparent: true, opacity: 0.06,
+            side: THREE.BackSide
+        });
+        earthGroup.add(new THREE.Mesh(haloGeo, haloMat));
+
+        // Earth core (smooth navy sphere)
+        const earthGeo = new THREE.SphereGeometry(1, 64, 64);
+        const earthMat = new THREE.MeshPhongMaterial({
+            color: 0x1a2540, shininess: 25, emissive: 0x0a1020, emissiveIntensity: 0.3
+        });
+        const earth = new THREE.Mesh(earthGeo, earthMat);
+        earthGroup.add(earth);
+
+        // Wireframe overlay — continents-ish look without textures
+        const wireGeo = new THREE.SphereGeometry(1.005, 28, 18);
+        const wireMat = new THREE.MeshBasicMaterial({
+            color: 0xFFD700, wireframe: true, transparent: true, opacity: 0.32
+        });
+        earthGroup.add(new THREE.Mesh(wireGeo, wireMat));
+
+        // Equator ring + tilt axis (decorative)
+        const equatorGeo = new THREE.TorusGeometry(1.02, 0.005, 8, 96);
+        const equatorMat = new THREE.MeshBasicMaterial({ color: 0xFF4500, transparent: true, opacity: 0.5 });
+        const equator = new THREE.Mesh(equatorGeo, equatorMat);
+        equator.rotation.x = Math.PI / 2;
+        earthGroup.add(equator);
+
+        // Calgary lat/lon → 3D position on unit sphere
+        const latLonToVec3 = (lat, lon, r = 1) => {
+            const phi = (90 - lat) * Math.PI / 180;
+            const theta = (lon + 180) * Math.PI / 180;
+            return new THREE.Vector3(
+                -r * Math.sin(phi) * Math.cos(theta),
+                 r * Math.cos(phi),
+                 r * Math.sin(phi) * Math.sin(theta)
+            );
+        };
+        const calgaryPos = latLonToVec3(51.0447, -114.0719, 1.02);
+
+        // Calgary marker — pulsing orange dot with vertical pin
+        const markerGroup = new THREE.Group();
+        markerGroup.position.copy(calgaryPos);
+        // Orient marker outward from sphere center
+        markerGroup.lookAt(new THREE.Vector3(0, 0, 0));
+        markerGroup.rotateY(Math.PI);
+        earthGroup.add(markerGroup);
+
+        const pinDot = new THREE.Mesh(
+            new THREE.SphereGeometry(0.035, 16, 16),
+            new THREE.MeshBasicMaterial({ color: 0xFF4500 })
+        );
+        markerGroup.add(pinDot);
+
+        const pinRing = new THREE.Mesh(
+            new THREE.RingGeometry(0.06, 0.075, 32),
+            new THREE.MeshBasicMaterial({ color: 0xFFD700, side: THREE.DoubleSide, transparent: true, opacity: 0.8 })
+        );
+        markerGroup.add(pinRing);
+
+        // Lights
+        scene.add(new THREE.AmbientLight(0xffffff, 0.4));
+        const dirLight = new THREE.DirectionalLight(0xFFD700, 1.2);
+        dirLight.position.set(3, 2, 4);
+        scene.add(dirLight);
+        const fillLight = new THREE.DirectionalLight(0x00D9FF, 0.4);
+        fillLight.position.set(-3, -1, -2);
+        scene.add(fillLight);
+
+        // Sprinkled stars in the background
+        const starGeo = new THREE.BufferGeometry();
+        const starCount = 200;
+        const starPos = new Float32Array(starCount * 3);
+        for (let i = 0; i < starCount; i++) {
+            const r = 15 + Math.random() * 15;
+            const theta = Math.random() * Math.PI * 2;
+            const phi = Math.acos(2 * Math.random() - 1);
+            starPos[i*3]     = r * Math.sin(phi) * Math.cos(theta);
+            starPos[i*3 + 1] = r * Math.sin(phi) * Math.sin(theta);
+            starPos[i*3 + 2] = r * Math.cos(phi);
+        }
+        starGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
+        const starMat = new THREE.PointsMaterial({ color: 0xffffff, size: 0.08, transparent: true, opacity: 0.7 });
+        scene.add(new THREE.Points(starGeo, starMat));
+
+        // Mouse drag to spin
+        let targetRotY = 0.4, targetRotX = 0.2;
+        let isDragging = false, prevX = 0, prevY = 0;
+        globeCanvas.addEventListener('pointerdown', (e) => {
+            isDragging = true; prevX = e.clientX; prevY = e.clientY;
+        });
+        window.addEventListener('pointerup', () => { isDragging = false; });
+        window.addEventListener('pointermove', (e) => {
+            if (!isDragging) return;
+            targetRotY += (e.clientX - prevX) * 0.008;
+            targetRotX += (e.clientY - prevY) * 0.008;
+            targetRotX = Math.max(-0.9, Math.min(0.9, targetRotX));
+            prevX = e.clientX; prevY = e.clientY;
+        });
+
+        // Resize handler
+        const resize = () => {
+            const sz = globeCanvas.clientWidth;
+            renderer.setSize(sz, sz, false);
+        };
+        window.addEventListener('resize', resize);
+
+        // Update label position by projecting Calgary's 3D point to 2D screen space
+        const tmpVec = new THREE.Vector3();
+        const updateLabel = () => {
+            if (!globeLabel) return;
+            tmpVec.copy(calgaryPos).applyMatrix4(earthGroup.matrixWorld);
+            tmpVec.project(camera);
+            // Hide label when marker is behind globe (z > 0 in camera space)
+            const facingCam = tmpVec.z < 1;
+            const sz = globeCanvas.clientWidth;
+            const rect = globeCanvas.getBoundingClientRect();
+            const x = (tmpVec.x * 0.5 + 0.5) * sz;
+            const y = (-tmpVec.y * 0.5 + 0.5) * sz - 28;
+            globeLabel.style.transform = `translate(${x - 60}px, ${y}px)`;
+            globeLabel.style.opacity = facingCam ? '1' : '0.15';
+        };
+
+        // Animation loop
+        let pulse = 0;
+        const animate = () => {
+            requestAnimationFrame(animate);
+            if (!reduceMotion && !isDragging) targetRotY += 0.0025;
+            earthGroup.rotation.y += (targetRotY - earthGroup.rotation.y) * 0.08;
+            earthGroup.rotation.x += (targetRotX - earthGroup.rotation.x) * 0.08;
+
+            pulse += 0.06;
+            const s = 1 + Math.sin(pulse) * 0.25;
+            pinRing.scale.set(s, s, s);
+            pinRing.material.opacity = 0.5 + Math.cos(pulse) * 0.3;
+
+            updateLabel();
+            renderer.render(scene, camera);
+        };
+        animate();
+    }
+
+    /* ========== 2. FLOATING SERVICE SPHERES (4 mini canvases) ========== */
+    document.querySelectorAll('.sphere-canvas').forEach((canvas) => {
+        const color = canvas.dataset.color || '#FF7A00';
+        const href = canvas.dataset.href || '#';
+
+        const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        const sz = canvas.clientWidth || 160;
+        renderer.setSize(sz, sz, false);
+
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(40, 1, 0.1, 50);
+        camera.position.z = 3.4;
+
+        // Icosahedron-style decahedron for a more "techy" sphere look (like JS Mastery's tech balls)
+        const sphereGeo = new THREE.IcosahedronGeometry(1, 1);
+        const c = new THREE.Color(color);
+        const sphereMat = new THREE.MeshPhongMaterial({
+            color: c, shininess: 80, flatShading: true,
+            emissive: c, emissiveIntensity: 0.18
+        });
+        const sphere = new THREE.Mesh(sphereGeo, sphereMat);
+        scene.add(sphere);
+
+        // Subtle wireframe outline
+        const wire = new THREE.Mesh(
+            new THREE.IcosahedronGeometry(1.02, 1),
+            new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: true, transparent: true, opacity: 0.15 })
+        );
+        scene.add(wire);
+
+        // Lights
+        scene.add(new THREE.AmbientLight(0xffffff, 0.5));
+        const key = new THREE.DirectionalLight(0xffffff, 1.0);
+        key.position.set(3, 4, 5);
+        scene.add(key);
+        const rim = new THREE.DirectionalLight(c, 0.6);
+        rim.position.set(-3, -2, -2);
+        scene.add(rim);
+
+        let mouseX = 0, mouseY = 0;
+        canvas.addEventListener('pointermove', (e) => {
+            const r = canvas.getBoundingClientRect();
+            mouseX = ((e.clientX - r.left) / r.width - 0.5) * 2;
+            mouseY = ((e.clientY - r.top) / r.height - 0.5) * 2;
+        });
+        canvas.addEventListener('pointerleave', () => { mouseX = 0; mouseY = 0; });
+        canvas.addEventListener('click', () => {
+            if (href.startsWith('#')) {
+                const target = document.querySelector(href);
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+        canvas.style.cursor = 'pointer';
+
+        const animate = () => {
+            requestAnimationFrame(animate);
+            if (!reduceMotion) {
+                sphere.rotation.y += 0.008 + mouseX * 0.02;
+                sphere.rotation.x += 0.004 + mouseY * 0.02;
+                wire.rotation.y = sphere.rotation.y;
+                wire.rotation.x = sphere.rotation.x;
+                // Subtle bob
+                sphere.position.y = Math.sin(performance.now() * 0.0015) * 0.08;
+                wire.position.y = sphere.position.y;
+            }
+            renderer.render(scene, camera);
+        };
+        animate();
     });
 
 })();
