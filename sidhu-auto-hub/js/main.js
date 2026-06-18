@@ -553,6 +553,9 @@ function initPreloader() {
 
 /* hero intro plays after preloader lifts */
 function playIntro() {
+  // (re)play the animated logo film as the hero appears
+  const film = document.querySelector(".hero__logo--film");
+  if (film) { try { film.currentTime = 0; } catch (e) {} const pl = film.play && film.play(); if (pl && pl.catch) pl.catch(() => {}); }
   if (!window.gsap) return;
   gsap.fromTo(".hero h1 .line > span", { yPercent: 110 },
     { yPercent: 0, duration: 1.3, stagger: 0.14, ease: "expo.out" });
