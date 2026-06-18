@@ -516,29 +516,39 @@ function initPreloader() {
   const pre = document.getElementById("preloader");
   if (!pre) return;
   const fill = pre.querySelector(".preloader__fill");
-  const count = pre.querySelector(".preloader__count");
+  const video = document.getElementById("intro-video");
+  const skip = document.getElementById("intro-skip");
   if (lenis) lenis.stop();
   document.body.style.overflow = "hidden";
-  const DURATION = 1700;                 // ms — guaranteed completion
-  const start = performance.now();
-  const easeOut = t => 1 - Math.pow(1 - t, 3);
-  const tick = now => {
-    const t = Math.min(1, (now - start) / DURATION);
-    const p = easeOut(t) * 100;
-    fill.style.width = p + "%";
-    count.textContent = Math.round(p);
-    if (t < 1) { requestAnimationFrame(tick); }
-    else {
-      setTimeout(() => {
-        pre.classList.add("done");
-        document.body.style.overflow = "";
-        if (lenis) lenis.start();
-        playIntro();
-        setTimeout(() => pre.remove(), 1200);
-      }, 250);
-    }
+
+  let done = false, fallback;
+  const reveal = () => {
+    if (done) return; done = true;
+    clearTimeout(fallback);
+    try { sessionStorage.setItem("sah_intro", "1"); } catch (e) {}
+    pre.classList.add("done");
+    document.body.style.overflow = "";
+    if (lenis) lenis.start();
+    playIntro();
+    setTimeout(() => pre.remove(), 1200);
   };
-  requestAnimationFrame(tick);
+
+  let seen = false;
+  try { seen = !!sessionStorage.getItem("sah_intro"); } catch (e) {}
+
+  // already watched this session, or no video element -> reveal swiftly
+  if (seen || !video) { fallback = setTimeout(reveal, seen ? 350 : 0); if (skip) skip.addEventListener("click", reveal); return; }
+
+  // first visit: play the brand intro, hard cap so it never traps the visitor
+  fallback = setTimeout(reveal, 8000);
+  video.addEventListener("timeupdate", () => {
+    if (video.duration) fill.style.width = Math.min(100, video.currentTime / video.duration * 100) + "%";
+  });
+  video.addEventListener("ended", reveal);
+  video.addEventListener("error", reveal);
+  const play = video.play();
+  if (play && play.catch) play.catch(() => reveal());  // autoplay blocked -> skip straight in
+  if (skip) skip.addEventListener("click", reveal);
 }
 
 /* hero intro plays after preloader lifts */
