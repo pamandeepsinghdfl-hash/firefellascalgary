@@ -209,7 +209,7 @@ async function initThree() {
   renderer.setSize(window.innerWidth, window.innerHeight);
 
   const scene = new THREE.Scene();
-  scene.fog = new THREE.FogExp2(0x07080a, 0.055);
+  scene.fog = new THREE.FogExp2(0x0a0718, 0.055);
 
   const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 200);
   camera.position.set(0, 0, 12);
@@ -224,16 +224,25 @@ async function initThree() {
     positions[i * 3 + 2] = (Math.random() - 0.5) * 120;
     speeds[i] = 0.6 + Math.random();
   }
+  // vivid multicolour particles
+  const PALETTE = [0xff2d9b, 0xff7a18, 0xffd000, 0x5cff9d, 0x19e3ff, 0x4d7cff, 0xb14bff];
+  const colors = new Float32Array(COUNT * 3);
+  const tmp = new THREE.Color();
+  for (let i = 0; i < COUNT; i++) {
+    tmp.setHex(PALETTE[i % PALETTE.length]);
+    colors[i * 3] = tmp.r; colors[i * 3 + 1] = tmp.g; colors[i * 3 + 2] = tmp.b;
+  }
   const pGeo = new THREE.BufferGeometry();
   pGeo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+  pGeo.setAttribute("color", new THREE.BufferAttribute(colors, 3));
   const pMat = new THREE.PointsMaterial({
-    color: 0xc3c7d0, size: 0.09, transparent: true, opacity: 0.85,
+    size: 0.13, transparent: true, opacity: 0.95, vertexColors: true,
     sizeAttenuation: true, depthWrite: false, blending: THREE.AdditiveBlending
   });
   const points = new THREE.Points(pGeo, pMat);
   scene.add(points);
 
-  // --- floating metallic chrome shapes ---
+  // --- floating neon shapes ---
   const shapes = [];
   const geos = [
     new THREE.IcosahedronGeometry(1.5, 0),
@@ -241,14 +250,13 @@ async function initThree() {
     new THREE.OctahedronGeometry(1.5, 0),
     new THREE.TorusKnotGeometry(1, 0.32, 90, 14)
   ];
-  const mat = new THREE.MeshStandardMaterial({
-    color: 0x9a9da6, metalness: 1, roughness: 0.28, wireframe: false
-  });
-  const wireMat = new THREE.MeshBasicMaterial({ color: 0x3a3d44, wireframe: true });
-
   for (let i = 0; i < 7; i++) {
+    const col = PALETTE[i % PALETTE.length];
     const useWire = i % 2 === 0;
-    const mesh = new THREE.Mesh(geos[i % geos.length], useWire ? wireMat : mat);
+    const m = useWire
+      ? new THREE.MeshBasicMaterial({ color: col, wireframe: true, transparent: true, opacity: 0.55 })
+      : new THREE.MeshStandardMaterial({ color: col, metalness: 0.6, roughness: 0.25, emissive: col, emissiveIntensity: 0.45 });
+    const mesh = new THREE.Mesh(geos[i % geos.length], m);
     const s = 0.5 + Math.random() * 0.9;
     mesh.scale.setScalar(s);
     mesh.position.set((Math.random() - 0.5) * 26, (Math.random() - 0.5) * 26, -i * 9 - 4);
@@ -258,10 +266,12 @@ async function initThree() {
     scene.add(mesh);
   }
 
-  // --- accent red light + chrome key light ---
-  const key = new THREE.DirectionalLight(0xffffff, 2.2); key.position.set(5, 8, 10); scene.add(key);
-  const rim = new THREE.PointLight(0xe10600, 18, 60); rim.position.set(-8, -4, 4); scene.add(rim);
-  scene.add(new THREE.AmbientLight(0x404550, 0.7));
+  // --- colourful lighting ---
+  const key = new THREE.DirectionalLight(0xffffff, 2.0); key.position.set(5, 8, 10); scene.add(key);
+  const rim = new THREE.PointLight(0xff2d9b, 22, 70); rim.position.set(-9, -4, 4); scene.add(rim);
+  const rim2 = new THREE.PointLight(0x19e3ff, 20, 70); rim2.position.set(9, 5, 2); scene.add(rim2);
+  const rim3 = new THREE.PointLight(0xb14bff, 16, 70); rim3.position.set(0, -8, 6); scene.add(rim3);
+  scene.add(new THREE.AmbientLight(0x3a2f6e, 0.8));
 
   // pointer parallax
   if (!isTouch) {
@@ -303,7 +313,9 @@ async function initThree() {
     camera.position.y += (-pointer.y * 3 - camera.position.y) * 0.04;
     camera.lookAt(0, 0, camera.position.z - 10);
 
-    rim.intensity = 14 + Math.sin(t * 2) * 6;
+    rim.intensity  = 18 + Math.sin(t * 2.0) * 8;
+    rim2.intensity = 16 + Math.sin(t * 1.6 + 2) * 8;
+    rim3.intensity = 14 + Math.sin(t * 2.4 + 4) * 6;
 
     renderer.render(scene, camera);
     requestAnimationFrame(render);
