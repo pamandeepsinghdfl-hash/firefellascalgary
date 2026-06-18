@@ -1555,6 +1555,76 @@
             margin-top: 2px;
         }
 
+        /* ===== Instanced Box Field (#4 from research) ===== */
+        .box-field-stage {
+            position: relative;
+            width: 100%;
+            height: 460px;
+            cursor: crosshair;
+            border-radius: 24px;
+            overflow: hidden;
+            background:
+                radial-gradient(ellipse at center, rgba(255,69,0,0.08), transparent 60%),
+                linear-gradient(180deg, #0F1628 0%, #0A0F1F 100%);
+            border: 1px solid rgba(255,215,0,0.12);
+        }
+        #boxFieldCanvas {
+            display: block;
+            width: 100% !important;
+            height: 100% !important;
+        }
+        .box-field-hint {
+            position: absolute;
+            bottom: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(10,15,31,0.7);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,215,0,0.25);
+            color: #FFD700;
+            padding: 8px 16px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            pointer-events: none;
+            opacity: 0.8;
+        }
+        @media (max-width: 720px) {
+            .box-field-stage { height: 320px; }
+        }
+
+        /* ===== Clip-path scroll reveals (#1 from research, vanilla CSS) ===== */
+        .clip-reveal {
+            clip-path: polygon(0 35%, 100% 15%, 100% 65%, 0 85%);
+            opacity: 0.4;
+            transition: clip-path 1.1s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.6s ease;
+            will-change: clip-path, opacity;
+        }
+        .clip-reveal.in-view {
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+            opacity: 1;
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .clip-reveal, .clip-reveal.in-view { clip-path: none; opacity: 1; transition: none; }
+        }
+
+        /* ===== Ember particle trail (#3 from research, constrained) ===== */
+        .ember-layer {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 9997;
+        }
+        .ember-particle {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, #FFEB3B 0%, #FF7A00 40%, #FF1493 100%);
+            box-shadow: 0 0 8px rgba(255,69,0,0.7);
+            mix-blend-mode: screen;
+            will-change: transform, opacity;
+        }
+
         /* ===== Accessibility polish ===== */
         .skip-link {
             position: absolute;
@@ -1600,6 +1670,9 @@
     <a href="#contact" class="live-cta">Book now →</a>
     <button class="live-close" id="liveClose" aria-label="Close availability bar">×</button>
 </div>
+
+<!-- ===================== EMBER PARTICLE LAYER (constrained to hero + chat zones) ===================== -->
+<div class="ember-layer" id="emberLayer" aria-hidden="true"></div>
 
 <!-- ===================== 2030 LAYER: PILLS ===================== -->
 <div class="pref-pill" id="prefPill" aria-label="Preferences">
@@ -2196,6 +2269,22 @@
     </div>
 </section>
 
+<!-- ===================== INSTANCED BOX FIELD (interactive moment) ===================== -->
+<section id="box-field" class="relative py-16 bg-firenavy overflow-hidden">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-8 clip-reveal">
+            <span class="inline-block px-4 py-1.5 rounded-full bg-firered/15 border border-firegold/30 text-firegold text-xs font-bold uppercase tracking-widest mb-3">⚡ Watch us work</span>
+            <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl text-white mb-2">Move Your Cursor — <span class="fire-text">That's Us Clearing Space</span></h2>
+            <p class="text-white/55 text-sm sm:text-base max-w-2xl mx-auto">Every cube is a moving box. We lift them, part them, deliver them — exactly the way we treat your stuff.</p>
+        </div>
+
+        <div class="box-field-stage">
+            <canvas id="boxFieldCanvas" aria-label="Interactive 3D field of moving boxes that respond to your cursor"></canvas>
+            <div class="box-field-hint">↑ Move your cursor across the field</div>
+        </div>
+    </div>
+</section>
+
 <!-- ===================== RECENT JOBS TICKER ===================== -->
 <div class="jobs-ticker" aria-label="Recent bookings">
     <div class="jobs-ticker-track" id="jobsTrack">
@@ -2238,7 +2327,7 @@
     <div class="absolute bottom-0 left-1/4 w-72 h-72 bg-cyanpop/10 rounded-full blur-3xl"></div>
 
     <div class="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12">
+        <div class="text-center mb-12 clip-reveal">
             <span class="inline-block px-4 py-1.5 rounded-full bg-firered/15 border border-firegold/30 text-firegold text-xs font-bold uppercase tracking-widest mb-4">⚡ Instant Quote · No call needed</span>
             <h2 class="font-display text-4xl sm:text-5xl lg:text-6xl text-white mb-3">Calculate Your Price <span class="fire-text">In Seconds</span></h2>
             <p class="text-white/65 text-lg max-w-2xl mx-auto">Transparent pricing — no hidden fees, no surprises. Slide to match your job.</p>
@@ -4771,6 +4860,207 @@ async function handleSubmit(e) {
         animate();
     });
 
+    /* ========== 3. INSTANCED BOX FIELD — mouse-reactive cardboard cubes (Codrops/Tympanus) ========== */
+    const boxCanvas = document.getElementById('boxFieldCanvas');
+    if (boxCanvas) {
+        const stage = boxCanvas.parentElement;
+        const renderer = new THREE.WebGLRenderer({ canvas: boxCanvas, antialias: true, alpha: true });
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.6));
+
+        const scene = new THREE.Scene();
+        scene.fog = new THREE.Fog(0x0A0F1F, 14, 30);
+
+        const camera = new THREE.PerspectiveCamera(35, 1, 0.1, 100);
+        camera.position.set(0, 7, 13);
+        camera.lookAt(0, 0, 0);
+
+        const GRID_W = 24, GRID_D = 24, SPACING = 0.8;
+        const COUNT = GRID_W * GRID_D;
+        const isMobile = window.matchMedia('(max-width: 720px)').matches;
+        const finalCount = isMobile ? Math.floor(COUNT * 0.45) : COUNT;
+        const finalW = isMobile ? 16 : GRID_W;
+        const finalD = isMobile ? 16 : GRID_D;
+
+        const boxGeo = new THREE.BoxGeometry(0.55, 0.55, 0.55);
+        // Add the tape stripe by tinting top via vertex colors
+        const boxMat = new THREE.MeshStandardMaterial({
+            color: 0xD4A75E, roughness: 0.7, metalness: 0.05
+        });
+
+        // Inject mouse displacement shader into the standard material
+        const uniforms = {
+            uMouse: { value: new THREE.Vector2(99, 99) }, // off-screen by default
+            uRadius: { value: 3.5 },
+            uLift: { value: 1.6 }
+        };
+        boxMat.onBeforeCompile = (shader) => {
+            shader.uniforms.uMouse  = uniforms.uMouse;
+            shader.uniforms.uRadius = uniforms.uRadius;
+            shader.uniforms.uLift   = uniforms.uLift;
+            shader.vertexShader = shader.vertexShader
+                .replace('#include <common>', `
+                    #include <common>
+                    uniform vec2 uMouse;
+                    uniform float uRadius;
+                    uniform float uLift;
+                `)
+                .replace('#include <begin_vertex>', `
+                    vec3 transformed = vec3(position);
+                    // Get this instance's world XZ from the instance matrix
+                    vec2 instXZ = vec2(instanceMatrix[3][0], instanceMatrix[3][2]);
+                    float d = distance(instXZ, uMouse);
+                    float push = smoothstep(uRadius, 0.0, d);
+                    // Lift box upward + tilt + slight scale based on proximity
+                    transformed.y += push * uLift;
+                    transformed *= 1.0 + push * 0.3;
+                `);
+        };
+
+        const mesh = new THREE.InstancedMesh(boxGeo, boxMat, finalCount);
+        const dummy = new THREE.Object3D();
+        let idx = 0;
+        for (let i = 0; i < finalW; i++) {
+            for (let j = 0; j < finalD; j++) {
+                if (idx >= finalCount) break;
+                const x = (i - finalW/2 + 0.5) * SPACING;
+                const z = (j - finalD/2 + 0.5) * SPACING;
+                dummy.position.set(x, 0, z);
+                dummy.rotation.y = (Math.random() - 0.5) * 0.4;
+                dummy.updateMatrix();
+                mesh.setMatrixAt(idx++, dummy.matrix);
+            }
+        }
+        mesh.instanceMatrix.needsUpdate = true;
+        scene.add(mesh);
+
+        // Lights
+        scene.add(new THREE.AmbientLight(0xffffff, 0.5));
+        const sun = new THREE.DirectionalLight(0xFFD700, 1.0);
+        sun.position.set(5, 12, 7);
+        scene.add(sun);
+        const fill = new THREE.DirectionalLight(0xFF4500, 0.6);
+        fill.position.set(-5, 4, -3);
+        scene.add(fill);
+
+        // Invisible ground plane for raycasting (so mouse → world XZ works)
+        const ground = new THREE.Mesh(
+            new THREE.PlaneGeometry(40, 40),
+            new THREE.MeshBasicMaterial({ visible: false })
+        );
+        ground.rotation.x = -Math.PI / 2;
+        scene.add(ground);
+
+        const raycaster = new THREE.Raycaster();
+        const mouseNDC = new THREE.Vector2(99, 99);
+        const targetMouse = new THREE.Vector2(99, 99);
+
+        stage.addEventListener('pointermove', (e) => {
+            const r = boxCanvas.getBoundingClientRect();
+            mouseNDC.x = ((e.clientX - r.left) / r.width) * 2 - 1;
+            mouseNDC.y = -((e.clientY - r.top) / r.height) * 2 + 1;
+            raycaster.setFromCamera(mouseNDC, camera);
+            const hits = raycaster.intersectObject(ground);
+            if (hits.length) {
+                targetMouse.x = hits[0].point.x;
+                targetMouse.y = hits[0].point.z;
+            }
+        });
+        stage.addEventListener('pointerleave', () => {
+            targetMouse.set(99, 99);
+        });
+
+        const resize = () => {
+            const w = boxCanvas.clientWidth;
+            const h = boxCanvas.clientHeight;
+            renderer.setSize(w, h, false);
+            camera.aspect = w / h;
+            camera.updateProjectionMatrix();
+        };
+        window.addEventListener('resize', resize);
+        resize();
+
+        const animate = () => {
+            requestAnimationFrame(animate);
+            // Smoothly chase mouse for a fluid effect
+            uniforms.uMouse.value.x += (targetMouse.x - uniforms.uMouse.value.x) * 0.18;
+            uniforms.uMouse.value.y += (targetMouse.y - uniforms.uMouse.value.y) * 0.18;
+            renderer.render(scene, camera);
+        };
+        animate();
+    }
+
+})();
+</script>
+
+<!-- ===================== CLIP-PATH SCROLL REVEALS (#1) + EMBER PARTICLE TRAIL (#3) ===================== -->
+<script>
+(function() {
+    'use strict';
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    /* ----- Clip-path reveals via IntersectionObserver (no GSAP) ----- */
+    const clipTargets = document.querySelectorAll('.clip-reveal');
+    if (clipTargets.length) {
+        const io = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('in-view');
+                    io.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.18, rootMargin: '0px 0px -40px 0px' });
+        clipTargets.forEach(el => io.observe(el));
+    }
+
+    /* ----- Ember particle trail (zone-constrained) ----- */
+    // Only spawn embers when cursor is over:
+    //   (a) the hero section (#home)
+    //   (b) the instanced box field (#box-field)
+    //   (c) the AI chat (when open)
+    const layer = document.getElementById('emberLayer');
+    const isCoarse = window.matchMedia('(pointer: coarse)').matches;
+    if (layer && !isCoarse && !reduceMotion) {
+        const hero = document.getElementById('home');
+        const boxField = document.getElementById('box-field');
+
+        const isInsideZone = (x, y) => {
+            // Use elementsFromPoint to check which sections the cursor is over
+            const els = document.elementsFromPoint(x, y);
+            for (const el of els) {
+                if (el === hero || hero?.contains(el)) return true;
+                if (el === boxField || boxField?.contains(el)) return true;
+                if (document.body.classList.contains('chat-open') && el.closest && el.closest('.ai-chat')) return true;
+            }
+            return false;
+        };
+
+        let last = 0;
+        document.addEventListener('mousemove', (e) => {
+            const now = performance.now();
+            if (now - last < 38) return; // throttle ~26fps spawning
+            if (!isInsideZone(e.clientX, e.clientY)) return;
+            last = now;
+
+            const p = document.createElement('div');
+            p.className = 'ember-particle';
+            const sz = 3 + Math.random() * 5;
+            p.style.width = p.style.height = sz + 'px';
+            p.style.left = (e.clientX - sz/2) + 'px';
+            p.style.top  = (e.clientY - sz/2) + 'px';
+            layer.appendChild(p);
+
+            // Embers rise + drift slightly, fade and shrink (like real sparks)
+            const driftX = (Math.random() - 0.5) * 40;
+            const riseY = -60 - Math.random() * 50;
+            p.animate(
+                [
+                    { transform: 'translate(0,0) scale(1)', opacity: 0.95 },
+                    { transform: `translate(${driftX}px, ${riseY}px) scale(0.1)`, opacity: 0 }
+                ],
+                { duration: 1100 + Math.random() * 600, easing: 'cubic-bezier(0.22, 1, 0.36, 1)', fill: 'forwards' }
+            ).onfinish = () => p.remove();
+        }, { passive: true });
+    }
 })();
 </script>
 
