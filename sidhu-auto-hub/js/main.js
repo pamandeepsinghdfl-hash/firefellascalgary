@@ -94,7 +94,7 @@ function buildCards() {
     const sold = v.tag.toLowerCase() === "sold";
     const tagHtml = v.tag ? `<span class="card__tag ${sold ? "card__tag--sold" : ""}">${v.tag}</span>` : "";
     return `
-    <article class="card reveal" data-cat="${v.cat}" data-index="${i}">
+    <article class="card reveal" data-cat="${v.cat}" data-index="${i}" data-cursor="View">
       ${tagHtml}
       <button class="card__fav" aria-label="Save vehicle" data-fav>♥</button>
       <div class="card__media">
@@ -207,6 +207,7 @@ async function initThree() {
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
 
   const scene = new THREE.Scene();
   scene.fog = new THREE.FogExp2(0x0a0718, 0.055);
@@ -281,6 +282,30 @@ async function initThree() {
     });
   }
 
+  // --- UnrealBloom post-processing (Lusion-style glow) ---
+  let composer = null, bloom = null;
+  if (!isTouch) {
+    try {
+      const [{ EffectComposer }, { RenderPass }, { UnrealBloomPass }, { OutputPass }] = await Promise.all([
+        import("./vendor/jsm/postprocessing/EffectComposer.js"),
+        import("./vendor/jsm/postprocessing/RenderPass.js"),
+        import("./vendor/jsm/postprocessing/UnrealBloomPass.js"),
+        import("./vendor/jsm/postprocessing/OutputPass.js")
+      ]);
+      composer = new EffectComposer(renderer);
+      composer.addPass(new RenderPass(scene, camera));
+      bloom = new UnrealBloomPass(
+        new THREE.Vector2(window.innerWidth, window.innerHeight), 0.9, 0.6, 0.18);
+      composer.addPass(bloom);
+      composer.addPass(new OutputPass());
+      composer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      composer.setSize(window.innerWidth, window.innerHeight);
+    } catch (e) {
+      console.warn("Bloom post-processing unavailable, falling back to direct render:", e);
+      composer = null;
+    }
+  }
+
   const clock = new THREE.Clock();
   function render() {
     const t = clock.getElapsedTime();
@@ -317,7 +342,8 @@ async function initThree() {
     rim2.intensity = 16 + Math.sin(t * 1.6 + 2) * 8;
     rim3.intensity = 14 + Math.sin(t * 2.4 + 4) * 6;
 
-    renderer.render(scene, camera);
+    if (composer) composer.render();
+    else renderer.render(scene, camera);
     requestAnimationFrame(render);
   }
   render();
@@ -326,6 +352,7 @@ async function initThree() {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
+    if (composer) composer.setSize(window.innerWidth, window.innerHeight);
   });
 }
 
@@ -362,14 +389,8 @@ function initScroll() {
   if (!window.gsap || !window.ScrollTrigger) return;
   gsap.registerPlugin(ScrollTrigger);
 
-  // hero headline reveal
+  // hero starts hidden; playIntro() reveals it after the preloader lifts
   gsap.set(".hero h1 .line > span", { yPercent: 110 });
-  gsap.to(".hero h1 .line > span", {
-    yPercent: 0, duration: 1.1, stagger: 0.12, ease: "expo.out", delay: 0.25
-  });
-  gsap.from(".hero__sub, .hero__actions, .hero__logo", {
-    opacity: 0, y: 30, duration: 1, stagger: 0.12, ease: "power3.out", delay: 0.8
-  });
 
   // hero parallax out
   gsap.to(".hero__inner", {
@@ -440,6 +461,7 @@ function initCursor() {
   if (isTouch) return;
   const ring = document.querySelector(".cursor");
   const dot = document.querySelector(".cursor-dot");
+  const label = ring.querySelector(".cursor__label");
   let rx = 0, ry = 0;
   window.addEventListener("mousemove", e => {
     dot.style.transform = `translate(${e.clientX}px, ${e.clientY}px) translate(-50%,-50%)`;
@@ -452,9 +474,148 @@ function initCursor() {
     ring.style.transform = `translate(${cx}px, ${cy}px) translate(-50%,-50%)`;
     requestAnimationFrame(follow);
   })();
-  document.querySelectorAll("a, button, .card__cta, .filter, .card").forEach(el => {
+  document.querySelectorAll("a, button, .card__cta, .filter").forEach(el => {
     el.addEventListener("mouseenter", () => ring.classList.add("is-active"));
     el.addEventListener("mouseleave", () => ring.classList.remove("is-active"));
+  });
+  // contextual cursor label (Lusion / Active Theory style)
+  document.querySelectorAll("[data-cursor]").forEach(el => {
+    el.addEventListener("mouseenter", () => {
+      label.textContent = el.dataset.cursor;
+      ring.classList.add("is-active", "is-label");
+    });
+    el.addEventListener("mouseleave", () => ring.classList.remove("is-active", "is-label"));
+  });
+}
+
+/* ----- Magnetic buttons (Cuberto / Obys) ----- */
+function initMagnetic() {
+  if (isTouch || reduceMotion) return;
+  document.querySelectorAll("[data-magnetic], .btn").forEach(el => {
+    const strength = el.classList.contains("btn") ? 0.35 : 0.5;
+    el.addEventListener("mousemove", e => {
+      const r = el.getBoundingClientRect();
+      const mx = e.clientX - (r.left + r.width / 2);
+      const my = e.clientY - (r.top + r.height / 2);
+      el.style.transform = `translate(${mx * strength}px, ${my * strength}px)`;
+    });
+    el.addEventListener("mouseleave", () => { el.style.transform = ""; });
+  });
+}
+
+/* ----- Preloader: counter + curtain reveal (Active Theory / Obys) ----- */
+function initPreloader() {
+  const pre = document.getElementById("preloader");
+  if (!pre) return;
+  const fill = pre.querySelector(".preloader__fill");
+  const count = pre.querySelector(".preloader__count");
+  if (lenis) lenis.stop();
+  document.body.style.overflow = "hidden";
+  const DURATION = 1700;                 // ms — guaranteed completion
+  const start = performance.now();
+  const easeOut = t => 1 - Math.pow(1 - t, 3);
+  const tick = now => {
+    const t = Math.min(1, (now - start) / DURATION);
+    const p = easeOut(t) * 100;
+    fill.style.width = p + "%";
+    count.textContent = Math.round(p);
+    if (t < 1) { requestAnimationFrame(tick); }
+    else {
+      setTimeout(() => {
+        pre.classList.add("done");
+        document.body.style.overflow = "";
+        if (lenis) lenis.start();
+        playIntro();
+        setTimeout(() => pre.remove(), 1200);
+      }, 250);
+    }
+  };
+  requestAnimationFrame(tick);
+}
+
+/* hero intro plays after preloader lifts */
+function playIntro() {
+  if (!window.gsap) return;
+  gsap.fromTo(".hero h1 .line > span", { yPercent: 110 },
+    { yPercent: 0, duration: 1.1, stagger: 0.12, ease: "expo.out" });
+  gsap.fromTo(".hero__sub, .hero__actions, .hero__logo, .hero__scroll",
+    { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 1, stagger: 0.1, ease: "power3.out", delay: 0.2 });
+}
+
+/* ----- Kinetic word split + reveal (Obys / Zentry) ----- */
+function initKinetic() {
+  document.querySelectorAll(".kinetic").forEach(el => {
+    if (el.dataset.split) return;
+    el.dataset.split = "1";
+    const words = el.textContent.trim().split(/\s+/);
+    el.innerHTML = words.map(w => `<span class="word"><span>${w}</span></span>`).join(" ");
+    if (!window.gsap || !window.ScrollTrigger || reduceMotion) return;
+    gsap.set(el.querySelectorAll(".word > span"), { yPercent: 110 });
+    gsap.to(el.querySelectorAll(".word > span"), {
+      yPercent: 0, duration: 0.9, stagger: 0.08, ease: "expo.out",
+      scrollTrigger: { trigger: el, start: "top 85%" }
+    });
+  });
+}
+
+/* ----- Apple-style scroll cinema (pin + scrub through chapters) ----- */
+const CINEMA = [
+  { img: "assets/cars/corvette.jpg", title: "CORVETTE C8" },
+  { img: "assets/cars/charger.jpg",  title: "CHARGER SRT" },
+  { img: "assets/cars/gtr.jpg",      title: "NISSAN GT-R" }
+];
+function initCinema() {
+  const sec = document.getElementById("cinema");
+  if (!sec || !window.gsap || !window.ScrollTrigger || reduceMotion) return;
+  const img = sec.querySelector("[data-cinema-img]");
+  const titleEl = sec.querySelector("[data-cinema-title]");
+  const bar = sec.querySelector("[data-cinema-bar]");
+  const chapters = [...sec.querySelectorAll(".cinema__chapter")];
+  const n = chapters.length;
+
+  // chapter timeline scrubbed by scroll
+  const tl = gsap.timeline({
+    scrollTrigger: { trigger: sec, start: "top top", end: "bottom bottom", scrub: 0.6 }
+  });
+  chapters.forEach((ch, i) => {
+    tl.fromTo(ch, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.5 }, i)
+      .to(ch, { opacity: 0, y: -40, duration: 0.5 }, i + 0.5);
+  });
+
+  // image zoom + crossfade per chapter, title swap, progress bar
+  ScrollTrigger.create({
+    trigger: sec, start: "top top", end: "bottom bottom", scrub: 0.6,
+    onUpdate: self => {
+      const prog = self.progress;
+      bar.style.width = (prog * 100) + "%";
+      gsap.set(img, { scale: 1.15 + prog * 0.18, yPercent: -prog * 6 });
+      const idx = Math.min(n - 1, Math.floor(prog * n));
+      if (CINEMA[idx] && img.dataset.cur !== String(idx)) {
+        img.dataset.cur = String(idx);
+        gsap.to(img, { opacity: 0, duration: 0.25, onComplete: () => {
+          img.src = CINEMA[idx].img;
+          titleEl.textContent = CINEMA[idx].title;
+          gsap.to(img, { opacity: 1, duration: 0.45 });
+        }});
+      }
+    }
+  });
+}
+
+/* ----- Locomotive-style horizontal pinned gallery ----- */
+function initGarage() {
+  const sec = document.getElementById("garage");
+  if (!sec || !window.gsap || !window.ScrollTrigger || reduceMotion) return;
+  const track = sec.querySelector("[data-garage-track]");
+  const getScroll = () => track.scrollWidth - track.parentElement.offsetWidth + window.innerWidth * 0.12;
+  gsap.to(track, {
+    x: () => -getScroll(),
+    ease: "none",
+    scrollTrigger: {
+      trigger: sec, start: "top top",
+      end: () => "+=" + getScroll(),
+      scrub: 0.7, pin: sec.querySelector(".garage__pin"), invalidateOnRefresh: true
+    }
   });
 }
 
@@ -466,10 +627,16 @@ document.addEventListener("DOMContentLoaded", () => {
   initFilters();
   initModal();
   initThree();
-  initScroll();
+  initScroll();          // registers ScrollTrigger + Lenis
+  initKinetic();         // split + reveal kinetic headings
   initBandParallax();
+  initCinema();          // Apple-style pinned product story
+  initGarage();          // Locomotive-style horizontal scroll
   initNav();
   initCursor();
+  initMagnetic();
   refreshReveals();
   document.getElementById("year").textContent = new Date().getFullYear();
+  initPreloader();       // last: counter + curtain, then playIntro()
+  if (window.ScrollTrigger) setTimeout(() => ScrollTrigger.refresh(), 400);
 });

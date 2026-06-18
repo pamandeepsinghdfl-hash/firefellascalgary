@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Sidhu Auto Hub — Premium Performance Inventory | Brampton, ON</title>
 <meta name="description" content="Sidhu Auto Hub — premium pre-owned performance, muscle and luxury vehicles in Brampton, Ontario. Explore our handpicked inventory of V8 muscle, sports cars and luxury SUVs." />
-<meta name="theme-color" content="#07080a" />
+<meta name="theme-color" content="#0a0718" />
 
 <!-- Open Graph -->
 <meta property="og:title" content="Sidhu Auto Hub — Premium Performance Inventory" />
@@ -45,11 +45,23 @@
 </head>
 <body>
 
+<!-- ============ PRELOADER ============ -->
+<div class="preloader" id="preloader">
+  <div class="preloader__inner">
+    <img class="preloader__logo" src="assets/logo.jpeg" alt="Sidhu Auto Hub" />
+    <div class="preloader__bar"><span class="preloader__fill"></span></div>
+    <div class="preloader__meta">
+      <span class="preloader__word">SIDHU AUTO HUB</span>
+      <span class="preloader__count">0</span>
+    </div>
+  </div>
+</div>
+
 <!-- depth layers -->
 <canvas id="bg-canvas"></canvas>
 <div class="grain"></div>
 <div class="scroll-progress"></div>
-<div class="cursor"></div>
+<div class="cursor"><span class="cursor__label"></span></div>
 <div class="cursor-dot"></div>
 
 <!-- ============ NAV ============ -->
@@ -127,12 +139,42 @@
   </div>
 </section>
 
+<!-- ============ SCROLL CINEMA (Apple-style pinned product story) ============ -->
+<section class="cinema" id="cinema">
+  <div class="cinema__sticky">
+    <div class="cinema__bg">
+      <img class="cinema__img" data-cinema-img src="assets/cars/corvette.jpg" alt="Featured vehicle" />
+      <div class="cinema__veil"></div>
+    </div>
+    <div class="cinema__hud">
+      <span class="eyebrow">Spotlight</span>
+      <h2 class="cinema__title chrome-text" data-cinema-title>CORVETTE C8</h2>
+    </div>
+    <!-- chapters -->
+    <div class="cinema__chapter" data-chapter="0">
+      <div class="cinema__stat"><span class="cinema__big">495</span><span class="cinema__unit">HP</span></div>
+      <p>Mid-engine architecture. Brutal, balanced, relentless.</p>
+    </div>
+    <div class="cinema__chapter" data-chapter="1">
+      <div class="cinema__stat"><span class="cinema__big">2.9</span><span class="cinema__unit">SEC 0–100</span></div>
+      <p>Launch control pins you to the seat the instant you ask.</p>
+    </div>
+    <div class="cinema__chapter" data-chapter="2">
+      <div class="cinema__stat"><span class="cinema__big">8</span><span class="cinema__unit">SPEED DCT</span></div>
+      <p>Razor-quick shifts. Track-bred precision, road-legal thrill.</p>
+    </div>
+    <div class="cinema__progress"><span data-cinema-bar></span></div>
+  </div>
+  <!-- scroll-distance drivers -->
+  <div class="cinema__track"></div>
+</section>
+
 <!-- ============ INVENTORY ============ -->
 <section class="inventory section-pad" id="inventory">
   <div class="wrap">
     <div class="sec-head reveal">
       <span class="eyebrow">Sample Inventory</span>
-      <h2>The Collection</h2>
+      <h2 class="kinetic">The Collection</h2>
       <p>A curated lineup of performance, muscle and luxury. Tilt, hover and tap any
          vehicle to dive into the spec sheet. New stock arrives weekly.</p>
     </div>
@@ -145,6 +187,23 @@
     </div>
 
     <div class="grid" id="inventory-grid"><!-- cards injected by JS --></div>
+  </div>
+</section>
+
+<!-- ============ HORIZONTAL GALLERY (Locomotive-style pinned scroll) ============ -->
+<section class="garage" id="garage">
+  <div class="garage__pin">
+    <div class="garage__head">
+      <span class="eyebrow">In The Garage</span>
+      <h2 class="garage__title kinetic">SCROLL THE FLOOR</h2>
+    </div>
+    <div class="garage__track" data-garage-track data-cursor="Drag">
+      <figure class="garage__slide"><img src="assets/cars/charger.jpg" alt="Charger"><figcaption><b>01</b> Charger Hellcat</figcaption></figure>
+      <figure class="garage__slide"><img src="assets/cars/gtr.jpg" alt="GT-R"><figcaption><b>02</b> Nissan GT-R</figcaption></figure>
+      <figure class="garage__slide"><img src="assets/cars/g63.jpg" alt="G63"><figcaption><b>03</b> AMG G63</figcaption></figure>
+      <figure class="garage__slide"><img src="assets/cars/rs7.jpg" alt="RS7"><figcaption><b>04</b> Audi RS7</figcaption></figure>
+      <figure class="garage__slide"><img src="assets/cars/wrangler.jpg" alt="Wrangler"><figcaption><b>05</b> Wrangler 392</figcaption></figure>
+    </div>
   </div>
 </section>
 
@@ -163,7 +222,7 @@
   <div class="wrap">
     <div class="sec-head reveal">
       <span class="eyebrow">How It Works</span>
-      <h2>Buying, Done Right</h2>
+      <h2 class="kinetic">Buying, Done Right</h2>
     </div>
     <div class="steps">
       <div class="step reveal">
@@ -193,7 +252,7 @@
   <div class="wrap">
     <div class="sec-head reveal">
       <span class="eyebrow">Visit The Hub</span>
-      <h2>Get In Touch</h2>
+      <h2 class="kinetic">Get In Touch</h2>
     </div>
     <div class="contact__grid">
       <div class="contact__card reveal">
