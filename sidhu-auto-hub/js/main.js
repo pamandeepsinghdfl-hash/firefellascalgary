@@ -222,7 +222,7 @@ async function initThree() {
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
 
   const scene = new THREE.Scene();
-  scene.fog = new THREE.FogExp2(0xeef0f4, 0.045);
+  scene.fog = new THREE.FogExp2(0x0a0a0b, 0.05);
 
   const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 200);
   camera.position.set(0, 0, 12);
@@ -237,8 +237,8 @@ async function initThree() {
     positions[i * 3 + 2] = (Math.random() - 0.5) * 120;
     speeds[i] = 0.6 + Math.random();
   }
-  // warm orange/amber particles, subtle on a light page (normal blending)
-  const PALETTE = [0xff6a00, 0xff9a3d, 0xffb15a, 0xe85d04, 0xcf7a3a, 0xffc987];
+  // faint champagne-gold motes drifting on the ink (additive glow)
+  const PALETTE = [0xc9a86a, 0xe7cd97, 0xa98847, 0xf5f3ee, 0xb89a64];
   const colors = new Float32Array(COUNT * 3);
   const tmp = new THREE.Color();
   for (let i = 0; i < COUNT; i++) {
@@ -249,42 +249,38 @@ async function initThree() {
   pGeo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
   pGeo.setAttribute("color", new THREE.BufferAttribute(colors, 3));
   const pMat = new THREE.PointsMaterial({
-    size: 0.1, transparent: true, opacity: 0.5, vertexColors: true,
-    sizeAttenuation: true, depthWrite: false, blending: THREE.NormalBlending
+    size: 0.085, transparent: true, opacity: 0.55, vertexColors: true,
+    sizeAttenuation: true, depthWrite: false, blending: THREE.AdditiveBlending
   });
   const points = new THREE.Points(pGeo, pMat);
   scene.add(points);
 
-  // --- floating amber shapes (subtle) ---
+  // --- a few slow gold wireframe forms, very subtle ---
   const shapes = [];
   const geos = [
-    new THREE.IcosahedronGeometry(1.5, 0),
-    new THREE.TorusGeometry(1.4, 0.42, 16, 60),
-    new THREE.OctahedronGeometry(1.5, 0),
-    new THREE.TorusKnotGeometry(1, 0.32, 90, 14)
+    new THREE.IcosahedronGeometry(1.6, 0),
+    new THREE.TorusGeometry(1.4, 0.4, 16, 64),
+    new THREE.OctahedronGeometry(1.6, 0),
+    new THREE.TorusKnotGeometry(1, 0.3, 100, 14)
   ];
-  for (let i = 0; i < 7; i++) {
-    const col = PALETTE[i % PALETTE.length];
-    const useWire = i % 2 === 0;
-    const m = useWire
-      ? new THREE.MeshBasicMaterial({ color: col, wireframe: true, transparent: true, opacity: 0.32 })
-      : new THREE.MeshStandardMaterial({ color: col, metalness: 0.5, roughness: 0.35, emissive: col, emissiveIntensity: 0.5, transparent: true, opacity: 0.85 });
+  for (let i = 0; i < 5; i++) {
+    const m = new THREE.MeshBasicMaterial({ color: 0xc9a86a, wireframe: true, transparent: true, opacity: 0.14 });
     const mesh = new THREE.Mesh(geos[i % geos.length], m);
-    const s = 0.5 + Math.random() * 0.9;
+    const s = 0.6 + Math.random() * 0.9;
     mesh.scale.setScalar(s);
-    mesh.position.set((Math.random() - 0.5) * 26, (Math.random() - 0.5) * 26, -i * 9 - 4);
-    mesh.userData.rot = (Math.random() - 0.5) * 0.01;
+    mesh.position.set((Math.random() - 0.5) * 28, (Math.random() - 0.5) * 26, -i * 11 - 6);
+    mesh.userData.rot = (Math.random() - 0.5) * 0.007;
     mesh.userData.float = Math.random() * Math.PI * 2;
     shapes.push(mesh);
     scene.add(mesh);
   }
 
-  // --- warm lighting ---
-  const key = new THREE.DirectionalLight(0xffffff, 2.2); key.position.set(5, 8, 10); scene.add(key);
-  const rim = new THREE.PointLight(0xff6a00, 20, 70); rim.position.set(-9, -4, 4); scene.add(rim);
-  const rim2 = new THREE.PointLight(0xffb15a, 16, 70); rim2.position.set(9, 5, 2); scene.add(rim2);
-  const rim3 = new THREE.PointLight(0xe85d04, 14, 70); rim3.position.set(0, -8, 6); scene.add(rim3);
-  scene.add(new THREE.AmbientLight(0xffffff, 0.9));
+  // --- dim warm lighting ---
+  const key = new THREE.DirectionalLight(0xfff3df, 1.4); key.position.set(5, 8, 10); scene.add(key);
+  const rim = new THREE.PointLight(0xc9a86a, 14, 70); rim.position.set(-9, -4, 4); scene.add(rim);
+  const rim2 = new THREE.PointLight(0xe7cd97, 10, 70); rim2.position.set(9, 5, 2); scene.add(rim2);
+  const rim3 = new THREE.PointLight(0xa98847, 8, 70); rim3.position.set(0, -8, 6); scene.add(rim3);
+  scene.add(new THREE.AmbientLight(0x2a2a2e, 0.8));
 
   // pointer parallax
   if (!isTouch) {
@@ -294,11 +290,9 @@ async function initThree() {
     });
   }
 
-  // --- UnrealBloom post-processing ---
-  // Disabled on the light theme: EffectComposer renders to an opaque buffer,
-  // which would black out the transparent canvas and hide the light page behind it.
+  // --- UnrealBloom post-processing (subtle gold glow on the ink) ---
   let composer = null, bloom = null;
-  if (false) {
+  if (!isTouch) {
     try {
       const [{ EffectComposer }, { RenderPass }, { UnrealBloomPass }, { OutputPass }] = await Promise.all([
         import("./vendor/jsm/postprocessing/EffectComposer.js"),
@@ -309,7 +303,7 @@ async function initThree() {
       composer = new EffectComposer(renderer);
       composer.addPass(new RenderPass(scene, camera));
       bloom = new UnrealBloomPass(
-        new THREE.Vector2(window.innerWidth, window.innerHeight), 0.35, 0.5, 0.55);
+        new THREE.Vector2(window.innerWidth, window.innerHeight), 0.5, 0.7, 0.6);
       composer.addPass(bloom);
       composer.addPass(new OutputPass());
       composer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -551,9 +545,9 @@ function initPreloader() {
 function playIntro() {
   if (!window.gsap) return;
   gsap.fromTo(".hero h1 .line > span", { yPercent: 110 },
-    { yPercent: 0, duration: 1.1, stagger: 0.12, ease: "expo.out" });
-  gsap.fromTo(".hero__logo, .hero__tag, .hero__sub, .hero__actions, .hero__chips, .hero__visual, .hero__scroll",
-    { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 1, stagger: 0.09, ease: "power3.out", delay: 0.2 });
+    { yPercent: 0, duration: 1.3, stagger: 0.14, ease: "expo.out" });
+  gsap.fromTo(".hero__logo, .hero .eyebrow, .hero__sub, .hero__actions, .hero__meta, .hero__scroll",
+    { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 1.1, stagger: 0.1, ease: "power3.out", delay: 0.25 });
 }
 
 /* ----- Kinetic word split + reveal (Obys / Zentry) ----- */
@@ -572,19 +566,19 @@ function initKinetic() {
   });
 }
 
-/* ----- Apple-style scroll cinema (pin + scrub through chapters) ----- */
+/* ----- Spotlight (pinned scroll-scrub through featured vehicles) ----- */
 const CINEMA = [
-  { img: "assets/cars/huracan.jpg",    title: "HURACÁN EVO" },
+  { img: "assets/cars/huracan.jpg",    title: "Huracán EVO" },
   { img: "assets/cars/amggt.jpg",      title: "AMG GT R" },
-  { img: "assets/cars/challenger.jpg", title: "CHALLENGER" }
+  { img: "assets/cars/challenger.jpg", title: "Challenger" }
 ];
 function initCinema() {
-  const sec = document.getElementById("cinema");
+  const sec = document.getElementById("spotlight");
   if (!sec || !window.gsap || !window.ScrollTrigger || reduceMotion) return;
   const img = sec.querySelector("[data-cinema-img]");
   const titleEl = sec.querySelector("[data-cinema-title]");
   const bar = sec.querySelector("[data-cinema-bar]");
-  const chapters = [...sec.querySelectorAll(".cinema__chapter")];
+  const chapters = [...sec.querySelectorAll(".spotlight__chapter")];
   const n = chapters.length;
 
   // chapter timeline scrubbed by scroll
@@ -825,7 +819,7 @@ function initLeadTriggers() {
 
 /* ----- Sticky action bar (show after hero) ----- */
 function initActionBar() {
-  const bar = document.getElementById("actionbar");
+  const bar = document.getElementById("enquirebar");
   if (!bar) return;
   const onScroll = () => bar.classList.toggle("show", window.scrollY > window.innerHeight * 0.7);
   window.addEventListener("scroll", onScroll, { passive: true }); onScroll();
