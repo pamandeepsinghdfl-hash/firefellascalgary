@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sidhu Auto Hub — Premium Performance Inventory | Brampton, ON</title>
+<meta name="description" content="Sidhu Auto Hub — premium pre-owned performance, muscle and luxury vehicles in Brampton, Ontario. Explore our handpicked inventory of V8 muscle, sports cars and luxury SUVs." />
+<meta name="theme-color" content="#07080a" />
+
+<!-- Open Graph -->
+<meta property="og:title" content="Sidhu Auto Hub — Premium Performance Inventory" />
+<meta property="og:description" content="Handpicked muscle, sport and luxury vehicles. Brampton, ON." />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="assets/logo.jpeg" />
+
+<link rel="icon" type="image/jpeg" href="assets/logo.jpeg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Oswald:wght@300;400;500;600&family=Saira+Condensed:wght@600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/style.css" />
+
+<!-- Three.js as ES module -->
+<script type="importmap">
+{ "imports": { "three": "https://unpkg.com/three@0.160.0/build/three.module.js" } }
+</script>
+
+<!-- LocalBusiness structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "AutoDealer",
+  "name": "Sidhu Auto Hub",
+  "image": "assets/logo.jpeg",
+  "telephone": "+1-437-230-3608",
+  "email": "Sidhu4747@icloud.com",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "22 Bramsteele Rd",
+    "addressLocality": "Brampton",
+    "addressRegion": "ON",
+    "postalCode": "L6W 1B3",
+    "addressCountry": "CA"
+  },
+  "priceRange": "$$$"
+}
+</script>
+</head>
+<body>
+
+<!-- depth layers -->
+<canvas id="bg-canvas"></canvas>
+<div class="grain"></div>
+<div class="scroll-progress"></div>
+<div class="cursor"></div>
+<div class="cursor-dot"></div>
+
+<!-- ============ NAV ============ -->
+<header class="nav">
+  <a class="nav__brand" href="#top">
+    <img src="assets/logo.jpeg" alt="Sidhu Auto Hub logo" />
+    <span class="nav__brand-txt"><b>SIDHU</b><span>AUTO HUB</span></span>
+  </a>
+  <nav class="nav__links">
+    <a href="#inventory">Inventory</a>
+    <a href="#about">About</a>
+    <a href="#process">How It Works</a>
+    <a href="#contact">Contact</a>
+    <a class="nav__cta" href="tel:+14372303608">Call Now</a>
+  </nav>
+  <div class="nav__burger" aria-label="Menu"><span></span><span></span><span></span></div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="top">
+  <video class="hero__video" src="assets/hero.mp4" autoplay muted loop playsinline></video>
+  <div class="hero__scrim"></div>
+  <div class="hero__inner">
+    <img class="hero__logo" src="assets/logo.jpeg" alt="Sidhu Auto Hub" />
+    <h1>
+      <span class="line"><span>DRIVE THE</span></span>
+      <span class="line"><span class="chrome-text">EXTRAORDINARY</span></span>
+    </h1>
+    <p class="hero__sub">
+      <strong>Sidhu Auto Hub</strong> — Brampton's home for handpicked muscle, sport
+      and luxury machines. Raw power, immaculate condition, and a buying experience
+      built for the driver who refuses to settle.
+    </p>
+    <div class="hero__actions">
+      <a class="btn btn--primary" href="#inventory">Explore Inventory <span>→</span></a>
+      <a class="btn btn--ghost" href="#contact">Book a Viewing</a>
+    </div>
+  </div>
+  <div class="hero__scroll">
+    <div class="mouse"></div>
+    Scroll to Enter
+  </div>
+</section>
+
+<!-- ============ MARQUEE ============ -->
+<div class="marquee">
+  <div class="marquee__track">
+    <span>MUSCLE</span><span>PERFORMANCE</span><span>LUXURY SUV</span><span>SPORT</span>
+    <span>MUSCLE</span><span>PERFORMANCE</span><span>LUXURY SUV</span><span>SPORT</span>
+  </div>
+</div>
+
+<!-- ============ ABOUT ============ -->
+<section class="about section-pad" id="about">
+  <div class="wrap about__grid">
+    <div class="reveal">
+      <span class="eyebrow">The Sidhu Standard</span>
+      <p class="about__lead">We don't just sell cars. We curate <b>machines worth owning.</b></p>
+      <p class="about__copy">
+        Every vehicle on our floor is inspected, road-tested and hand-selected for
+        condition and character. From supercharged V8 muscle to mid-engine sports cars
+        and flagship luxury SUVs — if it carries the Sidhu Auto Hub badge, it has
+        earned its place. Transparent history, fair pricing, and a no-pressure room.
+      </p>
+      <div class="hero__actions">
+        <a class="btn btn--chrome" href="#inventory">View the Collection</a>
+      </div>
+    </div>
+    <div class="about__stats reveal">
+      <div class="stat"><div class="num"><span data-count="350">0</span>+</div><div class="lbl">Cars Delivered</div></div>
+      <div class="stat"><div class="num"><span data-count="120">0</span></div><div class="lbl">Point Inspection</div></div>
+      <div class="stat"><div class="num"><span data-count="15">0</span>yr</div><div class="lbl">In The Trade</div></div>
+      <div class="stat"><div class="num"><span data-count="4827">0</span></div><div class="lbl">HP On The Floor</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ INVENTORY ============ -->
+<section class="inventory section-pad" id="inventory">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Sample Inventory</span>
+      <h2>The Collection</h2>
+      <p>A curated lineup of performance, muscle and luxury. Tilt, hover and tap any
+         vehicle to dive into the spec sheet. New stock arrives weekly.</p>
+    </div>
+
+    <div class="filters reveal">
+      <button class="filter active" data-filter="all">All</button>
+      <button class="filter" data-filter="muscle">Muscle</button>
+      <button class="filter" data-filter="sport">Sport</button>
+      <button class="filter" data-filter="suv">Luxury SUV</button>
+    </div>
+
+    <div class="grid" id="inventory-grid"><!-- cards injected by JS --></div>
+  </div>
+</section>
+
+<!-- ============ DEPTH BAND ============ -->
+<section class="depth-band">
+  <div class="depth-band__bg" style="background-image:url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1900&q=80')"></div>
+  <div class="depth-band__scrim"></div>
+  <div class="wrap reveal">
+    <span class="eyebrow" style="justify-content:center;color:var(--chrome-2)">Engineered Obsession</span>
+    <h2 class="chrome-text">POWER<br>HAS A HOME</h2>
+  </div>
+</section>
+
+<!-- ============ PROCESS ============ -->
+<section class="section-pad" id="process" style="background:var(--bg)">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">How It Works</span>
+      <h2>Buying, Done Right</h2>
+    </div>
+    <div class="steps">
+      <div class="step reveal">
+        <div class="num">01</div>
+        <h3>Browse &amp; Reserve</h3>
+        <p>Explore the live inventory and flag the machine that speaks to you. A quick
+           message or call holds it while you decide.</p>
+      </div>
+      <div class="step reveal">
+        <div class="num">02</div>
+        <h3>Inspect &amp; Drive</h3>
+        <p>Come see it in person at our Brampton showroom. Full history, real numbers,
+           and a test drive — no pressure, no gimmicks.</p>
+      </div>
+      <div class="step reveal">
+        <div class="num">03</div>
+        <h3>Own It</h3>
+        <p>Financing, trade-ins and clean paperwork handled in-house. You leave with
+           the keys and the confidence to enjoy them.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="contact section-pad" id="contact">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Visit The Hub</span>
+      <h2>Get In Touch</h2>
+    </div>
+    <div class="contact__grid">
+      <div class="contact__card reveal">
+        <ul class="contact__list">
+          <li>
+            <span class="contact__ic">📍</span>
+            <div><div class="contact__k">Showroom</div>
+              <div class="contact__v"><a href="https://maps.google.com/?q=22+Bramsteele+Rd,+Brampton,+ON+L6W+1B3" target="_blank" rel="noopener">22 Bramsteele Rd, Brampton, ON L6W 1B3</a></div></div>
+          </li>
+          <li>
+            <span class="contact__ic">📞</span>
+            <div><div class="contact__k">Call / Text</div>
+              <div class="contact__v"><a href="tel:+14372303608">+1 (437) 230-3608</a></div></div>
+          </li>
+          <li>
+            <span class="contact__ic">✉️</span>
+            <div><div class="contact__k">Email</div>
+              <div class="contact__v"><a href="mailto:Sidhu4747@icloud.com">Sidhu4747@icloud.com</a></div></div>
+          </li>
+          <li>
+            <span class="contact__ic">🕑</span>
+            <div><div class="contact__k">Hours</div>
+              <div class="contact__v">Mon–Sat · 9:00 AM – 7:00 PM<br>Sunday · By Appointment</div></div>
+          </li>
+        </ul>
+      </div>
+      <div class="map-frame reveal">
+        <iframe title="Sidhu Auto Hub location"
+          src="https://www.google.com/maps?q=22%20Bramsteele%20Rd,%20Brampton,%20ON%20L6W%201B3&output=embed"
+          loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+
+    <div class="cta-banner reveal">
+      <h2 class="chrome-text">Ready To Find Yours?</h2>
+      <p>Tell us what you're hunting for. We'll match you with the right machine —
+         or source it. The keys are waiting.</p>
+      <div class="hero__actions">
+        <a class="btn btn--primary" href="tel:+14372303608">Call +1 (437) 230-3608</a>
+        <a class="btn btn--ghost" href="mailto:Sidhu4747@icloud.com">Email The Hub</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <img src="assets/logo.jpeg" alt="Sidhu Auto Hub" />
+        <div><b>SIDHU AUTO HUB</b><span>BRAMPTON · ONTARIO</span></div>
+      </div>
+      <div class="footer__cols">
+        <div class="footer__col">
+          <h4>Explore</h4>
+          <a href="#inventory">Inventory</a>
+          <a href="#about">About Us</a>
+          <a href="#process">How It Works</a>
+          <a href="#contact">Contact</a>
+        </div>
+        <div class="footer__col">
+          <h4>Visit</h4>
+          <p>22 Bramsteele Rd<br>Brampton, ON L6W 1B3</p>
+          <a href="tel:+14372303608">+1 (437) 230-3608</a>
+          <a href="mailto:Sidhu4747@icloud.com">Sidhu4747@icloud.com</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© <span id="year">2026</span> Sidhu Auto Hub. All rights reserved.</span>
+      <span>Inventory shown is a sample for demonstration. Vehicles subject to availability.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ MODAL ============ -->
+<div class="modal" id="modal" aria-hidden="true">
+  <div class="modal__box">
+    <button class="modal__close" aria-label="Close">×</button>
+    <div class="modal__media"><img data-m-img src="" alt="Vehicle" /></div>
+    <div class="modal__body">
+      <h3 data-m-title>Vehicle</h3>
+      <div class="modal__price" data-m-price>$0</div>
+      <p style="color:var(--muted)" data-m-desc></p>
+      <div class="modal__specs" data-m-specs></div>
+      <div class="hero__actions">
+        <a class="btn btn--primary" href="tel:+14372303608">Enquire &amp; Reserve</a>
+        <a class="btn btn--ghost" href="#contact" onclick="document.getElementById('modal').classList.remove('open');document.body.style.overflow=''">Book Viewing</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- libs -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
