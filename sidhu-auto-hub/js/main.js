@@ -14,36 +14,36 @@ const isTouch = window.matchMedia("(hover: none)").matches;
 ---------------------------------------------------------------- */
 const INVENTORY = [
   {
-    name: "Dodge Charger SRT Hellcat",
-    year: 2023, price: "$78,900", cat: "muscle", tag: "New Arrival",
-    sub: "6.2L Supercharged HEMI V8 · RWD",
-    hp: "717 HP", zero: "3.6s", trans: "8-Speed Auto", km: "12,400 km",
-    img: "assets/cars/charger.jpg",
-    desc: "A street-legal monster. Supercharged HEMI thunder, launch control, and a presence that owns every lane it touches."
+    name: "Lamborghini Huracán EVO",
+    year: 2021, price: "$289,900", cat: "sport", tag: "New Arrival",
+    sub: "5.2L Naturally Aspirated V10 · RWD",
+    hp: "631 HP", zero: "3.1s", trans: "7-Speed DCT", km: "9,400 km",
+    img: "assets/cars/huracan.jpg",
+    desc: "A mid-engine V10 exotic in arancio orange. Naturally aspirated fury, scissor-sharp response, and a soundtrack nothing else can match."
   },
   {
-    name: "Ford Mustang GT Premium",
-    year: 2022, price: "$54,500", cat: "muscle", tag: "Featured",
-    sub: "5.0L Coyote V8 · RWD",
-    hp: "460 HP", zero: "4.2s", trans: "6-Speed Manual", km: "21,800 km",
+    name: "Ford Mustang Mach 1",
+    year: 1971, price: "$74,500", cat: "muscle", tag: "Featured",
+    sub: "351 Cleveland V8 · RWD",
+    hp: "330 HP", zero: "6.0s", trans: "4-Speed Manual", km: "Restored",
     img: "assets/cars/mustang.jpg",
-    desc: "American icon with a row-your-own gearbox, active exhaust, and that unmistakable V8 bark."
+    desc: "A fully sorted classic Mach 1 in candy red. Ram-air hood, shaker scoop, and the raw character only a true muscle-era pony delivers."
   },
   {
-    name: "Chevrolet Corvette C8 Z51",
-    year: 2023, price: "$112,000", cat: "sport", tag: "Just In",
-    sub: "6.2L Mid-Engine V8 · RWD",
-    hp: "495 HP", zero: "2.9s", trans: "8-Speed DCT", km: "6,200 km",
-    img: "assets/cars/corvette.jpg",
-    desc: "Mid-engine supercar performance at a fraction of the cost. Razor-sharp handling and brutal straight-line pace."
+    name: "Mercedes-AMG GT R",
+    year: 2020, price: "$164,900", cat: "sport", tag: "Just In",
+    sub: "4.0L Biturbo V8 · RWD",
+    hp: "577 HP", zero: "3.5s", trans: "7-Speed DCT", km: "12,800 km",
+    img: "assets/cars/amggt.jpg",
+    desc: "The 'Beast of the Green Hell' in matte black. Hand-built AMG V8, active aero, and rear-wheel steering for surgical precision."
   },
   {
-    name: "BMW M4 Competition",
-    year: 2021, price: "$84,750", cat: "sport", tag: "",
-    sub: "3.0L Twin-Turbo I6 · AWD",
-    hp: "503 HP", zero: "3.4s", trans: "8-Speed M Steptronic", km: "18,500 km",
-    img: "assets/cars/m4.jpg",
-    desc: "Track-bred precision with daily-driver comfort. Carbon trim, M differential, and surgical throttle response."
+    name: "BMW M5 Competition",
+    year: 2021, price: "$112,500", cat: "sport", tag: "",
+    sub: "4.4L Twin-Turbo V8 · M xDrive AWD",
+    hp: "617 HP", zero: "3.2s", trans: "8-Speed M Steptronic", km: "18,500 km",
+    img: "assets/cars/m5.jpg",
+    desc: "The super-sedan benchmark. Switchable all-wheel drive, twin-turbo V8 thrust, and four-door, five-seat everyday usability."
   },
   {
     name: "Mercedes-AMG G63",
@@ -54,36 +54,36 @@ const INVENTORY = [
     desc: "The undisputed king of statement SUVs. Hand-built AMG V8, military DNA, first-class luxury throughout."
   },
   {
-    name: "Audi RS7 Sportback",
-    year: 2022, price: "$129,500", cat: "sport", tag: "",
-    sub: "4.0L Twin-Turbo V8 · quattro",
-    hp: "591 HP", zero: "3.5s", trans: "8-Speed Tiptronic", km: "15,300 km",
-    img: "assets/cars/rs7.jpg",
-    desc: "Four-door grand tourer with supercar muscle. Effortless quattro grip and a cabin built for long-haul pace."
+    name: "Tesla Model 3 Performance",
+    year: 2023, price: "$61,900", cat: "sport", tag: "Electric",
+    sub: "Dual Motor · All-Wheel Drive · EV",
+    hp: "510 HP", zero: "3.1s", trans: "Single-Speed", km: "14,200 km",
+    img: "assets/cars/model3.jpg",
+    desc: "Instant electric torque in a clean white finish. Silent launches, 500+ km range, and software that keeps getting better."
   },
   {
-    name: "Jeep Wrangler Rubicon 392",
-    year: 2023, price: "$92,300", cat: "suv", tag: "New Arrival",
-    sub: "6.4L HEMI V8 · 4x4",
-    hp: "470 HP", zero: "4.5s", trans: "8-Speed Auto", km: "8,700 km",
-    img: "assets/cars/wrangler.jpg",
-    desc: "V8 power meets go-anywhere capability. Locking diffs, sway-bar disconnect, and trail-rated dominance."
+    name: "Ford Expedition Limited",
+    year: 2022, price: "$72,300", cat: "suv", tag: "New Arrival",
+    sub: "3.5L EcoBoost V6 · 4x4",
+    hp: "400 HP", zero: "5.8s", trans: "10-Speed Auto", km: "21,600 km",
+    img: "assets/cars/expedition.jpg",
+    desc: "Full-size capability with twin-turbo punch. Three rows, trailer-grade towing, and long-haul comfort for the whole crew."
   },
   {
-    name: "Nissan GT-R Premium",
-    year: 2021, price: "$138,000", cat: "sport", tag: "Featured",
-    sub: "3.8L Twin-Turbo V6 · AWD",
-    hp: "565 HP", zero: "2.9s", trans: "6-Speed DCT", km: "14,600 km",
-    img: "assets/cars/gtr.jpg",
-    desc: "Godzilla. The legendary all-wheel-drive launch and relentless turbocharged thrust that humble exotics."
+    name: "Dodge Challenger R/T Scat Pack",
+    year: 2022, price: "$58,900", cat: "muscle", tag: "Featured",
+    sub: "6.4L 392 HEMI V8 · RWD",
+    hp: "485 HP", zero: "4.3s", trans: "6-Speed Manual", km: "16,900 km",
+    img: "assets/cars/challenger.jpg",
+    desc: "Blacked-out HEMI muscle, unfiltered. Naturally aspirated 392 V8, line-lock, and a stance that means business."
   },
   {
-    name: "Chevrolet Camaro ZL1",
-    year: 2022, price: "$71,400", cat: "muscle", tag: "Sold",
-    sub: "6.2L Supercharged V8 · RWD",
-    hp: "650 HP", zero: "3.5s", trans: "10-Speed Auto", km: "19,900 km",
+    name: "Chevrolet Camaro SS 1LE",
+    year: 2021, price: "$52,400", cat: "muscle", tag: "Sold",
+    sub: "6.2L LT1 V8 · RWD",
+    hp: "455 HP", zero: "4.0s", trans: "6-Speed Manual", km: "19,900 km",
     img: "assets/cars/camaro.jpg",
-    desc: "The most track-capable Camaro ever built. Supercharged fury with magnetic ride and aggressive aero."
+    desc: "Track package in electric blue. LT1 V8, magnetic ride, and the 1LE aero that turns canyon roads into a playground."
   }
 ];
 
@@ -560,9 +560,9 @@ function initKinetic() {
 
 /* ----- Apple-style scroll cinema (pin + scrub through chapters) ----- */
 const CINEMA = [
-  { img: "assets/cars/corvette.jpg", title: "CORVETTE C8" },
-  { img: "assets/cars/charger.jpg",  title: "CHARGER SRT" },
-  { img: "assets/cars/gtr.jpg",      title: "NISSAN GT-R" }
+  { img: "assets/cars/huracan.jpg",    title: "HURACÁN EVO" },
+  { img: "assets/cars/amggt.jpg",      title: "AMG GT R" },
+  { img: "assets/cars/challenger.jpg", title: "CHALLENGER" }
 ];
 function initCinema() {
   const sec = document.getElementById("cinema");
