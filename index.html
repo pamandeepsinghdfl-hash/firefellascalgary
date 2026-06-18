@@ -1630,57 +1630,177 @@
     renderer.setSize(window.innerWidth, window.innerHeight, false);
 
     const scene = new THREE.Scene();
-    scene.fog = new THREE.Fog(0x0A0A0B, 12, 45);
+    // Warm dusk fog so distant objects blend into the sky instead of cutting hard
+    scene.fog = new THREE.Fog(0x4B2D5C, 22, 55);
 
-    const camera = new THREE.PerspectiveCamera(42, window.innerWidth / window.innerHeight, 0.1, 100);
+    const camera = new THREE.PerspectiveCamera(42, window.innerWidth / window.innerHeight, 0.1, 120);
     camera.position.set(0, 0, 6);
 
-    // Soft lights (no PBR, just direction + ambient)
-    scene.add(new THREE.AmbientLight(0xffffff, 0.55));
-    const key = new THREE.DirectionalLight(0xFF6B1A, 0.45);
-    key.position.set(5, 6, 5);
-    scene.add(key);
-    const fill = new THREE.DirectionalLight(0xffffff, 0.25);
-    fill.position.set(-4, 2, -2);
-    scene.add(fill);
+    // ===== COLORFUL SUNSET SKY DOME =====
+    const skyMat = new THREE.ShaderMaterial({
+      uniforms: {
+        uTop:     { value: new THREE.Color(0x1B1640) }, // deep midnight purple
+        uMid:     { value: new THREE.Color(0x6A2E63) }, // dusk magenta
+        uHorizon: { value: new THREE.Color(0xFF8A3D) }, // sunset orange
+        uGround:  { value: new THREE.Color(0x2A1612) }, // warm earth
+      },
+      vertexShader: `
+        varying vec3 vWorldPos;
+        void main() {
+          vec4 wp = modelMatrix * vec4(position, 1.0);
+          vWorldPos = wp.xyz;
+          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+        }
+      `,
+      fragmentShader: `
+        uniform vec3 uTop;
+        uniform vec3 uMid;
+        uniform vec3 uHorizon;
+        uniform vec3 uGround;
+        varying vec3 vWorldPos;
+        void main() {
+          float h = normalize(vWorldPos).y;
+          vec3 col;
+          if (h > 0.0) {
+            float t1 = smoothstep(0.0, 0.18, h);
+            float t2 = smoothstep(0.18, 0.7, h);
+            col = mix(uHorizon, uMid, t1);
+            col = mix(col, uTop, t2);
+          } else {
+            col = mix(uHorizon, uGround, smoothstep(0.0, -0.3, h));
+          }
+          gl_FragColor = vec4(col, 1.0);
+        }
+      `,
+      side: THREE.BackSide,
+      depthWrite: false,
+    });
+    scene.add(new THREE.Mesh(new THREE.SphereGeometry(60, 32, 24), skyMat));
+
+    // ===== GROUND PLANE (warm earth tone with subtle grid) =====
+    const groundMat = new THREE.MeshLambertMaterial({ color: 0x32201A });
+    const ground = new THREE.Mesh(new THREE.PlaneGeometry(120, 120, 1, 1), groundMat);
+    ground.rotation.x = -Math.PI / 2;
+    ground.position.y = -1.65;
+    scene.add(ground);
+    // Faint orange horizon line on the ground (a thin band right at fog distance)
+    const horizonStrip = new THREE.Mesh(
+      new THREE.RingGeometry(28, 30, 64),
+      new THREE.MeshBasicMaterial({ color: 0xFF6B1A, transparent: true, opacity: 0.25, side: THREE.DoubleSide })
+    );
+    horizonStrip.rotation.x = -Math.PI / 2;
+    horizonStrip.position.y = -1.64;
+    scene.add(horizonStrip);
+
+    // ===== WARM LIGHTING (sunset palette) =====
+    scene.add(new THREE.AmbientLight(0xFFD8B0, 0.55));               // warm overall fill
+    const sun = new THREE.DirectionalLight(0xFFB870, 1.0);            // golden-hour key light
+    sun.position.set(8, 6, 4);
+    scene.add(sun);
+    const skyFill = new THREE.DirectionalLight(0x7090C0, 0.35);       // cool sky reflection from above
+    skyFill.position.set(-4, 4, -2);
+    scene.add(skyFill);
+    const rim = new THREE.DirectionalLight(0xFF4A20, 0.6);            // hot rim from horizon
+    rim.position.set(-6, -1, 3);
+    scene.add(rim);
 
     // ===== HELPERS =====
-    const COLOR_FILL   = 0x1A1A1D;
-    const COLOR_EDGE   = 0xFF6B1A;
-    const COLOR_GHOST  = 0xFFFFFF;
+    const COLOR_CARDBOARD       = 0xC49659; // warm tan
+    const COLOR_CARDBOARD_DARK  = 0x8B6F40; // shadow / underside
+    const COLOR_TAPE            = 0xE5C28A; // light beige packing tape
+    const COLOR_SEAM            = 0x6B4A2A; // flap seam (darker line)
+    const COLOR_LABEL           = 0xF5F0E8; // shipping label paper
+    const COLOR_ACCENT          = 0xFF6B1A; // brand orange
+    const COLOR_TEXT_GHOST      = 0x2A1F18; // text-like dark spot on the label
 
-    const makeBox = (size = 1, edgeOpacity = 0.9) => {
+    // Realistic cardboard moving box: warm tan body, tape cross on top, shipping label on front
+    const makeBox = (size = 1, variant = 0) => {
       const g = new THREE.Group();
       const geo = new THREE.BoxGeometry(size, size, size);
-      g.add(new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ color: COLOR_FILL })));
+
+      // Slight tan variation across boxes for realism
+      const baseTan = new THREE.Color(COLOR_CARDBOARD);
+      baseTan.offsetHSL(0, 0, (variant % 5) * 0.018 - 0.04);
+      const mat = new THREE.MeshLambertMaterial({ color: baseTan });
+      g.add(new THREE.Mesh(geo, mat));
+
+      // Subtle darker corner edges (defines the box without going neon)
       g.add(new THREE.LineSegments(
         new THREE.EdgesGeometry(geo),
-        new THREE.LineBasicMaterial({ color: COLOR_EDGE, transparent: true, opacity: edgeOpacity })
+        new THREE.LineBasicMaterial({ color: COLOR_CARDBOARD_DARK, transparent: true, opacity: 0.5 })
       ));
-      // tape across top
-      const tape = new THREE.Mesh(
-        new THREE.PlaneGeometry(size * 1.001, size * 0.11),
-        new THREE.MeshBasicMaterial({ color: COLOR_EDGE, transparent: true, opacity: 0.3 })
+
+      const top = size / 2 + 0.001;
+
+      // Packing tape — horizontal strip across the top center seam
+      const tapeH = new THREE.Mesh(
+        new THREE.PlaneGeometry(size * 1.0, size * 0.13),
+        new THREE.MeshLambertMaterial({ color: COLOR_TAPE })
       );
-      tape.rotation.x = -Math.PI / 2;
-      tape.position.y = size / 2 + 0.001;
-      g.add(tape);
+      tapeH.rotation.x = -Math.PI / 2;
+      tapeH.position.y = top;
+      g.add(tapeH);
+
+      // Center flap seam — thin dark line under the tape direction (where the four flaps meet)
+      const seamH = new THREE.Mesh(
+        new THREE.PlaneGeometry(size * 0.98, size * 0.012),
+        new THREE.MeshBasicMaterial({ color: COLOR_SEAM })
+      );
+      seamH.rotation.x = -Math.PI / 2;
+      seamH.position.y = top + 0.0008;
+      g.add(seamH);
+
+      // Perpendicular flap seam (forms the cross)
+      const seamV = new THREE.Mesh(
+        new THREE.PlaneGeometry(size * 0.012, size * 0.98),
+        new THREE.MeshBasicMaterial({ color: COLOR_SEAM })
+      );
+      seamV.rotation.x = -Math.PI / 2;
+      seamV.position.y = top + 0.0008;
+      g.add(seamV);
+
+      // Shipping label on the front face — pale rectangle
+      const label = new THREE.Mesh(
+        new THREE.PlaneGeometry(size * 0.46, size * 0.28),
+        new THREE.MeshLambertMaterial({ color: COLOR_LABEL })
+      );
+      label.position.set(0, -size * 0.05, size / 2 + 0.001);
+      g.add(label);
+
+      // Three "address lines" on the label (small dark stripes)
+      for (let i = 0; i < 3; i++) {
+        const line = new THREE.Mesh(
+          new THREE.PlaneGeometry(size * 0.32 - i * size * 0.04, size * 0.018),
+          new THREE.MeshBasicMaterial({ color: COLOR_TEXT_GHOST })
+        );
+        line.position.set(-size * 0.04, -size * 0.05 + size * 0.06 - i * size * 0.05, size / 2 + 0.0015);
+        g.add(line);
+      }
+
+      // Small orange Fire Fellas accent dot on the label
+      const dot = new THREE.Mesh(
+        new THREE.PlaneGeometry(size * 0.055, size * 0.055),
+        new THREE.MeshBasicMaterial({ color: COLOR_ACCENT })
+      );
+      dot.position.set(size * 0.16, size * 0.05, size / 2 + 0.0015);
+      g.add(dot);
+
       return g;
     };
 
     // ===== OBJECTS =====
     // 1. Hero box (large, center stage in chapter 1)
-    const heroBox = makeBox(1.6, 0.95);
+    const heroBox = makeBox(1.6, 0);
     heroBox.position.set(0, 0, 0);
     heroBox.rotation.set(0.3, 0.5, 0);
     scene.add(heroBox);
 
-    // 2. Box pile (appears in chapters 2-3)
+    // 2. Box pile (appears in chapters 2-3) — varied cardboard tones
     const pile = new THREE.Group();
     const PILE_COUNT = 14;
     for (let i = 0; i < PILE_COUNT; i++) {
       const sz = 0.65 + Math.random() * 0.45;
-      const b = makeBox(sz, 0.8);
+      const b = makeBox(sz, i);
       const col = i % 4;
       const row = Math.floor(i / 4);
       b.position.set(
@@ -1694,89 +1814,296 @@
     pile.position.set(14, -1.2, -2); // off-screen right
     scene.add(pile);
 
-    // 3. Truck (cargo + cab + 6 wheels, wireframe)
+    // 3. REAL MOVING TRUCK — solid materials, orange cab + white cargo with brand stripe
+    const COLOR_CAB    = 0xFF6B1A;
+    const COLOR_CARGO  = 0xF5F2EA;
+    const COLOR_CARGO_TRIM = 0xE2DDD0;
+    const COLOR_GLASS  = 0x0E1820;
+    const COLOR_TIRE   = 0x16161A;
+    const COLOR_GRILLE = 0x1A1A1D;
+    const COLOR_HEAD   = 0xFFE89A;
     const truck = new THREE.Group();
     {
-      const cargo = new THREE.LineSegments(
-        new THREE.EdgesGeometry(new THREE.BoxGeometry(3.6, 2.0, 1.9)),
-        new THREE.LineBasicMaterial({ color: COLOR_GHOST, transparent: true, opacity: 0.55 })
+      // Cargo box (warm white)
+      const cargoBody = new THREE.Mesh(
+        new THREE.BoxGeometry(3.6, 2.1, 1.95),
+        new THREE.MeshLambertMaterial({ color: COLOR_CARGO })
       );
-      cargo.position.x = -0.9;
-      truck.add(cargo);
+      cargoBody.position.x = -0.9;
+      truck.add(cargoBody);
 
-      const cab = new THREE.LineSegments(
-        new THREE.EdgesGeometry(new THREE.BoxGeometry(1.5, 1.7, 1.9)),
-        new THREE.LineBasicMaterial({ color: COLOR_EDGE, transparent: true, opacity: 0.95 })
+      // Cargo trim — slight darker band along the bottom of cargo
+      const cargoBottomTrim = new THREE.Mesh(
+        new THREE.BoxGeometry(3.62, 0.22, 1.97),
+        new THREE.MeshLambertMaterial({ color: COLOR_CARGO_TRIM })
       );
-      cab.position.set(1.6, -0.15, 0);
+      cargoBottomTrim.position.set(-0.9, -0.95, 0);
+      truck.add(cargoBottomTrim);
+
+      // Orange Fire Fellas stripe along both cargo sides
+      for (const sz of [0.976, -0.976]) {
+        const stripe = new THREE.Mesh(
+          new THREE.PlaneGeometry(3.4, 0.45),
+          new THREE.MeshBasicMaterial({ color: COLOR_ACCENT })
+        );
+        stripe.position.set(-0.9, 0.05, sz);
+        if (sz < 0) stripe.rotation.y = Math.PI;
+        truck.add(stripe);
+
+        // "FIRE FELLAS" text-block (dark rectangle suggesting branded text)
+        const wordmark = new THREE.Mesh(
+          new THREE.PlaneGeometry(1.4, 0.28),
+          new THREE.MeshBasicMaterial({ color: 0x1A1A1D })
+        );
+        wordmark.position.set(-0.8, 0.05, sz * 1.001);
+        if (sz < 0) wordmark.rotation.y = Math.PI;
+        truck.add(wordmark);
+
+        // Phone number-ish block under stripe
+        const phoneBlock = new THREE.Mesh(
+          new THREE.PlaneGeometry(1.6, 0.14),
+          new THREE.MeshBasicMaterial({ color: COLOR_ACCENT })
+        );
+        phoneBlock.position.set(-0.8, -0.45, sz * 1.001);
+        if (sz < 0) phoneBlock.rotation.y = Math.PI;
+        truck.add(phoneBlock);
+
+        // Cargo door seam line (vertical)
+        const seam = new THREE.Mesh(
+          new THREE.PlaneGeometry(0.025, 1.9),
+          new THREE.MeshBasicMaterial({ color: COLOR_CARGO_TRIM })
+        );
+        seam.position.set(0.7, 0, sz * 1.002);
+        if (sz < 0) seam.rotation.y = Math.PI;
+        truck.add(seam);
+      }
+
+      // Cargo back doors (two panels with handles)
+      const cargoBack = new THREE.Mesh(
+        new THREE.PlaneGeometry(1.92, 2.05),
+        new THREE.MeshLambertMaterial({ color: COLOR_CARGO_TRIM })
+      );
+      cargoBack.position.set(-2.7, 0, 0);
+      cargoBack.rotation.y = -Math.PI / 2;
+      truck.add(cargoBack);
+      // Center door seam
+      const doorSeam = new THREE.Mesh(
+        new THREE.PlaneGeometry(0.03, 2.0),
+        new THREE.MeshBasicMaterial({ color: 0x6B6258 })
+      );
+      doorSeam.position.set(-2.702, 0, 0);
+      doorSeam.rotation.y = -Math.PI / 2;
+      truck.add(doorSeam);
+
+      // Cab — brand orange
+      const cab = new THREE.Mesh(
+        new THREE.BoxGeometry(1.55, 1.75, 1.95),
+        new THREE.MeshLambertMaterial({ color: COLOR_CAB })
+      );
+      cab.position.set(1.6, -0.18, 0);
       truck.add(cab);
 
-      // Windshield (small plane)
-      const windshield = new THREE.Mesh(
-        new THREE.PlaneGeometry(1.3, 0.7),
-        new THREE.MeshBasicMaterial({ color: COLOR_EDGE, transparent: true, opacity: 0.18 })
+      // Cab hood (slight slope — small box)
+      const hood = new THREE.Mesh(
+        new THREE.BoxGeometry(0.65, 0.55, 1.95),
+        new THREE.MeshLambertMaterial({ color: COLOR_CAB })
       );
-      windshield.position.set(1.65, 0.25, 0.96);
+      hood.position.set(2.55, -0.68, 0);
+      truck.add(hood);
+
+      // Side windows (cab side glass, both sides)
+      for (const sz of [0.976, -0.976]) {
+        const sideWin = new THREE.Mesh(
+          new THREE.PlaneGeometry(1.2, 0.7),
+          new THREE.MeshLambertMaterial({ color: COLOR_GLASS })
+        );
+        sideWin.position.set(1.6, 0.25, sz);
+        if (sz < 0) sideWin.rotation.y = Math.PI;
+        truck.add(sideWin);
+      }
+
+      // Windshield — large angled glass on front of cab
+      const windshield = new THREE.Mesh(
+        new THREE.PlaneGeometry(1.65, 0.85),
+        new THREE.MeshLambertMaterial({ color: COLOR_GLASS })
+      );
+      windshield.position.set(2.225, 0.18, 0);
+      windshield.rotation.y = Math.PI / 2;
+      windshield.rotation.x = 0.18; // slight forward tilt
       truck.add(windshield);
 
-      // Wheels (6 total — 2 front, 4 back)
-      const wheelGeo = new THREE.TorusGeometry(0.32, 0.09, 8, 18);
-      const wheelMat = new THREE.MeshBasicMaterial({ color: COLOR_EDGE });
-      const wheelXs = [-2.2, -0.4, 1.6];
-      for (const wx of wheelXs) {
-        for (const wz of [0.96, -0.96]) {
-          const w = new THREE.Mesh(wheelGeo, wheelMat);
-          w.position.set(wx, -1.1, wz);
-          w.rotation.y = Math.PI / 2;
-          truck.add(w);
-        }
+      // Front grille (dark vertical band)
+      const grille = new THREE.Mesh(
+        new THREE.PlaneGeometry(1.4, 0.5),
+        new THREE.MeshLambertMaterial({ color: COLOR_GRILLE })
+      );
+      grille.position.set(2.881, -0.55, 0);
+      grille.rotation.y = Math.PI / 2;
+      truck.add(grille);
+      // Grille bars
+      for (let i = 0; i < 3; i++) {
+        const bar = new THREE.Mesh(
+          new THREE.PlaneGeometry(1.32, 0.04),
+          new THREE.MeshBasicMaterial({ color: COLOR_CAB })
+        );
+        bar.position.set(2.882, -0.45 + i * -0.13, 0);
+        bar.rotation.y = Math.PI / 2;
+        truck.add(bar);
+      }
+
+      // Bumper
+      const bumper = new THREE.Mesh(
+        new THREE.BoxGeometry(0.15, 0.22, 1.85),
+        new THREE.MeshLambertMaterial({ color: COLOR_GRILLE })
+      );
+      bumper.position.set(2.92, -0.95, 0);
+      truck.add(bumper);
+
+      // Headlights (round, glowing warm)
+      for (const hz of [0.7, -0.7]) {
+        const headlight = new THREE.Mesh(
+          new THREE.CircleGeometry(0.16, 18),
+          new THREE.MeshBasicMaterial({ color: COLOR_HEAD })
+        );
+        headlight.position.set(2.885, -0.5, hz);
+        headlight.rotation.y = Math.PI / 2;
+        truck.add(headlight);
+      }
+
+      // Side mirrors (small protrusions)
+      for (const mz of [1.05, -1.05]) {
+        const mirrorArm = new THREE.Mesh(
+          new THREE.BoxGeometry(0.06, 0.06, 0.18),
+          new THREE.MeshLambertMaterial({ color: COLOR_CAB })
+        );
+        mirrorArm.position.set(2.0, 0.35, mz);
+        truck.add(mirrorArm);
+        const mirrorHead = new THREE.Mesh(
+          new THREE.BoxGeometry(0.1, 0.28, 0.18),
+          new THREE.MeshLambertMaterial({ color: COLOR_GLASS })
+        );
+        mirrorHead.position.set(2.0, 0.32, mz + (mz > 0 ? 0.13 : -0.13));
+        truck.add(mirrorHead);
+      }
+
+      // Door handles
+      for (const dz of [0.978, -0.978]) {
+        const handle = new THREE.Mesh(
+          new THREE.PlaneGeometry(0.22, 0.04),
+          new THREE.MeshBasicMaterial({ color: COLOR_GRILLE })
+        );
+        handle.position.set(1.45, -0.4, dz);
+        if (dz < 0) handle.rotation.y = Math.PI;
+        truck.add(handle);
+      }
+
+      // Wheels — solid cylinders, dark with orange hub caps
+      const wheelGeo = new THREE.CylinderGeometry(0.42, 0.42, 0.28, 24);
+      const wheelMat = new THREE.MeshLambertMaterial({ color: COLOR_TIRE });
+      const hubMat   = new THREE.MeshBasicMaterial({ color: COLOR_ACCENT });
+      const hubGeo   = new THREE.CircleGeometry(0.16, 18);
+
+      // 2 front wheels (under cab), 4 back wheels (dual axle under cargo)
+      const wheelPositions = [
+        { x: 1.8,  z:  1.02, dual: false },
+        { x: 1.8,  z: -1.02, dual: false },
+        { x: -1.2, z:  1.02, dual: true },
+        { x: -1.2, z: -1.02, dual: true },
+        { x: -2.0, z:  1.02, dual: true },
+        { x: -2.0, z: -1.02, dual: true },
+      ];
+      for (const wp of wheelPositions) {
+        const wheel = new THREE.Mesh(wheelGeo, wheelMat);
+        wheel.position.set(wp.x, -1.18, wp.z);
+        wheel.rotation.x = Math.PI / 2;
+        truck.add(wheel);
+
+        // Orange hubcap
+        const hub = new THREE.Mesh(hubGeo, hubMat);
+        hub.position.set(wp.x, -1.18, wp.z + (wp.z > 0 ? 0.145 : -0.145));
+        hub.rotation.y = wp.z > 0 ? 0 : Math.PI;
+        truck.add(hub);
       }
     }
     truck.position.set(20, -0.5, -1); // off-screen far right
     scene.add(truck);
 
-    // 4. New home (silhouette with pitched roof)
+    // 4. NEW HOME — solid colors, lit window, door
     const home = new THREE.Group();
     {
-      const base = new THREE.LineSegments(
-        new THREE.EdgesGeometry(new THREE.BoxGeometry(4, 3, 4)),
-        new THREE.LineBasicMaterial({ color: COLOR_GHOST, transparent: true, opacity: 0.4 })
+      // Walls — warm cream/beige
+      const walls = new THREE.Mesh(
+        new THREE.BoxGeometry(4, 3, 4),
+        new THREE.MeshLambertMaterial({ color: 0xE0C5A0 })
       );
-      home.add(base);
+      home.add(walls);
 
-      const roofGeo = new THREE.ConeGeometry(3, 2, 4);
-      const roof = new THREE.LineSegments(
-        new THREE.EdgesGeometry(roofGeo),
-        new THREE.LineBasicMaterial({ color: COLOR_EDGE, transparent: true, opacity: 0.75 })
+      // Roof — terracotta red
+      const roof = new THREE.Mesh(
+        new THREE.ConeGeometry(3.1, 2.0, 4),
+        new THREE.MeshLambertMaterial({ color: 0xB8492A })
       );
       roof.position.y = 2.5;
       roof.rotation.y = Math.PI / 4;
       home.add(roof);
 
-      // Lit window (glowing accent)
+      // Lit window (warm glow)
       const win = new THREE.Mesh(
-        new THREE.PlaneGeometry(0.7, 0.7),
-        new THREE.MeshBasicMaterial({ color: COLOR_EDGE, transparent: true, opacity: 0.55 })
+        new THREE.PlaneGeometry(0.85, 0.85),
+        new THREE.MeshBasicMaterial({ color: 0xFFD580 })
       );
-      win.position.set(0, 0.4, 2.01);
+      win.position.set(-0.85, 0.4, 2.01);
       home.add(win);
+      const win2 = win.clone();
+      win2.position.x = 0.85;
+      home.add(win2);
+      // Window cross panes
+      for (const wx of [-0.85, 0.85]) {
+        const cross1 = new THREE.Mesh(
+          new THREE.PlaneGeometry(0.86, 0.04),
+          new THREE.MeshBasicMaterial({ color: 0xE0C5A0 })
+        );
+        cross1.position.set(wx, 0.4, 2.012);
+        home.add(cross1);
+        const cross2 = new THREE.Mesh(
+          new THREE.PlaneGeometry(0.04, 0.86),
+          new THREE.MeshBasicMaterial({ color: 0xE0C5A0 })
+        );
+        cross2.position.set(wx, 0.4, 2.012);
+        home.add(cross2);
+      }
+
+      // Door — warm wood
+      const door = new THREE.Mesh(
+        new THREE.PlaneGeometry(0.75, 1.4),
+        new THREE.MeshLambertMaterial({ color: 0x6B3A1F })
+      );
+      door.position.set(0, -0.8, 2.01);
+      home.add(door);
+      // Door handle
+      const handle = new THREE.Mesh(
+        new THREE.CircleGeometry(0.04, 12),
+        new THREE.MeshBasicMaterial({ color: 0xFFD580 })
+      );
+      handle.position.set(0.25, -0.85, 2.012);
+      home.add(handle);
     }
-    home.position.set(0, -1, -30); // very far back, off-screen
+    home.position.set(0, -0.5, -30); // very far back, off-screen
     scene.add(home);
 
-    // 5. Ambient particles (dust motes / city lights)
+    // 5. Ambient particles — sparkles in the dusk air
     const particleGeo = new THREE.BufferGeometry();
-    const PCOUNT = 280;
+    const PCOUNT = 320;
     const positions = new Float32Array(PCOUNT * 3);
     for (let i = 0; i < PCOUNT; i++) {
       positions[i * 3]     = (Math.random() - 0.5) * 50;
-      positions[i * 3 + 1] = (Math.random() - 0.5) * 30;
+      positions[i * 3 + 1] = Math.random() * 14 - 1;
       positions[i * 3 + 2] = (Math.random() - 0.5) * 40;
     }
     particleGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
     const particles = new THREE.Points(
       particleGeo,
-      new THREE.PointsMaterial({ color: COLOR_EDGE, size: 0.04, transparent: true, opacity: 0.55 })
+      new THREE.PointsMaterial({ color: 0xFFC080, size: 0.05, transparent: true, opacity: 0.7 })
     );
     scene.add(particles);
 
@@ -1900,8 +2227,8 @@
         heroBox.rotation.y += 0.002;
         pile.children.forEach((b, i) => { b.rotation.y += 0.0008 * (i % 2 ? 1 : -1); });
         truck.rotation.y = mouse.x * 0.08;
-        // Spin wheels (children that are TorusGeometry)
-        truck.children.forEach((c) => { if (c.geometry instanceof THREE.TorusGeometry) c.rotation.x += 0.04; });
+        // Spin wheels (CylinderGeometry tires) — they're rotated 90° so X-axis spin reads as rolling
+        truck.children.forEach((c) => { if (c.geometry instanceof THREE.CylinderGeometry) c.rotation.y += 0.06; });
         particles.rotation.y += 0.0004;
       }
 
