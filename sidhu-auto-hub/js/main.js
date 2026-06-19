@@ -871,6 +871,6 @@ document.addEventListener("DOMContentLoaded", () => {
   initMagnetic();
   refreshReveals();
   document.getElementById("year").textContent = new Date().getFullYear();
-  initPreloader();       // last: counter + curtain, then playIntro()
+  playIntro();           // no preloader — reveal the hero straight away
   if (window.ScrollTrigger) setTimeout(() => ScrollTrigger.refresh(), 400);
 });
